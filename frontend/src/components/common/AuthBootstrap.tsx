@@ -15,26 +15,32 @@ export function AuthBootstrap({ children }: { children: ReactNode }) {
   const ranOnce = useRef(false)
 
   useEffect(() => {
+    // Guards against React 19 StrictMode's dev-only double-invoke of effects:
+    // mount -> cleanup -> mount. `ranOnce` is a ref, so it survives that
+    // synthetic cleanup/remount (refs aren't reset by it, only effects are).
+    // The second invocation short-circuits here and never runs bootstrap()
+    // again, so the *first* invocation's request is the only one in flight
+    // and must be allowed to resolve normally — an earlier version tracked a
+    // `cancelled` flag flipped by this same effect's cleanup, which fired
+    // right after the first mount (StrictMode's synthetic unmount) and so
+    // permanently suppressed `setSession`/`clearSession` on the real
+    // response, leaving `isHydrating` stuck `true` forever (every route
+    // behind `ProtectedRoute` stayed on its loading state indefinitely).
     if (ranOnce.current) return
     ranOnce.current = true
-
-    let cancelled = false
 
     async function bootstrap() {
       try {
         const { access } = await authApi.refresh()
         useAuthStore.getState().setAccessToken(access)
         const user = await authApi.me()
-        if (!cancelled) setSession(user, access)
+        setSession(user, access)
       } catch {
-        if (!cancelled) clearSession()
+        clearSession()
       }
     }
 
     void bootstrap()
-    return () => {
-      cancelled = true
-    }
   }, [setSession, clearSession])
 
   return children
