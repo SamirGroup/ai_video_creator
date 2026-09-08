@@ -30,4 +30,10 @@ export const useAuthStore = create<AuthState>((set) => ({
 }))
 
 export const selectIsAuthenticated = (s: AuthState) => Boolean(s.user && s.accessToken)
-export const selectRoles = (s: AuthState) => s.user?.roles ?? []
+
+// Stable reference for the "no user" case — `s.user?.roles ?? []` would return a
+// *new* array on every call, and Zustand's useSyncExternalStore treats that as
+// "the snapshot changed" on every render, causing an infinite render loop
+// ("Maximum update depth exceeded") anywhere this selector is read before login.
+const EMPTY_ROLES: User['roles'] = []
+export const selectRoles = (s: AuthState) => s.user?.roles ?? EMPTY_ROLES
