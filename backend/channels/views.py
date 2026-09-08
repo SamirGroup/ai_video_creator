@@ -21,6 +21,7 @@ from audit.services import record_audit_event
 from channels import services
 from channels.models import AdSenseAccount, ConnectionStatus, YouTubeChannel
 from channels.serializers import AdSenseAccountSerializer, YouTubeChannelSerializer
+from core.pagination import CreatedAtCursorPagination
 
 logger = logging.getLogger("channels.views")
 
@@ -30,9 +31,12 @@ class YouTubeChannelListView(ListAPIView):
 
     serializer_class = YouTubeChannelSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = CreatedAtCursorPagination
 
     def get_queryset(self):
-        return YouTubeChannel.objects.filter(user=self.request.user, deleted_at__isnull=True)
+        return YouTubeChannel.objects.filter(
+            user=self.request.user, deleted_at__isnull=True
+        ).order_by("-created_at")
 
 
 class YouTubeChannelDetailView(APIView):

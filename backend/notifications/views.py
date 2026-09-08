@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from core.pagination import CreatedAtCursorPagination
 from notifications.models import Notification, NotificationPreference
 from notifications.serializers import NotificationPreferenceSerializer, NotificationSerializer
 
@@ -16,6 +17,7 @@ class NotificationListView(ListAPIView):
 
     serializer_class = NotificationSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = CreatedAtCursorPagination
 
     def get_queryset(self):
         return Notification.objects.filter(user=self.request.user).order_by("-created_at")

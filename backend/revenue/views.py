@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from channels.models import AdSenseAccount, ConnectionStatus, YouTubeChannel
+from core.pagination import PeriodStartCursorPagination
 from core.permissions import IsFinanceOrAdmin
 from providers.models import ApiUsageLog
 from revenue.models import Invoice, RevenueRecord, RevenueShareStatement
@@ -131,6 +132,7 @@ class RevenueShareStatementListView(ListAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["status"]
+    pagination_class = PeriodStartCursorPagination
 
     def get_queryset(self):
         return RevenueShareStatement.objects.filter(user=self.request.user).order_by("-period_start")
@@ -231,6 +233,7 @@ class AdminFinanceStatementsView(ListAPIView):
     permission_classes = [IsFinanceOrAdmin]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["status", "user"]
+    pagination_class = PeriodStartCursorPagination
 
     def get_queryset(self):
         return RevenueShareStatement.objects.all().order_by("-period_start")

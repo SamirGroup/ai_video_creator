@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from channels.models import YouTubeChannel
+from core.pagination import CreatedAtCursorPagination, StartedAtCursorPagination
 from video_pipeline.models import VideoJob, VideoJobStep
 from video_pipeline.serializers import (
     RejectVideoSerializer,
@@ -27,6 +28,7 @@ class VideoJobListView(ListAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["status"]
+    pagination_class = CreatedAtCursorPagination
 
     def get_queryset(self):
         return VideoJob.objects.filter(user=self.request.user).order_by("-created_at")
@@ -48,6 +50,7 @@ class VideoJobStepsView(ListAPIView):
 
     serializer_class = VideoJobStepSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = StartedAtCursorPagination
 
     def get_queryset(self):
         return VideoJobStep.objects.filter(

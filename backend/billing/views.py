@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from billing import services
 from billing.models import Plan, Subscription
 from billing.serializers import PlanSerializer, SubscriptionSerializer
+from core.pagination import SortOrderCursorPagination
 
 logger = logging.getLogger("billing.views")
 
@@ -22,7 +23,8 @@ class PlanListView(ListAPIView):
 
     serializer_class = PlanSerializer
     permission_classes = [AllowAny]
-    queryset = Plan.objects.filter(is_active=True)
+    pagination_class = SortOrderCursorPagination
+    queryset = Plan.objects.filter(is_active=True).order_by("sort_order")
 
 
 class MySubscriptionView(APIView):

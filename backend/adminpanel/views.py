@@ -18,6 +18,12 @@ from adminpanel.serializers import (
     SetRolesSerializer,
 )
 from billing.models import Plan
+from core.pagination import (
+    CreatedAtCursorPagination,
+    ServicePriorityCursorPagination,
+    SortOrderCursorPagination,
+    UpdatedAtCursorPagination,
+)
 from core.permissions import IsAdmin, IsSupportOrAdmin
 from providers.models import ApiCredentialConfig
 from video_pipeline.models import VideoJob
@@ -33,6 +39,7 @@ class AdminUserListView(ListAPIView):
     permission_classes = [IsAdmin]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["status"]
+    pagination_class = CreatedAtCursorPagination
 
     def get_queryset(self):
         qs = User.objects.all().select_related("subscription__plan").order_by("-created_at")
@@ -106,6 +113,7 @@ class AdminVideoJobListView(ListAPIView):
     permission_classes = [IsSupportOrAdmin]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["status", "current_stage"]
+    pagination_class = UpdatedAtCursorPagination
 
     def get_queryset(self):
         return VideoJob.objects.all().select_related("user").order_by("-updated_at")
@@ -154,6 +162,7 @@ class AdminPlanListView(ListAPIView):
 
     serializer_class = AdminPlanSerializer
     permission_classes = [IsAdmin]
+    pagination_class = SortOrderCursorPagination
 
     def get_queryset(self):
         return Plan.objects.all().order_by("sort_order")
@@ -194,6 +203,7 @@ class AdminProviderListView(ListAPIView):
     permission_classes = [IsAdmin]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["service", "is_active"]
+    pagination_class = ServicePriorityCursorPagination
 
     def get_queryset(self):
         return ApiCredentialConfig.objects.all().order_by("service", "priority")
