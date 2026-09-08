@@ -1,0 +1,5 @@
+# Placeholder — owned by backend-developer, add real dev/test dependencies here
+# (e.g. pytest, pytest-django, pytest-cov, ruff, factory_boy, freezegun, responses).
+# Kept as an empty-but-present file so `backend/Dockerfile` (dev target) and
+# .github/workflows/ci.yml can install it unconditionally without failing the build
+# before the backend app exists yet.

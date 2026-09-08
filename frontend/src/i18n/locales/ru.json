@@ -1,0 +1,319 @@
+{
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "Видео на базе ИИ для вашего YouTube-канала"
+  },
+  "common": {
+    "loading": "Загрузка…",
+    "retry": "Повторить",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "search": "Поиск",
+    "back": "Назад",
+    "confirm": "Подтвердить",
+    "actions": "Действия",
+    "status": "Статус",
+    "date": "Дата",
+    "unknown": "Неизвестно",
+    "comingSoon": "Этот раздел скоро появится.",
+    "empty": {
+      "title": "Пока ничего нет",
+      "description": "Сейчас нет данных для отображения."
+    },
+    "error": {
+      "title": "Что-то пошло не так",
+      "description": "Не удалось загрузить данные. Попробуйте ещё раз.",
+      "generic": "Непредвиденная ошибка. Попробуйте ещё раз."
+    },
+    "unauthorized": {
+      "title": "Сессия истекла",
+      "description": "Пожалуйста, войдите снова, чтобы продолжить."
+    },
+    "forbidden": {
+      "title": "Доступ запрещён",
+      "description": "У вас нет прав для просмотра этой страницы."
+    },
+    "offline": {
+      "title": "Нет подключения",
+      "description": "Проверьте интернет-соединение и попробуйте снова."
+    },
+    "notFound": {
+      "title": "Страница не найдена",
+      "description": "Запрашиваемая страница не существует.",
+      "backHome": "На главную панель"
+    }
+  },
+  "nav": {
+    "dashboard": "Панель управления",
+    "channel": "Канал",
+    "preferences": "Настройки контента",
+    "videos": "Видео",
+    "revenue": "Доход",
+    "billing": "Оплата",
+    "contract": "Договор",
+    "adminUsers": "Пользователи",
+    "adminVideos": "Видео-задачи",
+    "adminModeration": "Модерация",
+    "adminFinance": "Финансы",
+    "adminConfig": "Конфигурация",
+    "logout": "Выйти",
+    "language": "Язык",
+    "theme": "Тема"
+  },
+  "auth": {
+    "login": {
+      "title": "Вход",
+      "subtitle": "С возвращением — войдите в аккаунт автора",
+      "email": "Email",
+      "password": "Пароль",
+      "submit": "Войти",
+      "submitting": "Выполняется вход…",
+      "orGoogle": "Или продолжите через Google",
+      "googleButton": "Войти через Google",
+      "forgotPassword": "Забыли пароль?",
+      "noAccount": "Нет аккаунта?",
+      "registerLink": "Создать аккаунт",
+      "error": "Неверный email или пароль."
+    },
+    "register": {
+      "title": "Создайте аккаунт",
+      "subtitle": "Начните создавать видео с ИИ за несколько минут",
+      "fullName": "Полное имя",
+      "email": "Email",
+      "password": "Пароль",
+      "passwordHint": "Минимум 10 символов.",
+      "marketingOptIn": "Хочу получать новости и советы на email",
+      "submit": "Создать аккаунт",
+      "submitting": "Создание аккаунта…",
+      "hasAccount": "Уже есть аккаунт?",
+      "loginLink": "Войти",
+      "success": "Аккаунт создан. Проверьте почту для подтверждения адреса."
+    },
+    "verifyEmail": {
+      "title": "Подтверждение email",
+      "pending": "Подтверждаем ваш email…",
+      "success": "Email подтверждён. Теперь вы можете войти.",
+      "error": "Ссылка подтверждения недействительна или устарела.",
+      "goToLogin": "Перейти ко входу"
+    },
+    "forgotPassword": {
+      "title": "Сброс пароля",
+      "subtitle": "Мы отправим ссылку для сброса пароля на email",
+      "email": "Email",
+      "submit": "Отправить ссылку",
+      "submitting": "Отправка…",
+      "success": "Если такой email существует, ссылка уже отправлена.",
+      "backToLogin": "Вернуться ко входу"
+    },
+    "validation": {
+      "emailRequired": "Укажите email.",
+      "emailInvalid": "Введите корректный email.",
+      "passwordRequired": "Укажите пароль.",
+      "passwordMinLength": "Пароль должен содержать минимум 10 символов.",
+      "fullNameRequired": "Укажите полное имя."
+    }
+  },
+  "dashboard": {
+    "title": "Панель управления",
+    "welcome": "С возвращением, {{name}}",
+    "cards": {
+      "channelStatus": "Статус канала",
+      "videosThisMonth": "Видео в этом месяце",
+      "estimatedRevenue": "Оценочный доход",
+      "pendingApprovals": "Ожидают подтверждения"
+    },
+    "quotaUsed": "Использовано {{used}} из {{total}}",
+    "connected": "Подключён",
+    "disconnected": "Не подключён",
+    "connectChannel": "Подключить YouTube-канал"
+  },
+  "channel": {
+    "title": "Канал",
+    "connect": "Подключить YouTube",
+    "disconnect": "Отключить",
+    "disconnectConfirm": "Отключение поставит на паузу все запланированные видео для этого канала. Продолжить?",
+    "subscribers": "Подписчики",
+    "videos": "Видео",
+    "monetization": {
+      "unknown": "Статус монетизации не подтверждён",
+      "monetized": "Монетизирован",
+      "notMonetized": "Не монетизирован"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "Подключить AdSense",
+      "connected": "Подключён — доход отмечен как подтверждённый AdSense",
+      "notConnected": "Не подключён — доход показан как оценка YouTube Analytics"
+    }
+  },
+  "preferences": {
+    "title": "Настройки контента",
+    "niche": "Ниша",
+    "customBrief": "Дополнительное описание",
+    "brandVoice": "Тон бренда",
+    "language": "Язык контента",
+    "videoDuration": "Длительность видео (секунды)",
+    "frequency": "Частота публикаций",
+    "frequencyOptions": {
+      "daily": "Ежедневно",
+      "weekly": "Еженедельно",
+      "monthly": "Ежемесячно"
+    },
+    "publishTime": "Время публикации",
+    "privacyStatus": "Статус доступа",
+    "privacyOptions": {
+      "public": "Публичный",
+      "unlisted": "По ссылке",
+      "private": "Приватный"
+    },
+    "approvalMode": "Режим подтверждения",
+    "approvalModeOptions": {
+      "review_required": "Требуется подтверждение перед публикацией",
+      "auto": "Публиковать автоматически после модерации"
+    },
+    "paused": "Расписание на паузе",
+    "pause": "Приостановить расписание",
+    "resume": "Возобновить расписание",
+    "save": "Сохранить настройки",
+    "saved": "Настройки сохранены."
+  },
+  "video": {
+    "title": "Видео",
+    "generateNow": "Сгенерировать сейчас",
+    "table": {
+      "title": "Название",
+      "status": "Статус",
+      "scheduledFor": "Запланировано на",
+      "cost": "Стоимость",
+      "actions": "Действия"
+    },
+    "status": {
+      "draft": "Черновик",
+      "scheduled": "Запланировано",
+      "queued": "В очереди",
+      "generating_script": "Пишем сценарий",
+      "script_ready": "Сценарий готов",
+      "moderating_script": "Модерация сценария",
+      "generating_voice": "Генерация озвучки",
+      "voice_ready": "Озвучка готова",
+      "generating_visuals": "Генерация видеоряда",
+      "visuals_ready": "Видеоряд готов",
+      "assembling": "Сборка видео",
+      "assembled": "Собрано",
+      "moderating_final": "Финальная модерация",
+      "moderation_review": "На ручной проверке модератора",
+      "moderation_rejected": "Отклонено модерацией",
+      "awaiting_approval": "Ждёт вашего подтверждения",
+      "approved": "Подтверждено",
+      "changes_requested": "Запрошены правки",
+      "rejected": "Отклонено",
+      "expired": "Истёк срок",
+      "upload_queued": "В очереди на загрузку",
+      "uploading": "Загрузка на YouTube",
+      "uploaded": "Загружено",
+      "published": "Опубликовано",
+      "youtube_rejected": "Отклонено YouTube",
+      "retrying": "Повторная попытка",
+      "failed": "Ошибка",
+      "canceled": "Отменено",
+      "deleted_on_youtube": "Удалено на YouTube"
+    },
+    "approval": {
+      "title": "Проверьте это видео",
+      "preview": "Превью",
+      "approve": "Подтвердить",
+      "requestChanges": "Запросить правки",
+      "reject": "Отклонить",
+      "reasonLabel": "Причина",
+      "regenerateFrom": "Перегенерировать с этапа",
+      "confirmApprove": "Подтвердить и поставить в очередь на загрузку?",
+      "confirmReject": "Отклонить это видео? Оно не будет опубликовано."
+    },
+    "empty": {
+      "title": "Пока нет видео",
+      "description": "Видео появятся здесь после создания или запуска первой задачи."
+    },
+    "previewPlaceholder": "Заглушка превью видео",
+    "steps": "Этапы обработки"
+  },
+  "revenue": {
+    "title": "Доход",
+    "totalViews": "Всего просмотров",
+    "views": "просмотров",
+    "estimated": "Оценка (YouTube Analytics)",
+    "confirmed": "Подтверждено AdSense",
+    "notMonetized": "Этот канал ещё не монетизирован, доход — $0.",
+    "topVideos": "Топ видео",
+    "statements": "Отчёты по доле дохода",
+    "dispute": "Оспорить",
+    "statementStatus": {
+      "draft": "Черновик",
+      "finalized": "Завершён",
+      "invoiced": "Выставлен счёт",
+      "paid": "Оплачен",
+      "disputed": "Оспаривается",
+      "written_off": "Списан",
+      "carried_forward": "Перенесён"
+    }
+  },
+  "billing": {
+    "title": "Оплата",
+    "currentPlan": "Текущий тариф",
+    "changePlan": "Сменить тариф",
+    "managePayment": "Управление способом оплаты",
+    "invoices": "Счета",
+    "status": {
+      "trialing": "Пробный период",
+      "active": "Активна",
+      "past_due": "Просрочена",
+      "suspended": "Приостановлена",
+      "canceled": "Отменена",
+      "expired": "Истекла"
+    }
+  },
+  "contract": {
+    "title": "Договор",
+    "currentVersion": "Текущая версия",
+    "sign": "Подписать договор",
+    "consentRevenueShare": "Согласен(на) с условиями раздела дохода 50/50",
+    "consentPublish": "Разрешаю платформе публиковать видео на моём канале",
+    "consentDataProcessing": "Согласен(на) на использование моих данных для обработки ИИ",
+    "consentMarketing": "Хочу получать маркетинговые письма (необязательно)",
+    "paymentMethodRequired": "Для подписания договора требуется сохранённый способ оплаты.",
+    "history": "История подписаний",
+    "downloadPdf": "Скачать PDF"
+  },
+  "admin": {
+    "users": {
+      "title": "Пользователи",
+      "search": "Поиск по email или имени",
+      "suspend": "Заблокировать",
+      "reactivate": "Восстановить"
+    },
+    "videos": {
+      "title": "Видео-задачи",
+      "retry": "Повторить",
+      "cancel": "Отменить"
+    },
+    "moderation": {
+      "title": "Очередь модерации",
+      "approve": "Одобрить",
+      "reject": "Отклонить",
+      "reasonRequired": "Требуется указать причину."
+    },
+    "finance": {
+      "title": "Финансовый обзор",
+      "mrr": "MRR",
+      "activeSubscriptions": "Активные подписки",
+      "revenueShareTotal": "Общая сумма доли дохода",
+      "uncollected": "Невзысканные счета",
+      "export": "Экспорт"
+    },
+    "config": {
+      "title": "Конфигурация",
+      "plans": "Тарифы",
+      "providers": "AI-провайдеры"
+    }
+  }
+}

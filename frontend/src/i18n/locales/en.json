@@ -1,0 +1,319 @@
+{
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "AI-produced videos for your YouTube channel"
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "search": "Search",
+    "back": "Back",
+    "confirm": "Confirm",
+    "actions": "Actions",
+    "status": "Status",
+    "date": "Date",
+    "unknown": "Unknown",
+    "comingSoon": "This section is coming soon.",
+    "empty": {
+      "title": "Nothing here yet",
+      "description": "There is no data to show right now."
+    },
+    "error": {
+      "title": "Something went wrong",
+      "description": "We could not load this data. Please try again.",
+      "generic": "Unexpected error. Please try again."
+    },
+    "unauthorized": {
+      "title": "Session expired",
+      "description": "Please sign in again to continue."
+    },
+    "forbidden": {
+      "title": "Access denied",
+      "description": "You don't have permission to view this page."
+    },
+    "offline": {
+      "title": "You are offline",
+      "description": "Check your internet connection and try again."
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you are looking for does not exist.",
+      "backHome": "Back to dashboard"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "channel": "Channel",
+    "preferences": "Preferences",
+    "videos": "Videos",
+    "revenue": "Revenue",
+    "billing": "Billing",
+    "contract": "Contract",
+    "adminUsers": "Users",
+    "adminVideos": "Video jobs",
+    "adminModeration": "Moderation",
+    "adminFinance": "Finance",
+    "adminConfig": "Configuration",
+    "logout": "Log out",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Welcome back — sign in to your creator account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "orGoogle": "Or continue with Google",
+      "googleButton": "Sign in with Google",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Create one",
+      "error": "Invalid email or password."
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Start producing videos with AI in minutes",
+      "fullName": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "passwordHint": "At least 10 characters.",
+      "marketingOptIn": "I want to receive product news and tips by email",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "success": "Account created. Check your email to verify your address."
+    },
+    "verifyEmail": {
+      "title": "Verify your email",
+      "pending": "Verifying your email address…",
+      "success": "Your email is verified. You can now sign in.",
+      "error": "This verification link is invalid or has expired.",
+      "goToLogin": "Go to sign in"
+    },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "subtitle": "We'll email you a link to reset your password",
+      "email": "Email",
+      "submit": "Send reset link",
+      "submitting": "Sending…",
+      "success": "If that email exists, a reset link is on its way.",
+      "backToLogin": "Back to sign in"
+    },
+    "validation": {
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Enter a valid email address.",
+      "passwordRequired": "Password is required.",
+      "passwordMinLength": "Password must be at least 10 characters.",
+      "fullNameRequired": "Full name is required."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {{name}}",
+    "cards": {
+      "channelStatus": "Channel status",
+      "videosThisMonth": "Videos this month",
+      "estimatedRevenue": "Estimated revenue",
+      "pendingApprovals": "Pending approvals"
+    },
+    "quotaUsed": "{{used}} of {{total}} used",
+    "connected": "Connected",
+    "disconnected": "Not connected",
+    "connectChannel": "Connect YouTube channel"
+  },
+  "channel": {
+    "title": "Channel",
+    "connect": "Connect YouTube",
+    "disconnect": "Disconnect",
+    "disconnectConfirm": "Disconnecting will pause all scheduled videos for this channel. Continue?",
+    "subscribers": "Subscribers",
+    "videos": "Videos",
+    "monetization": {
+      "unknown": "Monetization status not confirmed",
+      "monetized": "Monetized",
+      "notMonetized": "Not monetized"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "Connect AdSense",
+      "connected": "Connected — revenue shown as AdSense-confirmed",
+      "notConnected": "Not connected — revenue shown as YouTube Analytics estimate"
+    }
+  },
+  "preferences": {
+    "title": "Content preferences",
+    "niche": "Niche",
+    "customBrief": "Custom brief",
+    "brandVoice": "Brand voice",
+    "language": "Content language",
+    "videoDuration": "Video duration (seconds)",
+    "frequency": "Publish frequency",
+    "frequencyOptions": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly"
+    },
+    "publishTime": "Publish time",
+    "privacyStatus": "Privacy status",
+    "privacyOptions": {
+      "public": "Public",
+      "unlisted": "Unlisted",
+      "private": "Private"
+    },
+    "approvalMode": "Approval mode",
+    "approvalModeOptions": {
+      "review_required": "Review required before publishing",
+      "auto": "Publish automatically after moderation"
+    },
+    "paused": "Schedule paused",
+    "pause": "Pause schedule",
+    "resume": "Resume schedule",
+    "save": "Save preferences",
+    "saved": "Preferences saved."
+  },
+  "video": {
+    "title": "Videos",
+    "generateNow": "Generate now",
+    "table": {
+      "title": "Title",
+      "status": "Status",
+      "scheduledFor": "Scheduled for",
+      "cost": "Cost",
+      "actions": "Actions"
+    },
+    "status": {
+      "draft": "Draft",
+      "scheduled": "Scheduled",
+      "queued": "Queued",
+      "generating_script": "Writing script",
+      "script_ready": "Script ready",
+      "moderating_script": "Moderating script",
+      "generating_voice": "Generating voice-over",
+      "voice_ready": "Voice-over ready",
+      "generating_visuals": "Generating visuals",
+      "visuals_ready": "Visuals ready",
+      "assembling": "Assembling video",
+      "assembled": "Assembled",
+      "moderating_final": "Final moderation",
+      "moderation_review": "In moderation review",
+      "moderation_rejected": "Rejected by moderation",
+      "awaiting_approval": "Awaiting your approval",
+      "approved": "Approved",
+      "changes_requested": "Changes requested",
+      "rejected": "Rejected",
+      "expired": "Expired",
+      "upload_queued": "Queued for upload",
+      "uploading": "Uploading to YouTube",
+      "uploaded": "Uploaded",
+      "published": "Published",
+      "youtube_rejected": "Rejected by YouTube",
+      "retrying": "Retrying",
+      "failed": "Failed",
+      "canceled": "Canceled",
+      "deleted_on_youtube": "Deleted on YouTube"
+    },
+    "approval": {
+      "title": "Review this video",
+      "preview": "Preview",
+      "approve": "Approve",
+      "requestChanges": "Request changes",
+      "reject": "Reject",
+      "reasonLabel": "Reason",
+      "regenerateFrom": "Regenerate from",
+      "confirmApprove": "Approve and queue for upload?",
+      "confirmReject": "Reject this video? It will not be published."
+    },
+    "empty": {
+      "title": "No videos yet",
+      "description": "Videos will appear here once your first job is scheduled or generated."
+    },
+    "previewPlaceholder": "Video preview placeholder",
+    "steps": "Pipeline steps"
+  },
+  "revenue": {
+    "title": "Revenue",
+    "totalViews": "Total views",
+    "views": "views",
+    "estimated": "Estimated (YouTube Analytics)",
+    "confirmed": "AdSense-confirmed",
+    "notMonetized": "This channel is not monetized yet, revenue is $0.",
+    "topVideos": "Top videos",
+    "statements": "Revenue-share statements",
+    "dispute": "Dispute",
+    "statementStatus": {
+      "draft": "Draft",
+      "finalized": "Finalized",
+      "invoiced": "Invoiced",
+      "paid": "Paid",
+      "disputed": "Disputed",
+      "written_off": "Written off",
+      "carried_forward": "Carried forward"
+    }
+  },
+  "billing": {
+    "title": "Billing",
+    "currentPlan": "Current plan",
+    "changePlan": "Change plan",
+    "managePayment": "Manage payment method",
+    "invoices": "Invoices",
+    "status": {
+      "trialing": "Trialing",
+      "active": "Active",
+      "past_due": "Past due",
+      "suspended": "Suspended",
+      "canceled": "Canceled",
+      "expired": "Expired"
+    }
+  },
+  "contract": {
+    "title": "Contract",
+    "currentVersion": "Current version",
+    "sign": "Sign contract",
+    "consentRevenueShare": "I agree to the 50/50 revenue share terms",
+    "consentPublish": "I authorize the platform to publish videos to my channel",
+    "consentDataProcessing": "I agree to the use of my data for AI content processing",
+    "consentMarketing": "I want to receive marketing emails (optional)",
+    "paymentMethodRequired": "A saved payment method is required to sign the contract.",
+    "history": "Signature history",
+    "downloadPdf": "Download PDF"
+  },
+  "admin": {
+    "users": {
+      "title": "Users",
+      "search": "Search by email or name",
+      "suspend": "Suspend",
+      "reactivate": "Reactivate"
+    },
+    "videos": {
+      "title": "Video jobs",
+      "retry": "Retry",
+      "cancel": "Cancel"
+    },
+    "moderation": {
+      "title": "Moderation queue",
+      "approve": "Approve",
+      "reject": "Reject",
+      "reasonRequired": "A reason is required."
+    },
+    "finance": {
+      "title": "Finance overview",
+      "mrr": "MRR",
+      "activeSubscriptions": "Active subscriptions",
+      "revenueShareTotal": "Revenue-share total",
+      "uncollected": "Uncollected invoices",
+      "export": "Export"
+    },
+    "config": {
+      "title": "Configuration",
+      "plans": "Plans",
+      "providers": "AI providers"
+    }
+  }
+}

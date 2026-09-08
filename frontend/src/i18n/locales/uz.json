@@ -1,0 +1,319 @@
+{
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "YouTube kanalingiz uchun AI orqali tayyorlangan videolar"
+  },
+  "common": {
+    "loading": "Yuklanmoqda…",
+    "retry": "Qayta urinish",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "close": "Yopish",
+    "search": "Qidiruv",
+    "back": "Orqaga",
+    "confirm": "Tasdiqlash",
+    "actions": "Amallar",
+    "status": "Holat",
+    "date": "Sana",
+    "unknown": "Noma'lum",
+    "comingSoon": "Bu bo'lim tez orada qo'shiladi.",
+    "empty": {
+      "title": "Hozircha ma'lumot yo'q",
+      "description": "Ko'rsatish uchun hech qanday ma'lumot topilmadi."
+    },
+    "error": {
+      "title": "Xatolik yuz berdi",
+      "description": "Ma'lumotni yuklab bo'lmadi. Qaytadan urinib ko'ring.",
+      "generic": "Kutilmagan xatolik. Qaytadan urinib ko'ring."
+    },
+    "unauthorized": {
+      "title": "Sessiya muddati tugadi",
+      "description": "Davom etish uchun qaytadan tizimga kiring."
+    },
+    "forbidden": {
+      "title": "Kirish taqiqlangan",
+      "description": "Bu sahifani ko'rish uchun ruxsatingiz yo'q."
+    },
+    "offline": {
+      "title": "Internet aloqasi yo'q",
+      "description": "Internet aloqangizni tekshirib, qaytadan urinib ko'ring."
+    },
+    "notFound": {
+      "title": "Sahifa topilmadi",
+      "description": "Siz qidirayotgan sahifa mavjud emas.",
+      "backHome": "Boshqaruv paneliga qaytish"
+    }
+  },
+  "nav": {
+    "dashboard": "Boshqaruv paneli",
+    "channel": "Kanal",
+    "preferences": "Kontent sozlamalari",
+    "videos": "Videolar",
+    "revenue": "Daromad",
+    "billing": "To'lovlar",
+    "contract": "Shartnoma",
+    "adminUsers": "Foydalanuvchilar",
+    "adminVideos": "Video job'lar",
+    "adminModeration": "Moderatsiya",
+    "adminFinance": "Moliya",
+    "adminConfig": "Konfiguratsiya",
+    "logout": "Chiqish",
+    "language": "Til",
+    "theme": "Mavzu"
+  },
+  "auth": {
+    "login": {
+      "title": "Kirish",
+      "subtitle": "Xush kelibsiz — creator akkauntingizga kiring",
+      "email": "Email",
+      "password": "Parol",
+      "submit": "Kirish",
+      "submitting": "Kirilmoqda…",
+      "orGoogle": "Yoki Google orqali davom eting",
+      "googleButton": "Google orqali kirish",
+      "forgotPassword": "Parolni unutdingizmi?",
+      "noAccount": "Akkauntingiz yo'qmi?",
+      "registerLink": "Ro'yxatdan o'tish",
+      "error": "Email yoki parol noto'g'ri."
+    },
+    "register": {
+      "title": "Akkaunt yarating",
+      "subtitle": "Bir necha daqiqada AI bilan video ishlab chiqarishni boshlang",
+      "fullName": "To'liq ism",
+      "email": "Email",
+      "password": "Parol",
+      "passwordHint": "Kamida 10 belgi bo'lishi kerak.",
+      "marketingOptIn": "Email orqali yangiliklar va maslahatlar olishni xohlayman",
+      "submit": "Akkaunt yaratish",
+      "submitting": "Akkaunt yaratilmoqda…",
+      "hasAccount": "Akkauntingiz bormi?",
+      "loginLink": "Kirish",
+      "success": "Akkaunt yaratildi. Emailingizni tasdiqlash uchun pochtangizni tekshiring."
+    },
+    "verifyEmail": {
+      "title": "Emailni tasdiqlash",
+      "pending": "Email manzilingiz tasdiqlanmoqda…",
+      "success": "Email tasdiqlandi. Endi tizimga kirishingiz mumkin.",
+      "error": "Tasdiqlash havolasi noto'g'ri yoki muddati tugagan.",
+      "goToLogin": "Kirish sahifasiga o'tish"
+    },
+    "forgotPassword": {
+      "title": "Parolni tiklash",
+      "subtitle": "Parolni tiklash havolasini emailingizga yuboramiz",
+      "email": "Email",
+      "submit": "Havola yuborish",
+      "submitting": "Yuborilmoqda…",
+      "success": "Agar bunday email mavjud bo'lsa, tiklash havolasi yuborildi.",
+      "backToLogin": "Kirish sahifasiga qaytish"
+    },
+    "validation": {
+      "emailRequired": "Email kiritish shart.",
+      "emailInvalid": "To'g'ri email manzilini kiriting.",
+      "passwordRequired": "Parol kiritish shart.",
+      "passwordMinLength": "Parol kamida 10 belgidan iborat bo'lishi kerak.",
+      "fullNameRequired": "To'liq ism kiritish shart."
+    }
+  },
+  "dashboard": {
+    "title": "Boshqaruv paneli",
+    "welcome": "Xush kelibsiz, {{name}}",
+    "cards": {
+      "channelStatus": "Kanal holati",
+      "videosThisMonth": "Shu oydagi videolar",
+      "estimatedRevenue": "Taxminiy daromad",
+      "pendingApprovals": "Tasdiqlash kutilmoqda"
+    },
+    "quotaUsed": "{{total}} tadan {{used}} ishlatildi",
+    "connected": "Ulangan",
+    "disconnected": "Ulanmagan",
+    "connectChannel": "YouTube kanalini ulash"
+  },
+  "channel": {
+    "title": "Kanal",
+    "connect": "YouTube'ni ulash",
+    "disconnect": "Uzish",
+    "disconnectConfirm": "Kanalni uzish ushbu kanal uchun barcha rejalashtirilgan videolarni pauza qiladi. Davom etasizmi?",
+    "subscribers": "Obunachilar",
+    "videos": "Videolar",
+    "monetization": {
+      "unknown": "Monetizatsiya holati tasdiqlanmagan",
+      "monetized": "Monetizatsiya qilingan",
+      "notMonetized": "Monetizatsiya qilinmagan"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "AdSense'ni ulash",
+      "connected": "Ulangan — daromad AdSense tomonidan tasdiqlangan deb ko'rsatiladi",
+      "notConnected": "Ulanmagan — daromad YouTube Analytics taxmini sifatida ko'rsatiladi"
+    }
+  },
+  "preferences": {
+    "title": "Kontent sozlamalari",
+    "niche": "Niche (mavzu yo'nalishi)",
+    "customBrief": "Qo'shimcha ko'rsatma",
+    "brandVoice": "Brend ohangi",
+    "language": "Kontent tili",
+    "videoDuration": "Video davomiyligi (soniya)",
+    "frequency": "Nashr chastotasi",
+    "frequencyOptions": {
+      "daily": "Har kuni",
+      "weekly": "Har hafta",
+      "monthly": "Har oy"
+    },
+    "publishTime": "Nashr vaqti",
+    "privacyStatus": "Maxfiylik holati",
+    "privacyOptions": {
+      "public": "Ommaviy",
+      "unlisted": "Havola orqali",
+      "private": "Shaxsiy"
+    },
+    "approvalMode": "Tasdiqlash rejimi",
+    "approvalModeOptions": {
+      "review_required": "Nashrdan oldin tasdiqlash talab qilinadi",
+      "auto": "Moderatsiyadan so'ng avtomatik nashr qilish"
+    },
+    "paused": "Jadval pauzada",
+    "pause": "Jadvalni pauza qilish",
+    "resume": "Jadvalni davom ettirish",
+    "save": "Sozlamalarni saqlash",
+    "saved": "Sozlamalar saqlandi."
+  },
+  "video": {
+    "title": "Videolar",
+    "generateNow": "Hozir generatsiya qilish",
+    "table": {
+      "title": "Sarlavha",
+      "status": "Holat",
+      "scheduledFor": "Rejalashtirilgan vaqt",
+      "cost": "Xarajat",
+      "actions": "Amallar"
+    },
+    "status": {
+      "draft": "Qoralama",
+      "scheduled": "Rejalashtirilgan",
+      "queued": "Navbatda",
+      "generating_script": "Ssenariy yozilmoqda",
+      "script_ready": "Ssenariy tayyor",
+      "moderating_script": "Ssenariy moderatsiyasi",
+      "generating_voice": "Ovoz generatsiya qilinmoqda",
+      "voice_ready": "Ovoz tayyor",
+      "generating_visuals": "Vizual generatsiya qilinmoqda",
+      "visuals_ready": "Vizual tayyor",
+      "assembling": "Video yig'ilmoqda",
+      "assembled": "Yig'ildi",
+      "moderating_final": "Yakuniy moderatsiya",
+      "moderation_review": "Moderator ko'rib chiqmoqda",
+      "moderation_rejected": "Moderatsiya rad etdi",
+      "awaiting_approval": "Tasdiqlashingiz kutilmoqda",
+      "approved": "Tasdiqlandi",
+      "changes_requested": "Tahrir so'ralgan",
+      "rejected": "Rad etildi",
+      "expired": "Muddati o'tdi",
+      "upload_queued": "Yuklash navbatida",
+      "uploading": "YouTube'ga yuklanmoqda",
+      "uploaded": "Yuklandi",
+      "published": "Nashr qilindi",
+      "youtube_rejected": "YouTube rad etdi",
+      "retrying": "Qayta urinilmoqda",
+      "failed": "Xato",
+      "canceled": "Bekor qilindi",
+      "deleted_on_youtube": "YouTube'da o'chirilgan"
+    },
+    "approval": {
+      "title": "Videoni ko'rib chiqing",
+      "preview": "Preview",
+      "approve": "Tasdiqlash",
+      "requestChanges": "Tahrir so'rash",
+      "reject": "Rad etish",
+      "reasonLabel": "Sabab",
+      "regenerateFrom": "Qaysi bosqichdan qayta boshlash",
+      "confirmApprove": "Tasdiqlab, yuklash navbatiga qo'yilsinmi?",
+      "confirmReject": "Bu video rad etilsinmi? U nashr qilinmaydi."
+    },
+    "empty": {
+      "title": "Hozircha video yo'q",
+      "description": "Birinchi video job rejalashtirilgan yoki generatsiya qilingach, videolar shu yerda ko'rinadi."
+    },
+    "previewPlaceholder": "Video preview zaxira matni",
+    "steps": "Pipeline bosqichlari"
+  },
+  "revenue": {
+    "title": "Daromad",
+    "totalViews": "Jami ko'rishlar",
+    "views": "ko'rish",
+    "estimated": "Taxminiy (YouTube Analytics)",
+    "confirmed": "AdSense tomonidan tasdiqlangan",
+    "notMonetized": "Bu kanal hali monetizatsiya qilinmagan, daromad $0.",
+    "topVideos": "Top videolar",
+    "statements": "Daromad ulushi hisobotlari",
+    "dispute": "E'tiroz bildirish",
+    "statementStatus": {
+      "draft": "Qoralama",
+      "finalized": "Yakunlandi",
+      "invoiced": "Invoys chiqarildi",
+      "paid": "To'landi",
+      "disputed": "E'tiroz bildirilgan",
+      "written_off": "Hisobdan chiqarildi",
+      "carried_forward": "Keyingi davrga o'tkazildi"
+    }
+  },
+  "billing": {
+    "title": "To'lovlar",
+    "currentPlan": "Joriy tarif",
+    "changePlan": "Tarifni o'zgartirish",
+    "managePayment": "To'lov usulini boshqarish",
+    "invoices": "Invoyslar",
+    "status": {
+      "trialing": "Sinov muddati",
+      "active": "Faol",
+      "past_due": "Muddati o'tgan",
+      "suspended": "To'xtatilgan",
+      "canceled": "Bekor qilingan",
+      "expired": "Muddati tugagan"
+    }
+  },
+  "contract": {
+    "title": "Shartnoma",
+    "currentVersion": "Joriy versiya",
+    "sign": "Shartnomani imzolash",
+    "consentRevenueShare": "50/50 daromad ulushi shartlariga roziman",
+    "consentPublish": "Platformaga mening kanalimga video joylash huquqini beraman",
+    "consentDataProcessing": "Ma'lumotlarimdan AI qayta ishlash uchun foydalanishga roziman",
+    "consentMarketing": "Marketing xabarlarini olishni xohlayman (ixtiyoriy)",
+    "paymentMethodRequired": "Shartnomani imzolash uchun saqlangan to'lov usuli talab qilinadi.",
+    "history": "Imzolashlar tarixi",
+    "downloadPdf": "PDF yuklab olish"
+  },
+  "admin": {
+    "users": {
+      "title": "Foydalanuvchilar",
+      "search": "Email yoki ism bo'yicha qidirish",
+      "suspend": "To'xtatish",
+      "reactivate": "Qayta faollashtirish"
+    },
+    "videos": {
+      "title": "Video job'lar",
+      "retry": "Qayta urinish",
+      "cancel": "Bekor qilish"
+    },
+    "moderation": {
+      "title": "Moderatsiya navbati",
+      "approve": "Tasdiqlash",
+      "reject": "Rad etish",
+      "reasonRequired": "Sabab ko'rsatilishi shart."
+    },
+    "finance": {
+      "title": "Moliyaviy umumiy ko'rinish",
+      "mrr": "MRR",
+      "activeSubscriptions": "Faol obunalar",
+      "revenueShareTotal": "Daromad ulushi jami",
+      "uncollected": "Undirilmagan invoyslar",
+      "export": "Eksport"
+    },
+    "config": {
+      "title": "Konfiguratsiya",
+      "plans": "Tariflar",
+      "providers": "AI provayderlar"
+    }
+  }
+}

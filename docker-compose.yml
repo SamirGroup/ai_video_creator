@@ -1,0 +1,255 @@
+########################################################################
+# AI YouTube Content Ecosystem — local development stack
+#
+# Usage:
+#   cp .env.example .env      # fill in local values (never commit .env)
+#   docker compose up --build
+#
+# Production uses this file together with docker-compose.prod.yml
+# (see deploy/README section in root README.md and SPEC A-25: MVP =
+# Docker Compose on a single VPS/Cloud VM, Kubernetes deferred to F2).
+########################################################################
+
+services:
+
+  # ------------------------------------------------------------------
+  # PostgreSQL — primary datastore (SPEC section 5, DB schema)
+  # ------------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: ai_youtuber_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-ai_youtuber}
+      POSTGRES_USER: ${POSTGRES_USER:-ai_youtuber}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ai_youtuber} -d ${POSTGRES_DB:-ai_youtuber}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - app_net
+
+  # ------------------------------------------------------------------
+  # Redis — Celery broker/result backend + DRF throttling + JWT
+  # refresh-token blacklist (FR-5) + quota counters (FR-58)
+  # ------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: ai_youtuber_redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - app_net
+
+  # ------------------------------------------------------------------
+  # (Optional, dev-only) MinIO — S3-compatible local object storage.
+  # Stand-in for AWS S3/GCS (SPEC section 9: "AWS S3 / GCP Storage")
+  # so local development doesn't need real cloud credentials.
+  #
+  # To enable: uncomment this block + the `minio_data` volume below,
+  # then in .env set something like:
+  #   AWS_S3_ENDPOINT_URL=http://minio:9000
+  #   AWS_STORAGE_BUCKET_NAME=ai-youtuber-media
+  #   AWS_ACCESS_KEY_ID=${MINIO_ROOT_USER}
+  #   AWS_SECRET_ACCESS_KEY=${MINIO_ROOT_PASSWORD}
+  # ------------------------------------------------------------------
+  # minio:
+  #   image: minio/minio:latest
+  #   container_name: ai_youtuber_minio
+  #   restart: unless-stopped
+  #   command: server /data --console-address ":9001"
+  #   environment:
+  #     MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+  #     MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+  #   volumes:
+  #     - minio_data:/data
+  #   ports:
+  #     - "9000:9000"   # S3 API
+  #     - "9001:9001"   # Web console
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   networks:
+  #     - app_net
+
+  # ------------------------------------------------------------------
+  # Django + DRF API (backend/)
+  # Expects backend/Dockerfile with `dev` and `prod` build targets,
+  # backend/requirements.txt (+ requirements-dev.txt) and manage.py
+  # at the backend root, Celery app importable as `config`.
+  # ------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: dev
+    container_name: ai_youtuber_backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    # Dev convenience only: migrate then run the dev server with autoreload.
+    # Production uses docker-compose.prod.yml (gunicorn, no bind mount, no auto-migrate on boot).
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py runserver 0.0.0.0:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - app_net
+
+  # ------------------------------------------------------------------
+  # Celery worker — video generation pipeline (SPEC 7.1).
+  # Pipeline stages each run on their OWN queue so they can be scaled
+  # and rate-limited independently:
+  #   q_script  -> LLM script generation (OpenRouter)
+  #   q_voice   -> TTS voice-over
+  #   q_visual  -> video-gen provider (slowest / most expensive stage)
+  #   q_render  -> FFmpeg assembly (CPU-heavy)
+  #   q_upload  -> YouTube resumable upload (quota-sensitive, FR-58)
+  #
+  # For local dev, ONE worker process listens to all queues (simplest
+  # setup). In production (docker-compose.prod.yml) split into one
+  # service per queue with its own replica count / concurrency, e.g.:
+  #   celery -A config worker -Q q_script -c 4 --hostname=script@%h
+  #   celery -A config worker -Q q_voice  -c 2 --hostname=voice@%h
+  #   celery -A config worker -Q q_visual -c 2 --hostname=visual@%h
+  #   celery -A config worker -Q q_render -c 2 --hostname=render@%h   (CPU heavy, ffmpeg)
+  #   celery -A config worker -Q q_upload -c 4 --hostname=upload@%h  (respect YouTube quota, FR-58)
+  # ------------------------------------------------------------------
+  celery_worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: dev
+    container_name: ai_youtuber_celery_worker
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A config worker -Q q_script,q_voice,q_visual,q_upload,celery -l info --concurrency=4
+    networks:
+      - app_net
+
+  # ------------------------------------------------------------------
+  # Celery render worker — FFmpeg assembly only (ARCHITECTURE 4.1). CPU
+  # bound, so it gets its own pool/limits and scales independently.
+  # ------------------------------------------------------------------
+  celery_render:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: dev
+    container_name: ai_youtuber_celery_render
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A config worker -Q q_render -l info --concurrency=1
+    networks:
+      - app_net
+
+  # ------------------------------------------------------------------
+  # Celery beat — scheduler (SPEC FR-35: creates `video_jobs` ahead of
+  # publish time; daily analytics/revenue sync FR-61; monthly period
+  # close FR-67). Uses django-celery-beat DatabaseScheduler so admins
+  # can manage periodic tasks from the Django admin.
+  # ------------------------------------------------------------------
+  celery_beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: dev
+    container_name: ai_youtuber_celery_beat
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    networks:
+      - app_net
+
+  # ------------------------------------------------------------------
+  # React frontend (frontend/). Dockerfile is owned/maintained by the
+  # frontend-developer agent (Vite build served via nginx, or a Vite
+  # dev server for local hot-reload — whichever target their Dockerfile
+  # exposes). We only wire it into the network here.
+  # ------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: dev
+    container_name: ai_youtuber_frontend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:8000}
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - app_net
+
+volumes:
+  postgres_data:
+  redis_data:
+  # minio_data:
+
+networks:
+  app_net:
+    driver: bridge
