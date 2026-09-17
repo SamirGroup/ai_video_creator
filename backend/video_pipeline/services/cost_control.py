@@ -82,6 +82,9 @@ def check_cost_ceiling(job, *, refresh: bool = True) -> Decimal:
     """Enforce FR-52. Returns the current total when under the ceiling."""
     total = refresh_job_cost(job) if refresh else _decimal(job.total_cost_usd)
     ceiling = cost_ceiling_usd()
+    subscription = getattr(job.user, "subscription", None)
+    if subscription and subscription.plan.ai_budget_enabled:
+        ceiling = _decimal(subscription.plan.features.get("job_budget_usd", ceiling))
     if ceiling > 0 and total > ceiling:
         raise CostCeilingExceeded(
             f"Job {job.pk} spent ${total} which exceeds the ${ceiling} per-job ceiling (FR-52)."

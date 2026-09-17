@@ -65,6 +65,8 @@ def prepare(plan, monkeypatch):
         ),
         provider_cost_usd=Decimal(".02"),
         total_tokens=100,
+        prompt_tokens=60,
+        completion_tokens=40,
         request_id="plan-test",
     )
     client = SimpleNamespace(chat_completion=lambda **kwargs: response)

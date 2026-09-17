@@ -3,6 +3,7 @@
 Everything that answers "which model do we call and what did it cost" lives here,
 so no pipeline stage ever hardcodes a provider, a model id or a price.
 """
+
 from __future__ import annotations
 
 import logging
@@ -83,8 +84,12 @@ def compute_token_cost(
         if cost >= 0:
             return cost.quantize(COST_QUANT, rounding=ROUND_HALF_UP)
 
-    input_per_1k = _to_decimal(config.get_option("input_cost_per_1k_usd"), Decimal("-1"))
-    output_per_1k = _to_decimal(config.get_option("output_cost_per_1k_usd"), Decimal("-1"))
+    input_per_1k = _to_decimal(
+        config.get_option("input_cost_per_1k_usd"), Decimal("-1")
+    )
+    output_per_1k = _to_decimal(
+        config.get_option("output_cost_per_1k_usd"), Decimal("-1")
+    )
     if input_per_1k >= 0 and output_per_1k >= 0:
         cost = (
             Decimal(prompt_tokens) / Decimal(1000) * input_per_1k
@@ -95,14 +100,20 @@ def compute_token_cost(
     unit_cost = _to_decimal(config.unit_cost_usd, Decimal("-1"))
     if unit_cost >= 0 and config.cost_unit == CostUnit.PER_1K_TOKENS:
         total = Decimal(prompt_tokens + completion_tokens)
-        return (total / Decimal(1000) * unit_cost).quantize(COST_QUANT, rounding=ROUND_HALF_UP)
+        return (total / Decimal(1000) * unit_cost).quantize(
+            COST_QUANT, rounding=ROUND_HALF_UP
+        )
 
     if unit_cost >= 0 and config.cost_unit == CostUnit.PER_REQUEST:
         return unit_cost.quantize(COST_QUANT, rounding=ROUND_HALF_UP)
 
     logger.warning(
         "provider_cost_unpriced",
-        extra={"service": config.service, "provider": config.provider, "model": config.model_name},
+        extra={
+            "service": config.service,
+            "provider": config.provider,
+            "model": config.model_name,
+        },
     )
     return Decimal("0").quantize(COST_QUANT)
 
@@ -121,6 +132,8 @@ def record_api_usage(
     success: bool = True,
     error_code: str = "",
     request_id: str = "",
+    prompt_tokens: int = 0,
+    completion_tokens: int = 0,
 ) -> ApiUsageLog:
     """Append one `api_usage_logs` row (FR-51).
 
@@ -128,14 +141,30 @@ def record_api_usage(
     successfully generated script is thrown away. Failures are logged instead.
     """
     try:
-        return ApiUsageLog.objects.create(
+        values = dict(
             job=job,
             user=user,
+            prompt_tokens=prompt_tokens,
+            completion_tokens=completion_tokens,
+            pricing_snapshot={
+                "unit_cost_usd": str(config.unit_cost_usd),
+                "cost_unit": config.cost_unit,
+                "input_cost_per_1k_usd": str(
+                    config.get_option("input_cost_per_1k_usd", "")
+                ),
+                "output_cost_per_1k_usd": str(
+                    config.get_option("output_cost_per_1k_usd", "")
+                ),
+                "pricing_source": config.get_option("pricing_source", ""),
+                "pricing_verified_on": config.get_option("pricing_verified_on", ""),
+            },
             service=config.service,
             provider=config.provider,
             model=config.model_name or "",
             operation=operation,
-            units=_to_decimal(units).quantize(Decimal("0.0001"), rounding=ROUND_HALF_UP),
+            units=_to_decimal(units).quantize(
+                Decimal("0.0001"), rounding=ROUND_HALF_UP
+            ),
             unit_type=unit_type or config.cost_unit or "",
             cost_usd=_to_decimal(cost_usd).quantize(COST_QUANT, rounding=ROUND_HALF_UP),
             latency_ms=latency_ms,
@@ -144,6 +173,21 @@ def record_api_usage(
             error_code=error_code[:64],
             request_id=(request_id or "")[:128],
         )
+        if operation == "visual_generation" and success and request_id and job:
+            from django.db import transaction
+            from video_pipeline.models import VideoJob
+
+            with transaction.atomic():
+                VideoJob.objects.select_for_update().get(pk=job.pk)
+                existing = ApiUsageLog.objects.filter(
+                    job=job,
+                    provider=config.provider,
+                    operation=operation,
+                    request_id=request_id,
+                    success=True,
+                ).first()
+                return existing or ApiUsageLog.objects.create(**values)
+        return ApiUsageLog.objects.create(**values)
     except Exception:  # pragma: no cover - defensive
         logger.exception("api_usage_log_write_failed", extra={"operation": operation})
         raise
@@ -151,7 +195,9 @@ def record_api_usage(
 
 def job_total_cost_usd(job_id) -> Decimal:
     """Sum of every provider call booked against a job (source for FR-52 ceiling)."""
-    total = ApiUsageLog.objects.filter(job_id=job_id).aggregate(total=Sum("cost_usd"))["total"]
+    total = ApiUsageLog.objects.filter(job_id=job_id).aggregate(total=Sum("cost_usd"))[
+        "total"
+    ]
     return _to_decimal(total).quantize(MONEY_QUANT, rounding=ROUND_HALF_UP)
 
 

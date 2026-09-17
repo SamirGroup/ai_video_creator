@@ -24,6 +24,7 @@ export function VideoDetailPage() {
     queryFn: () => videosApi.preview(videoId),
     enabled: Boolean(videoQuery.data?.final_video_s3_key),
     staleTime: 600000,
+    refetchInterval: (query) => (query.state.data?.status === 'restoring' ? 2000 : false),
   })
   const stepsQuery = useVideoSteps(videoId)
 
@@ -67,7 +68,10 @@ export function VideoDetailPage() {
         <VideoStatusBadge status={video.status} />
       </div>
 
-      {preview.data && (
+      {preview.data?.status === 'restoring' && (
+        <p role="status">Restoring your video from the Telegram archive…</p>
+      )}
+      {preview.data?.preview_url && (
         <Card>
           <CardContent className="pt-5">
             <p className="mb-2 text-sm font-medium text-foreground">

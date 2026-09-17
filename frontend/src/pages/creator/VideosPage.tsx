@@ -1,3 +1,4 @@
+import { billingApi } from '@/api/billing'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { videosApi } from '@/api/videos'
@@ -13,9 +14,16 @@ export function VideosPage() {
   const { t } = useTranslation()
   const client = useQueryClient()
   const [channelId, setChannelId] = useState('')
+  const [model, setModel] = useState('')
+  const subscription = useQuery({
+    queryKey: ['subscription'],
+    queryFn: billingApi.mySubscription,
+  })
+  const models = (subscription.data?.plan.features?.video_models ?? []) as string[]
   const channels = useQuery({ queryKey: ['channels'], queryFn: channelsApi.list })
   const generate = useMutation({
-    mutationFn: () => videosApi.generateNow(channelId || channels.data?.[0]?.id),
+    mutationFn: () =>
+      videosApi.generateNow(channelId || channels.data?.[0]?.id, model || models[0]),
     onSuccess: () => client.invalidateQueries({ queryKey: ['videos'] }),
   })
   const { data, isLoading, isError, refetch } = useVideoList()
@@ -25,7 +33,7 @@ export function VideosPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-xl font-semibold text-foreground">{t('video.title')}</h1>
         {/* TODO: real API — POST /videos/generate (manual trigger, FR-36) */}
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <select
             aria-label={t('channel.title')}
             className="rounded border border-border bg-surface p-2"
@@ -38,6 +46,20 @@ export function VideosPage() {
               </option>
             ))}
           </select>
+          {models.length > 0 && (
+            <select
+              aria-label="Video AI model"
+              className="rounded border border-border bg-surface p-2"
+              value={model || models[0]}
+              onChange={(e) => setModel(e.target.value)}
+            >
+              {models.map((id) => (
+                <option key={id} value={id}>
+                  {id}
+                </option>
+              ))}
+            </select>
+          )}
           <Button
             size="sm"
             disabled={!channels.data?.length}

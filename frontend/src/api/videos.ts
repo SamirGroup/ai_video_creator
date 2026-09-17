@@ -15,7 +15,9 @@ export const videosApi = {
   listAll: (filters: VideoListFilters = {}) => collectPages<VideoJob>('/videos', filters),
   preview: (id: string) =>
     apiClient
-      .get<{ preview_url: string; expires_at: string }>(`/videos/${id}/preview`)
+      .get<{ status?: string; preview_url: string | null; expires_at: string | null }>(
+        `/videos/${id}/preview`,
+      )
       .then((r) => r.data),
   list: (filters: VideoListFilters = {}) =>
     apiClient
@@ -26,8 +28,10 @@ export const videosApi = {
 
   steps: (id: string) => collectPages<VideoJobStep>(`/videos/${id}/steps`),
 
-  generateNow: (channel_id?: string) =>
-    apiClient.post<VideoJob>('/videos/generate', { channel_id }).then((r) => r.data),
+  generateNow: (channel_id?: string, video_model?: string) =>
+    apiClient
+      .post<VideoJob>('/videos/generate', { channel_id, video_model })
+      .then((r) => r.data),
 
   cancel: (id: string) =>
     apiClient.post<VideoJob>(`/videos/${id}/cancel`).then((r) => r.data),

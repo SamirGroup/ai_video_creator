@@ -1,3 +1,4 @@
+import { TelegramBridge } from '@/components/common/TelegramBridge'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Navigate, Route, BrowserRouter, Routes } from 'react-router-dom'
@@ -86,6 +87,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <AuthBootstrap>
+            <TelegramBridge />
             <AppRoutes />
           </AuthBootstrap>
         </BrowserRouter>

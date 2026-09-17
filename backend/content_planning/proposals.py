@@ -173,6 +173,13 @@ def prepare_proposal(plan_id, *, research=None, client=None):
     try:
         source = research if research is not None else fetch_research(plan)
         config = get_primary_config(ServiceType.LLM)
+        from billing.wallet import hold_operation
+
+        hold_operation(
+            plan.user,
+            f"content-plan:{plan.pk}",
+            compute_token_cost(config, prompt_tokens=100000, completion_tokens=12000),
+        )
         client = client or OpenRouterClient(config)
         response = client.chat_completion(
             messages=[
@@ -212,6 +219,8 @@ def prepare_proposal(plan_id, *, research=None, client=None):
             operation="content_plan",
             user=plan.user,
             units=response.total_tokens,
+            prompt_tokens=response.prompt_tokens,
+            completion_tokens=response.completion_tokens,
             unit_type="tokens",
             cost_usd=cost,
             request_id=response.request_id,
@@ -266,6 +275,10 @@ def prepare_proposal(plan_id, *, research=None, client=None):
             error_code=getattr(exc, "error_code", "planning_failed")[:64],
         )
         raise
+    finally:
+        from billing.wallet import release_operation
+
+        release_operation(f"content-plan:{plan.pk}")
 
 
 @transaction.atomic

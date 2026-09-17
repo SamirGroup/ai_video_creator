@@ -59,7 +59,7 @@ class CheckoutSessionView(APIView):
                 {"detail": "Unknown or inactive plan."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        if not plan.stripe_price_id:
+        if not plan.stripe_price_id and not plan.ai_budget_enabled:
             return Response(
                 {"detail": "This plan has no Stripe price configured yet."},
                 status=status.HTTP_409_CONFLICT,

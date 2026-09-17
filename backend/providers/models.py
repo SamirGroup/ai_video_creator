@@ -15,6 +15,7 @@ Design rules baked into these tables:
   so `video_jobs.total_cost_usd` and the per-creator P&L report (FR-51, FR-82)
   have a single, auditable source of truth.
 """
+
 from __future__ import annotations
 
 import os
@@ -65,7 +66,8 @@ class ApiCredentialConfig(TimestampedModel):
     is_primary = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     priority = models.SmallIntegerField(
-        default=100, help_text="Lower value = tried first when failing over (F2 routing)."
+        default=100,
+        help_text="Lower value = tried first when failing over (F2 routing).",
     )
 
     config = models.JSONField(
@@ -75,8 +77,12 @@ class ApiCredentialConfig(TimestampedModel):
         "timeouts, per-token prices. NEVER put API keys here.",
     )
 
-    unit_cost_usd = models.DecimalField(max_digits=14, decimal_places=6, null=True, blank=True)
-    cost_unit = models.CharField(max_length=32, choices=CostUnit.choices, blank=True, default="")
+    unit_cost_usd = models.DecimalField(
+        max_digits=14, decimal_places=6, null=True, blank=True
+    )
+    cost_unit = models.CharField(
+        max_length=32, choices=CostUnit.choices, blank=True, default=""
+    )
 
     secret_ref = models.CharField(
         max_length=128,
@@ -97,7 +103,9 @@ class ApiCredentialConfig(TimestampedModel):
             ),
         ]
         indexes = [
-            models.Index(fields=["service", "is_active"], name="ix_api_creds_service_active"),
+            models.Index(
+                fields=["service", "is_active"], name="ix_api_creds_service_active"
+            ),
         ]
 
     def __str__(self) -> str:
@@ -161,12 +169,17 @@ class ApiUsageLog(models.Model):
     service = models.CharField(max_length=20, choices=ServiceType.choices)
     provider = models.CharField(max_length=64)
     model = models.CharField(max_length=128, blank=True, default="")
-    operation = models.CharField(max_length=64, help_text="e.g. script_generation, script_moderation")
+    operation = models.CharField(
+        max_length=64, help_text="e.g. script_generation, script_moderation"
+    )
 
     units = models.DecimalField(max_digits=14, decimal_places=4, default=0)
     unit_type = models.CharField(max_length=32, blank=True, default="")
     cost_usd = models.DecimalField(max_digits=14, decimal_places=6, default=0)
 
+    pricing_snapshot = models.JSONField(default=dict)
+    prompt_tokens = models.PositiveIntegerField(default=0)
+    completion_tokens = models.PositiveIntegerField(default=0)
     latency_ms = models.IntegerField(null=True, blank=True)
     http_status = models.IntegerField(null=True, blank=True)
     success = models.BooleanField(default=True)
@@ -179,7 +192,9 @@ class ApiUsageLog(models.Model):
         db_table = "api_usage_logs"
         indexes = [
             models.Index(fields=["job"], name="ix_api_usage_job"),
-            models.Index(fields=["provider", "created_at"], name="ix_api_usage_provider_time"),
+            models.Index(
+                fields=["provider", "created_at"], name="ix_api_usage_provider_time"
+            ),
             models.Index(fields=["user", "created_at"], name="ix_api_usage_user_time"),
         ]
 

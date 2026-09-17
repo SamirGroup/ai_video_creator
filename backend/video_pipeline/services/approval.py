@@ -109,7 +109,8 @@ def preview_url(job: VideoJob) -> str:
         return f"{base}/preview/{job.preview_token}"
     from core.storage import get_storage
 
-    return get_storage().signed_url(
+    storage = get_storage()
+    return storage.signed_url(
         job.final_video_s3_key, expires_sec=int(PREVIEW_URL_TTL.total_seconds())
     )
 
@@ -129,6 +130,8 @@ def on_final_moderation_passed(job: VideoJob) -> str:
     job.moderation_approved_sha256 = asset.checksum_sha256 if asset else ""
     from video_pipeline.services.moderation_proof import metadata_digest
 
+    from telegram_integration.archive import archive_video
+
     job.moderation_metadata_sha256 = metadata_digest(job)
     job.save(
         update_fields=[
@@ -137,6 +140,7 @@ def on_final_moderation_passed(job: VideoJob) -> str:
             "updated_at",
         ]
     )
+    transaction.on_commit(lambda: archive_video.delay(str(job.pk)))
     preference = job_preferences(job)
     auto = bool(preference and preference.approval_mode == ApprovalMode.AUTO)
 

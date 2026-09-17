@@ -23,6 +23,7 @@ via `POST /auth/2fa/enable` + `POST /auth/2fa/verify` passing the same
 `challenge_token`. `verify` then returns the JWTs, so a staff account never
 holds a session without a second factor.
 """
+
 from __future__ import annotations
 
 import base64
@@ -68,7 +69,11 @@ _CODE_RE = re.compile(r"^\d{6,8}$")
 # ---------------------------------------------------------------------------
 def generate_secret() -> str:
     """New base32 secret (no padding) suitable for an authenticator app."""
-    return base64.b32encode(secrets.token_bytes(TOTP_SECRET_BYTES)).decode("ascii").rstrip("=")
+    return (
+        base64.b32encode(secrets.token_bytes(TOTP_SECRET_BYTES))
+        .decode("ascii")
+        .rstrip("=")
+    )
 
 
 def _decode_secret(secret: str | bytes) -> bytes:
@@ -79,7 +84,12 @@ def _decode_secret(secret: str | bytes) -> bytes:
     return base64.b32decode(normalized + padding, casefold=True)
 
 
-def hotp(secret: str | bytes, counter: int, digits: int = TOTP_DIGITS, algorithm: str = "sha1") -> str:
+def hotp(
+    secret: str | bytes,
+    counter: int,
+    digits: int = TOTP_DIGITS,
+    algorithm: str = "sha1",
+) -> str:
     """RFC 4226 HOTP value for `counter`. `secret` is base32 text or raw bytes."""
     key = _decode_secret(secret)
     message = struct.pack(">Q", counter)
@@ -108,7 +118,9 @@ def totp(
     algorithm: str = "sha1",
 ) -> str:
     """RFC 6238 TOTP value at `timestamp` (defaults to now)."""
-    return hotp(secret, totp_counter(timestamp, step), digits=digits, algorithm=algorithm)
+    return hotp(
+        secret, totp_counter(timestamp, step), digits=digits, algorithm=algorithm
+    )
 
 
 def verify_totp(
@@ -164,19 +176,25 @@ def verify_user_code(user: User, code: str) -> bool:
     if counter is None:
         return False
     # cache.add is atomic on Redis/locmem: False means this step was already consumed.
-    if not cache.add(_replay_key(user.pk, counter), "1", timeout=TOTP_STEP_SECONDS * (2 * TOTP_WINDOW + 2)):
+    if not cache.add(
+        _replay_key(user.pk, counter),
+        "1",
+        timeout=TOTP_STEP_SECONDS * (2 * TOTP_WINDOW + 2),
+    ):
         logger.warning("totp_replay_rejected", extra={"user_id": str(user.pk)})
         return False
     return True
 
 
 def is_staff_user(user: User) -> bool:
-    return user.user_roles.filter(role__code__in=STAFF_ROLES).exists()
+    return (
+        user.is_superuser or user.user_roles.filter(role__code__in=STAFF_ROLES).exists()
+    )
 
 
 def requires_2fa_for_login(user: User) -> bool:
     """FR-9: staff always (while STAFF_2FA_REQUIRED), any user who enrolled."""
-    if user.is_totp_enabled:
+    if user.is_superuser or user.is_totp_enabled:
         return True
     return bool(getattr(settings, "STAFF_2FA_REQUIRED", True)) and is_staff_user(user)
 
@@ -184,7 +202,11 @@ def requires_2fa_for_login(user: User) -> bool:
 def issue_challenge(user: User) -> str:
     """Short-lived, single-use signed token proving the first factor succeeded."""
     return signing.dumps(
-        {"user_id": str(user.pk), "nonce": secrets.token_urlsafe(16), "purpose": "2fa_login"},
+        {
+            "user_id": str(user.pk),
+            "nonce": secrets.token_urlsafe(16),
+            "purpose": "2fa_login",
+        },
         salt=CHALLENGE_SALT,
     )
 
@@ -209,7 +231,9 @@ def mark_challenge_used(token: str) -> bool:
         data = signing.loads(token, salt=CHALLENGE_SALT, max_age=CHALLENGE_MAX_AGE)
     except (BadSignature, SignatureExpired):
         return False
-    return cache.add(f"2fa:challenge:{data.get('nonce')}", "1", timeout=CHALLENGE_MAX_AGE + 60)
+    return cache.add(
+        f"2fa:challenge:{data.get('nonce')}", "1", timeout=CHALLENGE_MAX_AGE + 60
+    )
 
 
 def two_factor_challenge_response(user: User) -> Response:
@@ -248,7 +272,11 @@ class _ChallengeOrAuthMixin:
     def _resolve_user(self, request) -> tuple[User | None, str | None]:
         if request.user and request.user.is_authenticated:
             return request.user, None
-        token = request.data.get("challenge_token") if isinstance(request.data, dict) else None
+        token = (
+            request.data.get("challenge_token")
+            if isinstance(request.data, dict)
+            else None
+        )
         if token:
             user = consume_challenge(token)
             if user is not None:
@@ -269,7 +297,9 @@ class TwoFactorEnableView(_ChallengeOrAuthMixin, APIView):
     def post(self, request):
         user, _ = self._resolve_user(request)
         if user is None:
-            return Response({"detail": "Authentication credentials were not provided."}, status=401)
+            return Response(
+                {"detail": "Authentication credentials were not provided."}, status=401
+            )
         if user.is_totp_enabled:
             return Response(
                 {"detail": "Two-factor authentication is already enabled."},
@@ -279,7 +309,9 @@ class TwoFactorEnableView(_ChallengeOrAuthMixin, APIView):
         user.totp_secret_enc = secret
         user.save(update_fields=["totp_secret_enc", "updated_at"])
         logger.info("totp_enrolment_started", extra={"user_id": str(user.pk)})
-        return Response({"secret": secret, "otpauth_uri": otpauth_uri(secret, user.email)})
+        return Response(
+            {"secret": secret, "otpauth_uri": otpauth_uri(secret, user.email)}
+        )
 
 
 class TwoFactorCodeSerializer(serializers.Serializer):
@@ -303,7 +335,9 @@ class TwoFactorVerifyView(_ChallengeOrAuthMixin, APIView):
         serializer.is_valid(raise_exception=True)
         user, challenge = self._resolve_user(request)
         if user is None:
-            return Response({"detail": "Authentication credentials were not provided."}, status=401)
+            return Response(
+                {"detail": "Authentication credentials were not provided."}, status=401
+            )
         if user.is_totp_enabled:
             return Response(
                 {"detail": "Two-factor authentication is already enabled."},
@@ -311,12 +345,19 @@ class TwoFactorVerifyView(_ChallengeOrAuthMixin, APIView):
             )
         if not user.totp_secret_enc:
             return Response(
-                {"detail": "Call /auth/2fa/enable first."}, status=status.HTTP_400_BAD_REQUEST
+                {"detail": "Call /auth/2fa/enable first."},
+                status=status.HTTP_400_BAD_REQUEST,
             )
         if not verify_user_code(user, serializer.validated_data["code"]):
-            return Response({"detail": "Invalid verification code."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "Invalid verification code."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         if challenge and not mark_challenge_used(challenge):
-            return Response({"detail": "Challenge token already used."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "Challenge token already used."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         user.is_totp_enabled = True
         user.save(update_fields=["is_totp_enabled", "updated_at"])
@@ -337,7 +378,9 @@ class TwoFactorVerifyView(_ChallengeOrAuthMixin, APIView):
 
         if challenge:
             return _issue_tokens(user, request)
-        return Response({"detail": "Two-factor authentication enabled.", "is_totp_enabled": True})
+        return Response(
+            {"detail": "Two-factor authentication enabled.", "is_totp_enabled": True}
+        )
 
 
 class TwoFactorLoginSerializer(serializers.Serializer):
@@ -362,11 +405,15 @@ class TwoFactorLoginView(APIView):
 
         user = consume_challenge(token)
         if user is None:
-            return Response({"detail": "Invalid or expired challenge token."}, status=401)
+            return Response(
+                {"detail": "Invalid or expired challenge token."}, status=401
+            )
         if not user.is_totp_enabled:
             return Response(
-                {"detail": "Two-factor authentication is not set up. Enrol via /auth/2fa/enable.",
-                 "setup_required": True},
+                {
+                    "detail": "Two-factor authentication is not set up. Enrol via /auth/2fa/enable.",
+                    "setup_required": True,
+                },
                 status=status.HTTP_403_FORBIDDEN,
             )
         if not verify_user_code(user, serializer.validated_data["code"]):

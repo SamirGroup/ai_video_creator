@@ -28,7 +28,10 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = fields
 
     def get_roles(self, obj: User) -> list[str]:
-        return list(obj.user_roles.values_list("role__code", flat=True))
+        roles = list(obj.user_roles.values_list("role__code", flat=True))
+        if obj.is_superuser and "admin" not in roles:
+            roles.append("admin")
+        return roles
 
 
 class MeUpdateSerializer(serializers.ModelSerializer):
@@ -46,13 +49,17 @@ class RegisterSerializer(serializers.Serializer):
     def validate_email(self, value: str) -> str:
         normalized = value.strip().lower()
         if User.objects.filter(email__iexact=normalized).exists():
-            raise serializers.ValidationError("An account with this email already exists.")
+            raise serializers.ValidationError(
+                "An account with this email already exists."
+            )
         return normalized
 
     def validate_password(self, value: str) -> str:
         # FR-1: minimum 10 characters + Django's common/numeric/similarity validators.
         if len(value) < 10:
-            raise serializers.ValidationError("Password must be at least 10 characters long.")
+            raise serializers.ValidationError(
+                "Password must be at least 10 characters long."
+            )
         try:
             password_validation.validate_password(value)
         except DjangoValidationError as exc:
@@ -83,7 +90,9 @@ class LoginSerializer(serializers.Serializer):
             # authenticate() also returns None for inactive users (is_active
             # property is derived from `status`), so this covers both wrong
             # credentials and suspended/deleted accounts without leaking which.
-            raise serializers.ValidationError("Invalid email or password.", code="authentication_failed")
+            raise serializers.ValidationError(
+                "Invalid email or password.", code="authentication_failed"
+            )
         attrs["user"] = user
         return attrs
 
@@ -102,7 +111,9 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
 
     def validate_new_password(self, value: str) -> str:
         if len(value) < 10:
-            raise serializers.ValidationError("Password must be at least 10 characters long.")
+            raise serializers.ValidationError(
+                "Password must be at least 10 characters long."
+            )
         try:
             password_validation.validate_password(value)
         except DjangoValidationError as exc:

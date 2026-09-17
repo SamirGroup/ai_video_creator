@@ -17,6 +17,8 @@ script's `target_duration_sec`); assembly loops/trims to the exact segment.
 
 from __future__ import annotations
 
+from video_pipeline.services.stage_lock import serialized_paid_stage
+
 from video_pipeline.services.preferences import job_preferences
 
 import logging
@@ -113,7 +115,7 @@ def style_prompt(prompt: str, *, style_suffix: str = "") -> str:
 # ---------------------------------------------------------------------------
 def _pending_tasks(job) -> dict:
     raw = (job.script_meta or {}).get(PENDING_TASKS_KEY) or {}
-    return {str(k): str(v) for k, v in raw.items()} if isinstance(raw, dict) else {}
+    return {str(k): v for k, v in raw.items()} if isinstance(raw, dict) else {}
 
 
 def _save_pending_tasks(job, pending: dict) -> None:
@@ -141,6 +143,9 @@ def _record_failure(config, job, clip: ClipPlan, exc: Exception, *, units: int) 
     )
 
 
+
+
+@serialized_paid_stage
 def generate_visuals_for_job(
     job, *, client=None, runner=media_tools.run_command, workdir: str | None = None
 ) -> VisualsResult:
@@ -153,7 +158,28 @@ def generate_visuals_for_job(
         )
     timing = [t.to_dict() for t in timing_from_asset(voice_asset)]
 
-    config = get_primary_config(ServiceType.VIDEO_GEN)
+    config = None
+    subscription = getattr(job.user, "subscription", None)
+    if subscription and subscription.plan.ai_budget_enabled:
+        from providers.models import ApiCredentialConfig
+        from providers.exceptions import ProviderNotConfigured
+
+        models = subscription.plan.features.get("video_models", [])
+        selected = (job.generation_context or {}).get("video_model") or (
+            models[0] if models else ""
+        )
+        if selected not in models:
+            raise ProviderNotConfigured("Video model is not included in this plan.")
+        config = ApiCredentialConfig.objects.filter(
+            service=ServiceType.VIDEO_GEN,
+            provider="runway",
+            model_name=selected,
+            is_active=True,
+        ).first()
+        if config is None:
+            raise ProviderNotConfigured("The selected plan model is not activated.")
+    if config is None:
+        config = get_primary_config(ServiceType.VIDEO_GEN)
     client = client or RunwayClient(config)
     aspect_ratio = (
         job_preferences(job).aspect_ratio if job_preferences(job) else ""
@@ -176,12 +202,12 @@ def generate_visuals_for_job(
                 skipped += 1
                 continue
 
-            # FR-52: the ceiling is checked before *each* paid call, not once per stage.
-            check_cost_ceiling(job)
-
             key = str(clip.sequence_index)
-            task_id = pending.get(key)
-            requested_duration = 0
+            task_info = pending.get(key)
+            task_id = task_info.get("id") if isinstance(task_info, dict) else task_info
+            requested_duration = (
+                task_info.get("duration", 0) if isinstance(task_info, dict) else 0
+            )
             if task_id:
                 logger.info(
                     "visual_task_resumed",
@@ -191,6 +217,19 @@ def generate_visuals_for_job(
                     },
                 )
             else:
+                from billing.wallet import ensure_job_call_budget, reserve_job
+
+                reserve_job(job)
+                check_cost_ceiling(job)
+                from video_pipeline.services.video_gen_client import pick_clip_duration
+
+                estimated_seconds = pick_clip_duration(
+                    clip.target_duration_ms / 1000, client.allowed_durations
+                )
+                ensure_job_call_budget(
+                    job,
+                    unit_cost(config, estimated_seconds, expected_unit="per_second"),
+                )
                 try:
                     task = client.create_task(
                         prompt=style_prompt(clip.prompt, style_suffix=style_suffix),
@@ -202,17 +241,44 @@ def generate_visuals_for_job(
                     raise
                 task_id = task.task_id
                 requested_duration = task.duration_sec
-                pending[key] = task_id
+                pending[key] = {
+                    "id": task_id,
+                    "duration": requested_duration,
+                    "price_per_second": str(
+                        unit_cost(config, 1, expected_unit="per_second")
+                    ),
+                }
                 _save_pending_tasks(job, pending)
 
             try:
                 result = client.wait_for_task(task_id)
+                from video_pipeline.services.video_gen_client import pick_clip_duration
+
+                billed_seconds = requested_duration or pick_clip_duration(
+                    clip.target_duration_ms / 1000, client.allowed_durations
+                )
+                info = pending.get(key)
+                price = (
+                    Decimal(info["price_per_second"])
+                    if isinstance(info, dict)
+                    else unit_cost(config, 1, expected_unit="per_second")
+                )
+                record_api_usage(
+                    config=config,
+                    operation=OPERATION,
+                    job=job,
+                    user=job.user,
+                    units=billed_seconds,
+                    unit_type="seconds",
+                    cost_usd=price * Decimal(billed_seconds),
+                    http_status=200,
+                    success=True,
+                    request_id=task_id,
+                )
                 data = client.download(result.output_urls[0])
             except ProviderRetryableError as exc:
-                # Keep the task id so the retry resumes polling — unless the output expired.
-                if getattr(exc, "error_code", "") == "visual_output_expired":
-                    pending.pop(key, None)
-                    _save_pending_tasks(job, pending)
+                # Re-fetch task outputs on retry; never buy a new generation just
+                # because its temporary download URL expired.
                 _record_failure(config, job, clip, exc, units=requested_duration)
                 raise
             except ProviderError as exc:
@@ -231,23 +297,6 @@ def generate_visuals_for_job(
                 duration_ms = (
                     requested_duration or int(round(clip.target_duration_ms / 1000))
                 ) * 1000
-            billed_seconds = requested_duration or max(
-                1, int(round(duration_ms / 1000))
-            )
-
-            record_api_usage(
-                config=config,
-                operation=OPERATION,
-                job=job,
-                user=job.user,
-                units=billed_seconds,
-                unit_type="seconds",
-                cost_usd=unit_cost(config, billed_seconds, expected_unit="per_second"),
-                http_status=200,
-                success=True,
-                request_id=task_id,
-            )
-
             asset = store_file_asset(
                 job,
                 AssetKind.VISUAL_CLIP,

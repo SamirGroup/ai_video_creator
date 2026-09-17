@@ -1,6 +1,23 @@
 export interface Plan {
   id: string
-  code: 'free' | 'starter' | 'professional' | 'enterprise'
+  code: string
+  tax_pct?: string
+  discount_pct?: string
+  discount_label?: string
+  discount_starts_at?: string | null
+  discount_ends_at?: string | null
+  ai_budget_enabled?: boolean
+  stars_amount?: number
+  features?: Record<string, unknown>
+  quote?: {
+    net: string
+    tax: string
+    total: string
+    ai_budget_usd: string
+    platform_usd: string
+    ai_credits: number
+    discount_pct: string
+  }
   name: string
   price_amount: string
   currency: string
@@ -17,12 +34,7 @@ export interface Plan {
 }
 
 export type SubscriptionStatus =
-  | 'trialing'
-  | 'active'
-  | 'past_due'
-  | 'suspended'
-  | 'canceled'
-  | 'expired'
+  'trialing' | 'active' | 'past_due' | 'suspended' | 'canceled' | 'expired'
 
 export interface Subscription {
   id: string
@@ -41,7 +53,8 @@ export interface Subscription {
   }
 }
 
-export type InvoiceStatus = 'draft' | 'open' | 'paid' | 'failed' | 'void' | 'uncollectible'
+export type InvoiceStatus =
+  'draft' | 'open' | 'paid' | 'failed' | 'void' | 'uncollectible'
 
 export interface Invoice {
   id: string

@@ -101,10 +101,38 @@ def create_checkout_session(*, user, plan: Plan, success_url: str, cancel_url: s
     )
     customer_id = get_or_create_stripe_customer(user, subscription)
 
+    line_items = [{"price": plan.stripe_price_id, "quantity": 1}]
+    if plan.ai_budget_enabled:
+        from billing.economics import quote
+
+        pricing = quote(plan)
+        tax = _stripe().TaxRate.create(
+            display_name="Tax",
+            inclusive=False,
+            percentage=float(plan.tax_pct),
+            idempotency_key=f"plan-tax-exclusive-{plan.tax_pct}",
+        )
+        line_items = [
+            {
+                "price_data": {
+                    "currency": plan.currency.lower(),
+                    "unit_amount": int(Decimal(pricing["net"]) * 100),
+                    "product_data": {"name": plan.name},
+                    "recurring": {
+                        "interval": "month",
+                        "interval_count": 6
+                        if plan.billing_interval == "six_months"
+                        else 1,
+                    },
+                },
+                "quantity": 1,
+                "tax_rates": [tax.id],
+            }
+        ]
     return _stripe().checkout.Session.create(
         customer=customer_id,
         mode="subscription",
-        line_items=[{"price": plan.stripe_price_id, "quantity": 1}],
+        line_items=line_items,
         success_url=success_url,
         cancel_url=cancel_url,
         client_reference_id=str(user.id),
@@ -274,6 +302,20 @@ def _handle_invoice_paid(invoice: dict) -> None:
             extra={"stripe_invoice_id": invoice.get("id")},
         )
         return
+    if (
+        subscription.plan.ai_budget_enabled
+        and invoice.get("currency") == "usd"
+        and invoice.get("total_excluding_tax") is not None
+        and invoice.get("amount_paid", 0) >= invoice.get("total", 0)
+    ):
+        from billing.wallet import credit_payment
+
+        credit_payment(
+            subscription.user,
+            f"stripe:{invoice['id']}",
+            Decimal(str(invoice["total_excluding_tax"])) / 100,
+            plan_code=subscription.plan.code,
+        )
 
     subscription.status = SubscriptionStatus.ACTIVE
     subscription.grace_period_ends_at = None
@@ -653,3 +695,12 @@ def create_payment_setup_checkout(user):
         },
         client_reference_id=str(user.pk),
     )
+
+
+def _handle_charge_refunded(charge):
+    from billing.wallet import reverse_stripe_refund
+
+    reverse_stripe_refund(charge)
+
+
+_EVENT_HANDLERS["charge.refunded"] = _handle_charge_refunded

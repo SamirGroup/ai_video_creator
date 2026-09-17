@@ -1,6 +1,10 @@
 # Amalga oshirish holati — 2026-09-17
 
-## Joriy yangilanish — kod va lokal sinovlar
+## Eng yangi tijoriy yangilanish
+
+Tariflar ($20/$50/$100/$200 + 12%), 70/30 AI balansi, Runway/Veo katalogi, superadmin narx/chegirma boshqaruvi va Telegram arxiv/Mini App kodi qo‘shildi. Tafsilotlar, sozlash tartibi va qolgan cheklovlar: [COMMERCIAL_TELEGRAM_UZ.md](docs/COMMERCIAL_TELEGRAM_UZ.md). Yangi bazadan 367 backend testi va 8 frontend testi o‘tdi. Quyidagi 346 testli hisobot oldingi bosqichga tegishli.
+
+## Oldingi yangilanish — kod va lokal sinovlar
 
 Google OAuth, AI provayderlari va Stripe hisoblari hali sozlanmagan; foydalanuvchi kod va lokal sinovlarni davom ettirishni tasdiqladi. Quyidagi holat eski bosqich yozuvlaridan ustun turadi.
 

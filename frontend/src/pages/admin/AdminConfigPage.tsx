@@ -1,3 +1,5 @@
+import { ProviderPriceEditor } from './ProviderPriceEditor'
+import { CommercialSettings } from './CommercialSettings'
 import { adminApi } from '@/api/admin'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
@@ -30,6 +32,8 @@ export function AdminConfigPage() {
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-semibold text-foreground">{t('admin.config.title')}</h1>
 
+      <CommercialSettings />
+      <ProviderPriceEditor />
       {update.isError && <ErrorState />}
       <Card>
         <CardHeader>

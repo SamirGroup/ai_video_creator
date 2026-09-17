@@ -4,6 +4,7 @@ Business roles (`creator`, `moderator`, `support`, `finance`, `admin`) live in
 `accounts.models.Role`/`UserRole` and are independent of Django's `is_staff`/
 `is_superuser` (which only gate the Django admin site).
 """
+
 from __future__ import annotations
 
 from rest_framework.permissions import BasePermission
@@ -23,6 +24,8 @@ class HasRole(BasePermission):
         user = request.user
         if not (user and user.is_authenticated):
             return False
+        if user.is_superuser:
+            return True
         if not self.allowed_roles:
             return True
         return user.user_roles.filter(role__code__in=self.allowed_roles).exists()
@@ -63,7 +66,10 @@ class IsStaffWith2FA(BasePermission):
         user = request.user
         if not (user and user.is_authenticated):
             return False
-        if not user.user_roles.filter(role__code__in=self.STAFF_ROLES).exists():
+        if (
+            not user.is_superuser
+            and not user.user_roles.filter(role__code__in=self.STAFF_ROLES).exists()
+        ):
             return False
         if not getattr(settings, "STAFF_2FA_REQUIRED", True):
             return True

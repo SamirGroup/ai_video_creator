@@ -14,6 +14,7 @@ Polling uses a capped exponential backoff and a hard wall-clock budget
 (`task_timeout_sec`); exceeding it raises `ProviderTimeoutError` (retryable —
 the stage re-polls the same task id on retry instead of paying twice).
 """
+
 from __future__ import annotations
 
 import logging
@@ -65,11 +66,15 @@ class VideoTaskResult:
 # ---------------------------------------------------------------------------
 # Pure helpers
 # ---------------------------------------------------------------------------
-def pick_clip_duration(target_sec: float, allowed: tuple[int, ...] | list[int] = DEFAULT_ALLOWED_DURATIONS) -> int:
+def pick_clip_duration(
+    target_sec: float, allowed: tuple[int, ...] | list[int] = DEFAULT_ALLOWED_DURATIONS
+) -> int:
     """Smallest allowed clip length that covers `target_sec`, else the longest
     (assembly loops/trims to the exact segment length, FR-50).
     """
-    options = sorted({int(d) for d in allowed if int(d) > 0}) or list(DEFAULT_ALLOWED_DURATIONS)
+    options = sorted({int(d) for d in allowed if int(d) > 0}) or list(
+        DEFAULT_ALLOWED_DURATIONS
+    )
     for option in options:
         if option >= target_sec:
             return option
@@ -110,7 +115,10 @@ class RunwayClient:
         self._clock = clock
 
         self.base_url = str(
-            config.get_option("base_url", getattr(settings, "RUNWAY_BASE_URL", "https://api.dev.runwayml.com/v1"))
+            config.get_option(
+                "base_url",
+                getattr(settings, "RUNWAY_BASE_URL", "https://api.dev.runwayml.com/v1"),
+            )
         ).rstrip("/")
         self.model = config.model_name
         if not self.model:
@@ -118,32 +126,69 @@ class RunwayClient:
                 "api_credentials_config row for service='video_gen' has an empty model_name.",
                 error_code="provider_not_configured",
             )
-        self.api_version = str(config.get_option("api_version", getattr(settings, "RUNWAY_API_VERSION", DEFAULT_API_VERSION)))
-        self.create_path = str(config.get_option("create_path", "text_to_video")).strip("/")
+        self.api_version = str(
+            config.get_option(
+                "api_version",
+                getattr(settings, "RUNWAY_API_VERSION", DEFAULT_API_VERSION),
+            )
+        )
+        self.create_path = str(config.get_option("create_path", "text_to_video")).strip(
+            "/"
+        )
         self.request_timeout = int(config.get_option("request_timeout_sec", 60))
-        self.task_timeout = int(config.get_option("task_timeout_sec", getattr(settings, "VISUAL_TASK_TIMEOUT_SEC", 900)))
-        self.poll_base = float(config.get_option("poll_interval_sec", getattr(settings, "VISUAL_POLL_INTERVAL_SEC", 5)))
+        self.task_timeout = int(
+            config.get_option(
+                "task_timeout_sec", getattr(settings, "VISUAL_TASK_TIMEOUT_SEC", 900)
+            )
+        )
+        self.poll_base = float(
+            config.get_option(
+                "poll_interval_sec", getattr(settings, "VISUAL_POLL_INTERVAL_SEC", 5)
+            )
+        )
         self.poll_max = float(config.get_option("poll_max_interval_sec", 30))
-        self.allowed_durations = tuple(int(d) for d in config.get_option("allowed_durations", DEFAULT_ALLOWED_DURATIONS))
+        self.allowed_durations = tuple(
+            int(d)
+            for d in config.get_option("allowed_durations", DEFAULT_ALLOWED_DURATIONS)
+        )
         self.ratio_map = dict(config.get_option("ratio_map", {}) or {})
         self.download_timeout = int(config.get_option("download_timeout_sec", 300))
 
     # -- public API ----------------------------------------------------------
-    def create_task(self, *, prompt: str, target_duration_sec: float, aspect_ratio: str = "16:9", image_url: str | None = None, seed: int | None = None) -> VideoTask:
+    def create_task(
+        self,
+        *,
+        prompt: str,
+        target_duration_sec: float,
+        aspect_ratio: str = "16:9",
+        image_url: str | None = None,
+        seed: int | None = None,
+    ) -> VideoTask:
         prompt = (prompt or "").strip()
         if not prompt:
-            raise ProviderPermanentError("Cannot create a video task with an empty prompt.", error_code="visual_empty_prompt")
+            raise ProviderPermanentError(
+                "Cannot create a video task with an empty prompt.",
+                error_code="visual_empty_prompt",
+            )
 
         duration = pick_clip_duration(target_duration_sec, self.allowed_durations)
         ratio = ratio_for_aspect(aspect_ratio, self.ratio_map)
-        payload: dict = {"model": self.model, "promptText": prompt, "duration": duration, "ratio": ratio}
+        payload: dict = {
+            "model": self.model,
+            "promptText": prompt,
+            "duration": duration,
+            "ratio": ratio,
+        }
+        payload.update(self.config.get_option("request_options", {}))
         if image_url:
             payload["promptImage"] = image_url
         if seed is not None:
             payload["seed"] = int(seed)
 
         started = self._clock()
-        response = self._request("POST", f"{self.base_url}/{self.create_path}", json=payload)
+        response = self._request(
+            "POST", f"{self.base_url}/{self.create_path}", json=payload
+        )
         latency_ms = int((self._clock() - started) * 1000)
         data = self._json(response)
         task_id = str(data.get("id") or "")
@@ -161,7 +206,9 @@ class RunwayClient:
     def get_task(self, task_id: str) -> dict:
         return self._json(self._request("GET", f"{self.base_url}/tasks/{task_id}"))
 
-    def wait_for_task(self, task_id: str, *, timeout_sec: int | None = None) -> VideoTaskResult:
+    def wait_for_task(
+        self, task_id: str, *, timeout_sec: int | None = None
+    ) -> VideoTaskResult:
         budget = timeout_sec if timeout_sec is not None else self.task_timeout
         deadline = self._clock() + budget
         attempt = 0
@@ -172,30 +219,61 @@ class RunwayClient:
             if status == TERMINAL_SUCCESS:
                 outputs = tuple(str(u) for u in (data.get("output") or []) if u)
                 if not outputs:
-                    raise ProviderResponseError(f"Runway task {task_id} succeeded without output URLs.")
-                return VideoTaskResult(task_id=task_id, status=status, output_urls=outputs, raw=data, polls=attempt)
+                    raise ProviderResponseError(
+                        f"Runway task {task_id} succeeded without output URLs."
+                    )
+                return VideoTaskResult(
+                    task_id=task_id,
+                    status=status,
+                    output_urls=outputs,
+                    raw=data,
+                    polls=attempt,
+                )
             if status in TERMINAL_FAILURE:
                 code = str(data.get("failureCode") or "")
                 # Runway's own retryable hints ("INTERNAL", throttling) are worth one more attempt.
                 if code.upper().startswith("INTERNAL") or "THROTTL" in code.upper():
-                    raise ProviderRetryableError(f"Runway task {task_id} failed with a transient code ({code}).", error_code="visual_task_failed_transient")
-                raise ProviderPermanentError(f"Runway task {task_id} failed ({code or status}).", error_code="visual_task_failed")
+                    raise ProviderRetryableError(
+                        f"Runway task {task_id} failed with a transient code ({code}).",
+                        error_code="visual_task_failed_transient",
+                    )
+                raise ProviderPermanentError(
+                    f"Runway task {task_id} failed ({code or status}).",
+                    error_code="visual_task_failed",
+                )
             if self._clock() >= deadline:
-                raise ProviderTimeoutError(f"Runway task {task_id} did not finish within {budget}s (last status={status or 'unknown'}).")
-            self._sleep(poll_delay(attempt - 1, base_sec=self.poll_base, max_sec=self.poll_max))
+                raise ProviderTimeoutError(
+                    f"Runway task {task_id} did not finish within {budget}s (last status={status or 'unknown'})."
+                )
+            self._sleep(
+                poll_delay(attempt - 1, base_sec=self.poll_base, max_sec=self.poll_max)
+            )
 
     def download(self, url: str) -> bytes:
         try:
-            response = self._session.get(url, timeout=self.download_timeout, stream=True)
+            response = self._session.get(
+                url, timeout=self.download_timeout, stream=True
+            )
         except requests.exceptions.Timeout as exc:
-            raise ProviderTimeoutError("Downloading the generated clip timed out.") from exc
+            raise ProviderTimeoutError(
+                "Downloading the generated clip timed out."
+            ) from exc
         except requests.exceptions.RequestException as exc:
-            raise ProviderRetryableError(f"Downloading the generated clip failed: {type(exc).__name__}.") from exc
+            raise ProviderRetryableError(
+                f"Downloading the generated clip failed: {type(exc).__name__}."
+            ) from exc
         if response.status_code >= 500 or response.status_code == 429:
-            raise ProviderRetryableError(f"Clip download returned HTTP {response.status_code}.", http_status=response.status_code)
+            raise ProviderRetryableError(
+                f"Clip download returned HTTP {response.status_code}.",
+                http_status=response.status_code,
+            )
         if response.status_code >= 400:
             # Output URLs are short-lived; an expired URL means the task must be re-created.
-            raise ProviderRetryableError(f"Clip download returned HTTP {response.status_code}.", error_code="visual_output_expired", http_status=response.status_code)
+            raise ProviderRetryableError(
+                f"Clip download returned HTTP {response.status_code}.",
+                error_code="visual_output_expired",
+                http_status=response.status_code,
+            )
         data = response.content
         if not data:
             raise ProviderResponseError("Downloaded clip is empty.")
@@ -211,13 +289,25 @@ class RunwayClient:
 
     def _request(self, method: str, url: str, *, json: dict | None = None):
         try:
-            response = self._session.request(method, url, headers=self._headers(), json=json, timeout=self.request_timeout)
+            response = self._session.request(
+                method,
+                url,
+                headers=self._headers(),
+                json=json,
+                timeout=self.request_timeout,
+            )
         except requests.exceptions.Timeout as exc:
-            raise ProviderTimeoutError(f"Runway request timed out after {self.request_timeout}s.") from exc
+            raise ProviderTimeoutError(
+                f"Runway request timed out after {self.request_timeout}s."
+            ) from exc
         except requests.exceptions.ConnectionError as exc:
-            raise ProviderRetryableError("Could not reach Runway (connection error).") from exc
+            raise ProviderRetryableError(
+                "Could not reach Runway (connection error)."
+            ) from exc
         except requests.exceptions.RequestException as exc:
-            raise ProviderRetryableError(f"Runway request failed: {type(exc).__name__}.") from exc
+            raise ProviderRetryableError(
+                f"Runway request failed: {type(exc).__name__}."
+            ) from exc
         self._raise_for_status(response)
         return response
 
@@ -234,7 +324,9 @@ class RunwayClient:
         if status in (401, 403):
             raise ProviderAuthError(detail, http_status=status)
         if status == 402:
-            raise ProviderPermanentError(detail, error_code="provider_insufficient_credit", http_status=status)
+            raise ProviderPermanentError(
+                detail, error_code="provider_insufficient_credit", http_status=status
+            )
         if status >= 500:
             raise ProviderRetryableError(detail, http_status=status)
         raise ProviderPermanentError(detail, http_status=status)
@@ -246,5 +338,7 @@ class RunwayClient:
         except ValueError as exc:
             raise ProviderResponseError("Runway returned a non-JSON body.") from exc
         if not isinstance(data, dict):
-            raise ProviderResponseError("Runway returned an unexpected top-level JSON type.")
+            raise ProviderResponseError(
+                "Runway returned an unexpected top-level JSON type."
+            )
         return data

@@ -1,7 +1,9 @@
 """Aggregates every app's `/api/v1/...` URL group (SPEC section 6)."""
+
 from django.urls import include, path
 
 urlpatterns = [
+    path("", include("telegram_integration.urls")),
     path("", include("accounts.urls")),
     path("", include("channels.urls")),
     path("", include("billing.urls")),

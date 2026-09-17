@@ -19,6 +19,8 @@ not worth the storage churn.
 
 from __future__ import annotations
 
+from video_pipeline.services.stage_lock import serialized_paid_stage
+
 from video_pipeline.services.preferences import job_preferences
 
 import logging
@@ -134,6 +136,11 @@ def timing_from_asset(asset: VideoAsset) -> list[SegmentTiming]:
 def _synthesize_and_log(
     client, config, job, text: str, *, voice_id: str, language: str
 ):
+    from billing.wallet import ensure_job_call_budget, reserve_job
+
+    reserve_job(job)
+
+    ensure_job_call_budget(job, unit_cost(config, len(text), expected_unit="per_char"))
     try:
         result = client.synthesize(text, voice_id=voice_id, language_code=language)
     except Exception as exc:
@@ -167,6 +174,9 @@ def _synthesize_and_log(
     return result
 
 
+
+
+@serialized_paid_stage
 def generate_voice_for_job(
     job, *, client=None, runner=media_tools.run_command, workdir: str | None = None
 ) -> VoiceResult:

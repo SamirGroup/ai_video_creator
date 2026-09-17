@@ -42,7 +42,11 @@ class AdminUserListView(ListAPIView):
     pagination_class = CreatedAtCursorPagination
 
     def get_queryset(self):
-        qs = User.objects.all().select_related("subscription__plan").order_by("-created_at")
+        qs = (
+            User.objects.all()
+            .select_related("subscription__plan")
+            .order_by("-created_at")
+        )
         search = self.request.query_params.get("search")
         if search:
             qs = qs.filter(email__icontains=search)
@@ -55,9 +59,13 @@ class AdminUserDetailView(APIView):
     permission_classes = [IsAdmin]
 
     def get(self, request, user_id):
-        user = User.objects.filter(id=user_id).select_related("subscription__plan").first()
+        user = (
+            User.objects.filter(id=user_id).select_related("subscription__plan").first()
+        )
         if user is None:
-            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         services.view_user(request.user, user, request=request)
         return Response(AdminUserDetailSerializer(user).data)
 
@@ -70,7 +78,9 @@ class AdminUserSuspendView(APIView):
     def post(self, request, user_id):
         user = User.objects.filter(id=user_id).first()
         if user is None:
-            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         user = services.suspend_user(request.user, user, request=request)
         return Response(AdminUserDetailSerializer(user).data)
 
@@ -83,7 +93,9 @@ class AdminUserReactivateView(APIView):
     def post(self, request, user_id):
         user = User.objects.filter(id=user_id).first()
         if user is None:
-            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         user = services.reactivate_user(request.user, user, request=request)
         return Response(AdminUserDetailSerializer(user).data)
 
@@ -96,10 +108,14 @@ class AdminUserRolesView(APIView):
     def post(self, request, user_id):
         user = User.objects.filter(id=user_id).first()
         if user is None:
-            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         serializer = SetRolesSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = services.set_roles(request.user, user, serializer.validated_data["role_codes"], request=request)
+        user = services.set_roles(
+            request.user, user, serializer.validated_data["role_codes"], request=request
+        )
         return Response(AdminUserDetailSerializer(user).data)
 
 
@@ -127,7 +143,9 @@ class AdminVideoJobRetryView(APIView):
     def post(self, request, job_id):
         job = VideoJob.objects.filter(id=job_id).first()
         if job is None:
-            return Response({"detail": "Video job not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Video job not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         job = services.retry_job(request.user, job, request=request)
         return Response(AdminVideoJobSerializer(job).data)
 
@@ -140,7 +158,9 @@ class AdminVideoJobCancelView(APIView):
     def post(self, request, job_id):
         job = VideoJob.objects.filter(id=job_id).first()
         if job is None:
-            return Response({"detail": "Video job not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Video job not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         job = services.cancel_job(request.user, job, request=request)
         return Response(AdminVideoJobSerializer(job).data)
 
@@ -178,9 +198,13 @@ class AdminPlanDetailView(APIView):
 
         plan = Plan.objects.filter(id=plan_id).first()
         if plan is None:
-            return Response({"detail": "Plan not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Plan not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         before = AdminPlanSerializer(plan).data
-        serializer = AdminPlanSerializer(plan, data=request.data, partial=True)
+        serializer = AdminPlanSerializer(
+            plan, data=request.data, partial=True, context={"request": request}
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
         record_audit_event(
@@ -212,14 +236,19 @@ class AdminProviderListView(ListAPIView):
 class AdminProviderDetailView(APIView):
     """PATCH /api/v1/admin/providers/{id} (FR-84: model/priority/config, never a raw secret)."""
 
-    permission_classes = [IsAdmin]
+    from telegram_integration.views import IsSuperAdmin
+
+    permission_classes = [IsSuperAdmin]
 
     def patch(self, request, provider_id):
         from audit.services import record_audit_event
 
         config = ApiCredentialConfig.objects.filter(id=provider_id).first()
         if config is None:
-            return Response({"detail": "Provider config not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Provider config not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         serializer = AdminProviderSerializer(config, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -243,8 +272,16 @@ class AdminProviderRotateSecretView(APIView):
     def post(self, request, provider_id):
         config = ApiCredentialConfig.objects.filter(id=provider_id).first()
         if config is None:
-            return Response({"detail": "Provider config not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Provider config not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         serializer = RotateSecretSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        config = services.rotate_secret(request.user, config, serializer.validated_data["secret_ref"], request=request)
+        config = services.rotate_secret(
+            request.user,
+            config,
+            serializer.validated_data["secret_ref"],
+            request=request,
+        )
         return Response(AdminProviderSerializer(config).data)

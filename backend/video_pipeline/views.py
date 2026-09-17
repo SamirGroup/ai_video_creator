@@ -62,11 +62,17 @@ def _get_owned_job(user, job_id) -> VideoJob | None:
     """Owner-scoped lookup shared by every job-mutating endpoint below — 404
     (not 403) on a foreign job so existence is never leaked (no IDOR).
     """
-    return VideoJob.objects.select_related("preference", "channel", "user").filter(id=job_id, user=user).first()
+    return (
+        VideoJob.objects.select_related("preference", "channel", "user")
+        .filter(id=job_id, user=user)
+        .first()
+    )
 
 
 def _job_not_found() -> Response:
-    return Response({"detail": "Video job not found."}, status=status.HTTP_404_NOT_FOUND)
+    return Response(
+        {"detail": "Video job not found."}, status=status.HTTP_404_NOT_FOUND
+    )
 
 
 class GenerateVideoView(APIView):
@@ -87,14 +93,23 @@ class GenerateVideoView(APIView):
         serializer.is_valid(raise_exception=True)
         channel_id = serializer.validated_data.get("channel_id")
         if channel_id is None:
-            channels = list(YouTubeChannel.objects.filter(user=request.user, deleted_at__isnull=True)[:2])
+            channels = list(
+                YouTubeChannel.objects.filter(
+                    user=request.user, deleted_at__isnull=True
+                )[:2]
+            )
             if len(channels) != 1:
-                return Response({"detail": "channel_id is required."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {"detail": "channel_id is required."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             channel = channels[0]
         else:
             channel = planning.get_owned_channel(request.user, channel_id)
         job = planning.generate_now(request.user, channel, request=request)
-        return Response(VideoJobDetailSerializer(job).data, status=status.HTTP_202_ACCEPTED)
+        return Response(
+            VideoJobDetailSerializer(job).data, status=status.HTTP_202_ACCEPTED
+        )
 
 
 class CancelVideoJobView(APIView):
@@ -107,7 +122,9 @@ class CancelVideoJobView(APIView):
 
         job = VideoJob.objects.filter(id=job_id, user=request.user).first()
         if job is None:
-            return Response({"detail": "Video job not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Video job not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         job = planning.cancel_job(request.user, job, request=request)
         return Response(VideoJobDetailSerializer(job).data)
 
@@ -123,7 +140,9 @@ class UpdateVideoMetadataView(APIView):
             return _job_not_found()
         serializer = VideoMetadataUpdateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        job = approval.update_metadata(request.user, job, serializer.validated_data, request=request)
+        job = approval.update_metadata(
+            request.user, job, serializer.validated_data, request=request
+        )
         return Response(VideoJobDetailSerializer(job).data)
 
 
@@ -138,10 +157,39 @@ class VideoPreviewView(APIView):
             return _job_not_found()
         if not job.final_video_s3_key:
             return Response(
-                {"detail": "No preview is available for this video yet."}, status=status.HTTP_409_CONFLICT
+                {"detail": "No preview is available for this video yet."},
+                status=status.HTTP_409_CONFLICT,
+            )
+        from core.storage import get_storage
+        from django.core.cache import cache
+        from telegram_integration.models import TelegramArchive
+        from telegram_integration.archive import restore_video
+
+        if (
+            not get_storage().exists(job.final_video_s3_key)
+            and TelegramArchive.objects.filter(
+                job=job, status="ready", checksum=job.moderation_approved_sha256
+            ).exists()
+        ):
+            key = f"telegram-restore:{job.pk}"
+            if cache.get(key) == "failed":
+                return Response(
+                    {"detail": "Telegram restore failed. Retry in one minute."},
+                    status=503,
+                )
+            if cache.add(key, "restoring", 600):
+                restore_video.delay(str(job.pk))
+            return Response(
+                {"status": "restoring", "preview_url": None, "expires_at": None},
+                status=202,
             )
         job = approval.ensure_preview_token(job)
-        return Response({"preview_url": approval.preview_url(job), "expires_at": job.preview_expires_at})
+        return Response(
+            {
+                "preview_url": approval.preview_url(job),
+                "expires_at": job.preview_expires_at,
+            }
+        )
 
 
 class ApproveVideoView(APIView):
@@ -189,5 +237,7 @@ class RejectVideoView(APIView):
             return _job_not_found()
         serializer = RejectVideoSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        job = approval.reject_job(request.user, job, serializer.validated_data["reason"], request=request)
+        job = approval.reject_job(
+            request.user, job, serializer.validated_data["reason"], request=request
+        )
         return Response(VideoJobDetailSerializer(job).data)

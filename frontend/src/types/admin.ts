@@ -47,6 +47,7 @@ export interface FinanceOverview {
 }
 
 export interface ProviderConfig {
+  config?: Record<string, unknown>
   id: string
   service: 'llm' | 'tts' | 'video_gen' | 'music' | 'moderation' | 'translation' | 'stt'
   provider: string

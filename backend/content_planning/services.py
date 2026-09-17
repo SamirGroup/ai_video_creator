@@ -227,6 +227,16 @@ def generate_now(user, channel: YouTubeChannel, request=None):
     if pref is None:
         raise PreferencesRequired()
 
+    model = request.data.get("video_model") if request else None
+    if model:
+        from rest_framework.exceptions import ValidationError
+
+        subscription = getattr(user, "subscription", None)
+        allowed = (
+            subscription.plan.features.get("video_models", []) if subscription else []
+        )
+        if model not in allowed:
+            raise ValidationError("This video model is not included in your plan.")
     now = timezone.now()
     with transaction.atomic():
         job = VideoJob.objects.create(
@@ -238,10 +248,14 @@ def generate_now(user, channel: YouTubeChannel, request=None):
             scheduled_for=now,
             language=pref.language,
             duration_sec=pref.video_duration_sec,
+            generation_context={"video_model": model} if model else {},
         )
         reserve_quota(
             user, kind="video", job=job
         )  # raises 402/409 -> transaction rolled back
+        from billing.wallet import reserve_job
+
+        reserve_job(job)
         record_audit_event(
             actor_type="user",
             actor_id=user.id,

@@ -16,6 +16,8 @@ model access so it can be unit-tested without a database.
 
 from __future__ import annotations
 
+from video_pipeline.services.stage_lock import serialized_paid_stage
+
 from video_pipeline.services.preferences import job_preferences
 
 import difflib
@@ -39,7 +41,6 @@ from providers.services import (
 )
 from video_pipeline.services import prompts
 from video_pipeline.services.exceptions import (
-    CostCeilingExceeded,
     JobNotReady,
     ScriptParseError,
     ScriptValidationError,
@@ -347,21 +348,27 @@ def _preference_of(job):
 
 
 def _check_cost_ceiling(job, total_cost: Decimal) -> None:
-    try:
-        ceiling = Decimal(str(getattr(settings, "JOB_COST_CEILING_USD", "0") or "0"))
-    except Exception:  # pragma: no cover - defensive
-        ceiling = Decimal("0")
-    if ceiling > 0 and total_cost > ceiling:
-        raise CostCeilingExceeded(
-            f"Job {job.pk} spent ${total_cost} which exceeds the ${ceiling} per-job ceiling (FR-52)."
-        )
+    from video_pipeline.services.cost_control import check_cost_ceiling
+
+    check_cost_ceiling(job, refresh=False)
 
 
 def _call_llm_and_log(client, config, job, messages) -> LLMResponse:
     """One provider call + exactly one `api_usage_logs` row, success or failure."""
     from video_pipeline.services.cost_control import check_cost_ceiling
 
+    from billing.wallet import reserve_job
+
+    reserve_job(job)
     check_cost_ceiling(job)
+    from billing.wallet import ensure_job_call_budget
+
+    estimate = compute_token_cost(
+        config,
+        prompt_tokens=sum(len(str(m.get("content", "")).encode()) for m in messages),
+        completion_tokens=int(config.get_option("max_output_tokens", 8000)),
+    )
+    ensure_job_call_budget(job, estimate)
     try:
         response = client.chat_completion(messages=messages)
     except Exception as exc:
@@ -394,6 +401,8 @@ def _call_llm_and_log(client, config, job, messages) -> LLMResponse:
         job=job,
         user=job.user,
         units=response.total_tokens,
+        prompt_tokens=response.prompt_tokens,
+        completion_tokens=response.completion_tokens,
         unit_type="tokens",
         cost_usd=cost,
         latency_ms=response.latency_ms,
@@ -404,6 +413,9 @@ def _call_llm_and_log(client, config, job, messages) -> LLMResponse:
     return response
 
 
+
+
+@serialized_paid_stage
 def generate_script_for_job(job, *, attempt: int = 1, client=None) -> GeneratedScript:
     """Generate, validate and persist the script for `job`.
 

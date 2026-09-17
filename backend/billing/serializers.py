@@ -4,6 +4,13 @@ from billing.models import Plan, Subscription
 
 
 class PlanSerializer(serializers.ModelSerializer):
+    quote = serializers.SerializerMethodField()
+
+    def get_quote(self, obj):
+        from billing.economics import quote
+
+        return quote(obj)
+
     class Meta:
         model = Plan
         fields = [
@@ -11,6 +18,13 @@ class PlanSerializer(serializers.ModelSerializer):
             "code",
             "name",
             "price_amount",
+            "tax_pct",
+            "discount_pct",
+            "discount_label",
+            "discount_starts_at",
+            "discount_ends_at",
+            "ai_budget_enabled",
+            "stars_amount",
             "currency",
             "billing_interval",
             "videos_per_period",
@@ -21,6 +35,7 @@ class PlanSerializer(serializers.ModelSerializer):
             "priority_queue",
             "sla_hours",
             "features",
+            "quote",
         ]
         read_only_fields = fields
 

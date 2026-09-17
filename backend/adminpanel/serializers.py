@@ -38,20 +38,28 @@ class AdminUserListSerializer(serializers.ModelSerializer):
 
 class AdminUserDetailSerializer(AdminUserListSerializer):
     class Meta(AdminUserListSerializer.Meta):
-        fields = AdminUserListSerializer.Meta.fields + ["marketing_opt_in", "is_totp_enabled", "timezone"]
+        fields = AdminUserListSerializer.Meta.fields + [
+            "marketing_opt_in",
+            "is_totp_enabled",
+            "timezone",
+        ]
         read_only_fields = fields
 
 
 class SetRolesSerializer(serializers.Serializer):
     """POST /admin/users/{id}/roles body — replaces the full role set (FR-79)."""
 
-    role_codes = serializers.ListField(child=serializers.CharField(max_length=32), allow_empty=True)
+    role_codes = serializers.ListField(
+        child=serializers.CharField(max_length=32), allow_empty=True
+    )
 
     def validate_role_codes(self, value: list[str]) -> list[str]:
         valid = set(Role.objects.filter(code__in=value).values_list("code", flat=True))
         missing = set(value) - valid
         if missing:
-            raise serializers.ValidationError(f"Unknown role code(s): {sorted(missing)}")
+            raise serializers.ValidationError(
+                f"Unknown role code(s): {sorted(missing)}"
+            )
         return value
 
 
@@ -79,6 +87,34 @@ class AdminVideoJobSerializer(serializers.ModelSerializer):
 
 
 class AdminPlanSerializer(serializers.ModelSerializer):
+    def validate(self, attrs):
+        request = self.context.get("request")
+        if request and not (request.user.is_superuser and request.user.is_totp_enabled):
+            raise serializers.ValidationError(
+                "Only a superadmin with 2FA can edit commercial plans."
+            )
+        from decimal import Decimal
+
+        for field in ("tax_pct", "discount_pct"):
+            value = attrs.get(field, getattr(self.instance, field, 0))
+            if not Decimal("0") <= value <= Decimal("100"):
+                raise serializers.ValidationError(
+                    {field: "Use a percentage between 0 and 100."}
+                )
+        if attrs.get("price_amount", 0) < 0:
+            raise serializers.ValidationError(
+                {"price_amount": "Price must not be negative."}
+            )
+        start = attrs.get(
+            "discount_starts_at", getattr(self.instance, "discount_starts_at", None)
+        )
+        end = attrs.get(
+            "discount_ends_at", getattr(self.instance, "discount_ends_at", None)
+        )
+        if start and end and end <= start:
+            raise serializers.ValidationError("Discount end must be after its start.")
+        return attrs
+
     class Meta:
         model = Plan
         fields = [
@@ -86,6 +122,13 @@ class AdminPlanSerializer(serializers.ModelSerializer):
             "code",
             "name",
             "price_amount",
+            "tax_pct",
+            "discount_pct",
+            "discount_label",
+            "discount_starts_at",
+            "discount_ends_at",
+            "ai_budget_enabled",
+            "stars_amount",
             "currency",
             "billing_interval",
             "videos_per_period",
