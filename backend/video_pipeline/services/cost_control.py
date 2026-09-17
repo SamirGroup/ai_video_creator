@@ -11,6 +11,7 @@ every later stage goes through this module so the rule lives in one place:
   total passed `settings.JOB_COST_CEILING_USD`. Called **before** every paid
   provider call in the expensive stages (visuals), and after each stage.
 """
+
 from __future__ import annotations
 
 import logging
@@ -51,7 +52,9 @@ def unit_cost(config: ApiCredentialConfig, units, *, expected_unit: str) -> Deci
     if row_price >= 0 and config.cost_unit == expected_unit:
         return (quantity * row_price).quantize(COST_QUANT, rounding=ROUND_HALF_UP)
 
-    option_price = _decimal(config.get_option(f"{expected_unit}_cost_usd"), Decimal("-1"))
+    option_price = _decimal(
+        config.get_option(f"{expected_unit}_cost_usd"), Decimal("-1")
+    )
     if option_price >= 0:
         return (quantity * option_price).quantize(COST_QUANT, rounding=ROUND_HALF_UP)
 
@@ -83,4 +86,22 @@ def check_cost_ceiling(job, *, refresh: bool = True) -> Decimal:
         raise CostCeilingExceeded(
             f"Job {job.pk} spent ${total} which exceeds the ${ceiling} per-job ceiling (FR-52)."
         )
+    # Revisions share one budget, so splitting work across replacement jobs
+    # cannot reset the spending limit.
+    if job.parent_job_id:
+        from django.db.models import Sum
+        from video_pipeline.models import VideoJob
+
+        root = job
+        while root.parent_job_id:
+            root = root.parent_job
+        descendants = VideoJob.objects.filter(revision_origin__root_job=root)
+        spent = root.total_cost_usd + (
+            descendants.aggregate(total=Sum("total_cost_usd"))["total"] or Decimal("0")
+        )
+        budget = _decimal(getattr(settings, "MODERATION_REVISION_BUDGET_USD", "30"))
+        if budget <= 0 or spent >= budget:
+            raise CostCeilingExceeded(
+                "The shared moderation revision budget is exhausted."
+            )
     return total

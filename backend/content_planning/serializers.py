@@ -1,4 +1,5 @@
-"""FR-33/FR-34 content preference validation (Q3: English only in MVP)."""
+"""FR-33/FR-34 content preference validation."""
+
 from __future__ import annotations
 
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -8,6 +9,7 @@ from rest_framework import serializers
 
 from billing.quota import plan_limits_for
 from content_planning.models import ContentPreference, Frequency
+from core.languages import normalize_language
 
 
 class ContentPreferenceSerializer(serializers.ModelSerializer):
@@ -39,6 +41,7 @@ class ContentPreferenceSerializer(serializers.ModelSerializer):
             "voice_id",
             "music_style",
             "is_paused",
+            "automatic_schedule_enabled",
             "created_at",
             "updated_at",
         ]
@@ -57,7 +60,10 @@ class ContentPreferenceSerializer(serializers.ModelSerializer):
         return value
 
     def validate_language(self, value: str) -> str:
-        value = value.strip().lower()
+        try:
+            value = normalize_language(value)
+        except ValueError as exc:
+            raise serializers.ValidationError(str(exc)) from None
         if value not in settings.SUPPORTED_CONTENT_LANGUAGES:
             raise serializers.ValidationError(
                 f"Only {', '.join(settings.SUPPORTED_CONTENT_LANGUAGES)} content is supported in this release."
@@ -67,7 +73,9 @@ class ContentPreferenceSerializer(serializers.ModelSerializer):
     def validate_video_duration_sec(self, value: int) -> int:
         lo, hi = settings.VIDEO_DURATION_MIN_SEC, settings.VIDEO_DURATION_MAX_SEC
         if not lo <= value <= hi:
-            raise serializers.ValidationError(f"Video duration must be between {lo} and {hi} seconds.")
+            raise serializers.ValidationError(
+                f"Video duration must be between {lo} and {hi} seconds."
+            )
         user = self.context.get("user")
         if user is not None:
             limits = plan_limits_for(user)
@@ -82,7 +90,9 @@ class ContentPreferenceSerializer(serializers.ModelSerializer):
         try:
             ZoneInfo(value)
         except (ZoneInfoNotFoundError, ValueError, KeyError):
-            raise serializers.ValidationError("Unknown IANA timezone (e.g. 'Europe/London').") from None
+            raise serializers.ValidationError(
+                "Unknown IANA timezone (e.g. 'Europe/London')."
+            ) from None
         return value
 
     def validate_banned_topics(self, value: list[str]) -> list[str]:
@@ -101,15 +111,27 @@ class ContentPreferenceSerializer(serializers.ModelSerializer):
         days = attrs.get("publish_days", getattr(self.instance, "publish_days", None))
         if frequency == Frequency.WEEKLY:
             if not days:
-                raise serializers.ValidationError({"publish_days": "Weekly schedules need at least one weekday (0=Monday .. 6=Sunday)."})
+                raise serializers.ValidationError(
+                    {
+                        "publish_days": "Weekly schedules need at least one weekday (0=Monday .. 6=Sunday)."
+                    }
+                )
             bad = [d for d in days if not 0 <= int(d) <= 6]
             if bad:
-                raise serializers.ValidationError({"publish_days": "Weekdays must be between 0 (Monday) and 6 (Sunday)."})
+                raise serializers.ValidationError(
+                    {
+                        "publish_days": "Weekdays must be between 0 (Monday) and 6 (Sunday)."
+                    }
+                )
             attrs["publish_days"] = sorted({int(d) for d in days})
         elif frequency == Frequency.MONTHLY:
             if days:
                 if len(days) != 1 or not 1 <= int(days[0]) <= 28:
-                    raise serializers.ValidationError({"publish_days": "Monthly schedules take a single day of month between 1 and 28."})
+                    raise serializers.ValidationError(
+                        {
+                            "publish_days": "Monthly schedules take a single day of month between 1 and 28."
+                        }
+                    )
                 attrs["publish_days"] = [int(days[0])]
         elif frequency == Frequency.DAILY and "publish_days" in attrs:
             attrs["publish_days"] = None

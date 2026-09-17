@@ -7,7 +7,18 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from content_planning import services
-from content_planning.serializers import ContentPreferenceReadSerializer, ContentPreferenceSerializer
+from content_planning.serializers import (
+    ContentPreferenceReadSerializer,
+    ContentPreferenceSerializer,
+)
+from core.languages import DEFAULT_LANGUAGE, LANGUAGES
+
+
+class ContentLanguagesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({"default": DEFAULT_LANGUAGE, "languages": LANGUAGES})
 
 
 class ContentPreferenceView(APIView):
@@ -24,19 +35,29 @@ class ContentPreferenceView(APIView):
 
     def post(self, request, channel_id):
         channel = services.get_owned_channel(request.user, channel_id)
-        serializer = ContentPreferenceSerializer(data=request.data, context={"user": request.user})
+        serializer = ContentPreferenceSerializer(
+            data=request.data, context={"user": request.user}
+        )
         serializer.is_valid(raise_exception=True)
-        pref = services.create_preference(request.user, channel, serializer.validated_data, request=request)
-        return Response(ContentPreferenceReadSerializer(pref).data, status=status.HTTP_201_CREATED)
+        pref = services.create_preference(
+            request.user, channel, serializer.validated_data, request=request
+        )
+        return Response(
+            ContentPreferenceReadSerializer(pref).data, status=status.HTTP_201_CREATED
+        )
 
     def patch(self, request, channel_id):
         channel = services.get_owned_channel(request.user, channel_id)
         pref = services.get_preference(channel)
         if pref is None:
             raise NotFound("No content preferences for this channel yet.")
-        serializer = ContentPreferenceSerializer(pref, data=request.data, partial=True, context={"user": request.user})
+        serializer = ContentPreferenceSerializer(
+            pref, data=request.data, partial=True, context={"user": request.user}
+        )
         serializer.is_valid(raise_exception=True)
-        pref = services.update_preference(pref, serializer.validated_data, request=request)
+        pref = services.update_preference(
+            pref, serializer.validated_data, request=request
+        )
         return Response(ContentPreferenceReadSerializer(pref).data)
 
 

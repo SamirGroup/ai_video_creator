@@ -7,7 +7,7 @@ import { Topbar } from '@/components/layout/Topbar'
 /** Shell for every authenticated screen (creator + admin): sidebar + topbar. */
 export function AppLayout() {
   return (
-    <div className="flex min-h-svh bg-background">
+    <div className="dashboard-shell flex min-h-svh bg-background">
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <OfflineBanner />

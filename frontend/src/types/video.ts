@@ -35,12 +35,7 @@ export type VideoJobStatus =
   | 'deleted_on_youtube'
 
 export type VideoJobStage =
-  | 'script'
-  | 'voice'
-  | 'visuals'
-  | 'assembly'
-  | 'moderation'
-  | 'upload'
+  'script' | 'voice' | 'visuals' | 'assembly' | 'moderation' | 'upload'
 
 export type VideoJobTrigger = 'scheduled' | 'manual' | 'regeneration'
 
@@ -58,6 +53,7 @@ export interface VideoJob {
   language: string
   duration_sec: number | null
   thumbnail_s3_key: string | null
+  final_video_s3_key?: string
   preview_url: string | null
   preview_expires_at: string | null
   approval_requested_at: string | null

@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "読み込み中…",
+    "retry": "再試行",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "close": "閉じる",
+    "search": "検索",
+    "back": "戻る",
+    "confirm": "確認",
+    "actions": "操作",
+    "status": "状態",
+    "date": "日付",
+    "unknown": "不明"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "channel": "チャンネル",
+    "preferences": "設定",
+    "videos": "動画",
+    "revenue": "収益",
+    "billing": "請求",
+    "contract": "契約",
+    "adminUsers": "ユーザー",
+    "adminVideos": "動画ジョブ",
+    "adminModeration": "モデレーション",
+    "adminFinance": "財務",
+    "adminConfig": "構成",
+    "logout": "ログアウト",
+    "language": "言語",
+    "theme": "テーマ"
+  },
+  "auth": {
+    "login": {
+      "title": "ログイン",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "submit": "ログイン"
+    },
+    "register": {
+      "title": "アカウント作成",
+      "fullName": "氏名",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "submit": "アカウント作成"
+    }
+  },
+  "preferences": {
+    "language": "コンテンツの言語",
+    "videoDuration": "動画の長さ（秒）",
+    "frequency": "公開頻度",
+    "frequencyOptions": {
+      "daily": "毎日",
+      "weekly": "毎週",
+      "monthly": "毎月"
+    },
+    "publishTime": "公開時刻",
+    "privacyStatus": "公開設定",
+    "privacyOptions": {
+      "public": "公開",
+      "unlisted": "限定公開",
+      "private": "非公開"
+    },
+    "approvalMode": "承認モード",
+    "save": "設定を保存",
+    "saved": "設定を保存しました。",
+    "timezone": "タイムゾーン",
+    "publishDays": "日（曜日：0–6、月：1–28）",
+    "title": "設定"
+  },
+  "dashboard": {
+    "title": "ダッシュボード"
+  },
+  "channel": {
+    "title": "チャンネル"
+  },
+  "video": {
+    "title": "動画"
+  },
+  "revenue": {
+    "title": "収益"
+  },
+  "billing": {
+    "title": "請求"
+  },
+  "contract": {
+    "title": "契約"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Жүктөлүүдө…",
+    "retry": "Кайра аракет кылуу",
+    "save": "Сактоо",
+    "cancel": "Жокко чыгаруу",
+    "close": "Жабуу",
+    "search": "Издөө",
+    "back": "Артка",
+    "confirm": "Ырастоо",
+    "actions": "Аракеттер",
+    "status": "Абал",
+    "date": "Күнү",
+    "unknown": "Белгисиз"
+  },
+  "nav": {
+    "dashboard": "Башкаруу панели",
+    "channel": "Канал",
+    "preferences": "Жөндөөлөр",
+    "videos": "Видеолор",
+    "revenue": "Киреше",
+    "billing": "Төлөмдөр",
+    "contract": "Келишим",
+    "adminUsers": "Колдонуучулар",
+    "adminVideos": "Видео тапшырмалар",
+    "adminModeration": "Модерация",
+    "adminFinance": "Каржы",
+    "adminConfig": "Конфигурация",
+    "logout": "Чыгуу",
+    "language": "Тил",
+    "theme": "Тема"
+  },
+  "auth": {
+    "login": {
+      "title": "Кирүү",
+      "email": "Электрондук почта",
+      "password": "Сырсөз",
+      "submit": "Кирүү"
+    },
+    "register": {
+      "title": "Аккаунт түзүү",
+      "fullName": "Толук аты-жөнү",
+      "email": "Электрондук почта",
+      "password": "Сырсөз",
+      "submit": "Аккаунт түзүү"
+    }
+  },
+  "preferences": {
+    "language": "Мазмундун тили",
+    "videoDuration": "Видеонун узактыгы (секунд)",
+    "frequency": "Жарыялоо жыштыгы",
+    "frequencyOptions": {
+      "daily": "Күн сайын",
+      "weekly": "Апта сайын",
+      "monthly": "Ай сайын"
+    },
+    "publishTime": "Жарыялоо убактысы",
+    "privacyStatus": "Купуялык",
+    "privacyOptions": {
+      "public": "Жалпыга ачык",
+      "unlisted": "Тизмеде жок",
+      "private": "Жеке"
+    },
+    "approvalMode": "Ырастоо режими",
+    "save": "Жөндөөлөрдү сактоо",
+    "saved": "Жөндөөлөр сакталды.",
+    "timezone": "Убакыт алкагы",
+    "publishDays": "Күндөр (апта: 0–6; ай: 1–28)",
+    "title": "Жөндөөлөр"
+  },
+  "dashboard": {
+    "title": "Башкаруу панели"
+  },
+  "channel": {
+    "title": "Канал"
+  },
+  "video": {
+    "title": "Видеолор"
+  },
+  "revenue": {
+    "title": "Киреше"
+  },
+  "billing": {
+    "title": "Төлөмдөр"
+  },
+  "contract": {
+    "title": "Келишим"
+  }
+}

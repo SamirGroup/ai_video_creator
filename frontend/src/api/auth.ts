@@ -1,6 +1,6 @@
 import { apiClient } from './client'
 import type {
-  AuthSession,
+  LoginResponse,
   ForgotPasswordPayload,
   GoogleLoginPayload,
   LoginPayload,
@@ -18,25 +18,29 @@ export const authApi = {
     apiClient.post<{ message: string }>('/auth/register', payload).then((r) => r.data),
 
   login: (payload: LoginPayload) =>
-    apiClient.post<AuthSession>('/auth/login', payload).then((r) => r.data),
+    apiClient.post<LoginResponse>('/auth/login', payload).then((r) => r.data),
 
   loginWithGoogle: (payload: GoogleLoginPayload) =>
-    apiClient.post<AuthSession>('/auth/google', payload).then((r) => r.data),
+    apiClient.post<LoginResponse>('/auth/google', payload).then((r) => r.data),
 
   logout: () => apiClient.post<void>('/auth/logout').then((r) => r.data),
 
   refresh: () => apiClient.post<{ access: string }>('/auth/refresh').then((r) => r.data),
 
   verifyEmail: (payload: VerifyEmailPayload) =>
-    apiClient.post<{ message: string }>('/auth/verify-email', payload).then((r) => r.data),
+    apiClient
+      .post<{ message: string }>('/auth/verify-email', payload)
+      .then((r) => r.data),
 
   requestPasswordReset: (payload: ForgotPasswordPayload) =>
     apiClient
-      .post<{ message: string }>('/auth/password/reset/request', payload)
+      .post<{ message: string }>('/auth/password/reset', payload)
       .then((r) => r.data),
 
   confirmPasswordReset: (payload: ResetPasswordPayload) =>
-    apiClient.post<{ message: string }>('/auth/password/reset', payload).then((r) => r.data),
+    apiClient
+      .post<{ message: string }>('/auth/password/reset/confirm', payload)
+      .then((r) => r.data),
 
   me: () => apiClient.get<User>('/me').then((r) => r.data),
 }

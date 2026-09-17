@@ -14,7 +14,10 @@ The most expensive and slowest stage, so three protections are built in:
 Clip length comes from the voice stage's `segment_timing` (falling back to the
 script's `target_duration_sec`); assembly loops/trims to the exact segment.
 """
+
 from __future__ import annotations
+
+from video_pipeline.services.preferences import job_preferences
 
 import logging
 import tempfile
@@ -58,14 +61,18 @@ class VisualsResult:
 # ---------------------------------------------------------------------------
 # Pure helpers
 # ---------------------------------------------------------------------------
-def build_clip_plan(segments: list[dict], timing: list[dict] | None, *, default_duration_sec: int = 10) -> list[ClipPlan]:
+def build_clip_plan(
+    segments: list[dict], timing: list[dict] | None, *, default_duration_sec: int = 10
+) -> list[ClipPlan]:
     """Pair every script segment with its measured voice duration (or the
     scripted target when the voice stage has not measured it).
     """
     by_index = {}
     for entry in timing or []:
         try:
-            by_index[int(entry["index"])] = int(entry["end_ms"]) - int(entry["start_ms"])
+            by_index[int(entry["index"])] = int(entry["end_ms"]) - int(
+                entry["start_ms"]
+            )
         except (KeyError, TypeError, ValueError):
             continue
 
@@ -79,7 +86,10 @@ def build_clip_plan(segments: list[dict], timing: list[dict] | None, *, default_
                 duration_ms = 0
         if duration_ms <= 0:
             duration_ms = default_duration_sec * 1000
-        prompt = str(segment.get("visual_prompt") or "").strip() or str(segment.get("narration") or "").strip()
+        prompt = (
+            str(segment.get("visual_prompt") or "").strip()
+            or str(segment.get("narration") or "").strip()
+        )
         plan.append(
             ClipPlan(
                 sequence_index=position,
@@ -131,17 +141,23 @@ def _record_failure(config, job, clip: ClipPlan, exc: Exception, *, units: int) 
     )
 
 
-def generate_visuals_for_job(job, *, client=None, runner=media_tools.run_command, workdir: str | None = None) -> VisualsResult:
+def generate_visuals_for_job(
+    job, *, client=None, runner=media_tools.run_command, workdir: str | None = None
+) -> VisualsResult:
     """Generate every missing `visual_clip` for `job` (FR-43 per-segment checkpoints)."""
     segments = load_segments(job)
     voice_asset = existing_asset(job, AssetKind.AUDIO_VOICE)
     if voice_asset is None:
-        raise JobNotReady(f"Video job {job.pk} has no voice-over checkpoint — the voice stage must run first.")
+        raise JobNotReady(
+            f"Video job {job.pk} has no voice-over checkpoint — the voice stage must run first."
+        )
     timing = [t.to_dict() for t in timing_from_asset(voice_asset)]
 
     config = get_primary_config(ServiceType.VIDEO_GEN)
     client = client or RunwayClient(config)
-    aspect_ratio = (job.preference.aspect_ratio if job.preference else "") or "16:9"
+    aspect_ratio = (
+        job_preferences(job).aspect_ratio if job_preferences(job) else ""
+    ) or "16:9"
     style_suffix = str(config.get_option("style_suffix", "") or "")
 
     plan = build_clip_plan(segments, timing)
@@ -152,7 +168,9 @@ def generate_visuals_for_job(job, *, client=None, runner=media_tools.run_command
     with tempfile.TemporaryDirectory(prefix=f"visuals_{job.pk}_", dir=workdir) as tmp:
         tmp_path = Path(tmp)
         for clip in plan:
-            existing = existing_asset(job, AssetKind.VISUAL_CLIP, sequence_index=clip.sequence_index)
+            existing = existing_asset(
+                job, AssetKind.VISUAL_CLIP, sequence_index=clip.sequence_index
+            )
             if existing is not None:
                 clips.append(existing)
                 skipped += 1
@@ -165,7 +183,13 @@ def generate_visuals_for_job(job, *, client=None, runner=media_tools.run_command
             task_id = pending.get(key)
             requested_duration = 0
             if task_id:
-                logger.info("visual_task_resumed", extra={"job_id": str(job.pk), "sequence_index": clip.sequence_index})
+                logger.info(
+                    "visual_task_resumed",
+                    extra={
+                        "job_id": str(job.pk),
+                        "sequence_index": clip.sequence_index,
+                    },
+                )
             else:
                 try:
                     task = client.create_task(
@@ -200,10 +224,16 @@ def generate_visuals_for_job(job, *, client=None, runner=media_tools.run_command
             clip_path = tmp_path / f"clip_{clip.sequence_index:03d}.mp4"
             clip_path.write_bytes(data)
             try:
-                duration_ms = media_tools.probe_duration_ms(str(clip_path), runner=runner)
+                duration_ms = media_tools.probe_duration_ms(
+                    str(clip_path), runner=runner
+                )
             except ProviderError:
-                duration_ms = (requested_duration or int(round(clip.target_duration_ms / 1000))) * 1000
-            billed_seconds = requested_duration or max(1, int(round(duration_ms / 1000)))
+                duration_ms = (
+                    requested_duration or int(round(clip.target_duration_ms / 1000))
+                ) * 1000
+            billed_seconds = requested_duration or max(
+                1, int(round(duration_ms / 1000))
+            )
 
             record_api_usage(
                 config=config,
@@ -256,5 +286,9 @@ def generate_visuals_for_job(job, *, client=None, runner=media_tools.run_command
         clips=sorted(clips, key=lambda a: a.sequence_index or 0),
         generated=generated,
         skipped=skipped,
-        meta={"provider": config.provider, "model": config.model_name, "aspect_ratio": aspect_ratio},
+        meta={
+            "provider": config.provider,
+            "model": config.model_name,
+            "aspect_ratio": aspect_ratio,
+        },
     )

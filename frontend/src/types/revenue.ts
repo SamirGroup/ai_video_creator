@@ -46,6 +46,7 @@ export interface RevenueShareStatement {
   creator_share_amount: string
   video_count: number
   status: StatementStatus
+  review_deadline?: string | null
   finalized_at: string | null
   disputed_at: string | null
   dispute_reason: string | null

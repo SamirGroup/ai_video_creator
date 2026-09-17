@@ -12,6 +12,7 @@ Views stay thin; every Google-facing call and every DB side-effect lives here
 so it can be unit-tested by mocking this module's boundaries (see
 `channels/tests/test_oauth.py`).
 """
+
 from __future__ import annotations
 
 import dataclasses
@@ -30,7 +31,12 @@ from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build as build_google_client
 from googleapiclient.errors import HttpError
 
-from channels.models import AdSenseAccount, ConnectionStatus, MonetizationSource, YouTubeChannel
+from channels.models import (
+    AdSenseAccount,
+    ConnectionStatus,
+    MonetizationSource,
+    YouTubeChannel,
+)
 
 logger = logging.getLogger("channels.services")
 
@@ -135,7 +141,11 @@ def build_authorization_request(
         redirect_uri=redirect_uri,
         scopes=list(scopes),
     )
-    cache.set(_cache_key(kind, state), dataclasses.asdict(pending), timeout=OAUTH_STATE_TTL_SECONDS)
+    cache.set(
+        _cache_key(kind, state),
+        dataclasses.asdict(pending),
+        timeout=OAUTH_STATE_TTL_SECONDS,
+    )
     return authorization_url, state
 
 
@@ -150,13 +160,17 @@ def consume_oauth_state(*, kind: str, state: str, user_id) -> PendingOAuthState:
     raw = cache.get(key)
     if not raw:
         raise OAuthStateError("Invalid or expired OAuth state.")
-    cache.delete(key)  # one-time use, even if everything below fails
     if raw.get("user_id") != str(user_id):
         raise OAuthStateError("OAuth state does not belong to the current user.")
+    if not cache.add(key + ":consumed", True, timeout=OAUTH_STATE_TTL_SECONDS):
+        raise OAuthStateError("OAuth state has already been consumed.")
+    cache.delete(key)
     return PendingOAuthState(**raw)
 
 
-def exchange_code_for_credentials(*, code: str, pending: PendingOAuthState) -> Credentials:
+def exchange_code_for_credentials(
+    *, code: str, pending: PendingOAuthState
+) -> Credentials:
     """FR-12: exchanges the authorization code for tokens.
 
     Raises OAuthExchangeError on any Google-side rejection (invalid_grant,
@@ -202,15 +216,23 @@ def fetch_own_channel(credentials: Credentials) -> dict:
     """FR-12: `channels.list(mine=true)` — the only channel-identity call made
     before persisting anything, ahead of the FR-16 uniqueness check.
     """
-    youtube = build_google_client("youtube", "v3", credentials=credentials, cache_discovery=False)
+    youtube = build_google_client(
+        "youtube", "v3", credentials=credentials, cache_discovery=False
+    )
     try:
-        response = youtube.channels().list(part="snippet,statistics,status", mine=True).execute()
+        response = (
+            youtube.channels()
+            .list(part="snippet,statistics,status", mine=True)
+            .execute()
+        )
     except HttpError as exc:
         raise OAuthExchangeError(f"YouTube channels.list failed: {exc}") from exc
 
     items = response.get("items") or []
     if not items:
-        raise OAuthExchangeError("This Google account has no accessible YouTube channel.")
+        raise OAuthExchangeError(
+            "This Google account has no accessible YouTube channel."
+        )
     return items[0]
 
 
@@ -228,9 +250,13 @@ def persist_youtube_channel(
     snippet = channel_payload.get("snippet", {})
     statistics = channel_payload.get("statistics", {})
 
-    existing = YouTubeChannel.objects.filter(youtube_channel_id=youtube_channel_id).first()
+    existing = YouTubeChannel.objects.filter(
+        youtube_channel_id=youtube_channel_id
+    ).first()
     if existing is not None and existing.user_id != user.id:
-        raise ChannelAlreadyLinkedError("This YouTube channel is already connected to another account.")
+        raise ChannelAlreadyLinkedError(
+            "This YouTube channel is already connected to another account."
+        )
 
     channel, created = YouTubeChannel.objects.update_or_create(
         user=user,
@@ -238,7 +264,9 @@ def persist_youtube_channel(
         defaults={
             "channel_title": snippet.get("title", ""),
             "channel_handle": snippet.get("customUrl", ""),
-            "thumbnail_url": ((snippet.get("thumbnails") or {}).get("default") or {}).get("url", ""),
+            "thumbnail_url": (
+                (snippet.get("thumbnails") or {}).get("default") or {}
+            ).get("url", ""),
             "subscriber_count": _safe_int(statistics.get("subscriberCount")),
             "video_count": _safe_int(statistics.get("videoCount")),
             # YouTube Data API v3's `channels` resource does not expose YPP /
@@ -248,7 +276,8 @@ def persist_youtube_channel(
             "is_monetized": None,
             "monetization_source": MonetizationSource.UNKNOWN,
             "access_token_enc": credentials.token,
-            "refresh_token_enc": credentials.refresh_token or (existing.refresh_token_enc if existing else None),
+            "refresh_token_enc": credentials.refresh_token
+            or (existing.refresh_token_enc if existing else None),
             "token_key_version": 1,
             "token_expires_at": _to_aware_utc(credentials.expiry),
             "granted_scopes": list(granted_scopes),
@@ -275,7 +304,9 @@ def build_credentials_from_channel(channel: YouTubeChannel) -> Credentials:
 def sync_channel_metadata(channel: YouTubeChannel) -> YouTubeChannel:
     """POST /channels/{id}/sync: refresh subscriber/video counts (best effort)."""
     if not refresh_channel_credentials(channel):
-        raise OAuthExchangeError("Channel token could not be refreshed; it was disconnected.")
+        raise OAuthExchangeError(
+            "Channel token could not be refreshed; it was disconnected."
+        )
     channel.refresh_from_db()
     credentials = build_credentials_from_channel(channel)
     payload = fetch_own_channel(credentials)
@@ -305,7 +336,9 @@ def sync_channel_metadata(channel: YouTubeChannel) -> YouTubeChannel:
 
 
 def fetch_adsense_account(credentials: Credentials) -> dict:
-    adsense = build_google_client("adsense", "v2", credentials=credentials, cache_discovery=False)
+    adsense = build_google_client(
+        "adsense", "v2", credentials=credentials, cache_discovery=False
+    )
     try:
         response = adsense.accounts().list().execute()
     except HttpError as exc:
@@ -313,7 +346,9 @@ def fetch_adsense_account(credentials: Credentials) -> dict:
 
     accounts = response.get("accounts") or []
     if not accounts:
-        raise OAuthExchangeError("This Google account has no accessible AdSense account.")
+        raise OAuthExchangeError(
+            "This Google account has no accessible AdSense account."
+        )
     return accounts[0]
 
 
@@ -323,16 +358,21 @@ def persist_adsense_account(
     # AdSense resource names look like "accounts/pub-1234567890123456" — used
     # as-is as the stable external id (SPEC 5.4).
     adsense_account_id = account_payload.get("name", "")
-    existing = AdSenseAccount.objects.filter(adsense_account_id=adsense_account_id).first()
+    existing = AdSenseAccount.objects.filter(
+        adsense_account_id=adsense_account_id
+    ).first()
     if existing is not None and existing.user_id != user.id:
-        raise ChannelAlreadyLinkedError("This AdSense account is already connected to another account.")
+        raise ChannelAlreadyLinkedError(
+            "This AdSense account is already connected to another account."
+        )
 
     account, created = AdSenseAccount.objects.update_or_create(
         user=user,
         adsense_account_id=adsense_account_id,
         defaults={
             "access_token_enc": credentials.token,
-            "refresh_token_enc": credentials.refresh_token or (existing.refresh_token_enc if existing else None),
+            "refresh_token_enc": credentials.refresh_token
+            or (existing.refresh_token_enc if existing else None),
             "token_key_version": 1,
             "token_expires_at": _to_aware_utc(credentials.expiry),
             "granted_scopes": list(granted_scopes),
@@ -343,7 +383,9 @@ def persist_adsense_account(
     return account, created
 
 
-def disconnect_adsense_account(account: AdSenseAccount, *, actor_type: str, actor_id, request=None) -> None:
+def disconnect_adsense_account(
+    account: AdSenseAccount, *, actor_type: str, actor_id, request=None
+) -> None:
     from audit.services import record_audit_event
 
     token = account.refresh_token_enc or account.access_token_enc
@@ -353,7 +395,9 @@ def disconnect_adsense_account(account: AdSenseAccount, *, actor_type: str, acto
     account.access_token_enc = None
     account.refresh_token_enc = None
     account.status = ConnectionStatus.DISCONNECTED
-    account.save(update_fields=["access_token_enc", "refresh_token_enc", "status", "updated_at"])
+    account.save(
+        update_fields=["access_token_enc", "refresh_token_enc", "status", "updated_at"]
+    )
 
     record_audit_event(
         actor_type=actor_type,
@@ -381,7 +425,9 @@ def revoke_google_token(token: str) -> bool:
         logger.error("google_revoke_request_failed", extra={"error": str(exc)})
         return False
     if response.status_code not in (200, 400):
-        logger.error("google_revoke_unexpected_status", extra={"status": response.status_code})
+        logger.error(
+            "google_revoke_unexpected_status", extra={"status": response.status_code}
+        )
         return False
     return True
 
@@ -397,7 +443,9 @@ def _pause_scheduled_content(channel: YouTubeChannel) -> None:
     ContentPreference.objects.filter(channel_id=channel.id).update(is_paused=True)
 
 
-def disconnect_channel(channel: YouTubeChannel, *, actor_type: str, actor_id, request=None) -> None:
+def disconnect_channel(
+    channel: YouTubeChannel, *, actor_type: str, actor_id, request=None
+) -> None:
     """FR-15: revoke at Google, hard-delete the stored tokens (never
     soft-delete), pause scheduled generation, and write an audit trail entry.
     """
@@ -412,7 +460,13 @@ def disconnect_channel(channel: YouTubeChannel, *, actor_type: str, actor_id, re
     channel.status = ConnectionStatus.DISCONNECTED
     channel.disconnected_at = timezone.now()
     channel.save(
-        update_fields=["access_token_enc", "refresh_token_enc", "status", "disconnected_at", "updated_at"]
+        update_fields=[
+            "access_token_enc",
+            "refresh_token_enc",
+            "status",
+            "disconnected_at",
+            "updated_at",
+        ]
     )
 
     _pause_scheduled_content(channel)
@@ -427,7 +481,9 @@ def disconnect_channel(channel: YouTubeChannel, *, actor_type: str, actor_id, re
     )
 
 
-def _mark_channel_disconnected_after_refresh_failure(channel: YouTubeChannel, *, error_code: str) -> None:
+def _mark_channel_disconnected_after_refresh_failure(
+    channel: YouTubeChannel, *, error_code: str
+) -> None:
     """FR-14: refresh failed (invalid_grant/revoked) — move to `disconnected`,
     pause scheduling, notify the creator, and audit the transition. Tokens are
     intentionally left as-is here (unlike the explicit FR-15 disconnect path)
@@ -440,7 +496,9 @@ def _mark_channel_disconnected_after_refresh_failure(channel: YouTubeChannel, *,
     channel.status = ConnectionStatus.DISCONNECTED
     channel.last_error_code = error_code
     channel.disconnected_at = timezone.now()
-    channel.save(update_fields=["status", "last_error_code", "disconnected_at", "updated_at"])
+    channel.save(
+        update_fields=["status", "last_error_code", "disconnected_at", "updated_at"]
+    )
 
     _pause_scheduled_content(channel)
 
@@ -480,15 +538,27 @@ def refresh_channel_credentials(channel: YouTubeChannel) -> bool:
     try:
         credentials.refresh(GoogleAuthRequest())
     except RefreshError as exc:
-        logger.warning("oauth_refresh_failed", extra={"channel_id": str(channel.id), "error": str(exc)})
-        _mark_channel_disconnected_after_refresh_failure(channel, error_code="invalid_grant")
+        logger.warning(
+            "oauth_refresh_failed",
+            extra={"channel_id": str(channel.id), "error": str(exc)},
+        )
+        _mark_channel_disconnected_after_refresh_failure(
+            channel, error_code="invalid_grant"
+        )
         return False
 
     channel.access_token_enc = credentials.token
     if credentials.refresh_token:
         channel.refresh_token_enc = credentials.refresh_token
     channel.token_expires_at = _to_aware_utc(credentials.expiry)
-    channel.save(update_fields=["access_token_enc", "refresh_token_enc", "token_expires_at", "updated_at"])
+    channel.save(
+        update_fields=[
+            "access_token_enc",
+            "refresh_token_enc",
+            "token_expires_at",
+            "updated_at",
+        ]
+    )
     return True
 
 

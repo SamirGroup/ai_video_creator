@@ -112,7 +112,12 @@
       "passwordRequired": "Parol kiritish shart.",
       "passwordMinLength": "Parol kamida 10 belgidan iborat bo'lishi kerak.",
       "fullNameRequired": "To'liq ism kiritish shart."
-    }
+    },
+    "googleUnavailable": "Google orqali kirish hali sozlanmagan. Email bilan davom eting.",
+    "twoFactor": "Ikki bosqichli tasdiqlash",
+    "setupAuthenticator": "Autentifikatorni sozlash",
+    "authenticatorSecret": "Ushbu maxfiy kodni autentifikator ilovasiga kiriting:",
+    "verificationCode": "Tasdiqlash kodi"
   },
   "dashboard": {
     "title": "Boshqaruv paneli",
@@ -126,7 +131,11 @@
     "quotaUsed": "{{total}} tadan {{used}} ishlatildi",
     "connected": "Ulangan",
     "disconnected": "Ulanmagan",
-    "connectChannel": "YouTube kanalini ulash"
+    "connectChannel": "YouTube kanalini ulash",
+    "demoNotice": "Interfeys namunasi · namuna ma’lumotlari ko‘rsatilmoqda",
+    "analyticsTitle": "Daromad tahlili",
+    "activityTitle": "Kunlik ko‘rishlar",
+    "shareTitle": "Yangi shartnoma shartlari"
   },
   "channel": {
     "title": "Kanal",
@@ -176,7 +185,9 @@
     "pause": "Jadvalni pauza qilish",
     "resume": "Jadvalni davom ettirish",
     "save": "Sozlamalarni saqlash",
-    "saved": "Sozlamalar saqlandi."
+    "saved": "Sozlamalar saqlandi.",
+    "timezone": "Vaqt mintaqasi",
+    "publishDays": "Kunlar (hafta: 0–6, dushanbadan; oy: 1–28)"
   },
   "video": {
     "title": "Videolar",
@@ -246,7 +257,7 @@
     "notMonetized": "Bu kanal hali monetizatsiya qilinmagan, daromad $0.",
     "topVideos": "Top videolar",
     "statements": "Daromad ulushi hisobotlari",
-    "dispute": "E'tiroz bildirish",
+    "dispute": "Hisobotga e’tiroz bildirish",
     "statementStatus": {
       "draft": "Qoralama",
       "finalized": "Yakunlandi",
@@ -255,7 +266,9 @@
       "disputed": "E'tiroz bildirilgan",
       "written_off": "Hisobdan chiqarildi",
       "carried_forward": "Keyingi davrga o'tkazildi"
-    }
+    },
+    "disputeReason": "Tafovutni tushuntiring",
+    "reviewUntil": "Ko‘rib chiqish muddati: {{date}}"
   },
   "billing": {
     "title": "To'lovlar",
@@ -276,7 +289,7 @@
     "title": "Shartnoma",
     "currentVersion": "Joriy versiya",
     "sign": "Shartnomani imzolash",
-    "consentRevenueShare": "50/50 daromad ulushi shartlariga roziman",
+    "consentRevenueShare": "Faqat ekotizim ichida yaratilib, u orqali joylangan videolar daromadidan platformaga {{platform}}%, creatorga {{creator}}% ajratilishiga roziman. Boshqa videolar daromadi hisobga kirmaydi.",
     "consentPublish": "Platformaga mening kanalimga video joylash huquqini beraman",
     "consentDataProcessing": "Ma'lumotlarimdan AI qayta ishlash uchun foydalanishga roziman",
     "consentMarketing": "Marketing xabarlarini olishni xohlayman (ixtiyoriy)",
@@ -308,12 +321,110 @@
       "activeSubscriptions": "Faol obunalar",
       "revenueShareTotal": "Daromad ulushi jami",
       "uncollected": "Undirilmagan invoyslar",
-      "export": "Eksport"
+      "export": "Eksport",
+      "settlementTitle": "Video daromadini tasdiqlash",
+      "settlementHelp": "Bitta ekotizim videosining tekshirilgan daromadi va manba hisobotini kiriting. Kanalning umumiy daromadi va taxminiy raqamlar qabul qilinmaydi. Tasdiqlangan yozuv o‘zgarmaydi.",
+      "videoId": "Ekotizim videosi ID raqami",
+      "month": "Daromad oyi",
+      "verifiedAmount": "Tasdiqlangan daromad (USD)",
+      "evidence": "Manba hisobot havolasi",
+      "settlementSaved": "Tasdiqlangan daromad saqlandi."
     },
     "config": {
       "title": "Konfiguratsiya",
       "plans": "Tariflar",
       "providers": "AI provayderlar"
+    }
+  },
+  "landing": {
+    "navigation": "Navigatsiya",
+    "navServices": "Imkoniyatlar",
+    "navProcess": "Jarayon",
+    "navShare": "Shartlar",
+    "badge": "YouTube creatorlar uchun ekotizim",
+    "heroAccent": "G‘oyadan videoga",
+    "heroEnd": "yagona ekotizimda",
+    "description": "Kontentni rejalang, AI yordamida video yarating va YouTube kanalingizni yagona makonda boshqaring.",
+    "start": "Ro‘yxatdan o‘tish",
+    "discover": "Batafsil tanishish",
+    "servicesTitle": "Ijodingiz uchun bir makon",
+    "servicesLead": "Yo‘nalishni siz tanlaysiz. Ekotizim kontent ustida ishlash vositalarini g‘oyadan nashrgacha birlashtiradi.",
+    "services": [
+      {
+        "title": "G‘oya va kontent reja",
+        "text": "Kanalingiz mavzusi, video g‘oyalari va til hamda vaqt mintaqangizga mos nashr jadvali."
+      },
+      {
+        "title": "Video yaratish",
+        "text": "Profilingizdagi AI vositalari bilan ssenariy, ovoz va tasvir tayyorlang."
+      },
+      {
+        "title": "Kontent tekshiruvi",
+        "text": "Nashrdan oldin moderatsiya va videoni yaxshilash uchun aniq fikrlar."
+      },
+      {
+        "title": "Nashr va tahlil",
+        "text": "Video va Shortslarni boshqaring, natijalar va videolaringiz daromadini kuzating."
+      }
+    ],
+    "processTitle": "G‘oyadan tayyor nashrgacha",
+    "steps": [
+      "Ro‘yxatdan o‘ting va kanalni ulang",
+      "Tarif, mavzu va tilni tanlang",
+      "Kontentni tayyorlang va tasdiqlang",
+      "Moderatsiyadan o‘ting va joylang",
+      "Natijalarni kuzating"
+    ],
+    "shareTitle": "Sizning kanal. Sizning daromad.",
+    "creatorShare": "Creator ulushi",
+    "platformShare": "Platforma ulushi",
+    "shareScope": "30% — faqat ekotizimimiz ichida yaratilib, u orqali joylangan videolar daromadidan. Kanalingizdagi boshqa videolar daromadi hisobga kirmaydi.",
+    "shareDetails": "Shartlar shartnomada qayd etiladi. Obuna narxi alohida hisoblanadi. Daromad video natijalari va YouTube qoidalariga bog‘liq; daromad kafolatlanmaydi.",
+    "faqTitle": "Savollar va javoblar",
+    "faqs": [
+      {
+        "q": "Kanalim o‘zimda qoladimi?",
+        "a": "Ha. Kanalni siz boshqarasiz va ulanishga ruxsat berasiz. Berilgan ruxsatni bekor qilishingiz mumkin."
+      },
+      {
+        "q": "Komissiya butun kanaldanmi?",
+        "a": "Yo‘q. Platformaning 30% ulushi faqat ekotizim ichida yaratilgan va u orqali joylangan videolarga tegishli. Boshqa videolar hisobga kirmaydi."
+      },
+      {
+        "q": "Kontent tilini tanlash mumkinmi?",
+        "a": "Sozlamalarda 30 ta til varianti katalogi mavjud. Ovoz yaratish imkoniyati ulangan provayderga bog‘liq."
+      },
+      {
+        "q": "Video tekshiruvsiz joylanadimi?",
+        "a": "Nashrdan oldin kontent moderatsiyadan o‘tadi. Tuzatish talab qilinadigan materiallar qayta ishlashga yuboriladi."
+      }
+    ],
+    "ctaTitle": "Keyingi g‘oyangiz shu yerdan boshlanadi.",
+    "ctaText": "Profil yarating, vositalar bilan tanishing va kanalingiz uchun ish joyini sozlang.",
+    "footer": "YouTube kontentini yaratish va boshqarish uchun yagona makon."
+  },
+  "planning": {
+    "title": "Kontent reja",
+    "explanation": "Takliflar YouTubedan topilgan videolarga asoslanadi. Vaqt auditoriya faolligi haqidagi tasdiqlanmagan ma’lumotga emas, sozlamalaringizga asoslanadi. Boshlashdan oldin tanlangan videolarni tekshiring va tasdiqlang.",
+    "edit": "Tahrirlash",
+    "brief": "Topshiriq",
+    "localTime": "Yangi vaqt (joriy vaqt mintaqangiz)",
+    "period": "Davr",
+    "count": "Video soni",
+    "daily": "Kunlik",
+    "weekly": "Haftalik",
+    "monthly": "Oylik",
+    "propose": "Reja taklif qilish",
+    "approve": "Tanlangan videolarni tasdiqlash",
+    "sources": "Tahlil manbalari",
+    "failed": "Reja tayyorlanmadi. Provayder va kanal sozlamalarini tekshiring.",
+    "status": {
+      "pending": "Navbatda",
+      "generating": "Tahlil qilinmoqda",
+      "ready": "Tasdiqlashingiz kutilmoqda",
+      "approved": "Tasdiqlangan",
+      "failed": "Xato",
+      "canceled": "Bekor qilingan"
     }
   }
 }

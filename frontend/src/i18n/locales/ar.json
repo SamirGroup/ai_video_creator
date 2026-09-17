@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "جارٍ التحميل…",
+    "retry": "إعادة المحاولة",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "search": "بحث",
+    "back": "رجوع",
+    "confirm": "تأكيد",
+    "actions": "إجراءات",
+    "status": "الحالة",
+    "date": "التاريخ",
+    "unknown": "غير معروف"
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "channel": "القناة",
+    "preferences": "التفضيلات",
+    "videos": "الفيديوهات",
+    "revenue": "الإيرادات",
+    "billing": "الفواتير",
+    "contract": "العقد",
+    "adminUsers": "المستخدمون",
+    "adminVideos": "مهام الفيديو",
+    "adminModeration": "مراجعة المحتوى",
+    "adminFinance": "المالية",
+    "adminConfig": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "language": "اللغة",
+    "theme": "المظهر"
+  },
+  "auth": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "تسجيل الدخول"
+    },
+    "register": {
+      "title": "إنشاء حساب",
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "إنشاء حساب"
+    }
+  },
+  "preferences": {
+    "language": "لغة المحتوى",
+    "videoDuration": "مدة الفيديو (بالثواني)",
+    "frequency": "وتيرة النشر",
+    "frequencyOptions": {
+      "daily": "يوميًا",
+      "weekly": "أسبوعيًا",
+      "monthly": "شهريًا"
+    },
+    "publishTime": "وقت النشر",
+    "privacyStatus": "الخصوصية",
+    "privacyOptions": {
+      "public": "عام",
+      "unlisted": "غير مدرج",
+      "private": "خاص"
+    },
+    "approvalMode": "وضع الموافقة",
+    "save": "حفظ التفضيلات",
+    "saved": "تم حفظ التفضيلات.",
+    "timezone": "المنطقة الزمنية",
+    "publishDays": "الأيام (الأسبوع: 0–6؛ الشهر: 1–28)",
+    "title": "التفضيلات"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم"
+  },
+  "channel": {
+    "title": "القناة"
+  },
+  "video": {
+    "title": "الفيديوهات"
+  },
+  "revenue": {
+    "title": "الإيرادات"
+  },
+  "billing": {
+    "title": "الفواتير"
+  },
+  "contract": {
+    "title": "العقد"
+  }
+}

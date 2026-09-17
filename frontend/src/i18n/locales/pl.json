@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Ładowanie…",
+    "retry": "Spróbuj ponownie",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "close": "Zamknij",
+    "search": "Szukaj",
+    "back": "Wstecz",
+    "confirm": "Potwierdź",
+    "actions": "Działania",
+    "status": "Status",
+    "date": "Data",
+    "unknown": "Nieznany"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "channel": "Kanał",
+    "preferences": "Ustawienia",
+    "videos": "Filmy",
+    "revenue": "Przychody",
+    "billing": "Rozliczenia",
+    "contract": "Umowa",
+    "adminUsers": "Użytkownicy",
+    "adminVideos": "Zadania wideo",
+    "adminModeration": "Moderacja",
+    "adminFinance": "Finanse",
+    "adminConfig": "Konfiguracja",
+    "logout": "Wyloguj",
+    "language": "Język",
+    "theme": "Motyw"
+  },
+  "auth": {
+    "login": {
+      "title": "Zaloguj się",
+      "email": "E-mail",
+      "password": "Hasło",
+      "submit": "Zaloguj się"
+    },
+    "register": {
+      "title": "Utwórz konto",
+      "fullName": "Imię i nazwisko",
+      "email": "E-mail",
+      "password": "Hasło",
+      "submit": "Utwórz konto"
+    }
+  },
+  "preferences": {
+    "language": "Język treści",
+    "videoDuration": "Długość filmu (sekundy)",
+    "frequency": "Częstotliwość publikacji",
+    "frequencyOptions": {
+      "daily": "Codziennie",
+      "weekly": "Co tydzień",
+      "monthly": "Co miesiąc"
+    },
+    "publishTime": "Godzina publikacji",
+    "privacyStatus": "Prywatność",
+    "privacyOptions": {
+      "public": "Publiczny",
+      "unlisted": "Niepubliczny",
+      "private": "Prywatny"
+    },
+    "approvalMode": "Tryb zatwierdzania",
+    "save": "Zapisz ustawienia",
+    "saved": "Ustawienia zapisane.",
+    "timezone": "Strefa czasowa",
+    "publishDays": "Dni (tydzień: 0–6; miesiąc: 1–28)",
+    "title": "Ustawienia"
+  },
+  "dashboard": {
+    "title": "Panel"
+  },
+  "channel": {
+    "title": "Kanał"
+  },
+  "video": {
+    "title": "Filmy"
+  },
+  "revenue": {
+    "title": "Przychody"
+  },
+  "billing": {
+    "title": "Rozliczenia"
+  },
+  "contract": {
+    "title": "Umowa"
+  }
+}

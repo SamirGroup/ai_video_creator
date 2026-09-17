@@ -5,6 +5,7 @@ Covers: persistence, FR-43 checkpoint/idempotency, FR-37 de-duplication,
 FR-51 cost logging, FR-52 ceiling, FR-45/FR-48 moderation verdict -> job status,
 and the append-only `video_job_steps` trail.
 """
+
 from __future__ import annotations
 
 import json
@@ -131,7 +132,13 @@ class TestGenerateScript:
         job.refresh_from_db()
         assert job.title == VALID_SCRIPT_PAYLOAD["title"]
         assert job.description.startswith("Sagardotegi cider")
-        assert job.tags == ["basque cider", "sagardotegi", "txotx", "food travel", "cider"]
+        assert job.tags == [
+            "basque cider",
+            "sagardotegi",
+            "txotx",
+            "food travel",
+            "cider",
+        ]
         assert len(job.script_text.split("\n\n")) == 3
         assert job.duration_sec == script.estimated_duration_sec > 0
         assert job.language == "en"
@@ -163,7 +170,9 @@ class TestGenerateScript:
         generate_script_for_job(job, client=client)
         user_message = client.calls[0][1]["content"]
         assert "travel" in user_message
-        assert "politics" in user_message and "gambling" in user_message  # FR-34 banned topics
+        assert (
+            "politics" in user_message and "gambling" in user_message
+        )  # FR-34 banned topics
         assert "Dry, precise, no hype" in user_message  # FR-34 brand voice
         assert "180 seconds" in user_message  # FR-33 duration
 
@@ -211,7 +220,10 @@ class TestRecentTopicDeduplication:
         settings.SCRIPT_RECENT_TOPICS_LIMIT = 2
         for index in range(5):
             VideoJobFactory(
-                channel=job.channel, preference=job.preference, user=job.user, title=f"Old {index}"
+                channel=job.channel,
+                preference=job.preference,
+                user=job.user,
+                title=f"Old {index}",
             )
         assert len(collect_recent_topics(job)) == 2
 
@@ -295,7 +307,9 @@ class TestCostAccounting:
         assert ApiUsageLog.objects.get(job=job).cost_usd == Decimal("0.015600")
 
     def test_provider_reported_cost_overrides_the_price_table(self, job):
-        generate_script_for_job(job, client=StubLLMClient([llm_response(cost="0.004321")]))
+        generate_script_for_job(
+            job, client=StubLLMClient([llm_response(cost="0.004321")])
+        )
         assert ApiUsageLog.objects.get(job=job).cost_usd == Decimal("0.004321")
 
     def test_job_total_cost_is_rolled_up(self, job):
@@ -324,7 +338,9 @@ class TestCostAccounting:
 
     def test_ceiling_of_zero_disables_the_check(self, job, settings):
         settings.JOB_COST_CEILING_USD = "0"
-        generate_script_for_job(job, client=StubLLMClient([llm_response()]))  # must not raise
+        generate_script_for_job(
+            job, client=StubLLMClient([llm_response()])
+        )  # must not raise
 
 
 # ---------------------------------------------------------------------------
@@ -339,7 +355,9 @@ def scripted_job(job):
 
 class TestScriptModeration:
     def test_clean_script_passes_and_logs(self, scripted_job):
-        client = StubModerationClient([moderation_payload({"violence": 0.001, "hate": 0.0005})])
+        client = StubModerationClient(
+            [moderation_payload({"violence": 0.001, "hate": 0.0005})]
+        )
         outcome = moderate_script_for_job(scripted_job, client=client)
 
         assert outcome.verdict == ModerationVerdict.PASS
@@ -354,14 +372,23 @@ class TestScriptModeration:
     def test_the_full_script_text_is_what_gets_moderated(self, scripted_job):
         client = StubModerationClient([moderation_payload({"violence": 0.0})])
         moderate_script_for_job(scripted_job, client=client)
-        assert "\n\n".join(client.calls[0]) == scripted_job.script_text
+        moderated = "\n\n".join(client.calls[0])
+        assert moderated.endswith(scripted_job.script_text)
+        assert scripted_job.title in moderated
+        assert scripted_job.description in moderated
+        assert all(tag in moderated for tag in scripted_job.tags)
 
     def test_score_over_threshold_blocks(self, scripted_job):
-        client = StubModerationClient([moderation_payload({"violence": 0.87}, flagged=True)])
+        client = StubModerationClient(
+            [moderation_payload({"violence": 0.87}, flagged=True)]
+        )
         outcome = moderate_script_for_job(scripted_job, client=client)
         assert outcome.verdict == ModerationVerdict.BLOCK
         assert outcome.max_category == "violence"
-        assert ModerationLog.objects.get(job=scripted_job).verdict == ModerationVerdict.BLOCK
+        assert (
+            ModerationLog.objects.get(job=scripted_job).verdict
+            == ModerationVerdict.BLOCK
+        )
 
     def test_threshold_is_read_from_provider_config(self, scripted_job):
         config = get_primary_config(ServiceType.MODERATION)
@@ -369,7 +396,10 @@ class TestScriptModeration:
         config.save(update_fields=["config"])
 
         client = StubModerationClient([moderation_payload({"violence": 0.1})])
-        assert moderate_script_for_job(scripted_job, client=client).verdict == ModerationVerdict.BLOCK
+        assert (
+            moderate_script_for_job(scripted_job, client=client).verdict
+            == ModerationVerdict.BLOCK
+        )
 
     def test_moderation_writes_a_usage_log(self, scripted_job):
         client = StubModerationClient([moderation_payload({"violence": 0.0})])
@@ -407,13 +437,17 @@ class TestVerdictToJobStatus:
             max_score=0.9,
             category_scores={"violence": 0.9},
             provider_flagged=verdict != ModerationVerdict.PASS,
-            thresholds={"block_threshold": 0.5, "flag_threshold": 0.2, "category_thresholds": {}},
+            thresholds={
+                "block_threshold": 0.5,
+                "flag_threshold": 0.2,
+                "category_thresholds": {},
+            },
         )
 
     def test_pass_leaves_the_job_at_the_script_checkpoint(self, scripted_job):
-        assert apply_verdict_to_job(scripted_job, self._outcome(ModerationVerdict.PASS)) == (
-            JobStatus.SCRIPT_READY
-        )
+        assert apply_verdict_to_job(
+            scripted_job, self._outcome(ModerationVerdict.PASS)
+        ) == (JobStatus.SCRIPT_READY)
         scripted_job.refresh_from_db()
         assert scripted_job.status == JobStatus.SCRIPT_READY
         assert scripted_job.error_code == ""
@@ -438,7 +472,9 @@ class TestVerdictToJobStatus:
         scripted_job.refresh_from_db()
         assert scripted_job.status == JobStatus.MODERATION_REJECTED
 
-    def test_flag_never_auto_rejects_even_with_the_flag_on(self, scripted_job, settings):
+    def test_flag_never_auto_rejects_even_with_the_flag_on(
+        self, scripted_job, settings
+    ):
         settings.MODERATION_AUTO_REJECT_ON_BLOCK = True
         apply_verdict_to_job(scripted_job, self._outcome(ModerationVerdict.FLAG))
         scripted_job.refresh_from_db()
@@ -449,19 +485,27 @@ class TestVerdictToJobStatus:
 # Celery task wiring
 # ---------------------------------------------------------------------------
 class TestCeleryTasks:
-    def test_generate_script_task_writes_the_append_only_step_trail(self, job, monkeypatch):
+    def test_generate_script_task_writes_the_append_only_step_trail(
+        self, job, monkeypatch
+    ):
         from video_pipeline import tasks
         from video_pipeline.services import script_generation
 
         monkeypatch.setattr(
             script_generation,
             "generate_script_for_job",
-            lambda j, **kw: generate_script_for_job(j, client=StubLLMClient([llm_response()])),
+            lambda j, **kw: generate_script_for_job(
+                j, client=StubLLMClient([llm_response()])
+            ),
         )
-        result = tasks.generate_script.apply(args=[str(job.pk)], kwargs={"chain_next": False}).get()
+        result = tasks.generate_script.apply(
+            args=[str(job.pk)], kwargs={"chain_next": False}
+        ).get()
 
         assert result["status"] == JobStatus.SCRIPT_READY
-        steps = list(VideoJobStep.objects.filter(job=job, stage=Stage.SCRIPT).order_by("id"))
+        steps = list(
+            VideoJobStep.objects.filter(job=job, stage=Stage.SCRIPT).order_by("id")
+        )
         assert [s.status for s in steps] == [StepStatus.STARTED, StepStatus.SUCCEEDED]
         assert steps[1].provider == "openrouter"
         assert steps[1].duration_ms is not None
@@ -479,18 +523,26 @@ class TestCeleryTasks:
 
         job.status = JobStatus.CANCELED
         job.save(update_fields=["status"])
-        result = tasks.generate_script.apply(args=[str(job.pk)], kwargs={"chain_next": False}).get()
+        result = tasks.generate_script.apply(
+            args=[str(job.pk)], kwargs={"chain_next": False}
+        ).get()
         assert result["skipped"] is True
         assert not VideoJobStep.objects.filter(job=job).exists()
 
-    def test_moderate_content_task_records_steps_and_verdict(self, scripted_job, monkeypatch):
+    def test_moderate_content_task_records_steps_and_verdict(
+        self, scripted_job, monkeypatch
+    ):
         from video_pipeline import tasks
         from video_pipeline.services import script_moderation
 
-        client = StubModerationClient([moderation_payload({"violence": 0.9}, flagged=True)])
+        client = StubModerationClient(
+            [moderation_payload({"violence": 0.9}, flagged=True)]
+        )
         original = script_moderation.moderate_script_for_job
         monkeypatch.setattr(
-            script_moderation, "moderate_script_for_job", lambda j, **kw: original(j, client=client)
+            script_moderation,
+            "moderate_script_for_job",
+            lambda j, **kw: original(j, client=client),
         )
         result = tasks.moderate_content.apply(
             args=[str(scripted_job.pk)], kwargs={"scope": ModerationStage.SCRIPT}
@@ -499,7 +551,9 @@ class TestCeleryTasks:
         assert result["verdict"] == ModerationVerdict.BLOCK
         assert result["status"] == JobStatus.MODERATION_REVIEW
         steps = list(
-            VideoJobStep.objects.filter(job=scripted_job, stage=Stage.MODERATION).order_by("id")
+            VideoJobStep.objects.filter(
+                job=scripted_job, stage=Stage.MODERATION
+            ).order_by("id")
         )
         assert [s.status for s in steps] == [StepStatus.STARTED, StepStatus.SUCCEEDED]
 
@@ -520,7 +574,9 @@ class TestCeleryTasks:
         from video_pipeline import tasks
 
         with pytest.raises(Retry):
-            tasks.moderate_content.apply(args=[str(scripted_job.pk)], kwargs={"scope": ModerationStage.VISUAL})
+            tasks.moderate_content.apply(
+                args=[str(scripted_job.pk)], kwargs={"scope": ModerationStage.VISUAL}
+            )
 
         step = VideoJobStep.objects.filter(
             job=scripted_job, stage=Stage.MODERATION, status=StepStatus.FAILED

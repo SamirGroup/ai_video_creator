@@ -26,13 +26,18 @@ Only the official Data API client is used (C-2). `containsSyntheticMedia` is
 always sent as `True` (FR-49): every video this platform uploads is AI
 generated and YouTube's disclosure is mandatory, not a preference.
 """
+
 from __future__ import annotations
 
+from video_pipeline.services.preferences import job_preferences
+
 import logging
+import hashlib
 import socket
 import tempfile
 import time
 from dataclasses import dataclass, field
+from datetime import timezone as dt_timezone
 from datetime import timedelta
 from pathlib import Path
 
@@ -42,8 +47,18 @@ from django.utils import timezone
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
-from channels.quota import QuotaExhausted, mark_exhausted, next_quota_window, release_units, reserve_units
-from channels.youtube_api import ChannelNotConnected, classify_http_error, youtube_client_for_channel
+from channels.quota import (
+    QuotaExhausted,
+    mark_exhausted,
+    next_quota_window,
+    release_units,
+    reserve_units,
+)
+from channels.youtube_api import (
+    ChannelNotConnected,
+    classify_http_error,
+    youtube_client_for_channel,
+)
 from core.storage import get_storage
 from video_pipeline.models import JobStatus, Stage, VideoJob
 
@@ -67,7 +82,13 @@ _RETRYABLE_TRANSPORT_ERRORS = (
 
 
 class YouTubeUploadError(Exception):
-    def __init__(self, message: str, *, code: str = "youtube_upload_failed", retryable: bool = False):
+    def __init__(
+        self,
+        message: str,
+        *,
+        code: str = "youtube_upload_failed",
+        retryable: bool = False,
+    ):
         super().__init__(message)
         self.code = code
         self.retryable = retryable
@@ -135,11 +156,17 @@ def _resolve_privacy(job: VideoJob) -> tuple[str, str | None]:
     still ahead is uploaded `private` with `publishAt` so YouTube flips it at
     the creator's chosen time (SPEC 5.11 `scheduled_for` = publish time).
     """
-    preference = getattr(job, "preference", None)
+    preference = job_preferences(job)
     privacy = getattr(preference, "youtube_privacy_status", None) or "public"
     scheduled_for = job.scheduled_for
-    if privacy == "public" and scheduled_for and scheduled_for - timezone.now() > SCHEDULE_AHEAD_THRESHOLD:
-        return "private", scheduled_for.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    if (
+        privacy == "public"
+        and scheduled_for
+        and scheduled_for - timezone.now() > SCHEDULE_AHEAD_THRESHOLD
+    ):
+        return "private", scheduled_for.astimezone(dt_timezone.utc).isoformat().replace(
+            "+00:00", "Z"
+        )
     return privacy, None
 
 
@@ -147,7 +174,7 @@ def build_video_body(job: VideoJob) -> dict:
     """`videos.insert` request body. AC-6: title/description/tags match the job,
     privacy honours the preference, AI disclosure is always on.
     """
-    preference = getattr(job, "preference", None)
+    preference = job_preferences(job)
     privacy, publish_at = _resolve_privacy(job)
     status = {
         "privacyStatus": privacy,
@@ -163,7 +190,9 @@ def build_video_body(job: VideoJob) -> dict:
             "title": _sanitize_title(job.title),
             "description": _truncate_utf8(job.description, DESCRIPTION_MAX_BYTES),
             "tags": _limit_tags(job.tags),
-            "categoryId": str(getattr(preference, "youtube_category_id", "") or DEFAULT_CATEGORY_ID),
+            "categoryId": str(
+                getattr(preference, "youtube_category_id", "") or DEFAULT_CATEGORY_ID
+            ),
             "defaultLanguage": (job.language or "en")[:10],
             "defaultAudioLanguage": (job.language or "en")[:10],
         },
@@ -176,7 +205,9 @@ def build_video_body(job: VideoJob) -> dict:
 # ---------------------------------------------------------------------------
 def _translate_http_error(exc: HttpError, *, context: str) -> YouTubeUploadError:
     kind = classify_http_error(exc)
-    detail = f"{context}: HTTP {getattr(getattr(exc, 'resp', None), 'status', '?')} ({kind})"
+    detail = (
+        f"{context}: HTTP {getattr(getattr(exc, 'resp', None), 'status', '?')} ({kind})"
+    )
     if kind == "quota_exceeded":
         mark_exhausted()
         return YouTubeQuotaExceeded(detail, next_window=next_quota_window())
@@ -189,7 +220,9 @@ def _translate_http_error(exc: HttpError, *, context: str) -> YouTubeUploadError
     return YouTubeUploadError(detail, code="youtube_rejected_request", retryable=False)
 
 
-def _run_resumable_upload(request, *, job_id: str, sleep=time.sleep) -> tuple[dict, int]:
+def _run_resumable_upload(
+    request, *, job_id: str, sleep=time.sleep
+) -> tuple[dict, int]:
     """Drive `request.next_chunk()` until the upload completes.
 
     Transient failures (5xx / rate limit / socket) retry the *current* chunk
@@ -211,7 +244,12 @@ def _run_resumable_upload(request, *, job_id: str, sleep=time.sleep) -> tuple[di
                 delay = min(2**retries, 60)
                 logger.warning(
                     "youtube_upload_chunk_retry",
-                    extra={"job_id": job_id, "retry": retries, "delay_sec": delay, "reason": str(exc)},
+                    extra={
+                        "job_id": job_id,
+                        "retry": retries,
+                        "delay_sec": delay,
+                        "reason": str(exc),
+                    },
                 )
                 sleep(delay)
                 continue
@@ -222,7 +260,12 @@ def _run_resumable_upload(request, *, job_id: str, sleep=time.sleep) -> tuple[di
                 delay = min(2**retries, 60)
                 logger.warning(
                     "youtube_upload_chunk_transport_retry",
-                    extra={"job_id": job_id, "retry": retries, "delay_sec": delay, "error": repr(exc)},
+                    extra={
+                        "job_id": job_id,
+                        "retry": retries,
+                        "delay_sec": delay,
+                        "error": repr(exc),
+                    },
                 )
                 sleep(delay)
                 continue
@@ -236,7 +279,11 @@ def _run_resumable_upload(request, *, job_id: str, sleep=time.sleep) -> tuple[di
         if status is not None:
             logger.info(
                 "youtube_upload_progress",
-                extra={"job_id": job_id, "chunk": chunks, "progress_pct": round(status.progress() * 100, 1)},
+                extra={
+                    "job_id": job_id,
+                    "chunk": chunks,
+                    "progress_pct": round(status.progress() * 100, 1),
+                },
             )
     return response, chunks
 
@@ -245,27 +292,42 @@ def _set_thumbnail(youtube, *, video_id: str, path: Path, job_id: str) -> bool:
     try:
         reserve_units(units=int(settings.YOUTUBE_THUMBNAIL_COST_UNITS))
     except QuotaExhausted:
-        logger.warning("youtube_thumbnail_skipped_quota", extra={"job_id": job_id, "video_id": video_id})
+        logger.warning(
+            "youtube_thumbnail_skipped_quota",
+            extra={"job_id": job_id, "video_id": video_id},
+        )
         return False
-    media = MediaFileUpload(str(path), mimetype=_guess_image_mime(path), resumable=False)
+    media = MediaFileUpload(
+        str(path), mimetype=_guess_image_mime(path), resumable=False
+    )
     try:
         youtube.thumbnails().set(videoId=video_id, media_body=media).execute()
     except HttpError as exc:
         # Custom thumbnails need a phone-verified channel; the video itself is fine.
         logger.warning(
             "youtube_thumbnail_set_failed",
-            extra={"job_id": job_id, "video_id": video_id, "kind": classify_http_error(exc), "error": str(exc)},
+            extra={
+                "job_id": job_id,
+                "video_id": video_id,
+                "kind": classify_http_error(exc),
+                "error": str(exc),
+            },
         )
         return False
     except _RETRYABLE_TRANSPORT_ERRORS as exc:
-        logger.warning("youtube_thumbnail_set_transport_error", extra={"job_id": job_id, "error": repr(exc)})
+        logger.warning(
+            "youtube_thumbnail_set_transport_error",
+            extra={"job_id": job_id, "error": repr(exc)},
+        )
         return False
     return True
 
 
 def _guess_image_mime(path: Path) -> str:
     suffix = path.suffix.lower()
-    return {"png": "image/png", ".png": "image/png", ".gif": "image/gif"}.get(suffix, "image/jpeg")
+    return {"png": "image/png", ".png": "image/png", ".gif": "image/gif"}.get(
+        suffix, "image/jpeg"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -332,7 +394,9 @@ def mark_job_published(job: VideoJob, result: UploadResult) -> None:
             payload={"job_id": str(job.pk), "youtube_video_id": job.youtube_video_id},
         )
     except Exception:  # noqa: BLE001 — never fail a published job on notification delivery
-        logger.exception("video_published_notification_failed", extra={"job_id": str(job.pk)})
+        logger.exception(
+            "video_published_notification_failed", extra={"job_id": str(job.pk)}
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -346,8 +410,23 @@ def upload_job_video(job: VideoJob, *, youtube=None, sleep=time.sleep) -> Upload
     """
     job_id = str(job.pk)
     if not job.final_video_s3_key:
-        raise YouTubeUploadError("Job has no final video (final_video_s3_key empty).", code="missing_final_video")
+        raise YouTubeUploadError(
+            "Job has no final video (final_video_s3_key empty).",
+            code="missing_final_video",
+        )
 
+    if not job.moderation_approved_sha256:
+        raise YouTubeUploadError(
+            "Final video has no content-bound moderation approval.",
+            code="moderation_approval_required",
+        )
+    from video_pipeline.services.moderation_proof import metadata_digest
+
+    if job.moderation_metadata_sha256 != metadata_digest(job):
+        raise YouTubeUploadError(
+            "Public metadata changed after moderation.",
+            code="moderation_metadata_changed",
+        )
     upload_units = int(settings.YOUTUBE_UPLOAD_COST_UNITS)
     try:
         reserve_units(units=upload_units, uploads=1)
@@ -369,17 +448,32 @@ def upload_job_video(job: VideoJob, *, youtube=None, sleep=time.sleep) -> Upload
                 storage.download_to(job.final_video_s3_key, video_path)
             except Exception as exc:  # noqa: BLE001 — storage errors are not YouTube errors
                 raise YouTubeUploadError(
-                    f"Could not download final video from storage: {exc!r}", code="storage_download_failed",
+                    f"Could not download final video from storage: {exc!r}",
+                    code="storage_download_failed",
                     retryable=True,
                 ) from exc
 
+            with video_path.open("rb") as source:
+                digest = hashlib.file_digest(source, "sha256").hexdigest()
+            if digest != job.moderation_approved_sha256:
+                raise YouTubeUploadError(
+                    "Video changed after moderation; a new review is required.",
+                    code="moderation_content_changed",
+                )
+
             thumbnail_path: Path | None = None
             if job.thumbnail_s3_key:
-                thumbnail_path = Path(tmp) / f"thumbnail{Path(job.thumbnail_s3_key).suffix or '.jpg'}"
+                thumbnail_path = (
+                    Path(tmp)
+                    / f"thumbnail{Path(job.thumbnail_s3_key).suffix or '.jpg'}"
+                )
                 try:
                     storage.download_to(job.thumbnail_s3_key, thumbnail_path)
                 except Exception as exc:  # noqa: BLE001
-                    logger.warning("youtube_thumbnail_download_failed", extra={"job_id": job_id, "error": repr(exc)})
+                    logger.warning(
+                        "youtube_thumbnail_download_failed",
+                        extra={"job_id": job_id, "error": repr(exc)},
+                    )
                     thumbnail_path = None
 
             body = build_video_body(job)
@@ -389,18 +483,28 @@ def upload_job_video(job: VideoJob, *, youtube=None, sleep=time.sleep) -> Upload
                 chunksize=int(settings.YOUTUBE_UPLOAD_CHUNK_SIZE_BYTES),
                 resumable=True,
             )
-            request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
+            request = youtube.videos().insert(
+                part="snippet,status", body=body, media_body=media
+            )
             logger.info(
                 "youtube_upload_started",
-                extra={"job_id": job_id, "channel_id": str(job.channel_id), "privacy": body["status"]["privacyStatus"]},
+                extra={
+                    "job_id": job_id,
+                    "channel_id": str(job.channel_id),
+                    "privacy": body["status"]["privacyStatus"],
+                },
             )
             # From here on the reservation is spent whatever happens (Google charges on insert).
             reserved = False
-            response, chunks = _run_resumable_upload(request, job_id=job_id, sleep=sleep)
+            response, chunks = _run_resumable_upload(
+                request, job_id=job_id, sleep=sleep
+            )
 
             video_id = str(response.get("id") or "")
             if not video_id:
-                raise YouTubeUploadError("videos.insert returned no video id.", code="youtube_bad_response")
+                raise YouTubeUploadError(
+                    "videos.insert returned no video id.", code="youtube_bad_response"
+                )
 
             result = UploadResult(
                 video_id=video_id,
@@ -410,7 +514,9 @@ def upload_job_video(job: VideoJob, *, youtube=None, sleep=time.sleep) -> Upload
                 publish_at=body["status"].get("publishAt"),
             )
             if thumbnail_path is not None:
-                result.thumbnail_set = _set_thumbnail(youtube, video_id=video_id, path=thumbnail_path, job_id=job_id)
+                result.thumbnail_set = _set_thumbnail(
+                    youtube, video_id=video_id, path=thumbnail_path, job_id=job_id
+                )
                 if not result.thumbnail_set:
                     result.warnings.append("thumbnail_not_set")
     except YouTubeQuotaExceeded:
@@ -425,6 +531,11 @@ def upload_job_video(job: VideoJob, *, youtube=None, sleep=time.sleep) -> Upload
     mark_job_published(job, result)
     logger.info(
         "youtube_upload_succeeded",
-        extra={"job_id": job_id, "video_id": video_id, "chunks": chunks, "thumbnail_set": result.thumbnail_set},
+        extra={
+            "job_id": job_id,
+            "video_id": video_id,
+            "chunks": chunks,
+            "thumbnail_set": result.thumbnail_set,
+        },
     )
     return result

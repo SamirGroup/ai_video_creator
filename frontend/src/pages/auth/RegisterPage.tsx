@@ -2,7 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { GoogleSignIn } from '@/components/common/GoogleSignIn'
+import { TwoFactorChallenge } from '@/components/common/TwoFactorChallenge'
+import { useAuthStore } from '@/stores/authStore'
+import type { AuthSession, TwoFactorSession } from '@/types/auth'
 import { z } from 'zod'
 
 import { authApi } from '@/api/auth'
@@ -12,7 +17,10 @@ import { Input } from '@/components/ui/Input'
 
 const registerSchema = z.object({
   full_name: z.string().min(1, 'auth.validation.fullNameRequired'),
-  email: z.string().min(1, 'auth.validation.emailRequired').email('auth.validation.emailInvalid'),
+  email: z
+    .string()
+    .min(1, 'auth.validation.emailRequired')
+    .email('auth.validation.emailInvalid'),
   password: z.string().min(10, 'auth.validation.passwordMinLength'),
   marketing_opt_in: z.boolean().optional(),
 })
@@ -21,6 +29,20 @@ type RegisterFormValues = z.infer<typeof registerSchema>
 
 export function RegisterPage() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const setSession = useAuthStore((s) => s.setSession)
+  const [challenge, setChallenge] = useState<TwoFactorSession | null>(null)
+  const finish = (session: AuthSession) => {
+    setSession(session.user, session.access)
+    navigate('/dashboard', { replace: true })
+  }
+  const google = useMutation({
+    mutationFn: (id_token: string) => authApi.loginWithGoogle({ id_token }),
+    onSuccess: (session) => {
+      if ('requires_2fa' in session) setChallenge(session)
+      else finish(session)
+    },
+  })
 
   const {
     register,
@@ -33,12 +55,19 @@ export function RegisterPage() {
 
   const registerMutation = useMutation({ mutationFn: authApi.register })
 
+  if (challenge) return <TwoFactorChallenge challenge={challenge} onComplete={finish} />
+
   if (registerMutation.isSuccess) {
     return (
       <div className="flex flex-col items-center gap-3 text-center">
-        <h1 className="text-xl font-semibold text-foreground">{t('auth.register.title')}</h1>
+        <h1 className="text-xl font-semibold text-foreground">
+          {t('auth.register.title')}
+        </h1>
         <p className="text-sm text-muted-foreground">{t('auth.register.success')}</p>
-        <Link to="/login" className="text-sm font-medium text-primary-600 hover:underline">
+        <Link
+          to="/login"
+          className="text-sm font-medium text-primary-600 hover:underline"
+        >
           {t('auth.verifyEmail.goToLogin')}
         </Link>
       </div>
@@ -48,10 +77,14 @@ export function RegisterPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1 text-center">
-        <h1 className="text-xl font-semibold text-foreground">{t('auth.register.title')}</h1>
+        <h1 className="text-xl font-semibold text-foreground">
+          {t('auth.register.title')}
+        </h1>
         <p className="text-sm text-muted-foreground">{t('auth.register.subtitle')}</p>
       </div>
 
+      <GoogleSignIn onCredential={(token) => google.mutate(token)} />
+      {google.isError && <p role="alert">{t('common.error.generic')}</p>}
       <form
         className="flex flex-col gap-4"
         onSubmit={handleSubmit((values) => registerMutation.mutate(values))}
@@ -93,7 +126,9 @@ export function RegisterPage() {
         )}
 
         <Button type="submit" className="w-full" isLoading={registerMutation.isPending}>
-          {registerMutation.isPending ? t('auth.register.submitting') : t('auth.register.submit')}
+          {registerMutation.isPending
+            ? t('auth.register.submitting')
+            : t('auth.register.submit')}
         </Button>
       </form>
 

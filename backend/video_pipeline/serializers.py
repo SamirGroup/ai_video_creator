@@ -11,11 +11,17 @@ from video_pipeline.services.prompts import (
 
 
 class VideoJobListSerializer(serializers.ModelSerializer):
+    channel_id = serializers.UUIDField(read_only=True)
+
     class Meta:
         model = VideoJob
         fields = [
             "id",
             "channel",
+            "channel_id",
+            "language",
+            "duration_sec",
+            "youtube_url",
             "status",
             "current_stage",
             "scheduled_for",
@@ -29,6 +35,8 @@ class VideoJobListSerializer(serializers.ModelSerializer):
 
 
 class VideoJobDetailSerializer(serializers.ModelSerializer):
+    channel_id = serializers.UUIDField(read_only=True)
+
     class Meta:
         model = VideoJob
         exclude: list[str] = []
@@ -48,14 +56,18 @@ class VideoJobStepSerializer(serializers.ModelSerializer):
 class RequestChangesSerializer(serializers.Serializer):
     """POST /videos/{id}/request-changes body (FR-39)."""
 
-    comment = serializers.CharField(max_length=4000, allow_blank=False, trim_whitespace=True)
+    comment = serializers.CharField(
+        max_length=4000, allow_blank=False, trim_whitespace=True
+    )
     restart_stage = serializers.ChoiceField(choices=RESTART_STAGES)
 
 
 class RejectVideoSerializer(serializers.Serializer):
     """POST /videos/{id}/reject body (FR-39)."""
 
-    reason = serializers.CharField(max_length=2000, allow_blank=False, trim_whitespace=True)
+    reason = serializers.CharField(
+        max_length=2000, allow_blank=False, trim_whitespace=True
+    )
 
 
 class VideoMetadataUpdateSerializer(serializers.Serializer):
@@ -65,11 +77,18 @@ class VideoMetadataUpdateSerializer(serializers.Serializer):
     """
 
     title = serializers.CharField(
-        required=False, allow_blank=False, trim_whitespace=True, max_length=MAX_TITLE_CHARS
+        required=False,
+        allow_blank=False,
+        trim_whitespace=True,
+        max_length=MAX_TITLE_CHARS,
     )
-    description = serializers.CharField(required=False, allow_blank=True, trim_whitespace=False)
+    description = serializers.CharField(
+        required=False, allow_blank=True, trim_whitespace=False
+    )
     tags = serializers.ListField(
-        child=serializers.CharField(max_length=MAX_TAG_CHARS, allow_blank=False, trim_whitespace=True),
+        child=serializers.CharField(
+            max_length=MAX_TAG_CHARS, allow_blank=False, trim_whitespace=True
+        ),
         required=False,
     )
 
@@ -91,5 +110,7 @@ class VideoMetadataUpdateSerializer(serializers.Serializer):
 
     def validate(self, attrs: dict) -> dict:
         if not attrs:
-            raise serializers.ValidationError("Provide at least one of: title, description, tags.")
+            raise serializers.ValidationError(
+                "Provide at least one of: title, description, tags."
+            )
         return attrs

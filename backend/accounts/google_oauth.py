@@ -7,6 +7,7 @@ No browser automation, no account creation on Google's side (C-1, C-2) — we
 only verify a Google-issued ID token the frontend obtained via Google's own
 Sign-In SDK.
 """
+
 from __future__ import annotations
 
 import logging
@@ -26,6 +27,8 @@ def verify_google_id_token(raw_id_token: str) -> dict:
     """Verifies signature, issuer, expiry and audience. Returns the decoded claims
     (`sub`, `email`, `email_verified`, `name`, ...) or raises GoogleIDTokenError.
     """
+    if not settings.GOOGLE_OAUTH_CLIENT_ID:
+        raise GoogleIDTokenError("Google sign-in is not configured.")
     try:
         claims = google_id_token.verify_oauth2_token(
             raw_id_token,
@@ -37,4 +40,6 @@ def verify_google_id_token(raw_id_token: str) -> dict:
 
     if claims.get("iss") not in {"accounts.google.com", "https://accounts.google.com"}:
         raise GoogleIDTokenError("Unexpected token issuer.")
+    if not claims.get("email_verified"):
+        raise GoogleIDTokenError("Google email must be verified.")
     return claims

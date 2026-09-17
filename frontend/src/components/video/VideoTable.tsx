@@ -28,12 +28,17 @@ export function VideoTable({
   const { t, i18n } = useTranslation()
 
   if (videos.length === 0) {
-    return <EmptyState title={t('video.empty.title')} description={t('video.empty.description')} />
+    return (
+      <EmptyState
+        title={t('video.empty.title')}
+        description={t('video.empty.description')}
+      />
+    )
   }
 
   return (
     <div className="overflow-x-auto rounded-lg border border-border">
-      <table className="w-full min-w-[640px] text-left text-sm">
+      <table className="w-full min-w-[640px] text-start text-sm">
         <thead className="border-b border-border bg-muted/50 text-xs uppercase tracking-wide text-muted-foreground">
           <tr>
             <th scope="col" className="px-4 py-3 font-medium">
@@ -48,7 +53,7 @@ export function VideoTable({
             <th scope="col" className="px-4 py-3 font-medium">
               {t('video.table.cost')}
             </th>
-            <th scope="col" className="px-4 py-3 text-right font-medium">
+            <th scope="col" className="px-4 py-3 text-end font-medium">
               {t('video.table.actions')}
             </th>
           </tr>
@@ -68,7 +73,7 @@ export function VideoTable({
               <td className="px-4 py-3 text-muted-foreground">
                 {formatCost(video.total_cost_usd, i18n.resolvedLanguage ?? 'en')}
               </td>
-              <td className="px-4 py-3 text-right">
+              <td className="px-4 py-3 text-end">
                 <Link
                   to={`${basePath}/${video.id}`}
                   className="rounded text-sm font-medium text-primary-600 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

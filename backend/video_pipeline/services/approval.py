@@ -20,7 +20,10 @@ changes) are audit-logged but do not self-notify, matching the precedent in
 creator might miss (a video is ready for review; a review window expired
 while they were away) go through `notifications.services.notify`.
 """
+
 from __future__ import annotations
+
+from video_pipeline.services.preferences import job_preferences
 
 import importlib
 import logging
@@ -82,7 +85,9 @@ def _enqueue_stage(job: VideoJob, stage: str) -> None:
 def _enqueue_upload(job: VideoJob) -> None:
     from video_pipeline.tasks import upload_to_youtube
 
-    transaction.on_commit(lambda job_id=str(job.pk): upload_to_youtube.apply_async(args=[job_id]))
+    transaction.on_commit(
+        lambda job_id=str(job.pk): upload_to_youtube.apply_async(args=[job_id])
+    )
 
 
 def ensure_preview_token(job: VideoJob) -> VideoJob:
@@ -104,7 +109,9 @@ def preview_url(job: VideoJob) -> str:
         return f"{base}/preview/{job.preview_token}"
     from core.storage import get_storage
 
-    return get_storage().signed_url(job.final_video_s3_key, expires_sec=int(PREVIEW_URL_TTL.total_seconds()))
+    return get_storage().signed_url(
+        job.final_video_s3_key, expires_sec=int(PREVIEW_URL_TTL.total_seconds())
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -112,7 +119,25 @@ def preview_url(job: VideoJob) -> str:
 # ---------------------------------------------------------------------------
 def on_final_moderation_passed(job: VideoJob) -> str:
     """FR-38, FR-40. Returns the job's new status."""
-    preference = job.preference
+    from video_pipeline.models import VideoAsset, AssetKind
+
+    asset = (
+        VideoAsset.objects.filter(job=job, kind=AssetKind.FINAL_VIDEO)
+        .order_by("-created_at")
+        .first()
+    )
+    job.moderation_approved_sha256 = asset.checksum_sha256 if asset else ""
+    from video_pipeline.services.moderation_proof import metadata_digest
+
+    job.moderation_metadata_sha256 = metadata_digest(job)
+    job.save(
+        update_fields=[
+            "moderation_approved_sha256",
+            "moderation_metadata_sha256",
+            "updated_at",
+        ]
+    )
+    preference = job_preferences(job)
     auto = bool(preference and preference.approval_mode == ApprovalMode.AUTO)
 
     with transaction.atomic():
@@ -130,7 +155,10 @@ def on_final_moderation_passed(job: VideoJob) -> str:
             action="video_job.moderation_passed",
             resource_type="video_job",
             resource_id=str(job.pk),
-            after={"status": job.status, "approval_mode": preference.approval_mode if preference else None},
+            after={
+                "status": job.status,
+                "approval_mode": preference.approval_mode if preference else None,
+            },
         )
 
     if not auto:
@@ -140,7 +168,10 @@ def on_final_moderation_passed(job: VideoJob) -> str:
             job=job,
             ctx={"title": job.title, "url": preview_url(job)},
         )
-    logger.info("final_moderation_routed", extra={"job_id": str(job.pk), "status": job.status, "auto": auto})
+    logger.info(
+        "final_moderation_routed",
+        extra={"job_id": str(job.pk), "status": job.status, "auto": auto},
+    )
     return job.status
 
 
@@ -149,7 +180,9 @@ def on_final_moderation_passed(job: VideoJob) -> str:
 # ---------------------------------------------------------------------------
 def _require_status(job: VideoJob, allowed: set[str]) -> None:
     if job.status not in allowed:
-        raise JobNotAwaitingApproval(f"Job is {job.status}; expected one of {sorted(allowed)}.")
+        raise JobNotAwaitingApproval(
+            f"Job is {job.status}; expected one of {sorted(allowed)}."
+        )
 
 
 def approve_job(user, job: VideoJob, request=None) -> VideoJob:
@@ -164,7 +197,9 @@ def approve_job(user, job: VideoJob, request=None) -> VideoJob:
         job.status = JobStatus.APPROVED
         job.approved_at = timezone.now()
         job.approval_actor = user
-        job.save(update_fields=["status", "approved_at", "approval_actor", "updated_at"])
+        job.save(
+            update_fields=["status", "approved_at", "approval_actor", "updated_at"]
+        )
         _enqueue_upload(job)
         record_audit_event(
             actor_type="user",
@@ -175,7 +210,9 @@ def approve_job(user, job: VideoJob, request=None) -> VideoJob:
             request=request,
             after={"status": job.status},
         )
-    logger.info("video_job_approved", extra={"job_id": str(job.pk), "actor_id": str(user.id)})
+    logger.info(
+        "video_job_approved", extra={"job_id": str(job.pk), "actor_id": str(user.id)}
+    )
     return job
 
 
@@ -207,11 +244,15 @@ def reject_job(user, job: VideoJob, reason: str, request=None) -> VideoJob:
             request=request,
             after={"status": job.status, "reason": reason},
         )
-    logger.info("video_job_rejected", extra={"job_id": str(job.pk), "actor_id": str(user.id)})
+    logger.info(
+        "video_job_rejected", extra={"job_id": str(job.pk), "actor_id": str(user.id)}
+    )
     return job
 
 
-def request_changes(user, job: VideoJob, *, comment: str, restart_stage: str, request=None) -> VideoJob:
+def request_changes(
+    user, job: VideoJob, *, comment: str, restart_stage: str, request=None
+) -> VideoJob:
     """FR-39, A-21: the first 2 regenerations of a job are free; the 3rd+ costs
     quota (`billing.quota.reserve_quota(kind="regeneration")`).
     """
@@ -240,7 +281,13 @@ def request_changes(user, job: VideoJob, *, comment: str, restart_stage: str, re
         job.status = JobStatus.CHANGES_REQUESTED
         job.approval_requested_at = None
         job.save(
-            update_fields=["script_meta", "regeneration_count", "status", "approval_requested_at", "updated_at"]
+            update_fields=[
+                "script_meta",
+                "regeneration_count",
+                "status",
+                "approval_requested_at",
+                "updated_at",
+            ]
         )
         _enqueue_stage(job, restart_stage)
         record_audit_event(
@@ -250,15 +297,23 @@ def request_changes(user, job: VideoJob, *, comment: str, restart_stage: str, re
             resource_type="video_job",
             resource_id=str(job.pk),
             request=request,
-            after={"restart_stage": restart_stage, "regeneration_count": job.regeneration_count},
+            after={
+                "restart_stage": restart_stage,
+                "regeneration_count": job.regeneration_count,
+            },
         )
     logger.info(
         "video_job_changes_requested",
-        extra={"job_id": str(job.pk), "restart_stage": restart_stage, "regeneration_count": job.regeneration_count},
+        extra={
+            "job_id": str(job.pk),
+            "restart_stage": restart_stage,
+            "regeneration_count": job.regeneration_count,
+        },
     )
     return job
 
 
+@transaction.atomic
 def update_metadata(user, job: VideoJob, data: dict, request=None) -> VideoJob:
     """FR-41: title/description/tags are editable up to the approval decision."""
     _require_status(job, {JobStatus.AWAITING_APPROVAL, JobStatus.CHANGES_REQUESTED})
@@ -268,6 +323,20 @@ def update_metadata(user, job: VideoJob, data: dict, request=None) -> VideoJob:
         return job
     for field in fields:
         setattr(job, field, data[field])
+    if job.final_video_s3_key:
+        from video_pipeline.tasks import moderate_content
+
+        job.moderation_approved_sha256 = ""
+        job.moderation_metadata_sha256 = ""
+        job.status = JobStatus.MODERATING_SCRIPT
+        fields.extend(
+            ["moderation_approved_sha256", "moderation_metadata_sha256", "status"]
+        )
+        transaction.on_commit(
+            lambda: moderate_content.apply_async(
+                args=[str(job.pk)], kwargs={"scope": "script"}
+            )
+        )
     job.save(update_fields=[*fields, "updated_at"])
     record_audit_event(
         actor_type="user",
@@ -279,7 +348,9 @@ def update_metadata(user, job: VideoJob, data: dict, request=None) -> VideoJob:
         before=before,
         after={"title": job.title, "description": job.description, "tags": job.tags},
     )
-    logger.info("video_job_metadata_updated", extra={"job_id": str(job.pk), "fields": fields})
+    logger.info(
+        "video_job_metadata_updated", extra={"job_id": str(job.pk), "fields": fields}
+    )
     return job
 
 
@@ -326,7 +397,12 @@ def expire_stale_approvals(*, now=None) -> dict:
                 ctx={"title": job.title},
             )
         except Exception:  # noqa: BLE001 — a notification failure must not break the sweep
-            logger.exception("expire_stale_approvals_notify_failed", extra={"job_id": str(job.pk)})
+            logger.exception(
+                "expire_stale_approvals_notify_failed", extra={"job_id": str(job.pk)}
+            )
     if published or expired:
-        logger.info("expire_stale_approvals_completed", extra={"published": published, "expired": expired})
+        logger.info(
+            "expire_stale_approvals_completed",
+            extra={"published": published, "expired": expired},
+        )
     return {"published": published, "expired": expired}

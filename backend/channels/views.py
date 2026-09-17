@@ -6,6 +6,7 @@ handling, no account creation on Google's side (C-1, C-2). All Google-facing
 calls and DB side-effects live in `channels/services.py`; these views stay
 thin request/response glue.
 """
+
 from __future__ import annotations
 
 import logging
@@ -60,7 +61,9 @@ class YouTubeChannelDetailView(APIView):
         channel = self._get_owned_channel(request, channel_id)
         if channel is None:
             return Response({"detail": "Channel not found."}, status=404)
-        services.disconnect_channel(channel, actor_type="user", actor_id=request.user.id, request=request)
+        services.disconnect_channel(
+            channel, actor_type="user", actor_id=request.user.id, request=request
+        )
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -92,7 +95,9 @@ class YouTubeOAuthCallbackView(APIView):
     def get(self, request):
         error = request.query_params.get("error")
         if error:
-            return Response({"detail": f"Google denied the request: {error}"}, status=400)
+            return Response(
+                {"detail": f"Google denied the request: {error}"}, status=400
+            )
 
         code = request.query_params.get("code")
         state = request.query_params.get("state")
@@ -100,12 +105,16 @@ class YouTubeOAuthCallbackView(APIView):
             return Response({"detail": "Missing code or state."}, status=400)
 
         try:
-            pending = services.consume_oauth_state(kind="youtube", state=state, user_id=request.user.id)
+            pending = services.consume_oauth_state(
+                kind="youtube", state=state, user_id=request.user.id
+            )
         except services.OAuthStateError as exc:
             return Response({"detail": str(exc)}, status=400)
 
         try:
-            credentials = services.exchange_code_for_credentials(code=code, pending=pending)
+            credentials = services.exchange_code_for_credentials(
+                code=code, pending=pending
+            )
             channel_payload = services.fetch_own_channel(credentials)
             channel, created = services.persist_youtube_channel(
                 user=request.user,
@@ -120,7 +129,9 @@ class YouTubeOAuthCallbackView(APIView):
                 "youtube_oauth_callback_failed",
                 extra={"user_id": str(request.user.id), "error": str(exc)},
             )
-            return Response({"detail": f"Could not connect YouTube channel: {exc}"}, status=400)
+            return Response(
+                {"detail": f"Could not connect YouTube channel: {exc}"}, status=400
+            )
 
         record_audit_event(
             actor_type="user",
@@ -129,7 +140,10 @@ class YouTubeOAuthCallbackView(APIView):
             resource_type="youtube_channel",
             resource_id=str(channel.id),
             request=request,
-            after={"scopes": pending.scopes, "youtube_channel_id": channel.youtube_channel_id},
+            after={
+                "scopes": pending.scopes,
+                "youtube_channel_id": channel.youtube_channel_id,
+            },
         )
         return Response(
             YouTubeChannelSerializer(channel).data,
@@ -148,7 +162,9 @@ class YouTubeOAuthRevokeView(APIView):
         ).first()
         if channel is None:
             return Response({"detail": "No connected YouTube channel."}, status=404)
-        services.disconnect_channel(channel, actor_type="user", actor_id=request.user.id, request=request)
+        services.disconnect_channel(
+            channel, actor_type="user", actor_id=request.user.id, request=request
+        )
         return Response({"detail": "YouTube channel disconnected."})
 
 
@@ -177,7 +193,9 @@ class AdSenseOAuthCallbackView(APIView):
     def get(self, request):
         error = request.query_params.get("error")
         if error:
-            return Response({"detail": f"Google denied the request: {error}"}, status=400)
+            return Response(
+                {"detail": f"Google denied the request: {error}"}, status=400
+            )
 
         code = request.query_params.get("code")
         state = request.query_params.get("state")
@@ -185,12 +203,16 @@ class AdSenseOAuthCallbackView(APIView):
             return Response({"detail": "Missing code or state."}, status=400)
 
         try:
-            pending = services.consume_oauth_state(kind="adsense", state=state, user_id=request.user.id)
+            pending = services.consume_oauth_state(
+                kind="adsense", state=state, user_id=request.user.id
+            )
         except services.OAuthStateError as exc:
             return Response({"detail": str(exc)}, status=400)
 
         try:
-            credentials = services.exchange_code_for_credentials(code=code, pending=pending)
+            credentials = services.exchange_code_for_credentials(
+                code=code, pending=pending
+            )
             account_payload = services.fetch_adsense_account(credentials)
             account, created = services.persist_adsense_account(
                 user=request.user,
@@ -201,7 +223,9 @@ class AdSenseOAuthCallbackView(APIView):
         except services.ChannelAlreadyLinkedError as exc:
             return Response({"detail": str(exc)}, status=status.HTTP_409_CONFLICT)
         except services.OAuthExchangeError as exc:
-            return Response({"detail": f"Could not connect AdSense account: {exc}"}, status=400)
+            return Response(
+                {"detail": f"Could not connect AdSense account: {exc}"}, status=400
+            )
 
         record_audit_event(
             actor_type="user",
@@ -229,7 +253,9 @@ class AdSenseOAuthRevokeView(APIView):
         ).first()
         if account is None:
             return Response({"detail": "No connected AdSense account."}, status=404)
-        services.disconnect_adsense_account(account, actor_type="user", actor_id=request.user.id, request=request)
+        services.disconnect_adsense_account(
+            account, actor_type="user", actor_id=request.user.id, request=request
+        )
         return Response({"detail": "AdSense account disconnected."})
 
 
@@ -251,3 +277,13 @@ class YouTubeChannelSyncView(APIView):
         except services.OAuthExchangeError as exc:
             return Response({"detail": f"Sync failed: {exc}"}, status=502)
         return Response(YouTubeChannelSerializer(updated).data)
+
+
+class CurrentAdSenseView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        account = AdSenseAccount.objects.filter(
+            user=request.user, status=ConnectionStatus.CONNECTED
+        ).first()
+        return Response(AdSenseAccountSerializer(account).data if account else None)

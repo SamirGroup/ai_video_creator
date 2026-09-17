@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "加载中…",
+    "retry": "重试",
+    "save": "保存",
+    "cancel": "取消",
+    "close": "关闭",
+    "search": "搜索",
+    "back": "返回",
+    "confirm": "确认",
+    "actions": "操作",
+    "status": "状态",
+    "date": "日期",
+    "unknown": "未知"
+  },
+  "nav": {
+    "dashboard": "控制面板",
+    "channel": "频道",
+    "preferences": "偏好设置",
+    "videos": "视频",
+    "revenue": "收入",
+    "billing": "账单",
+    "contract": "合同",
+    "adminUsers": "用户",
+    "adminVideos": "视频任务",
+    "adminModeration": "内容审核",
+    "adminFinance": "财务",
+    "adminConfig": "配置",
+    "logout": "退出登录",
+    "language": "语言",
+    "theme": "主题"
+  },
+  "auth": {
+    "login": {
+      "title": "登录",
+      "email": "电子邮箱",
+      "password": "密码",
+      "submit": "登录"
+    },
+    "register": {
+      "title": "创建账户",
+      "fullName": "姓名",
+      "email": "电子邮箱",
+      "password": "密码",
+      "submit": "创建账户"
+    }
+  },
+  "preferences": {
+    "language": "内容语言",
+    "videoDuration": "视频时长（秒）",
+    "frequency": "发布频率",
+    "frequencyOptions": {
+      "daily": "每天",
+      "weekly": "每周",
+      "monthly": "每月"
+    },
+    "publishTime": "发布时间",
+    "privacyStatus": "隐私设置",
+    "privacyOptions": {
+      "public": "公开",
+      "unlisted": "不公开列出",
+      "private": "私密"
+    },
+    "approvalMode": "批准模式",
+    "save": "保存设置",
+    "saved": "设置已保存。",
+    "timezone": "时区",
+    "publishDays": "日期（每周：0–6；每月：1–28）",
+    "title": "偏好设置"
+  },
+  "dashboard": {
+    "title": "控制面板"
+  },
+  "channel": {
+    "title": "频道"
+  },
+  "video": {
+    "title": "视频"
+  },
+  "revenue": {
+    "title": "收入"
+  },
+  "billing": {
+    "title": "账单"
+  },
+  "contract": {
+    "title": "合同"
+  }
+}

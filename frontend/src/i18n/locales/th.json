@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "กำลังโหลด…",
+    "retry": "ลองอีกครั้ง",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "close": "ปิด",
+    "search": "ค้นหา",
+    "back": "ย้อนกลับ",
+    "confirm": "ยืนยัน",
+    "actions": "การดำเนินการ",
+    "status": "สถานะ",
+    "date": "วันที่",
+    "unknown": "ไม่ทราบ"
+  },
+  "nav": {
+    "dashboard": "แดชบอร์ด",
+    "channel": "ช่อง",
+    "preferences": "การตั้งค่า",
+    "videos": "วิดีโอ",
+    "revenue": "รายได้",
+    "billing": "การเรียกเก็บเงิน",
+    "contract": "สัญญา",
+    "adminUsers": "ผู้ใช้",
+    "adminVideos": "งานวิดีโอ",
+    "adminModeration": "การตรวจสอบเนื้อหา",
+    "adminFinance": "การเงิน",
+    "adminConfig": "การกำหนดค่า",
+    "logout": "ออกจากระบบ",
+    "language": "ภาษา",
+    "theme": "ธีม"
+  },
+  "auth": {
+    "login": {
+      "title": "เข้าสู่ระบบ",
+      "email": "อีเมล",
+      "password": "รหัสผ่าน",
+      "submit": "เข้าสู่ระบบ"
+    },
+    "register": {
+      "title": "สร้างบัญชี",
+      "fullName": "ชื่อเต็ม",
+      "email": "อีเมล",
+      "password": "รหัสผ่าน",
+      "submit": "สร้างบัญชี"
+    }
+  },
+  "preferences": {
+    "language": "ภาษาของเนื้อหา",
+    "videoDuration": "ความยาววิดีโอ (วินาที)",
+    "frequency": "ความถี่ในการเผยแพร่",
+    "frequencyOptions": {
+      "daily": "รายวัน",
+      "weekly": "รายสัปดาห์",
+      "monthly": "รายเดือน"
+    },
+    "publishTime": "เวลาเผยแพร่",
+    "privacyStatus": "ความเป็นส่วนตัว",
+    "privacyOptions": {
+      "public": "สาธารณะ",
+      "unlisted": "ไม่เป็นสาธารณะ",
+      "private": "ส่วนตัว"
+    },
+    "approvalMode": "โหมดการอนุมัติ",
+    "save": "บันทึกการตั้งค่า",
+    "saved": "บันทึกการตั้งค่าแล้ว",
+    "timezone": "เขตเวลา",
+    "publishDays": "วัน (สัปดาห์: 0–6; เดือน: 1–28)",
+    "title": "การตั้งค่า"
+  },
+  "dashboard": {
+    "title": "แดชบอร์ด"
+  },
+  "channel": {
+    "title": "ช่อง"
+  },
+  "video": {
+    "title": "วิดีโอ"
+  },
+  "revenue": {
+    "title": "รายได้"
+  },
+  "billing": {
+    "title": "การเรียกเก็บเงิน"
+  },
+  "contract": {
+    "title": "สัญญา"
+  }
+}

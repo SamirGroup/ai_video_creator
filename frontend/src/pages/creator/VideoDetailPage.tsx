@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query'
+import { videosApi } from '@/api/videos'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 
@@ -17,6 +19,12 @@ export function VideoDetailPage() {
   const { t, i18n } = useTranslation()
   const { videoId = '' } = useParams<{ videoId: string }>()
   const videoQuery = useVideoDetail(videoId)
+  const preview = useQuery({
+    queryKey: ['video-preview', videoId],
+    queryFn: () => videosApi.preview(videoId),
+    enabled: Boolean(videoQuery.data?.final_video_s3_key),
+    staleTime: 600000,
+  })
   const stepsQuery = useVideoSteps(videoId)
 
   const approveMutation = useApproveVideo(videoId)
@@ -26,7 +34,12 @@ export function VideoDetailPage() {
   if (videoQuery.isLoading) return <PageLoading />
   if (videoQuery.isError) return <ErrorState onRetry={() => videoQuery.refetch()} />
   if (!videoQuery.data) {
-    return <EmptyState title={t('video.empty.title')} description={t('video.empty.description')} />
+    return (
+      <EmptyState
+        title={t('video.empty.title')}
+        description={t('video.empty.description')}
+      />
+    )
   }
 
   const video = videoQuery.data
@@ -54,14 +67,20 @@ export function VideoDetailPage() {
         <VideoStatusBadge status={video.status} />
       </div>
 
-      {video.preview_url && (
+      {preview.data && (
         <Card>
           <CardContent className="pt-5">
-            <p className="mb-2 text-sm font-medium text-foreground">{t('video.approval.preview')}</p>
-            <div className="flex aspect-video items-center justify-center rounded-md bg-muted text-sm text-muted-foreground">
-              {/* TODO: real API — signed preview URL from GET /videos/{id}/preview */}
-              {t('video.previewPlaceholder')}
-            </div>
+            <p className="mb-2 text-sm font-medium text-foreground">
+              {t('video.approval.preview')}
+            </p>
+            <video
+              className="aspect-video w-full rounded-md bg-black"
+              src={preview.data.preview_url}
+              controls
+              preload="metadata"
+            >
+              <track kind="captions" />
+            </video>
           </CardContent>
         </Card>
       )}
@@ -69,7 +88,9 @@ export function VideoDetailPage() {
       {video.status === 'awaiting_approval' && (
         <Card>
           <CardContent className="flex flex-col gap-4 pt-5">
-            <h2 className="text-sm font-semibold text-foreground">{t('video.approval.title')}</h2>
+            <h2 className="text-sm font-semibold text-foreground">
+              {t('video.approval.title')}
+            </h2>
             <ApprovalActions
               onApprove={() => approveMutation.mutate()}
               onRequestChanges={(payload) => requestChangesMutation.mutate(payload)}
@@ -82,6 +103,11 @@ export function VideoDetailPage() {
         </Card>
       )}
 
+      {(approveMutation.isError ||
+        requestChangesMutation.isError ||
+        rejectMutation.isError ||
+        preview.isError ||
+        stepsQuery.isError) && <ErrorState />}
       {video.error_message && (
         <Card className="border-destructive-600/40">
           <CardContent className="pt-5">

@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
@@ -11,12 +11,17 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Checkbox } from '@/components/ui/Checkbox'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
-import { mockPreferences } from '@/mocks/fixtures'
-import { mockFetch } from '@/mocks/mockFetch'
-import type { ContentPreferences } from '@/types/channel'
+import { channelsApi } from '@/api/channels'
+import { ApiError } from '@/api/client'
+import { DEFAULT_LOCALE, LANGUAGES } from '@/i18n/registry'
 
 const preferencesSchema = z.object({
   niche: z.string().min(1),
+  language: z
+    .string()
+    .refine((code) => LANGUAGES.some((language) => language.code === code)),
+  publish_timezone: z.string().min(1),
+  publish_days: z.string().regex(/^\s*(\d+\s*(,\s*\d+\s*)*)?$/),
   custom_brief: z.string().nullable().optional(),
   brand_voice: z.string().nullable().optional(),
   video_duration_sec: z.coerce.number().min(30).max(600),
@@ -33,43 +38,110 @@ const preferencesSchema = z.object({
 type PreferencesFormInput = z.input<typeof preferencesSchema>
 type PreferencesFormValues = z.output<typeof preferencesSchema>
 
-// TODO: real API — replace with channelsApi.getPreferences/savePreferences (src/api/channels.ts)
-function usePreferences() {
-  return useQuery({ queryKey: ['preferences'], queryFn: () => mockFetch(mockPreferences) })
-}
-
 export function PreferencesPage() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
-  const preferencesQuery = usePreferences()
+  const [selectedChannel, setSelectedChannel] = useState('')
+  const channelsQuery = useQuery({ queryKey: ['channels'], queryFn: channelsApi.list })
+  const channelId = selectedChannel || channelsQuery.data?.[0]?.id || ''
+  const preferencesQuery = useQuery({
+    queryKey: ['preferences', channelId],
+    enabled: Boolean(channelId),
+    retry: false,
+    queryFn: async () => {
+      try {
+        return await channelsApi.getPreferences(channelId)
+      } catch (error) {
+        if (error instanceof ApiError && error.status === 404) return null
+        throw error
+      }
+    },
+  })
 
   const {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm<PreferencesFormInput, unknown, PreferencesFormValues>({
     resolver: zodResolver(preferencesSchema),
   })
 
   useEffect(() => {
-    if (preferencesQuery.data) reset(preferencesQuery.data)
-  }, [preferencesQuery.data, reset])
+    const data = preferencesQuery.data
+    reset({
+      niche: data?.niche ?? 'technology',
+      language: data?.language ?? DEFAULT_LOCALE,
+      custom_brief: data?.custom_brief ?? '',
+      brand_voice: data?.brand_voice ?? '',
+      video_duration_sec: data?.video_duration_sec ?? 60,
+      frequency: data?.frequency ?? 'daily',
+      publish_time_local: data?.publish_time_local ?? '12:00',
+      publish_timezone:
+        data?.publish_timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
+      publish_days: data?.publish_days?.join(',') ?? '',
+      youtube_privacy_status: data?.youtube_privacy_status ?? 'private',
+      approval_mode: data?.approval_mode ?? 'review_required',
+    })
+  }, [preferencesQuery.data, channelId, reset])
 
   const saveMutation = useMutation({
-    mutationFn: (values: PreferencesFormValues) =>
-      mockFetch({ ...preferencesQuery.data, ...values } as ContentPreferences, 500),
-    onSuccess: (updated) => queryClient.setQueryData(['preferences'], updated),
+    mutationFn: (values: PreferencesFormValues) => {
+      const payload = {
+        ...values,
+        custom_brief: values.custom_brief ?? '',
+        brand_voice: values.brand_voice ?? '',
+        publish_days:
+          values.frequency === 'daily' || !values.publish_days.trim()
+            ? null
+            : values.publish_days.split(',').map((day) => Number(day.trim())),
+      }
+      return preferencesQuery.data
+        ? channelsApi.updatePreferences(channelId, payload)
+        : channelsApi.savePreferences(channelId, {
+            ...payload,
+            banned_topics: [],
+            youtube_category_id: '22',
+            made_for_kids: false,
+            auto_publish_on_timeout: false,
+            is_paused: false,
+          })
+    },
+    onSuccess: (updated) => {
+      queryClient.setQueryData(['preferences', channelId], updated)
+    },
+    onError: (error) => setError('root', { message: error.message }),
   })
 
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-semibold text-foreground">{t('preferences.title')}</h1>
 
+      {channelsQuery.isLoading && <CardSkeletonGrid count={1} />}
+      {channelsQuery.isError && <ErrorState onRetry={() => channelsQuery.refetch()} />}
+      {channelsQuery.data?.length === 0 && <p>{t('dashboard.connectChannel')}</p>}
+      {Boolean(channelsQuery.data?.length) && (
+        <Select
+          label={t('nav.channel')}
+          value={channelId}
+          disabled={saveMutation.isPending}
+          options={(channelsQuery.data ?? []).map((channel) => ({
+            value: channel.id,
+            label: channel.channel_title,
+          }))}
+          onChange={(event) => {
+            setSelectedChannel(event.target.value)
+            saveMutation.reset()
+          }}
+        />
+      )}
       {preferencesQuery.isLoading && <CardSkeletonGrid count={1} />}
-      {preferencesQuery.isError && <ErrorState onRetry={() => preferencesQuery.refetch()} />}
+      {preferencesQuery.isError && (
+        <ErrorState onRetry={() => preferencesQuery.refetch()} />
+      )}
 
-      {preferencesQuery.data && (
+      {channelId && preferencesQuery.isSuccess && (
         <Card>
           <CardContent className="pt-5">
             <form
@@ -77,7 +149,20 @@ export function PreferencesPage() {
               onSubmit={handleSubmit((values) => saveMutation.mutate(values))}
               noValidate
             >
-              <Input label={t('preferences.niche')} required {...register('niche')} />
+              <Select
+                label={t('preferences.language')}
+                options={LANGUAGES.map((language) => ({
+                  value: language.code,
+                  label: language.native_name,
+                }))}
+                {...register('language')}
+              />
+              <Input
+                label={t('preferences.niche')}
+                error={errors.niche ? t('common.error.generic') : undefined}
+                required
+                {...register('niche')}
+              />
               <Input
                 type="number"
                 label={t('preferences.videoDuration')}
@@ -101,6 +186,15 @@ export function PreferencesPage() {
                 label={t('preferences.publishTime')}
                 required
                 {...register('publish_time_local')}
+              />
+              <Input
+                label={t('preferences.timezone')}
+                {...register('publish_timezone')}
+              />
+              <Input
+                label={t('preferences.publishDays')}
+                error={errors.publish_days ? t('common.error.generic') : undefined}
+                {...register('publish_days')}
               />
               <Select
                 label={t('preferences.privacyStatus')}
@@ -154,9 +248,18 @@ export function PreferencesPage() {
               </div>
 
               <div className="sm:col-span-2">
-                <Checkbox label={t('preferences.paused')} disabled defaultChecked={preferencesQuery.data.is_paused} />
+                <Checkbox
+                  label={t('preferences.paused')}
+                  disabled
+                  defaultChecked={preferencesQuery.data?.is_paused ?? false}
+                />
               </div>
 
+              {errors.root && (
+                <p role="alert" className="text-destructive-600 sm:col-span-2">
+                  {errors.root.message}
+                </p>
+              )}
               <div className="sm:col-span-2 flex items-center gap-3">
                 <Button type="submit" isLoading={saveMutation.isPending}>
                   {t('preferences.save')}

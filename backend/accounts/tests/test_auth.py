@@ -128,7 +128,7 @@ class TestRefreshAndLogout:
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_logout_clears_refresh_cookie(self, api_client):
-        user = UserFactory(email="logout@example.com", password="a-strong-password-123")
+        UserFactory(email="logout@example.com", password="a-strong-password-123")
         login_response = api_client.post(
             reverse("accounts:login"),
             {"email": "logout@example.com", "password": "a-strong-password-123"},
@@ -195,7 +195,7 @@ class TestMeEndpoint:
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_me_returns_current_user(self, api_client):
-        user = UserFactory(email="me@example.com", password="a-strong-password-123")
+        UserFactory(email="me@example.com", password="a-strong-password-123")
         login_response = api_client.post(
             reverse("accounts:login"),
             {"email": "me@example.com", "password": "a-strong-password-123"},

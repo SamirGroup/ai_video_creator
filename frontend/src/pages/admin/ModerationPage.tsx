@@ -1,3 +1,4 @@
+import { adminApi } from '@/api/admin'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -5,14 +6,11 @@ import { useTranslation } from 'react-i18next'
 import { EmptyState, ErrorState, TableSkeleton } from '@/components/common/StateViews'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { mockModerationQueue } from '@/mocks/fixtures'
-import { mockFetch } from '@/mocks/mockFetch'
 
-// TODO: real API — replace with adminApi.moderationQueue/decideModerationCase (src/api/admin.ts)
 function useModerationQueue() {
   return useQuery({
     queryKey: ['moderation-queue'],
-    queryFn: () => mockFetch(mockModerationQueue),
+    queryFn: adminApi.allModeration,
   })
 }
 
@@ -23,18 +21,27 @@ export function ModerationPage() {
   const [reasonByJob, setReasonByJob] = useState<Record<string, string>>({})
 
   const decideMutation = useMutation({
-    mutationFn: (jobId: string) => mockFetch(jobId, 400),
-    onSuccess: (jobId) =>
-      queryClient.setQueryData(
-        ['moderation-queue'],
-        (list: typeof mockModerationQueue = []) => list.filter((item) => item.job_id !== jobId),
-      ),
+    mutationFn: ({
+      jobId,
+      decision,
+    }: {
+      jobId: string
+      decision: 'approved' | 'rejected'
+    }) =>
+      adminApi.decideModerationCase(jobId, {
+        decision,
+        reason: reasonByJob[jobId] ?? '',
+      }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['moderation-queue'] }),
   })
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-xl font-semibold text-foreground">{t('admin.moderation.title')}</h1>
+      <h1 className="text-xl font-semibold text-foreground">
+        {t('admin.moderation.title')}
+      </h1>
 
+      {decideMutation.isError && <ErrorState />}
       {isLoading && <TableSkeleton rows={2} />}
       {isError && <ErrorState onRetry={() => refetch()} />}
       {data && data.length === 0 && <EmptyState />}
@@ -44,10 +51,15 @@ export function ModerationPage() {
           {data.map((item) => {
             const reason = reasonByJob[item.job_id] ?? ''
             return (
-              <div key={item.job_id} className="flex flex-col gap-3 rounded-lg border border-border p-4">
+              <div
+                key={item.job_id}
+                className="flex flex-col gap-3 rounded-lg border border-border p-4"
+              >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <p className="text-sm font-medium text-foreground">{item.video_title}</p>
+                    <p className="text-sm font-medium text-foreground">
+                      {item.video_title}
+                    </p>
                     <p className="text-xs text-muted-foreground">{item.user_email}</p>
                   </div>
                   <Badge tone="warning" dot>
@@ -76,7 +88,9 @@ export function ModerationPage() {
                     variant="destructive"
                     disabled={!reason.trim()}
                     isLoading={decideMutation.isPending}
-                    onClick={() => decideMutation.mutate(item.job_id)}
+                    onClick={() =>
+                      decideMutation.mutate({ jobId: item.job_id, decision: 'rejected' })
+                    }
                   >
                     {t('admin.moderation.reject')}
                   </Button>
@@ -84,7 +98,9 @@ export function ModerationPage() {
                     size="sm"
                     disabled={!reason.trim()}
                     isLoading={decideMutation.isPending}
-                    onClick={() => decideMutation.mutate(item.job_id)}
+                    onClick={() =>
+                      decideMutation.mutate({ jobId: item.job_id, decision: 'approved' })
+                    }
                   >
                     {t('admin.moderation.approve')}
                   </Button>

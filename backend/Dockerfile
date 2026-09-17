@@ -31,6 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         curl \
         libpq5 \
         ffmpeg \
+        fonts-noto-core \
+        fonts-noto-cjk \
     && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -g 1000 app && useradd -u 1000 -g app -m -s /usr/sbin/nologin app

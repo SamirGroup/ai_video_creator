@@ -5,6 +5,7 @@ invariant in the whole revenue-share model (AC-7: platform_share_amount +
 creator_share_amount == gross_revenue, to the cent). Everything else is a
 DB-backed integration test of `close_period_for_user`.
 """
+
 from __future__ import annotations
 
 from datetime import date, timedelta
@@ -15,7 +16,14 @@ from django.utils import timezone
 
 from accounts.tests.factories import UserFactory
 from contracts.models import Contract, ContractStatus, ContractVersion
-from revenue.models import Invoice, RevenueRecord, RevenueShareStatement, RevenueSource, StatementStatus
+from revenue.models import (
+    Invoice,
+    RevenueRecord,
+    RevenueSettlement,
+    RevenueShareStatement,
+    RevenueSource,
+    StatementStatus,
+)
 from revenue.services.statements import (
     DisputeWindowClosed,
     StatementNotDisputable,
@@ -25,6 +33,7 @@ from revenue.services.statements import (
     previous_calendar_month,
     split_50_50,
 )
+from video_pipeline.models import JobStatus
 from video_pipeline.tests.factories import VideoJobFactory
 
 
@@ -45,23 +54,31 @@ class TestSplit5050:
         ],
     )
     def test_shares_always_sum_to_gross(self, gross):
-        platform, creator = split_50_50(gross, platform_pct=Decimal("50"), creator_pct=Decimal("50"))
+        platform, creator = split_50_50(
+            gross, platform_pct=Decimal("50"), creator_pct=Decimal("50")
+        )
         assert platform + creator == gross
 
     def test_odd_cent_favours_the_creator_not_the_platform(self):
         # $100.01 split 50/50 raw = $50.005 / $50.005 — someone gets the extra cent.
-        platform, creator = split_50_50(Decimal("100.01"), platform_pct=Decimal("50"), creator_pct=Decimal("50"))
+        platform, creator = split_50_50(
+            Decimal("100.01"), platform_pct=Decimal("50"), creator_pct=Decimal("50")
+        )
         assert creator == Decimal("50.01")
         assert platform == Decimal("50.00")
 
     def test_non_5050_split_still_sums_exactly(self):
-        platform, creator = split_50_50(Decimal("77.77"), platform_pct=Decimal("30"), creator_pct=Decimal("70"))
+        platform, creator = split_50_50(
+            Decimal("77.77"), platform_pct=Decimal("30"), creator_pct=Decimal("70")
+        )
         assert platform + creator == Decimal("77.77")
         assert creator == Decimal("54.44")  # 77.77 * 0.7 = 54.439 -> half-up -> 54.44
         assert platform == Decimal("23.33")
 
     def test_zero_gross(self):
-        platform, creator = split_50_50(Decimal("0"), platform_pct=Decimal("50"), creator_pct=Decimal("50"))
+        platform, creator = split_50_50(
+            Decimal("0"), platform_pct=Decimal("50"), creator_pct=Decimal("50")
+        )
         assert (platform, creator) == (Decimal("0.00"), Decimal("0.00"))
 
 
@@ -103,7 +120,11 @@ def _stub_billing(monkeypatch):
             paid_at=timezone.now(),
         )
 
-    monkeypatch.setattr(statements_module, "_invoice_or_carry_forward", lambda statement: _record_and_invoice(statement, _fake_invoice, calls))
+    monkeypatch.setattr(
+        statements_module,
+        "_invoice_or_carry_forward",
+        lambda statement: _record_and_invoice(statement, _fake_invoice, calls),
+    )
     return calls
 
 
@@ -118,9 +139,12 @@ def _record_and_invoice(statement, fake_invoice, calls):
 def contract(db):
     user = UserFactory()
     version = ContractVersion.objects.create(
+        revenue_only_platform_published=False,
         version="v1.0",
         title="Creator Agreement",
         body_markdown="Terms...",
+        revenue_share_platform_pct=50,
+        revenue_share_creator_pct=50,
         locale="en",
         effective_from=timezone.now() - timedelta(days=30),
         is_active=True,
@@ -136,7 +160,9 @@ def contract(db):
     )
 
 
-def _final_record(*, user, channel, job, day, revenue, source=RevenueSource.YOUTUBE_ANALYTICS):
+def _final_record(
+    *, user, channel, job, day, revenue, source=RevenueSource.YOUTUBE_ANALYTICS
+):
     return RevenueRecord.objects.create(
         user=user,
         channel=channel,
@@ -160,8 +186,20 @@ class TestGrossForPeriod:
         other_job = VideoJobFactory(channel__user=user, is_platform_generated=False)
         period_start, period_end = date(2026, 1, 1), date(2026, 2, 1)
 
-        _final_record(user=user, channel=job.channel, job=job, day=date(2026, 1, 10), revenue=Decimal("10.00"))
-        _final_record(user=user, channel=other_job.channel, job=other_job, day=date(2026, 1, 10), revenue=Decimal("999.00"))
+        _final_record(
+            user=user,
+            channel=job.channel,
+            job=job,
+            day=date(2026, 1, 10),
+            revenue=Decimal("10.00"),
+        )
+        _final_record(
+            user=user,
+            channel=other_job.channel,
+            job=other_job,
+            day=date(2026, 1, 10),
+            revenue=Decimal("999.00"),
+        )
         RevenueRecord.objects.create(  # channel-level, job=None — excluded (FR-65)
             user=user,
             channel=job.channel,
@@ -183,24 +221,49 @@ class TestGrossForPeriod:
         user = contract.user
         job = VideoJobFactory(channel__user=user, is_platform_generated=True)
         day = date(2026, 1, 10)
-        _final_record(user=user, channel=job.channel, job=job, day=day, revenue=Decimal("8.00"), source=RevenueSource.YOUTUBE_ANALYTICS)
-        _final_record(user=user, channel=job.channel, job=job, day=day, revenue=Decimal("9.50"), source=RevenueSource.ADSENSE)
+        _final_record(
+            user=user,
+            channel=job.channel,
+            job=job,
+            day=day,
+            revenue=Decimal("8.00"),
+            source=RevenueSource.YOUTUBE_ANALYTICS,
+        )
+        _final_record(
+            user=user,
+            channel=job.channel,
+            job=job,
+            day=day,
+            revenue=Decimal("9.50"),
+            source=RevenueSource.ADSENSE,
+        )
 
         gross, _, _ = gross_for_period(user, date(2026, 1, 1), date(2026, 2, 1))
         assert gross == Decimal("9.50")  # not 17.50 (double-counted)
 
 
 class TestClosePeriodForUser:
-    def test_creates_a_balanced_statement_and_invoices_it(self, contract, _stub_billing):
+    def test_creates_a_balanced_statement_and_invoices_it(
+        self, contract, _stub_billing
+    ):
         user = contract.user
         job = VideoJobFactory(channel__user=user, is_platform_generated=True)
-        _final_record(user=user, channel=job.channel, job=job, day=date(2026, 1, 15), revenue=Decimal("100.00"))
+        _final_record(
+            user=user,
+            channel=job.channel,
+            job=job,
+            day=date(2026, 1, 15),
+            revenue=Decimal("100.00"),
+        )
 
         statement = close_period_for_user(user, date(2026, 1, 1), date(2026, 2, 1))
 
         assert statement is not None
         assert statement.gross_revenue == Decimal("100.00")
-        assert statement.platform_share_amount + statement.creator_share_amount == statement.gross_revenue
+        assert (
+            statement.platform_share_amount + statement.creator_share_amount
+            == statement.gross_revenue
+        )
         assert statement.platform_share_amount == Decimal("50.00")
         assert statement.creator_share_amount == Decimal("50.00")
         assert statement.contract_id == contract.id
@@ -210,7 +273,13 @@ class TestClosePeriodForUser:
     def test_is_idempotent_for_the_same_period(self, contract):
         user = contract.user
         job = VideoJobFactory(channel__user=user, is_platform_generated=True)
-        _final_record(user=user, channel=job.channel, job=job, day=date(2026, 1, 15), revenue=Decimal("42.00"))
+        _final_record(
+            user=user,
+            channel=job.channel,
+            job=job,
+            day=date(2026, 1, 15),
+            revenue=Decimal("42.00"),
+        )
 
         first = close_period_for_user(user, date(2026, 1, 1), date(2026, 2, 1))
         second = close_period_for_user(user, date(2026, 1, 1), date(2026, 2, 1))
@@ -219,14 +288,22 @@ class TestClosePeriodForUser:
         assert RevenueShareStatement.objects.filter(user=user).count() == 1
 
     def test_returns_none_when_there_is_no_platform_revenue(self, contract):
-        statement = close_period_for_user(contract.user, date(2026, 1, 1), date(2026, 2, 1))
+        statement = close_period_for_user(
+            contract.user, date(2026, 1, 1), date(2026, 2, 1)
+        )
         assert statement is None
         assert RevenueShareStatement.objects.filter(user=contract.user).count() == 0
 
     def test_returns_none_without_an_active_contract(self, db):
         user = UserFactory()
         job = VideoJobFactory(channel__user=user, is_platform_generated=True)
-        _final_record(user=user, channel=job.channel, job=job, day=date(2026, 1, 15), revenue=Decimal("50.00"))
+        _final_record(
+            user=user,
+            channel=job.channel,
+            job=job,
+            day=date(2026, 1, 15),
+            revenue=Decimal("50.00"),
+        )
 
         statement = close_period_for_user(user, date(2026, 1, 1), date(2026, 2, 1))
         assert statement is None
@@ -277,3 +354,131 @@ class TestDisputeStatement:
         )
         with pytest.raises(StatementNotDisputable):
             dispute_statement(contract.user, statement, "x")
+
+
+class TestRevenueShare3070:
+    def test_new_contract_defaults_and_existing_seed_are_distinct(self, db):
+        prospective = ContractVersion()
+        assert prospective.revenue_share_platform_pct == 30
+        assert prospective.revenue_share_creator_pct == 70
+        historical = ContractVersion.objects.get(version="1.0")
+        assert historical.revenue_share_platform_pct == Decimal("50")
+        assert historical.revenue_share_creator_pct == Decimal("50")
+        assert not historical.revenue_only_platform_published
+        current = ContractVersion.objects.get(version="1.1")
+        assert current.is_active
+        assert current.revenue_share_platform_pct == Decimal("30")
+        assert current.revenue_only_platform_published
+        assert "PUBLISHED THROUGH" in current.body_markdown
+
+    def test_only_platform_generated_revenue_is_charged(self, contract):
+        version = contract.contract_version
+        version.revenue_share_platform_pct = Decimal("30")
+        version.revenue_share_creator_pct = Decimal("70")
+        version.revenue_only_platform_published = True
+        version.save()
+        user = contract.user
+        ours = VideoJobFactory(
+            user=user,
+            status=JobStatus.PUBLISHED,
+            is_platform_generated=True,
+            youtube_video_id="ours_video",
+            youtube_upload_status="uploaded",
+            published_at=timezone.now(),
+        )
+        independent = VideoJobFactory(
+            user=user,
+            channel=ours.channel,
+            status=JobStatus.PUBLISHED,
+            is_platform_generated=False,
+            youtube_video_id="independent_video",
+        )
+        exported = VideoJobFactory(
+            user=user,
+            channel=ours.channel,
+            is_platform_generated=True,
+            youtube_video_id="external_upload",
+        )
+        day = date(2026, 1, 15)
+        _final_record(
+            user=user,
+            channel=ours.channel,
+            job=exported,
+            day=day,
+            revenue=Decimal("500"),
+        )
+        _final_record(
+            user=user, channel=ours.channel, job=ours, day=day, revenue=Decimal("100")
+        )
+        _final_record(
+            user=user,
+            channel=ours.channel,
+            job=independent,
+            day=day,
+            revenue=Decimal("900"),
+        )
+        for video, amount in [(ours, "100"), (independent, "900"), (exported, "500")]:
+            RevenueSettlement.objects.create(
+                user=user,
+                job=video,
+                period_start=date(2026, 1, 1),
+                period_end=date(2026, 2, 1),
+                amount=Decimal(amount),
+                evidence_reference="verified-test-report",
+                verified_by=user,
+            )
+        statement = close_period_for_user(user, date(2026, 1, 1), date(2026, 2, 1))
+        assert statement.status == StatementStatus.DRAFT
+        assert statement.review_deadline is not None
+        assert not Invoice.objects.filter(statement=statement).exists()
+        assert statement.gross_revenue == Decimal("100.00")
+        assert statement.platform_share_amount == Decimal("30.00")
+        assert statement.creator_share_amount == Decimal("70.00")
+        assert statement.video_count == 1
+        assert str(independent.pk) not in statement.breakdown
+        assert str(exported.pk) not in statement.breakdown
+
+    @pytest.mark.parametrize(
+        ("platform", "creator"),
+        [("30", "60"), ("-1", "101"), ("NaN", "70"), ("30", "Infinity")],
+    )
+    def test_invalid_percentages_are_rejected(self, platform, creator):
+        from revenue.services.statements import split_revenue
+
+        with pytest.raises(ValueError):
+            split_revenue(
+                Decimal("100"),
+                platform_pct=Decimal(platform),
+                creator_pct=Decimal(creator),
+            )
+
+
+@pytest.mark.django_db
+def test_review_window_prevents_charge_and_dispute_blocks_scheduled_finalization(
+    _stub_billing, contract
+):
+    from revenue.services.statements import finalize_statement
+    from revenue.tasks import finalize_reviewed_statements
+
+    user = contract.user
+    statement = RevenueShareStatement.objects.create(
+        user=user,
+        contract=contract,
+        period_start=date(2026, 1, 1),
+        period_end=date(2026, 2, 1),
+        gross_revenue=100,
+        platform_share_pct=30,
+        platform_share_amount=30,
+        creator_share_amount=70,
+        status=StatementStatus.DRAFT,
+        review_deadline=timezone.now() + timedelta(days=14),
+    )
+    with pytest.raises(StatementNotDisputable):
+        finalize_statement(None, statement)
+    assert not _stub_billing
+    dispute_statement(user, statement, "The video revenue does not match the report.")
+    RevenueShareStatement.objects.filter(pk=statement.pk).update(
+        review_deadline=timezone.now() - timedelta(seconds=1)
+    )
+    assert finalize_reviewed_statements()["finalized"] == 0
+    assert not _stub_billing

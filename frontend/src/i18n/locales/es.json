@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Cargando…",
+    "retry": "Reintentar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "search": "Buscar",
+    "back": "Volver",
+    "confirm": "Confirmar",
+    "actions": "Acciones",
+    "status": "Estado",
+    "date": "Fecha",
+    "unknown": "Desconocido"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "channel": "Canal",
+    "preferences": "Preferencias",
+    "videos": "Vídeos",
+    "revenue": "Ingresos",
+    "billing": "Facturación",
+    "contract": "Contrato",
+    "adminUsers": "Usuarios",
+    "adminVideos": "Tareas de vídeo",
+    "adminModeration": "Moderación",
+    "adminFinance": "Finanzas",
+    "adminConfig": "Configuración",
+    "logout": "Cerrar sesión",
+    "language": "Idioma",
+    "theme": "Tema"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión"
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Crear cuenta"
+    }
+  },
+  "preferences": {
+    "language": "Idioma del contenido",
+    "videoDuration": "Duración del vídeo (segundos)",
+    "frequency": "Frecuencia de publicación",
+    "frequencyOptions": {
+      "daily": "Diaria",
+      "weekly": "Semanal",
+      "monthly": "Mensual"
+    },
+    "publishTime": "Hora de publicación",
+    "privacyStatus": "Privacidad",
+    "privacyOptions": {
+      "public": "Público",
+      "unlisted": "No listado",
+      "private": "Privado"
+    },
+    "approvalMode": "Modo de aprobación",
+    "save": "Guardar preferencias",
+    "saved": "Preferencias guardadas.",
+    "timezone": "Zona horaria",
+    "publishDays": "Días (semana: 0–6; mes: 1–28)",
+    "title": "Preferencias"
+  },
+  "dashboard": {
+    "title": "Panel"
+  },
+  "channel": {
+    "title": "Canal"
+  },
+  "video": {
+    "title": "Vídeos"
+  },
+  "revenue": {
+    "title": "Ingresos"
+  },
+  "billing": {
+    "title": "Facturación"
+  },
+  "contract": {
+    "title": "Contrato"
+  }
+}

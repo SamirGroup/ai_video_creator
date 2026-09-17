@@ -1,6 +1,7 @@
 """SPEC 5.11 `video_jobs`, 5.12 `video_job_steps`, 5.13 `video_assets`,
 5.14 `music_tracks`.
 """
+
 from __future__ import annotations
 
 import uuid
@@ -78,19 +79,36 @@ class Stage(models.TextChoices):
 class VideoJob(TimestampedModel):
     """Central pipeline table (SPEC 5.11)."""
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="video_jobs")
-    channel = models.ForeignKey(YouTubeChannel, on_delete=models.CASCADE, related_name="video_jobs")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="video_jobs"
+    )
+    channel = models.ForeignKey(
+        YouTubeChannel, on_delete=models.CASCADE, related_name="video_jobs"
+    )
     preference = models.ForeignKey(
-        ContentPreference, on_delete=models.SET_NULL, null=True, blank=True, related_name="video_jobs"
+        ContentPreference,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="video_jobs",
     )
     trigger = models.CharField(max_length=20, choices=JobTrigger.choices)
     parent_job = models.ForeignKey(
-        "self", on_delete=models.SET_NULL, null=True, blank=True, related_name="regenerations"
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="regenerations",
     )
 
-    status = models.CharField(max_length=32, choices=JobStatus.choices, default=JobStatus.DRAFT)
-    current_stage = models.CharField(max_length=20, choices=Stage.choices, null=True, blank=True)
+    status = models.CharField(
+        max_length=32, choices=JobStatus.choices, default=JobStatus.DRAFT
+    )
+    current_stage = models.CharField(
+        max_length=20, choices=Stage.choices, null=True, blank=True
+    )
 
+    generation_context = models.JSONField(default=dict, blank=True)
     scheduled_for = models.DateTimeField()
 
     title = models.CharField(max_length=100, blank=True, default="")
@@ -101,6 +119,8 @@ class VideoJob(TimestampedModel):
     language = models.CharField(max_length=10, blank=True, default="")
     duration_sec = models.IntegerField(null=True, blank=True)
 
+    moderation_metadata_sha256 = models.CharField(max_length=64, blank=True, default="")
+    moderation_approved_sha256 = models.CharField(max_length=64, blank=True, default="")
     final_video_s3_key = models.TextField(blank=True, default="")
     thumbnail_s3_key = models.TextField(blank=True, default="")
     preview_token = models.CharField(max_length=64, blank=True, default="")
@@ -140,7 +160,9 @@ class VideoJob(TimestampedModel):
         db_table = "video_jobs"
         indexes = [
             models.Index(fields=["user", "status"], name="ix_video_jobs_user_status"),
-            models.Index(fields=["channel", "published_at"], name="ix_video_jobs_channel_pub"),
+            models.Index(
+                fields=["channel", "published_at"], name="ix_video_jobs_channel_pub"
+            ),
             models.Index(fields=["status"], name="ix_video_jobs_status"),
             models.Index(fields=["scheduled_for"], name="ix_video_jobs_scheduled_for"),
             models.Index(fields=["youtube_video_id"], name="ix_video_jobs_yt_id"),
@@ -181,7 +203,9 @@ class VideoJobStep(AppendOnlyModel):
     class Meta:
         db_table = "video_job_steps"
         indexes = [
-            models.Index(fields=["job", "stage", "attempt"], name="ix_video_job_steps_lookup"),
+            models.Index(
+                fields=["job", "stage", "attempt"], name="ix_video_job_steps_lookup"
+            ),
         ]
 
     def __str__(self) -> str:
@@ -215,7 +239,9 @@ class VideoAsset(TimestampedModel):
 
     class Meta:
         db_table = "video_assets"
-        indexes = [models.Index(fields=["job", "kind"], name="ix_video_assets_job_kind")]
+        indexes = [
+            models.Index(fields=["job", "kind"], name="ix_video_assets_job_kind")
+        ]
 
     def __str__(self) -> str:
         return f"{self.job_id}:{self.kind}"
@@ -241,3 +267,27 @@ class MusicTrack(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class VideoRevision(TimestampedModel):
+    """A rejected revision remains intact; every correction gets a new job and fresh moderation."""
+
+    previous_job = models.OneToOneField(
+        VideoJob, on_delete=models.CASCADE, related_name="next_revision"
+    )
+    replacement_job = models.OneToOneField(
+        VideoJob, on_delete=models.CASCADE, related_name="revision_origin"
+    )
+    root_job = models.ForeignKey(
+        VideoJob, on_delete=models.CASCADE, related_name="revision_history"
+    )
+    number = models.PositiveSmallIntegerField()
+    reason = models.TextField()
+    findings = models.JSONField(default=dict)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["root_job", "number"], name="unique_video_revision_number"
+            )
+        ]

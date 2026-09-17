@@ -1,3 +1,7 @@
+import { useState } from 'react'
+import type { AuthSession, TwoFactorSession } from '@/types/auth'
+import { GoogleSignIn } from '@/components/common/GoogleSignIn'
+import { TwoFactorChallenge } from '@/components/common/TwoFactorChallenge'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
@@ -12,7 +16,10 @@ import { Input } from '@/components/ui/Input'
 import { useAuthStore } from '@/stores/authStore'
 
 const loginSchema = z.object({
-  email: z.string().min(1, 'auth.validation.emailRequired').email('auth.validation.emailInvalid'),
+  email: z
+    .string()
+    .min(1, 'auth.validation.emailRequired')
+    .email('auth.validation.emailInvalid'),
   password: z.string().min(1, 'auth.validation.passwordRequired'),
 })
 
@@ -23,7 +30,8 @@ export function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const setSession = useAuthStore((s) => s.setSession)
-  const fromPath = (location.state as { from?: Location })?.from?.pathname ?? '/dashboard'
+  const from = (location.state as { from?: { pathname: string; search?: string } })?.from
+  const fromPath = from ? `${from.pathname}${from.search ?? ''}` : '/dashboard'
 
   const {
     register,
@@ -31,13 +39,28 @@ export function LoginPage() {
     formState: { errors },
   } = useForm<LoginFormValues>({ resolver: zodResolver(loginSchema) })
 
+  const [challenge, setChallenge] = useState<TwoFactorSession | null>(null)
+  const finishLogin = (session: AuthSession) => {
+    setSession(session.user, session.access)
+    navigate(fromPath, { replace: true })
+  }
+  const googleMutation = useMutation({
+    mutationFn: (id_token: string) => authApi.loginWithGoogle({ id_token }),
+    onSuccess: (session) => {
+      if ('requires_2fa' in session) setChallenge(session)
+      else finishLogin(session)
+    },
+  })
   const loginMutation = useMutation({
     mutationFn: authApi.login,
     onSuccess: (session) => {
-      setSession(session.user, session.access)
-      navigate(fromPath, { replace: true })
+      if ('requires_2fa' in session) setChallenge(session)
+      else finishLogin(session)
     },
   })
+
+  if (challenge)
+    return <TwoFactorChallenge challenge={challenge} onComplete={finishLogin} />
 
   return (
     <div className="flex flex-col gap-6">
@@ -94,10 +117,8 @@ export function LoginPage() {
         <span className="bg-background px-2">{t('auth.login.orGoogle')}</span>
       </div>
 
-      {/* TODO: real API — wire Google Identity Services + POST /auth/google (FR-3) */}
-      <Button type="button" variant="outline" className="w-full" disabled>
-        {t('auth.login.googleButton')}
-      </Button>
+      <GoogleSignIn onCredential={(token) => googleMutation.mutate(token)} />
+      {googleMutation.isError && <p role="alert">{t('common.error.generic')}</p>}
 
       <p className="text-center text-sm text-muted-foreground">
         {t('auth.login.noAccount')}{' '}

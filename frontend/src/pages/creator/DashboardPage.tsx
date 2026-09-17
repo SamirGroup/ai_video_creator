@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom'
 import { CardSkeletonGrid, ErrorState } from '@/components/common/StateViews'
 import { Badge } from '@/components/ui/Badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
+import { DashboardAnalytics } from '@/components/video/DashboardAnalytics'
 import { VideoTable } from '@/components/video/VideoTable'
-import { mockDashboardSummary, mockVideos } from '@/mocks/fixtures'
-import { mockFetch } from '@/mocks/mockFetch'
+import { channelsApi } from '@/api/channels'
+import { videosApi } from '@/api/videos'
+import { revenueApi } from '@/api/revenue'
+import { apiClient } from '@/api/client'
 import { useAuth } from '@/hooks/useAuth'
 
 // TODO: real API — replace with GET /me/subscription + /videos + /revenue/summary
@@ -15,7 +18,27 @@ import { useAuth } from '@/hooks/useAuth'
 function useDashboardSummary() {
   return useQuery({
     queryKey: ['dashboard-summary'],
-    queryFn: () => mockFetch(mockDashboardSummary),
+    queryFn: async () => {
+      const [channels, videos, revenue, daily, quota] = await Promise.all([
+        channelsApi.list(),
+        videosApi.listAll(),
+        revenueApi.summary(),
+        revenueApi.daily(),
+        apiClient
+          .get<{ videos_used: number; videos_quota: number }>('/me/quota')
+          .then((r) => r.data),
+      ])
+      return {
+        channelConnected: channels.some((c) => c.status === 'connected'),
+        videosThisMonth: quota.videos_used,
+        videoQuota: quota.videos_quota,
+        estimatedRevenueUsd: revenue.total_estimated_revenue,
+        pendingApprovals: videos.filter((v) => v.status === 'awaiting_approval').length,
+        recentVideos: videos.slice(0, 5),
+        daily,
+      }
+    },
+    refetchInterval: 30000,
   })
 }
 
@@ -24,10 +47,10 @@ export function DashboardPage() {
   const { user } = useAuth()
   const { data, isLoading, isError, refetch } = useDashboardSummary()
 
-  const recentVideos = mockVideos.slice(0, 3)
+  const recentVideos = data?.recentVideos ?? []
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="dashboard-page flex flex-col gap-6">
       <div>
         <h1 className="text-xl font-semibold text-foreground">{t('dashboard.title')}</h1>
         <p className="text-sm text-muted-foreground">
@@ -46,7 +69,9 @@ export function DashboardPage() {
             </CardHeader>
             <CardContent>
               <Badge tone={data.channelConnected ? 'success' : 'warning'} dot>
-                {data.channelConnected ? t('dashboard.connected') : t('dashboard.disconnected')}
+                {data.channelConnected
+                  ? t('dashboard.connected')
+                  : t('dashboard.disconnected')}
               </Badge>
             </CardContent>
           </Card>
@@ -91,7 +116,9 @@ export function DashboardPage() {
               <CardTitle>{t('dashboard.cards.pendingApprovals')}</CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-between">
-              <p className="text-2xl font-semibold text-foreground">{data.pendingApprovals}</p>
+              <p className="text-2xl font-semibold text-foreground">
+                {data.pendingApprovals}
+              </p>
               {data.pendingApprovals > 0 && (
                 <Link
                   to="/videos"
@@ -104,6 +131,8 @@ export function DashboardPage() {
           </Card>
         </div>
       )}
+
+      {data && <DashboardAnalytics days={data.daily} />}
 
       <div className="flex flex-col gap-3">
         <h2 className="text-sm font-semibold text-foreground">{t('nav.videos')}</h2>

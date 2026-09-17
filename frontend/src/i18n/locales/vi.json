@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Đang tải…",
+    "retry": "Thử lại",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "close": "Đóng",
+    "search": "Tìm kiếm",
+    "back": "Quay lại",
+    "confirm": "Xác nhận",
+    "actions": "Thao tác",
+    "status": "Trạng thái",
+    "date": "Ngày",
+    "unknown": "Không rõ"
+  },
+  "nav": {
+    "dashboard": "Bảng điều khiển",
+    "channel": "Kênh",
+    "preferences": "Tùy chọn",
+    "videos": "Video",
+    "revenue": "Doanh thu",
+    "billing": "Thanh toán",
+    "contract": "Hợp đồng",
+    "adminUsers": "Người dùng",
+    "adminVideos": "Tác vụ video",
+    "adminModeration": "Kiểm duyệt",
+    "adminFinance": "Tài chính",
+    "adminConfig": "Cấu hình",
+    "logout": "Đăng xuất",
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện"
+  },
+  "auth": {
+    "login": {
+      "title": "Đăng nhập",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "submit": "Đăng nhập"
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "fullName": "Họ và tên",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "submit": "Tạo tài khoản"
+    }
+  },
+  "preferences": {
+    "language": "Ngôn ngữ nội dung",
+    "videoDuration": "Thời lượng video (giây)",
+    "frequency": "Tần suất đăng",
+    "frequencyOptions": {
+      "daily": "Hằng ngày",
+      "weekly": "Hằng tuần",
+      "monthly": "Hằng tháng"
+    },
+    "publishTime": "Giờ đăng",
+    "privacyStatus": "Quyền riêng tư",
+    "privacyOptions": {
+      "public": "Công khai",
+      "unlisted": "Không công khai",
+      "private": "Riêng tư"
+    },
+    "approvalMode": "Chế độ phê duyệt",
+    "save": "Lưu tùy chọn",
+    "saved": "Đã lưu tùy chọn.",
+    "timezone": "Múi giờ",
+    "publishDays": "Ngày (tuần: 0–6; tháng: 1–28)",
+    "title": "Tùy chọn"
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển"
+  },
+  "channel": {
+    "title": "Kênh"
+  },
+  "video": {
+    "title": "Video"
+  },
+  "revenue": {
+    "title": "Doanh thu"
+  },
+  "billing": {
+    "title": "Thanh toán"
+  },
+  "contract": {
+    "title": "Hợp đồng"
+  }
+}

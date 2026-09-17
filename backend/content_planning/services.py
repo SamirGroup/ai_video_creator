@@ -3,9 +3,11 @@ publish-slot computation, manual "Generate now" and job cancellation.
 
 Every state change is audited; views never touch models directly.
 """
+
 from __future__ import annotations
 
 import logging
+from datetime import timezone as dt_timezone
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -27,19 +29,25 @@ logger = logging.getLogger("content_planning.services")
 class PreferenceConflict(APIException):
     status_code = status.HTTP_409_CONFLICT
     default_code = "PREFERENCES_EXIST"
-    default_detail = "This channel already has content preferences. Use PATCH to change them."
+    default_detail = (
+        "This channel already has content preferences. Use PATCH to change them."
+    )
 
 
 class PreferencesRequired(APIException):
     status_code = status.HTTP_409_CONFLICT
     default_code = "PREFERENCES_REQUIRED"
-    default_detail = "Set up content preferences for this channel before generating videos."
+    default_detail = (
+        "Set up content preferences for this channel before generating videos."
+    )
 
 
 class ChannelNotConnected(APIException):
     status_code = status.HTTP_409_CONFLICT
     default_code = "CHANNEL_NOT_CONNECTED"
-    default_detail = "The YouTube channel is not connected. Reconnect it to generate videos."
+    default_detail = (
+        "The YouTube channel is not connected. Reconnect it to generate videos."
+    )
 
 
 class JobNotCancelable(APIException):
@@ -52,14 +60,20 @@ class JobNotCancelable(APIException):
 # Lookups (owner-scoped, no IDOR)
 # ---------------------------------------------------------------------------
 def get_owned_channel(user, channel_id) -> YouTubeChannel:
-    channel = YouTubeChannel.objects.filter(id=channel_id, user=user, deleted_at__isnull=True).first()
+    channel = YouTubeChannel.objects.filter(
+        id=channel_id, user=user, deleted_at__isnull=True
+    ).first()
     if channel is None:
         raise NotFound("Channel not found.")
     return channel
 
 
 def get_preference(channel: YouTubeChannel) -> ContentPreference | None:
-    return ContentPreference.objects.filter(channel=channel, deleted_at__isnull=True).order_by("created_at").first()
+    return (
+        ContentPreference.objects.filter(channel=channel, deleted_at__isnull=True)
+        .order_by("created_at")
+        .first()
+    )
 
 
 def _snapshot(pref: ContentPreference) -> dict:
@@ -81,7 +95,9 @@ def _snapshot(pref: ContentPreference) -> dict:
 # Preference CRUD (FR-33, FR-34)
 # ---------------------------------------------------------------------------
 @transaction.atomic
-def create_preference(user, channel: YouTubeChannel, data: dict, request=None) -> ContentPreference:
+def create_preference(
+    user, channel: YouTubeChannel, data: dict, request=None
+) -> ContentPreference:
     if get_preference(channel) is not None:
         raise PreferenceConflict()  # one preference per channel in MVP (A-1)
     pref = ContentPreference.objects.create(user=user, channel=channel, **data)
@@ -98,7 +114,9 @@ def create_preference(user, channel: YouTubeChannel, data: dict, request=None) -
 
 
 @transaction.atomic
-def update_preference(pref: ContentPreference, data: dict, request=None) -> ContentPreference:
+def update_preference(
+    pref: ContentPreference, data: dict, request=None
+) -> ContentPreference:
     before = _snapshot(pref)
     for field, value in data.items():
         setattr(pref, field, value)
@@ -116,7 +134,9 @@ def update_preference(pref: ContentPreference, data: dict, request=None) -> Cont
     return pref
 
 
-def _set_paused(pref: ContentPreference, paused: bool, request=None) -> ContentPreference:
+def _set_paused(
+    pref: ContentPreference, paused: bool, request=None
+) -> ContentPreference:
     if pref.is_paused == paused:
         return pref
     pref.is_paused = paused
@@ -124,7 +144,9 @@ def _set_paused(pref: ContentPreference, paused: bool, request=None) -> ContentP
     record_audit_event(
         actor_type="user",
         actor_id=pref.user_id,
-        action="content_preferences.paused" if paused else "content_preferences.resumed",
+        action="content_preferences.paused"
+        if paused
+        else "content_preferences.resumed",
         resource_type="content_preference",
         resource_id=str(pref.id),
         request=request,
@@ -174,13 +196,15 @@ def next_publish_slot(pref: ContentPreference, now: datetime | None = None) -> d
             continue
         candidate = datetime.combine(day, t, tzinfo=tz)
         if candidate > local_now:
-            return candidate.astimezone(timezone.utc)
+            return candidate.astimezone(dt_timezone.utc)
     raise ValueError(f"Could not compute a publish slot for preference {pref.id}")
 
 
 def generation_start_for(scheduled_for: datetime) -> datetime:
     """When the pipeline must start so the video is ready by `scheduled_for`."""
-    return scheduled_for - timedelta(minutes=settings.PIPELINE_EXPECTED_DURATION_MINUTES)
+    return scheduled_for - timedelta(
+        minutes=settings.PIPELINE_EXPECTED_DURATION_MINUTES
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -215,7 +239,9 @@ def generate_now(user, channel: YouTubeChannel, request=None):
             language=pref.language,
             duration_sec=pref.video_duration_sec,
         )
-        reserve_quota(user, kind="video", job=job)  # raises 402/409 -> transaction rolled back
+        reserve_quota(
+            user, kind="video", job=job
+        )  # raises 402/409 -> transaction rolled back
         record_audit_event(
             actor_type="user",
             actor_id=user.id,
@@ -223,10 +249,16 @@ def generate_now(user, channel: YouTubeChannel, request=None):
             resource_type="video_job",
             resource_id=str(job.id),
             request=request,
-            after={"status": job.status, "channel_id": str(channel.id), "preference_id": str(pref.id)},
+            after={
+                "status": job.status,
+                "channel_id": str(channel.id),
+                "preference_id": str(pref.id),
+            },
         )
         transaction.on_commit(lambda job_id=str(job.id): _enqueue_script_stage(job_id))
-    logger.info("video_job_generate_now", extra={"job_id": str(job.id), "user_id": str(user.id)})
+    logger.info(
+        "video_job_generate_now", extra={"job_id": str(job.id), "user_id": str(user.id)}
+    )
     return job
 
 
@@ -255,5 +287,8 @@ def cancel_job(user, job, request=None):
             before={"status": before_status},
             after={"status": job.status, "quota_refunded": quota_refunded},
         )
-    logger.info("video_job_canceled", extra={"job_id": str(job.id), "quota_refunded": quota_refunded})
+    logger.info(
+        "video_job_canceled",
+        extra={"job_id": str(job.id), "quota_refunded": quota_refunded},
+    )
     return job

@@ -14,12 +14,14 @@ export interface ApiProblem {
 /** Cursor-based pagination envelope (SPEC 6: "kursor-based pagination"). */
 export interface CursorPage<T> {
   results: T[]
+  next?: string | null
+  previous?: string | null
   next_cursor: string | null
   previous_cursor: string | null
   count?: number
 }
 
-export type Locale = 'en' | 'ru' | 'uz'
+export type { Locale } from '@/i18n/registry'
 
 export type StaffRoleCode = 'moderator' | 'support' | 'finance' | 'admin'
 export type RoleCode = 'creator' | StaffRoleCode

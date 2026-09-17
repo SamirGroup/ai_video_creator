@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Ýüklenýär…",
+    "retry": "Gaýtadan synanyş",
+    "save": "Ýatda sakla",
+    "cancel": "Ýatyr",
+    "close": "Ýap",
+    "search": "Gözle",
+    "back": "Yza",
+    "confirm": "Tassykla",
+    "actions": "Hereketler",
+    "status": "Ýagdaý",
+    "date": "Sene",
+    "unknown": "Näbelli"
+  },
+  "nav": {
+    "dashboard": "Dolandyryş paneli",
+    "channel": "Kanal",
+    "preferences": "Sazlamalar",
+    "videos": "Wideolar",
+    "revenue": "Girdeji",
+    "billing": "Tölegler",
+    "contract": "Şertnama",
+    "adminUsers": "Ulanyjylar",
+    "adminVideos": "Wideo işleri",
+    "adminModeration": "Mazmun barlagy",
+    "adminFinance": "Maliýe",
+    "adminConfig": "Konfigurasiýa",
+    "logout": "Çyk",
+    "language": "Dil",
+    "theme": "Tema"
+  },
+  "auth": {
+    "login": {
+      "title": "Gir",
+      "email": "E-poçta",
+      "password": "Açar söz",
+      "submit": "Gir"
+    },
+    "register": {
+      "title": "Hasap döret",
+      "fullName": "Doly ady",
+      "email": "E-poçta",
+      "password": "Açar söz",
+      "submit": "Hasap döret"
+    }
+  },
+  "preferences": {
+    "language": "Mazmunyň dili",
+    "videoDuration": "Wideonyň dowamlylygy (sekunt)",
+    "frequency": "Neşir ýygylygy",
+    "frequencyOptions": {
+      "daily": "Her gün",
+      "weekly": "Her hepde",
+      "monthly": "Her aý"
+    },
+    "publishTime": "Neşir wagty",
+    "privacyStatus": "Gizlinlik",
+    "privacyOptions": {
+      "public": "Hemmeler üçin",
+      "unlisted": "Sanawda ýok",
+      "private": "Hususy"
+    },
+    "approvalMode": "Tassyklama tertibi",
+    "save": "Sazlamalary sakla",
+    "saved": "Sazlamalar saklandy.",
+    "timezone": "Sagat guşaklygy",
+    "publishDays": "Günler (hepde: 0–6; aý: 1–28)",
+    "title": "Sazlamalar"
+  },
+  "dashboard": {
+    "title": "Dolandyryş paneli"
+  },
+  "channel": {
+    "title": "Kanal"
+  },
+  "video": {
+    "title": "Wideolar"
+  },
+  "revenue": {
+    "title": "Girdeji"
+  },
+  "billing": {
+    "title": "Tölegler"
+  },
+  "contract": {
+    "title": "Şertnama"
+  }
+}

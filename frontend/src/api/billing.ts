@@ -1,4 +1,5 @@
-import { apiClient } from './client'
+import { collectPages } from './pagination'
+import { apiClient, ApiError } from './client'
 import type {
   CheckoutSessionResponse,
   Invoice,
@@ -9,10 +10,18 @@ import type {
 
 // Endpoint group: Plans & Billing (SPEC 6, FR-21..FR-27). TODO: real API.
 export const billingApi = {
-  listPlans: () => apiClient.get<Plan[]>('/plans').then((r) => r.data),
+  setupPayment: () =>
+    apiClient.post<CheckoutSessionResponse>('/billing/payment-setup').then((r) => r.data),
+  listPlans: () => collectPages<Plan>('/plans'),
 
   mySubscription: () =>
-    apiClient.get<Subscription>('/me/subscription').then((r) => r.data),
+    apiClient
+      .get<Subscription>('/me/subscription')
+      .then((r) => r.data)
+      .catch((error) => {
+        if (error instanceof ApiError && error.status === 404) return null
+        throw error
+      }),
 
   createCheckoutSession: (planCode: string) =>
     apiClient

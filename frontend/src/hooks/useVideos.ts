@@ -1,70 +1,57 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-
 import { videoKeys } from '@/lib/queryKeys'
-import { mockFetch } from '@/mocks/mockFetch'
-import { mockVideoSteps, mockVideos } from '@/mocks/fixtures'
-import type { RejectVideoPayload, RequestChangesPayload, VideoJob } from '@/types/video'
+import { videosApi } from '@/api/videos'
+import type {
+  RejectVideoPayload,
+  RequestChangesPayload,
+  VideoListFilters,
+} from '@/types/video'
 
-// TODO: real API — swap `mockFetch(...)` for the matching `videosApi.*` call
-// (see src/api/videos.ts) once `GET/POST /videos/*` is live. Query keys and
-// cache-update logic below already match the real contract.
-
-export function useVideoList() {
+export function useVideoList(filters: VideoListFilters = {}) {
   return useQuery({
-    queryKey: videoKeys.list({}),
-    queryFn: () => mockFetch(mockVideos),
+    queryKey: videoKeys.list({ ...filters }),
+    queryFn: () => videosApi.listAll(filters),
+    refetchInterval: 15000,
   })
 }
-
 export function useVideoDetail(id: string | undefined) {
   return useQuery({
     queryKey: videoKeys.detail(id ?? ''),
-    queryFn: () => mockFetch(mockVideos.find((v) => v.id === id) ?? null),
+    queryFn: () => videosApi.get(id!),
     enabled: Boolean(id),
+    refetchInterval: 10000,
   })
 }
-
 export function useVideoSteps(id: string | undefined) {
   return useQuery({
     queryKey: videoKeys.steps(id ?? ''),
-    queryFn: () => mockFetch(mockVideoSteps[id ?? ''] ?? []),
+    queryFn: () => videosApi.steps(id!),
     enabled: Boolean(id),
+    refetchInterval: 10000,
   })
 }
-
-function useUpdateVideoCache(id: string) {
-  const queryClient = useQueryClient()
-  return (updater: (current: VideoJob) => VideoJob) => {
-    const current = queryClient.getQueryData<VideoJob | null>(videoKeys.detail(id))
-    if (!current) return
-    const updated = updater(current)
-    queryClient.setQueryData(videoKeys.detail(id), updated)
-    queryClient.setQueryData<VideoJob[]>(videoKeys.list({}), (list) =>
-      list?.map((v) => (v.id === id ? updated : v)),
-    )
+function useRefreshVideo(id: string) {
+  const client = useQueryClient()
+  return async () => {
+    await client.invalidateQueries({ queryKey: ['videos'] })
+    await client.invalidateQueries({ queryKey: videoKeys.detail(id) })
   }
 }
-
 export function useApproveVideo(id: string) {
-  const applyUpdate = useUpdateVideoCache(id)
   return useMutation({
-    mutationFn: () => mockFetch(null, 500),
-    onSuccess: () => applyUpdate((v) => ({ ...v, status: 'upload_queued' })),
+    mutationFn: () => videosApi.approve(id),
+    onSuccess: useRefreshVideo(id),
   })
 }
-
 export function useRequestChangesVideo(id: string) {
-  const applyUpdate = useUpdateVideoCache(id)
   return useMutation({
-    mutationFn: (_payload: RequestChangesPayload) => mockFetch(null, 500),
-    onSuccess: () => applyUpdate((v) => ({ ...v, status: 'changes_requested' })),
+    mutationFn: (payload: RequestChangesPayload) => videosApi.requestChanges(id, payload),
+    onSuccess: useRefreshVideo(id),
   })
 }
-
 export function useRejectVideo(id: string) {
-  const applyUpdate = useUpdateVideoCache(id)
   return useMutation({
-    mutationFn: (_payload: RejectVideoPayload) => mockFetch(null, 500),
-    onSuccess: () => applyUpdate((v) => ({ ...v, status: 'rejected' })),
+    mutationFn: (payload: RejectVideoPayload) => videosApi.reject(id, payload),
+    onSuccess: useRefreshVideo(id),
   })
 }

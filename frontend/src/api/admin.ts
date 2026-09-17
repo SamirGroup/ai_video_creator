@@ -1,3 +1,4 @@
+import { collectPages } from './pagination'
 import { apiClient } from './client'
 import type {
   AdminUserFilters,
@@ -14,6 +15,30 @@ import type { VideoListFilters } from '@/types/video'
 
 // Endpoint groups: Admin — users/jobs/moderation/finance/config (SPEC 6). TODO: real API.
 export const adminApi = {
+  allUsers: (filters: AdminUserFilters = {}) =>
+    collectPages<AdminUserListItem>('/admin/users', filters),
+  allVideos: () => collectPages<AdminVideoJobListItem>('/admin/videos'),
+  allModeration: async (): Promise<ModerationQueueItem[]> => {
+    const rows = await collectPages<{
+      id: string
+      title: string
+      created_at: string
+      latest_log: null | {
+        stage: ModerationQueueItem['stage']
+        verdict: ModerationQueueItem['verdict']
+        categories: Record<string, number>
+      }
+    }>('/admin/moderation/queue')
+    return rows.map((row) => ({
+      job_id: row.id,
+      video_title: row.title,
+      user_email: '',
+      created_at: row.created_at,
+      stage: row.latest_log?.stage ?? 'final',
+      verdict: row.latest_log?.verdict ?? 'flag',
+      categories: row.latest_log?.categories ?? {},
+    }))
+  },
   listUsers: (filters: AdminUserFilters = {}) =>
     apiClient
       .get<CursorPage<AdminUserListItem>>('/admin/users', { params: filters })
@@ -50,18 +75,34 @@ export const adminApi = {
       .then((r) => r.data),
 
   financeOverview: () =>
-    apiClient.get<FinanceOverview>('/admin/finance/overview').then((r) => r.data),
+    apiClient
+      .get<{
+        mrr_usd: string
+        active_subscriptions: number
+        revenue_share_platform_total_usd: string
+        uncollected_invoices_usd: string
+        uncollected_invoices_count: number
+      }>('/admin/finance/overview')
+      .then(({ data }): FinanceOverview => ({
+        mrr: data.mrr_usd,
+        currency: 'USD',
+        active_subscriptions: data.active_subscriptions,
+        revenue_share_total: data.revenue_share_platform_total_usd,
+        uncollected_invoices_total: data.uncollected_invoices_usd,
+        uncollected_invoices_count: data.uncollected_invoices_count,
+      })),
 
   financeExportUrl: () => '/api/v1/admin/finance/export',
 
-  listPlans: () => apiClient.get<Plan[]>('/admin/plans').then((r) => r.data),
+  listPlans: () => collectPages<Plan>('/admin/plans'),
 
   updatePlan: (id: string, payload: Partial<Plan>) =>
     apiClient.patch<Plan>(`/admin/plans/${id}`, payload).then((r) => r.data),
 
-  listProviders: () =>
-    apiClient.get<ProviderConfig[]>('/admin/providers').then((r) => r.data),
+  listProviders: () => collectPages<ProviderConfig>('/admin/providers'),
 
   updateProvider: (id: string, payload: Partial<ProviderConfig>) =>
-    apiClient.patch<ProviderConfig>(`/admin/providers/${id}`, payload).then((r) => r.data),
+    apiClient
+      .patch<ProviderConfig>(`/admin/providers/${id}`, payload)
+      .then((r) => r.data),
 }

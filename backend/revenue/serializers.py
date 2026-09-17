@@ -43,6 +43,7 @@ class RevenueShareStatementSerializer(serializers.ModelSerializer):
             "breakdown",
             "status",
             "finalized_at",
+            "review_deadline",
             "disputed_at",
             "dispute_reason",
             "resolved_at",
@@ -71,7 +72,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
 
 
 class DisputeStatementSerializer(serializers.Serializer):
-    reason = serializers.CharField(max_length=2000, allow_blank=False, trim_whitespace=True)
+    reason = serializers.CharField(
+        max_length=2000, allow_blank=False, trim_whitespace=True
+    )
 
 
 class DateRangeSerializer(serializers.Serializer):

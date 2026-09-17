@@ -23,7 +23,10 @@ Text overlays use `drawtext` with a `textfile=` (no in-filter escaping of user
 titles). If the FFmpeg build lacks `drawtext`/fonts, cards degrade to plain
 colour cards and the thumbnail to a bare frame — never a failed job.
 """
+
 from __future__ import annotations
+
+from video_pipeline.services.preferences import job_preferences
 
 import logging
 import tempfile
@@ -34,6 +37,8 @@ from pathlib import Path
 from django.conf import settings
 from django.db import transaction
 
+from core.languages import language_info
+from video_pipeline.services.language_fonts import font_for_language
 from providers.exceptions import ProviderPermanentError
 from video_pipeline.models import AssetKind, MusicTrack, VideoAsset
 from video_pipeline.services import media_tools
@@ -56,7 +61,16 @@ THUMBNAIL_FILENAME = "thumbnail.jpg"
 DEFAULT_FPS = 30
 DEFAULT_DIMENSIONS = {"16:9": (1920, 1080), "9:16": (1080, 1920), "1:1": (1080, 1080)}
 THUMBNAIL_DIMENSIONS = (1280, 720)
-ENCODE_ARGS = ("-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p")
+ENCODE_ARGS = (
+    "-c:v",
+    "libx264",
+    "-preset",
+    "veryfast",
+    "-crf",
+    "20",
+    "-pix_fmt",
+    "yuv420p",
+)
 CARD_COLOUR = "0x101418"
 
 
@@ -128,7 +142,9 @@ def output_dimensions(aspect_ratio: str) -> tuple[int, int]:
     return DEFAULT_DIMENSIONS.get(aspect_ratio or "16:9", DEFAULT_DIMENSIONS["16:9"])
 
 
-def plan_clip_fit(source_ms: int, target_ms: int, *, max_stretch: float = 1.5) -> tuple[str, float]:
+def plan_clip_fit(
+    source_ms: int, target_ms: int, *, max_stretch: float = 1.5
+) -> tuple[str, float]:
     """Decide how a clip reaches its segment length.
 
     Returns `("trim", 1.0)` when the clip is long enough, `("stretch", factor)`
@@ -161,8 +177,18 @@ def filter_path(path: str) -> str:
     return str(path).replace("\\", "/").replace(":", r"\:").replace("'", r"\'")
 
 
-def build_clip_fit_command(clip: ClipSpec, output_path: str, *, width: int, height: int, fps: int, max_stretch: float = 1.5) -> list[str]:
-    mode, factor = plan_clip_fit(clip.source_duration_ms, clip.target_duration_ms, max_stretch=max_stretch)
+def build_clip_fit_command(
+    clip: ClipSpec,
+    output_path: str,
+    *,
+    width: int,
+    height: int,
+    fps: int,
+    max_stretch: float = 1.5,
+) -> list[str]:
+    mode, factor = plan_clip_fit(
+        clip.source_duration_ms, clip.target_duration_ms, max_stretch=max_stretch
+    )
     argv = [media_tools.ffmpeg_binary(), "-y", "-hide_banner", "-loglevel", "error"]
     if mode == "loop":
         argv += ["-stream_loop", "-1"]
@@ -170,23 +196,65 @@ def build_clip_fit_command(clip: ClipSpec, output_path: str, *, width: int, heig
     vf = _scale_chain(width, height, fps)
     if mode == "stretch":
         vf = f"setpts={factor}*PTS," + vf
-    argv += ["-t", _seconds(clip.target_duration_ms), "-vf", vf, "-an", *ENCODE_ARGS, str(output_path)]
+    argv += [
+        "-t",
+        _seconds(clip.target_duration_ms),
+        "-vf",
+        vf,
+        "-an",
+        *ENCODE_ARGS,
+        str(output_path),
+    ]
     return argv
 
 
-def build_card_command(output_path: str, *, duration_sec: float, width: int, height: int, fps: int, textfile: str | None = None, font_file: str = "", font_size: int | None = None) -> list[str]:
+def build_card_command(
+    output_path: str,
+    *,
+    duration_sec: float,
+    width: int,
+    height: int,
+    fps: int,
+    textfile: str | None = None,
+    font_file: str = "",
+    font_size: int | None = None,
+) -> list[str]:
     """A solid title card. With `textfile` a centred `drawtext` overlay is added."""
     argv = [
-        media_tools.ffmpeg_binary(), "-y", "-hide_banner", "-loglevel", "error",
-        "-f", "lavfi", "-i", f"color=c={CARD_COLOUR}:s={width}x{height}:d={duration_sec:g}:r={fps}",
+        media_tools.ffmpeg_binary(),
+        "-y",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-f",
+        "lavfi",
+        "-i",
+        f"color=c={CARD_COLOUR}:s={width}x{height}:d={duration_sec:g}:r={fps}",
     ]
     if textfile:
-        argv += ["-vf", build_drawtext(textfile, width=width, height=height, font_file=font_file, font_size=font_size)]
+        argv += [
+            "-vf",
+            build_drawtext(
+                textfile,
+                width=width,
+                height=height,
+                font_file=font_file,
+                font_size=font_size,
+            ),
+        ]
     argv += ["-t", f"{duration_sec:g}", *ENCODE_ARGS, str(output_path)]
     return argv
 
 
-def build_drawtext(textfile: str, *, width: int, height: int, font_file: str = "", font_size: int | None = None, position: str = "center") -> str:
+def build_drawtext(
+    textfile: str,
+    *,
+    width: int,
+    height: int,
+    font_file: str = "",
+    font_size: int | None = None,
+    position: str = "center",
+) -> str:
     size = font_size or max(24, int(min(width, height) * 0.06))
     parts = [f"textfile='{filter_path(textfile)}'"]
     if font_file:
@@ -208,12 +276,33 @@ def build_drawtext(textfile: str, *, width: int, height: int, font_file: str = "
 
 def build_concat_video_command(list_path: str, output_path: str) -> list[str]:
     return [
-        media_tools.ffmpeg_binary(), "-y", "-hide_banner", "-loglevel", "error",
-        "-f", "concat", "-safe", "0", "-i", str(list_path), "-c", "copy", "-an", str(output_path),
+        media_tools.ffmpeg_binary(),
+        "-y",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-f",
+        "concat",
+        "-safe",
+        "0",
+        "-i",
+        str(list_path),
+        "-c",
+        "copy",
+        "-an",
+        str(output_path),
     ]
 
 
-def build_audio_filter(*, voice_delay_ms: int, total_ms: int, has_music: bool, music_volume: float = 0.2, fade_out_ms: int = 2000, sample_rate: int = 48000) -> str:
+def build_audio_filter(
+    *,
+    voice_delay_ms: int,
+    total_ms: int,
+    has_music: bool,
+    music_volume: float = 0.2,
+    fade_out_ms: int = 2000,
+    sample_rate: int = 48000,
+) -> str:
     """`-filter_complex` graph: input 1 = voice, input 2 = music (when present).
 
     Ducking: music is compressed with the voice as sidechain, then the *original*
@@ -222,7 +311,9 @@ def build_audio_filter(*, voice_delay_ms: int, total_ms: int, has_music: bool, m
     """
     fmt = f"aformat=sample_rates={sample_rate}:channel_layouts=stereo"
     total_s = _seconds(total_ms)
-    voice = f"[1:a]{fmt},adelay={voice_delay_ms}|{voice_delay_ms},apad=whole_dur={total_s}"
+    voice = (
+        f"[1:a]{fmt},adelay={voice_delay_ms}|{voice_delay_ms},apad=whole_dur={total_s}"
+    )
     if not has_music:
         return voice + "[aout]"
 
@@ -242,41 +333,101 @@ def build_audio_filter(*, voice_delay_ms: int, total_ms: int, has_music: bool, m
     )
 
 
-def build_mux_command(*, video_path: str, voice_path: str, music_path: str | None, output_path: str, filter_complex: str, total_ms: int, audio_bitrate: str = "192k") -> list[str]:
+def build_mux_command(
+    *,
+    video_path: str,
+    voice_path: str,
+    music_path: str | None,
+    output_path: str,
+    filter_complex: str,
+    total_ms: int,
+    audio_bitrate: str = "192k",
+) -> list[str]:
     argv = [
-        media_tools.ffmpeg_binary(), "-y", "-hide_banner", "-loglevel", "error",
-        "-i", str(video_path),
-        "-i", str(voice_path),
+        media_tools.ffmpeg_binary(),
+        "-y",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-i",
+        str(video_path),
+        "-i",
+        str(voice_path),
     ]
     if music_path:
         argv += ["-stream_loop", "-1", "-i", str(music_path)]
     argv += [
-        "-filter_complex", filter_complex,
-        "-map", "0:v:0", "-map", "[aout]",
-        "-c:v", "copy",
-        "-c:a", "aac", "-b:a", audio_bitrate, "-ar", "48000",
-        "-t", _seconds(total_ms),
-        "-movflags", "+faststart",
+        "-filter_complex",
+        filter_complex,
+        "-map",
+        "0:v:0",
+        "-map",
+        "[aout]",
+        "-c:v",
+        "copy",
+        "-c:a",
+        "aac",
+        "-b:a",
+        audio_bitrate,
+        "-ar",
+        "48000",
+        "-t",
+        _seconds(total_ms),
+        "-movflags",
+        "+faststart",
         str(output_path),
     ]
     return argv
 
 
-def build_thumbnail_command(video_path: str, output_path: str, *, at_ms: int, textfile: str | None = None, font_file: str = "", width: int = THUMBNAIL_DIMENSIONS[0], height: int = THUMBNAIL_DIMENSIONS[1]) -> list[str]:
+def build_thumbnail_command(
+    video_path: str,
+    output_path: str,
+    *,
+    at_ms: int,
+    textfile: str | None = None,
+    font_file: str = "",
+    width: int = THUMBNAIL_DIMENSIONS[0],
+    height: int = THUMBNAIL_DIMENSIONS[1],
+) -> list[str]:
     vf = (
         f"scale={width}:{height}:force_original_aspect_ratio=decrease,"
         f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,setsar=1"
     )
     if textfile:
-        vf += "," + build_drawtext(textfile, width=width, height=height, font_file=font_file, font_size=int(height * 0.09), position="bottom")
+        vf += "," + build_drawtext(
+            textfile,
+            width=width,
+            height=height,
+            font_file=font_file,
+            font_size=int(height * 0.09),
+            position="bottom",
+        )
     return [
-        media_tools.ffmpeg_binary(), "-y", "-hide_banner", "-loglevel", "error",
-        "-ss", _seconds(at_ms), "-i", str(video_path),
-        "-frames:v", "1", "-vf", vf, "-q:v", "2", "-update", "1", str(output_path),
+        media_tools.ffmpeg_binary(),
+        "-y",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-ss",
+        _seconds(at_ms),
+        "-i",
+        str(video_path),
+        "-frames:v",
+        "1",
+        "-vf",
+        vf,
+        "-q:v",
+        "2",
+        "-update",
+        "1",
+        str(output_path),
     ]
 
 
-def check_duration_tolerance(actual_ms: int, expected_ms: int, *, tolerance_pct: float = 10.0) -> tuple[bool, float]:
+def check_duration_tolerance(
+    actual_ms: int, expected_ms: int, *, tolerance_pct: float = 10.0
+) -> tuple[bool, float]:
     """`(within_tolerance, deviation_pct)` for AC-4's ±10% rule."""
     if expected_ms <= 0:
         return False, 0.0
@@ -284,18 +435,31 @@ def check_duration_tolerance(actual_ms: int, expected_ms: int, *, tolerance_pct:
     return abs(deviation) <= tolerance_pct, round(deviation, 2)
 
 
-def clips_from_timing(clip_paths: dict[int, tuple[str, int]], timing: list[dict]) -> list[ClipSpec]:
+def clips_from_timing(
+    clip_paths: dict[int, tuple[str, int]], timing: list[dict]
+) -> list[ClipSpec]:
     """Zip `{sequence_index: (path, source_ms)}` with the voice `segment_timing`."""
     specs: list[ClipSpec] = []
     for entry in sorted(timing, key=lambda t: int(t.get("index") or 0)):
         index = int(entry.get("index") or 0)
         if index not in clip_paths:
-            raise JobNotReady(f"Missing visual clip for segment {index}; the visuals stage is incomplete.")
+            raise JobNotReady(
+                f"Missing visual clip for segment {index}; the visuals stage is incomplete."
+            )
         path, source_ms = clip_paths[index]
         target_ms = int(entry.get("end_ms") or 0) - int(entry.get("start_ms") or 0)
-        specs.append(ClipSpec(sequence_index=index, path=path, source_duration_ms=source_ms, target_duration_ms=max(1, target_ms)))
+        specs.append(
+            ClipSpec(
+                sequence_index=index,
+                path=path,
+                source_duration_ms=source_ms,
+                target_duration_ms=max(1, target_ms),
+            )
+        )
     if not specs:
-        raise JobNotReady("No segment timing available; the voice stage must run first.")
+        raise JobNotReady(
+            "No segment timing available; the voice stage must run first."
+        )
     return specs
 
 
@@ -305,18 +469,31 @@ def clips_from_timing(clip_paths: dict[int, tuple[str, int]], timing: list[dict]
 class FFmpegAssembler:
     """Runs an `AssemblyPlan` to a final MP4 + thumbnail inside `workdir`."""
 
-    def __init__(self, plan: AssemblyPlan, workdir: str, *, runner=media_tools.run_command, timeout_sec: int | None = None):
+    def __init__(
+        self,
+        plan: AssemblyPlan,
+        workdir: str,
+        *,
+        runner=media_tools.run_command,
+        timeout_sec: int | None = None,
+    ):
         self.plan = plan
         self.workdir = Path(workdir)
         self.runner = runner
-        self.timeout = timeout_sec or int(getattr(settings, "ASSEMBLY_FFMPEG_TIMEOUT_SEC", 1800))
+        self.timeout = timeout_sec or int(
+            getattr(settings, "ASSEMBLY_FFMPEG_TIMEOUT_SEC", 1800)
+        )
         self._drawtext: bool | None = None
 
     # -- capability probing --------------------------------------------------
     def drawtext_supported(self) -> bool:
         if self._drawtext is None:
             try:
-                result = self.runner([media_tools.ffmpeg_binary(), "-hide_banner", "-filters"], timeout_sec=60, check=False)
+                result = self.runner(
+                    [media_tools.ffmpeg_binary(), "-hide_banner", "-filters"],
+                    timeout_sec=60,
+                    check=False,
+                )
                 self._drawtext = " drawtext " in (result.stdout or "")
             except Exception:
                 self._drawtext = False
@@ -335,19 +512,41 @@ class FFmpegAssembler:
         outputs = []
         for clip in self.plan.clips:
             out = self.workdir / f"seg_{clip.sequence_index:03d}.mp4"
-            self._run(build_clip_fit_command(clip, str(out), width=self.plan.width, height=self.plan.height, fps=self.plan.fps))
+            self._run(
+                build_clip_fit_command(
+                    clip,
+                    str(out),
+                    width=self.plan.width,
+                    height=self.plan.height,
+                    fps=self.plan.fps,
+                )
+            )
             outputs.append(str(out))
         return outputs
 
     def _card(self, name: str, text: str, duration_sec: float) -> tuple[str, bool]:
         out = self.workdir / f"{name}.mp4"
-        common = {"duration_sec": duration_sec, "width": self.plan.width, "height": self.plan.height, "fps": self.plan.fps}
+        common = {
+            "duration_sec": duration_sec,
+            "width": self.plan.width,
+            "height": self.plan.height,
+            "fps": self.plan.fps,
+        }
         if text and self.drawtext_supported():
             try:
-                self._run(build_card_command(str(out), textfile=self._textfile(name, text), font_file=self.plan.font_file, **common))
+                self._run(
+                    build_card_command(
+                        str(out),
+                        textfile=self._textfile(name, text),
+                        font_file=self.plan.font_file,
+                        **common,
+                    )
+                )
                 return str(out), True
             except media_tools.MediaToolError:
-                logger.warning("assembly_drawtext_failed_falling_back", extra={"card": name})
+                logger.warning(
+                    "assembly_drawtext_failed_falling_back", extra={"card": name}
+                )
         self._run(build_card_command(str(out), **common))
         return str(out), False
 
@@ -367,7 +566,9 @@ class FFmpegAssembler:
             used_drawtext = used_drawtext and ok
             parts.append(outro)
 
-        list_path = media_tools.write_concat_list(parts, str(self.workdir / "video_concat.txt"))
+        list_path = media_tools.write_concat_list(
+            parts, str(self.workdir / "video_concat.txt")
+        )
         video_track = self.workdir / "video_track.mp4"
         self._run(build_concat_video_command(list_path, str(video_track)))
 
@@ -393,7 +594,9 @@ class FFmpegAssembler:
         probe = media_tools.probe(str(final_path), runner=self.runner)
         duration_ms = media_tools.duration_ms_from_probe(probe)
         tolerance = float(getattr(settings, "ASSEMBLY_DURATION_TOLERANCE_PCT", 10))
-        within, deviation = check_duration_tolerance(duration_ms, plan.total_ms, tolerance_pct=tolerance)
+        within, deviation = check_duration_tolerance(
+            duration_ms, plan.total_ms, tolerance_pct=tolerance
+        )
         if not within:
             raise AssemblyError(
                 f"Assembled video is {duration_ms} ms but {plan.total_ms} ms was expected "
@@ -402,15 +605,29 @@ class FFmpegAssembler:
 
         thumb_path = self.workdir / THUMBNAIL_FILENAME
         at_ms = int(duration_ms * plan.thumbnail_position)
-        thumb_text = self._textfile("thumbnail", plan.title) if plan.title and self.drawtext_supported() else None
+        thumb_text = (
+            self._textfile("thumbnail", plan.title)
+            if plan.title and self.drawtext_supported()
+            else None
+        )
         try:
-            self._run(build_thumbnail_command(str(final_path), str(thumb_path), at_ms=at_ms, textfile=thumb_text, font_file=plan.font_file))
+            self._run(
+                build_thumbnail_command(
+                    str(final_path),
+                    str(thumb_path),
+                    at_ms=at_ms,
+                    textfile=thumb_text,
+                    font_file=plan.font_file,
+                )
+            )
         except media_tools.MediaToolError:
             if thumb_text is None:
                 raise
             logger.warning("assembly_thumbnail_drawtext_failed_falling_back")
             used_drawtext = False
-            self._run(build_thumbnail_command(str(final_path), str(thumb_path), at_ms=at_ms))
+            self._run(
+                build_thumbnail_command(str(final_path), str(thumb_path), at_ms=at_ms)
+            )
 
         video_info = media_tools.video_stream_info(probe)
         audio_info = media_tools.audio_stream_info(probe)
@@ -432,7 +649,17 @@ class FFmpegAssembler:
                 "music": bool(plan.music_path),
                 "duration_deviation_pct": deviation,
                 "clip_fits": [
-                    {"sequence_index": c.sequence_index, **dict(zip(("mode", "factor"), plan_clip_fit(c.source_duration_ms, c.target_duration_ms)))}
+                    {
+                        "sequence_index": c.sequence_index,
+                        **dict(
+                            zip(
+                                ("mode", "factor"),
+                                plan_clip_fit(
+                                    c.source_duration_ms, c.target_duration_ms
+                                ),
+                            )
+                        ),
+                    }
                     for c in plan.clips
                 ],
             },
@@ -446,11 +673,19 @@ def select_music_track(job) -> MusicTrack | None:
     """Deterministic pick from the licensed library: prefer the preference's
     `music_style` as mood, fall back to any active track, `"none"` disables music.
     """
-    style = ((job.preference.music_style if job.preference else "") or "").strip().lower()
+    style = (
+        ((job_preferences(job).music_style if job_preferences(job) else "") or "")
+        .strip()
+        .lower()
+    )
     if style in ("none", "off", "no_music"):
         return None
     queryset = MusicTrack.objects.filter(is_active=True)
-    candidates = list(queryset.filter(mood__iexact=style).order_by("title", "id")) if style else []
+    candidates = (
+        list(queryset.filter(mood__iexact=style).order_by("title", "id"))
+        if style
+        else []
+    )
     if not candidates:
         candidates = list(queryset.order_by("title", "id"))
     if not candidates:
@@ -459,11 +694,15 @@ def select_music_track(job) -> MusicTrack | None:
 
 
 def attribution_line(track: MusicTrack) -> str:
-    text = (track.attribution_text or "").strip() or f"Music: {track.title} ({track.license_type})"
+    text = (
+        track.attribution_text or ""
+    ).strip() or f"Music: {track.title} ({track.license_type})"
     return text if text.lower().startswith("music") else f"Music: {text}"
 
 
-def append_attribution(description: str, track: MusicTrack | None, *, max_bytes: int = 5000) -> str:
+def append_attribution(
+    description: str, track: MusicTrack | None, *, max_bytes: int = 5000
+) -> str:
     """FR-47: licensed tracks that require attribution get it in the description,
     exactly once, within YouTube's 5000-byte description limit.
     """
@@ -496,14 +735,22 @@ class AssembledJob:
 def _gather_inputs(job, tmp_path: Path):
     voice_asset = existing_asset(job, AssetKind.AUDIO_VOICE)
     if voice_asset is None:
-        raise JobNotReady(f"Video job {job.pk} has no voice-over checkpoint — the voice stage must run first.")
+        raise JobNotReady(
+            f"Video job {job.pk} has no voice-over checkpoint — the voice stage must run first."
+        )
     timing = [t.to_dict() for t in timing_from_asset(voice_asset)]
     if not timing:
         raise JobNotReady(f"Video job {job.pk} voice asset has no segment_timing.")
 
-    clip_assets = list(VideoAsset.objects.filter(job=job, kind=AssetKind.VISUAL_CLIP).exclude(sequence_index=None).order_by("sequence_index"))
+    clip_assets = list(
+        VideoAsset.objects.filter(job=job, kind=AssetKind.VISUAL_CLIP)
+        .exclude(sequence_index=None)
+        .order_by("sequence_index")
+    )
     if not clip_assets:
-        raise JobNotReady(f"Video job {job.pk} has no visual clips — the visuals stage must run first.")
+        raise JobNotReady(
+            f"Video job {job.pk} has no visual clips — the visuals stage must run first."
+        )
 
     voice_path = download_asset(voice_asset, tmp_path / "voice.mp3")
     clip_paths: dict[int, tuple[str, int]] = {}
@@ -513,15 +760,25 @@ def _gather_inputs(job, tmp_path: Path):
     return voice_asset, timing, clip_paths, voice_path
 
 
-def assemble_video_for_job(job, *, runner=media_tools.run_command, workdir: str | None = None) -> AssembledJob:
+def assemble_video_for_job(
+    job, *, runner=media_tools.run_command, workdir: str | None = None
+) -> AssembledJob:
     existing_final = existing_asset(job, AssetKind.FINAL_VIDEO)
     existing_thumb = existing_asset(job, AssetKind.THUMBNAIL)
     if existing_final is not None and existing_thumb is not None:
-        logger.info("assembly_stage_skipped_checkpoint_exists", extra={"job_id": str(job.pk)})
+        logger.info(
+            "assembly_stage_skipped_checkpoint_exists", extra={"job_id": str(job.pk)}
+        )
         _apply_to_job(job, existing_final, existing_thumb, description=job.description)
-        return AssembledJob(existing_final, existing_thumb, int(existing_final.duration_ms or 0), skipped=True, meta=dict(existing_final.metadata or {}))
+        return AssembledJob(
+            existing_final,
+            existing_thumb,
+            int(existing_final.duration_ms or 0),
+            skipped=True,
+            meta=dict(existing_final.metadata or {}),
+        )
 
-    preference = job.preference
+    preference = job_preferences(job)
     aspect_ratio = (preference.aspect_ratio if preference else "") or "16:9"
     width, height = output_dimensions(aspect_ratio)
     track = select_music_track(job)
@@ -535,15 +792,23 @@ def assemble_video_for_job(job, *, runner=media_tools.run_command, workdir: str 
             try:
                 from core.storage import get_storage
 
-                music_path = str(get_storage().download_to(track.s3_key, tmp_path / "music.mp3"))
+                music_path = str(
+                    get_storage().download_to(track.s3_key, tmp_path / "music.mp3")
+                )
             except Exception:
-                logger.warning("assembly_music_download_failed_continuing_without", extra={"job_id": str(job.pk), "track_id": str(track.id)})
+                logger.warning(
+                    "assembly_music_download_failed_continuing_without",
+                    extra={"job_id": str(job.pk), "track_id": str(track.id)},
+                )
                 track = None
 
         # Clips whose duration was not probed at generation time get measured now.
         for index, (path, source_ms) in list(clip_paths.items()):
             if source_ms <= 0:
-                clip_paths[index] = (path, media_tools.probe_duration_ms(path, runner=runner))
+                clip_paths[index] = (
+                    path,
+                    media_tools.probe_duration_ms(path, runner=runner),
+                )
 
         plan = AssemblyPlan(
             clips=clips_from_timing(clip_paths, timing),
@@ -555,21 +820,36 @@ def assemble_video_for_job(job, *, runner=media_tools.run_command, workdir: str 
             fps=int(getattr(settings, "ASSEMBLY_FPS", DEFAULT_FPS)),
             intro_sec=float(getattr(settings, "ASSEMBLY_INTRO_SEC", 2.0)),
             outro_sec=float(getattr(settings, "ASSEMBLY_OUTRO_SEC", 2.0)),
-            outro_text=str(getattr(settings, "ASSEMBLY_OUTRO_TEXT", "Thanks for watching")),
+            outro_text=language_info(
+                job.language or (preference.language if preference else "en")
+            )["outro"],
             music_path=music_path,
             music_volume=float(getattr(settings, "ASSEMBLY_MUSIC_VOLUME", 0.2)),
-            font_file=str(getattr(settings, "ASSEMBLY_FONT_FILE", "") or ""),
+            font_file=font_for_language(
+                job.language or (preference.language if preference else "en")
+            ),
         )
         output = FFmpegAssembler(plan, str(tmp_path), runner=runner).assemble()
 
-        target_sec = int(getattr(preference, "video_duration_sec", 0) or 0) if preference else 0
-        within_target, target_deviation = check_duration_tolerance(output.duration_ms, target_sec * 1000) if target_sec else (True, 0.0)
+        target_sec = (
+            int(getattr(preference, "video_duration_sec", 0) or 0) if preference else 0
+        )
+        within_target, target_deviation = (
+            check_duration_tolerance(output.duration_ms, target_sec * 1000)
+            if target_sec
+            else (True, 0.0)
+        )
         if not within_target:
             # AC-4 wants ±10% of the preference; the narration length decides that, so
             # this is surfaced (metadata + warning) rather than failing a paid job.
             logger.warning(
                 "assembly_duration_outside_preference_target",
-                extra={"job_id": str(job.pk), "duration_ms": output.duration_ms, "target_sec": target_sec, "deviation_pct": target_deviation},
+                extra={
+                    "job_id": str(job.pk),
+                    "duration_ms": output.duration_ms,
+                    "target_sec": target_sec,
+                    "deviation_pct": target_deviation,
+                },
             )
 
         meta = {
@@ -582,8 +862,28 @@ def assemble_video_for_job(job, *, runner=media_tools.run_command, workdir: str 
             "used_drawtext": output.used_drawtext,
             "music_track_id": str(track.id) if track else None,
         }
-        final_asset = store_file_asset(job, AssetKind.FINAL_VIDEO, output.final_path, filename=FINAL_FILENAME, mime_type="video/mp4", duration_ms=output.duration_ms, provider="ffmpeg", metadata=meta)
-        thumb_asset = store_file_asset(job, AssetKind.THUMBNAIL, output.thumbnail_path, filename=THUMBNAIL_FILENAME, mime_type="image/jpeg", provider="ffmpeg", metadata={"at_ms": int(output.duration_ms * plan.thumbnail_position), "used_drawtext": output.used_drawtext})
+        final_asset = store_file_asset(
+            job,
+            AssetKind.FINAL_VIDEO,
+            output.final_path,
+            filename=FINAL_FILENAME,
+            mime_type="video/mp4",
+            duration_ms=output.duration_ms,
+            provider="ffmpeg",
+            metadata=meta,
+        )
+        thumb_asset = store_file_asset(
+            job,
+            AssetKind.THUMBNAIL,
+            output.thumbnail_path,
+            filename=THUMBNAIL_FILENAME,
+            mime_type="image/jpeg",
+            provider="ffmpeg",
+            metadata={
+                "at_ms": int(output.duration_ms * plan.thumbnail_position),
+                "used_drawtext": output.used_drawtext,
+            },
+        )
         if track is not None:
             VideoAsset.objects.update_or_create(
                 job=job,
@@ -595,20 +895,49 @@ def assemble_video_for_job(job, *, runner=media_tools.run_command, workdir: str 
                     "duration_ms": track.duration_ms,
                     "provider": "music_library",
                     "license_ref": f"music_tracks:{track.id}",
-                    "metadata": {"title": track.title, "license_type": track.license_type, "attribution_required": track.attribution_required, "mood": track.mood},
+                    "metadata": {
+                        "title": track.title,
+                        "license_type": track.license_type,
+                        "attribution_required": track.attribution_required,
+                        "mood": track.mood,
+                    },
                 },
             )
 
-    _apply_to_job(job, final_asset, thumb_asset, description=append_attribution(job.description, track))
-    logger.info("assembly_stage_succeeded", extra={"job_id": str(job.pk), "duration_ms": output.duration_ms, "music": bool(track)})
-    return AssembledJob(final_asset, thumb_asset, output.duration_ms, music_track=track, meta=meta)
+    _apply_to_job(
+        job,
+        final_asset,
+        thumb_asset,
+        description=append_attribution(job.description, track),
+    )
+    logger.info(
+        "assembly_stage_succeeded",
+        extra={
+            "job_id": str(job.pk),
+            "duration_ms": output.duration_ms,
+            "music": bool(track),
+        },
+    )
+    return AssembledJob(
+        final_asset, thumb_asset, output.duration_ms, music_track=track, meta=meta
+    )
 
 
 @transaction.atomic
-def _apply_to_job(job, final_asset: VideoAsset, thumb_asset: VideoAsset, *, description: str) -> None:
+def _apply_to_job(
+    job, final_asset: VideoAsset, thumb_asset: VideoAsset, *, description: str
+) -> None:
     job.final_video_s3_key = final_asset.s3_key
     job.thumbnail_s3_key = thumb_asset.s3_key
     job.duration_sec = int(round((final_asset.duration_ms or 0) / 1000))
     job.description = description
-    job.save(update_fields=["final_video_s3_key", "thumbnail_s3_key", "duration_sec", "description", "updated_at"])
+    job.save(
+        update_fields=[
+            "final_video_s3_key",
+            "thumbnail_s3_key",
+            "duration_sec",
+            "description",
+            "updated_at",
+        ]
+    )
     refresh_job_cost(job)

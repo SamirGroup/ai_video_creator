@@ -6,10 +6,8 @@ from __future__ import annotations
 import logging
 import uuid
 
-from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-from rest_framework import exceptions as drf_exceptions
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import exception_handler as drf_default_exception_handler

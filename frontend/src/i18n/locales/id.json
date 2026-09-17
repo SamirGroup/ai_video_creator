@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Memuat…",
+    "retry": "Coba lagi",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "close": "Tutup",
+    "search": "Cari",
+    "back": "Kembali",
+    "confirm": "Konfirmasi",
+    "actions": "Tindakan",
+    "status": "Status",
+    "date": "Tanggal",
+    "unknown": "Tidak diketahui"
+  },
+  "nav": {
+    "dashboard": "Dasbor",
+    "channel": "Saluran",
+    "preferences": "Preferensi",
+    "videos": "Video",
+    "revenue": "Pendapatan",
+    "billing": "Penagihan",
+    "contract": "Kontrak",
+    "adminUsers": "Pengguna",
+    "adminVideos": "Tugas video",
+    "adminModeration": "Moderasi",
+    "adminFinance": "Keuangan",
+    "adminConfig": "Konfigurasi",
+    "logout": "Keluar",
+    "language": "Bahasa",
+    "theme": "Tema"
+  },
+  "auth": {
+    "login": {
+      "title": "Masuk",
+      "email": "Email",
+      "password": "Kata sandi",
+      "submit": "Masuk"
+    },
+    "register": {
+      "title": "Buat akun",
+      "fullName": "Nama lengkap",
+      "email": "Email",
+      "password": "Kata sandi",
+      "submit": "Buat akun"
+    }
+  },
+  "preferences": {
+    "language": "Bahasa konten",
+    "videoDuration": "Durasi video (detik)",
+    "frequency": "Frekuensi publikasi",
+    "frequencyOptions": {
+      "daily": "Harian",
+      "weekly": "Mingguan",
+      "monthly": "Bulanan"
+    },
+    "publishTime": "Waktu publikasi",
+    "privacyStatus": "Privasi",
+    "privacyOptions": {
+      "public": "Publik",
+      "unlisted": "Tidak terdaftar",
+      "private": "Pribadi"
+    },
+    "approvalMode": "Mode persetujuan",
+    "save": "Simpan preferensi",
+    "saved": "Preferensi disimpan.",
+    "timezone": "Zona waktu",
+    "publishDays": "Hari (minggu: 0–6; bulan: 1–28)",
+    "title": "Preferensi"
+  },
+  "dashboard": {
+    "title": "Dasbor"
+  },
+  "channel": {
+    "title": "Saluran"
+  },
+  "video": {
+    "title": "Video"
+  },
+  "revenue": {
+    "title": "Pendapatan"
+  },
+  "billing": {
+    "title": "Penagihan"
+  },
+  "contract": {
+    "title": "Kontrak"
+  }
+}

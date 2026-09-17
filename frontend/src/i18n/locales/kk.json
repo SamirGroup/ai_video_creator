@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Жүктелуде…",
+    "retry": "Қайталау",
+    "save": "Сақтау",
+    "cancel": "Болдырмау",
+    "close": "Жабу",
+    "search": "Іздеу",
+    "back": "Артқа",
+    "confirm": "Растау",
+    "actions": "Әрекеттер",
+    "status": "Күйі",
+    "date": "Күні",
+    "unknown": "Белгісіз"
+  },
+  "nav": {
+    "dashboard": "Басқару тақтасы",
+    "channel": "Арна",
+    "preferences": "Баптаулар",
+    "videos": "Бейнелер",
+    "revenue": "Табыс",
+    "billing": "Төлемдер",
+    "contract": "Келісімшарт",
+    "adminUsers": "Пайдаланушылар",
+    "adminVideos": "Бейне тапсырмалар",
+    "adminModeration": "Модерация",
+    "adminFinance": "Қаржы",
+    "adminConfig": "Конфигурация",
+    "logout": "Шығу",
+    "language": "Тіл",
+    "theme": "Тақырып"
+  },
+  "auth": {
+    "login": {
+      "title": "Кіру",
+      "email": "Электрондық пошта",
+      "password": "Құпиясөз",
+      "submit": "Кіру"
+    },
+    "register": {
+      "title": "Тіркелгі жасау",
+      "fullName": "Толық аты-жөні",
+      "email": "Электрондық пошта",
+      "password": "Құпиясөз",
+      "submit": "Тіркелгі жасау"
+    }
+  },
+  "preferences": {
+    "language": "Мазмұн тілі",
+    "videoDuration": "Бейне ұзақтығы (секунд)",
+    "frequency": "Жариялау жиілігі",
+    "frequencyOptions": {
+      "daily": "Күн сайын",
+      "weekly": "Апта сайын",
+      "monthly": "Ай сайын"
+    },
+    "publishTime": "Жариялау уақыты",
+    "privacyStatus": "Құпиялық",
+    "privacyOptions": {
+      "public": "Жалпыға ашық",
+      "unlisted": "Тізімде жоқ",
+      "private": "Жеке"
+    },
+    "approvalMode": "Растау режимі",
+    "save": "Баптауларды сақтау",
+    "saved": "Баптаулар сақталды.",
+    "timezone": "Уақыт белдеуі",
+    "publishDays": "Күндер (апта: 0–6; ай: 1–28)",
+    "title": "Баптаулар"
+  },
+  "dashboard": {
+    "title": "Басқару тақтасы"
+  },
+  "channel": {
+    "title": "Арна"
+  },
+  "video": {
+    "title": "Бейнелер"
+  },
+  "revenue": {
+    "title": "Табыс"
+  },
+  "billing": {
+    "title": "Төлемдер"
+  },
+  "contract": {
+    "title": "Келісімшарт"
+  }
+}

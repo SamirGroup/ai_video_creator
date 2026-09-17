@@ -16,7 +16,10 @@ provider is not called again. Per-segment audio is kept only in the temp dir —
 TTS is cheap and fast relative to the visuals stage, so partial checkpoints are
 not worth the storage churn.
 """
+
 from __future__ import annotations
+
+from video_pipeline.services.preferences import job_preferences
 
 import logging
 import tempfile
@@ -24,8 +27,8 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from pathlib import Path
 
-from providers.models import ServiceType
-from providers.services import get_primary_config, record_api_usage
+from providers.services import record_api_usage
+from providers.language_routing import select_tts_config, voice_for_language
 from video_pipeline.models import AssetKind, VideoAsset
 from video_pipeline.services import media_tools
 from video_pipeline.services.checkpoints import existing_asset, store_file_asset
@@ -70,9 +73,17 @@ def load_segments(job) -> list[dict]:
     """Ordered narration segments from the stage-1 checkpoint. Raises `JobNotReady`
     when the script stage has not produced them.
     """
-    asset = VideoAsset.objects.filter(job=job, kind=AssetKind.SCRIPT).order_by("-created_at").first()
+    asset = (
+        VideoAsset.objects.filter(job=job, kind=AssetKind.SCRIPT)
+        .order_by("-created_at")
+        .first()
+    )
     segments = list((asset.metadata or {}).get("segments") or []) if asset else []
-    segments = [s for s in segments if isinstance(s, dict) and str(s.get("narration") or "").strip()]
+    segments = [
+        s
+        for s in segments
+        if isinstance(s, dict) and str(s.get("narration") or "").strip()
+    ]
     if not segments:
         raise JobNotReady(
             f"Video job {job.pk} has no script segments — the script stage must run first (FR-42)."
@@ -81,27 +92,37 @@ def load_segments(job) -> list[dict]:
     return segments
 
 
-def compute_segment_timing(durations_ms: list[int], *, gap_ms: int = 0) -> list[SegmentTiming]:
+def compute_segment_timing(
+    durations_ms: list[int], *, gap_ms: int = 0
+) -> list[SegmentTiming]:
     """Cumulative start/end offsets for consecutive segments."""
     timing: list[SegmentTiming] = []
     cursor = 0
     for position, duration in enumerate(durations_ms, start=1):
         duration = max(0, int(duration))
-        timing.append(SegmentTiming(index=position, start_ms=cursor, end_ms=cursor + duration))
+        timing.append(
+            SegmentTiming(index=position, start_ms=cursor, end_ms=cursor + duration)
+        )
         cursor += duration + max(0, int(gap_ms))
     return timing
 
 
 def resolve_voice_id(job, config) -> str:
-    preference = getattr(job, "preference", None)
+    preference = job_preferences(job)
     voice = (getattr(preference, "voice_id", "") or "").strip() if preference else ""
-    return voice or str(config.get_option("default_voice_id", "") or "")
+    return voice or voice_for_language(
+        config, job.language or (preference.language if preference else "en")
+    )
 
 
 def timing_from_asset(asset: VideoAsset) -> list[SegmentTiming]:
     raw = (asset.metadata or {}).get("segment_timing") or []
     return [
-        SegmentTiming(index=int(t.get("index") or i + 1), start_ms=int(t.get("start_ms") or 0), end_ms=int(t.get("end_ms") or 0))
+        SegmentTiming(
+            index=int(t.get("index") or i + 1),
+            start_ms=int(t.get("start_ms") or 0),
+            end_ms=int(t.get("end_ms") or 0),
+        )
         for i, t in enumerate(raw)
         if isinstance(t, dict)
     ]
@@ -110,7 +131,9 @@ def timing_from_asset(asset: VideoAsset) -> list[SegmentTiming]:
 # ---------------------------------------------------------------------------
 # DB-aware orchestration
 # ---------------------------------------------------------------------------
-def _synthesize_and_log(client, config, job, text: str, *, voice_id: str, language: str):
+def _synthesize_and_log(
+    client, config, job, text: str, *, voice_id: str, language: str
+):
     try:
         result = client.synthesize(text, voice_id=voice_id, language_code=language)
     except Exception as exc:
@@ -144,25 +167,39 @@ def _synthesize_and_log(client, config, job, text: str, *, voice_id: str, langua
     return result
 
 
-def generate_voice_for_job(job, *, client=None, runner=media_tools.run_command, workdir: str | None = None) -> VoiceResult:
+def generate_voice_for_job(
+    job, *, client=None, runner=media_tools.run_command, workdir: str | None = None
+) -> VoiceResult:
     """Synthesize, concatenate and checkpoint the voice-over for `job`."""
     existing = existing_asset(job, AssetKind.AUDIO_VOICE)
     if existing is not None:
-        logger.info("voice_stage_skipped_checkpoint_exists", extra={"job_id": str(job.pk)})
+        logger.info(
+            "voice_stage_skipped_checkpoint_exists", extra={"job_id": str(job.pk)}
+        )
         timing = timing_from_asset(existing)
         return VoiceResult(
             asset=existing,
             segment_timing=timing,
-            total_duration_ms=int(existing.duration_ms or (timing[-1].end_ms if timing else 0)),
+            total_duration_ms=int(
+                existing.duration_ms or (timing[-1].end_ms if timing else 0)
+            ),
             skipped=True,
             meta=dict(existing.metadata or {}),
         )
 
     segments = load_segments(job)
-    config = get_primary_config(ServiceType.TTS)
-    client = client or ElevenLabsClient(config)
+    language = (
+        job.language or (job.preference.language if job.preference else "") or "en"
+    )
+    config = select_tts_config(language)
+    if client is None:
+        if config.provider == "azure_tts":
+            from video_pipeline.services.azure_tts_client import AzureTTSClient
+
+            client = AzureTTSClient(config)
+        else:
+            client = ElevenLabsClient(config)
     voice_id = resolve_voice_id(job, config)
-    language = job.language or (job.preference.language if job.preference else "") or "en"
     gap_ms = int(config.get_option("segment_gap_ms", 0) or 0)
 
     check_cost_ceiling(job)
@@ -175,12 +212,16 @@ def generate_voice_for_job(job, *, client=None, runner=media_tools.run_command, 
 
         for position, segment in enumerate(segments, start=1):
             text = str(segment.get("narration") or "").strip()
-            result = _synthesize_and_log(client, config, job, text, voice_id=voice_id, language=language)
+            result = _synthesize_and_log(
+                client, config, job, text, voice_id=voice_id, language=language
+            )
             characters += result.characters
             segment_path = tmp_path / f"segment_{position:03d}.mp3"
             segment_path.write_bytes(result.audio)
             segment_files.append(str(segment_path))
-            durations_ms.append(media_tools.probe_duration_ms(str(segment_path), runner=runner))
+            durations_ms.append(
+                media_tools.probe_duration_ms(str(segment_path), runner=runner)
+            )
 
         timing = compute_segment_timing(durations_ms, gap_ms=gap_ms)
         total_ms = timing[-1].end_ms if timing else 0
@@ -189,18 +230,27 @@ def generate_voice_for_job(job, *, client=None, runner=media_tools.run_command, 
         if len(segment_files) == 1 and gap_ms == 0:
             Path(segment_files[0]).replace(output_path)
         else:
-            list_path = media_tools.write_concat_list(segment_files, str(tmp_path / "concat.txt"))
-            runner(media_tools.build_concat_audio_command(list_path, str(output_path)), timeout_sec=600)
+            list_path = media_tools.write_concat_list(
+                segment_files, str(tmp_path / "concat.txt")
+            )
+            runner(
+                media_tools.build_concat_audio_command(list_path, str(output_path)),
+                timeout_sec=600,
+            )
 
         # Measure the concatenated file: it is what assembly will actually use.
         try:
             total_ms = media_tools.probe_duration_ms(str(output_path), runner=runner)
         except media_tools.MediaToolError:
-            logger.warning("voice_concat_probe_failed_using_sum", extra={"job_id": str(job.pk)})
+            logger.warning(
+                "voice_concat_probe_failed_using_sum", extra={"job_id": str(job.pk)}
+            )
 
         meta = {
             "provider": config.provider,
-            "model": client.model_id if hasattr(client, "model_id") else config.model_name,
+            "model": client.model_id
+            if hasattr(client, "model_id")
+            else config.model_name,
             "voice_id": voice_id,
             "segment_count": len(segments),
             "segment_gap_ms": gap_ms,
@@ -230,5 +280,9 @@ def generate_voice_for_job(job, *, client=None, runner=media_tools.run_command, 
         },
     )
     return VoiceResult(
-        asset=asset, segment_timing=timing, total_duration_ms=total_ms, characters=characters, meta=meta
+        asset=asset,
+        segment_timing=timing,
+        total_duration_ms=total_ms,
+        characters=characters,
+        meta=meta,
     )

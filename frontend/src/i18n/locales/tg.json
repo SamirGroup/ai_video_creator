@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Бор шуда истодааст…",
+    "retry": "Кӯшиши дубора",
+    "save": "Захира кардан",
+    "cancel": "Бекор кардан",
+    "close": "Пӯшидан",
+    "search": "Ҷустуҷӯ",
+    "back": "Бозгашт",
+    "confirm": "Тасдиқ",
+    "actions": "Амалҳо",
+    "status": "Ҳолат",
+    "date": "Сана",
+    "unknown": "Номаълум"
+  },
+  "nav": {
+    "dashboard": "Панели идоракунӣ",
+    "channel": "Канал",
+    "preferences": "Танзимот",
+    "videos": "Видеоҳо",
+    "revenue": "Даромад",
+    "billing": "Пардохтҳо",
+    "contract": "Шартнома",
+    "adminUsers": "Корбарон",
+    "adminVideos": "Вазифаҳои видео",
+    "adminModeration": "Модератсия",
+    "adminFinance": "Молия",
+    "adminConfig": "Конфигуратсия",
+    "logout": "Баромадан",
+    "language": "Забон",
+    "theme": "Мавзӯъ"
+  },
+  "auth": {
+    "login": {
+      "title": "Ворид шудан",
+      "email": "Почтаи электронӣ",
+      "password": "Рамз",
+      "submit": "Ворид шудан"
+    },
+    "register": {
+      "title": "Сохтани ҳисоб",
+      "fullName": "Ному насаб",
+      "email": "Почтаи электронӣ",
+      "password": "Рамз",
+      "submit": "Сохтани ҳисоб"
+    }
+  },
+  "preferences": {
+    "language": "Забони муҳтаво",
+    "videoDuration": "Давомнокии видео (сония)",
+    "frequency": "Басомади нашр",
+    "frequencyOptions": {
+      "daily": "Ҳар рӯз",
+      "weekly": "Ҳар ҳафта",
+      "monthly": "Ҳар моҳ"
+    },
+    "publishTime": "Вақти нашр",
+    "privacyStatus": "Махфият",
+    "privacyOptions": {
+      "public": "Оммавӣ",
+      "unlisted": "Дар рӯйхат нест",
+      "private": "Хусусӣ"
+    },
+    "approvalMode": "Ҳолати тасдиқ",
+    "save": "Захираи танзимот",
+    "saved": "Танзимот захира шуд.",
+    "timezone": "Минтақаи вақт",
+    "publishDays": "Рӯзҳо (ҳафта: 0–6; моҳ: 1–28)",
+    "title": "Танзимот"
+  },
+  "dashboard": {
+    "title": "Панели идоракунӣ"
+  },
+  "channel": {
+    "title": "Канал"
+  },
+  "video": {
+    "title": "Видеоҳо"
+  },
+  "revenue": {
+    "title": "Даромад"
+  },
+  "billing": {
+    "title": "Пардохтҳо"
+  },
+  "contract": {
+    "title": "Шартнома"
+  }
+}

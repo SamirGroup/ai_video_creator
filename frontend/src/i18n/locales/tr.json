@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Yükleniyor…",
+    "retry": "Tekrar dene",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "close": "Kapat",
+    "search": "Ara",
+    "back": "Geri",
+    "confirm": "Onayla",
+    "actions": "İşlemler",
+    "status": "Durum",
+    "date": "Tarih",
+    "unknown": "Bilinmiyor"
+  },
+  "nav": {
+    "dashboard": "Kontrol paneli",
+    "channel": "Kanal",
+    "preferences": "Tercihler",
+    "videos": "Videolar",
+    "revenue": "Gelir",
+    "billing": "Faturalandırma",
+    "contract": "Sözleşme",
+    "adminUsers": "Kullanıcılar",
+    "adminVideos": "Video işleri",
+    "adminModeration": "Moderasyon",
+    "adminFinance": "Finans",
+    "adminConfig": "Yapılandırma",
+    "logout": "Çıkış yap",
+    "language": "Dil",
+    "theme": "Tema"
+  },
+  "auth": {
+    "login": {
+      "title": "Giriş yap",
+      "email": "E-posta",
+      "password": "Parola",
+      "submit": "Giriş yap"
+    },
+    "register": {
+      "title": "Hesap oluştur",
+      "fullName": "Ad ve soyadı",
+      "email": "E-posta",
+      "password": "Parola",
+      "submit": "Hesap oluştur"
+    }
+  },
+  "preferences": {
+    "language": "İçerik dili",
+    "videoDuration": "Video süresi (saniye)",
+    "frequency": "Yayın sıklığı",
+    "frequencyOptions": {
+      "daily": "Günlük",
+      "weekly": "Haftalık",
+      "monthly": "Aylık"
+    },
+    "publishTime": "Yayın saati",
+    "privacyStatus": "Gizlilik",
+    "privacyOptions": {
+      "public": "Herkese açık",
+      "unlisted": "Liste dışı",
+      "private": "Gizli"
+    },
+    "approvalMode": "Onay modu",
+    "save": "Tercihleri kaydet",
+    "saved": "Tercihler kaydedildi.",
+    "timezone": "Saat dilimi",
+    "publishDays": "Günler (hafta: 0–6; ay: 1–28)",
+    "title": "Tercihler"
+  },
+  "dashboard": {
+    "title": "Kontrol paneli"
+  },
+  "channel": {
+    "title": "Kanal"
+  },
+  "video": {
+    "title": "Videolar"
+  },
+  "revenue": {
+    "title": "Gelir"
+  },
+  "billing": {
+    "title": "Faturalandırma"
+  },
+  "contract": {
+    "title": "Sözleşme"
+  }
+}

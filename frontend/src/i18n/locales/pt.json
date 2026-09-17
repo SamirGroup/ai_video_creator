@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Carregando…",
+    "retry": "Tentar novamente",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "close": "Fechar",
+    "search": "Pesquisar",
+    "back": "Voltar",
+    "confirm": "Confirmar",
+    "actions": "Ações",
+    "status": "Estado",
+    "date": "Data",
+    "unknown": "Desconhecido"
+  },
+  "nav": {
+    "dashboard": "Painel",
+    "channel": "Canal",
+    "preferences": "Preferências",
+    "videos": "Vídeos",
+    "revenue": "Receita",
+    "billing": "Faturamento",
+    "contract": "Contrato",
+    "adminUsers": "Usuários",
+    "adminVideos": "Tarefas de vídeo",
+    "adminModeration": "Moderação",
+    "adminFinance": "Finanças",
+    "adminConfig": "Configuração",
+    "logout": "Sair",
+    "language": "Idioma",
+    "theme": "Tema"
+  },
+  "auth": {
+    "login": {
+      "title": "Entrar",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Entrar"
+    },
+    "register": {
+      "title": "Criar conta",
+      "fullName": "Nome completo",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Criar conta"
+    }
+  },
+  "preferences": {
+    "language": "Idioma do conteúdo",
+    "videoDuration": "Duração do vídeo (segundos)",
+    "frequency": "Frequência de publicação",
+    "frequencyOptions": {
+      "daily": "Diária",
+      "weekly": "Semanal",
+      "monthly": "Mensal"
+    },
+    "publishTime": "Horário de publicação",
+    "privacyStatus": "Privacidade",
+    "privacyOptions": {
+      "public": "Público",
+      "unlisted": "Não listado",
+      "private": "Privado"
+    },
+    "approvalMode": "Modo de aprovação",
+    "save": "Salvar preferências",
+    "saved": "Preferências salvas.",
+    "timezone": "Fuso horário",
+    "publishDays": "Dias (semana: 0–6; mês: 1–28)",
+    "title": "Preferências"
+  },
+  "dashboard": {
+    "title": "Painel"
+  },
+  "channel": {
+    "title": "Canal"
+  },
+  "video": {
+    "title": "Vídeos"
+  },
+  "revenue": {
+    "title": "Receita"
+  },
+  "billing": {
+    "title": "Faturamento"
+  },
+  "contract": {
+    "title": "Contrato"
+  }
+}

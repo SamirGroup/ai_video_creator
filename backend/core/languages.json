@@ -1,0 +1,212 @@
+[
+  {
+    "code": "ru",
+    "name": "Russian",
+    "native_name": "Русский",
+    "direction": "ltr",
+    "outro": "Спасибо за просмотр"
+  },
+  {
+    "code": "en",
+    "name": "English",
+    "native_name": "English",
+    "direction": "ltr",
+    "outro": "Thanks for watching"
+  },
+  {
+    "code": "fr",
+    "name": "French",
+    "native_name": "Français",
+    "direction": "ltr",
+    "outro": "Merci de votre attention"
+  },
+  {
+    "code": "zh",
+    "name": "Mandarin Chinese",
+    "native_name": "中文",
+    "direction": "ltr",
+    "outro": "感谢观看"
+  },
+  {
+    "code": "ko",
+    "name": "Korean",
+    "native_name": "한국어",
+    "direction": "ltr",
+    "outro": "시청해 주셔서 감사합니다"
+  },
+  {
+    "code": "de",
+    "name": "German",
+    "native_name": "Deutsch",
+    "direction": "ltr",
+    "outro": "Danke fürs Zuschauen"
+  },
+  {
+    "code": "ar",
+    "name": "Modern Standard Arabic",
+    "native_name": "العربية",
+    "direction": "rtl",
+    "outro": "شكراً للمشاهدة"
+  },
+  {
+    "code": "tr",
+    "name": "Turkish",
+    "native_name": "Türkçe",
+    "direction": "ltr",
+    "outro": "İzlediğiniz için teşekkürler"
+  },
+  {
+    "code": "uz",
+    "name": "Uzbek",
+    "native_name": "O‘zbekcha",
+    "direction": "ltr",
+    "outro": "Tomosha qilganingiz uchun rahmat"
+  },
+  {
+    "code": "fa",
+    "name": "Persian",
+    "native_name": "فارسی",
+    "direction": "rtl",
+    "outro": "از تماشای شما سپاسگزاریم"
+  },
+  {
+    "code": "hi",
+    "name": "Hindi",
+    "native_name": "हिन्दी",
+    "direction": "ltr",
+    "outro": "देखने के लिए धन्यवाद"
+  },
+  {
+    "code": "ur",
+    "name": "Urdu",
+    "native_name": "اردو",
+    "direction": "rtl",
+    "outro": "دیکھنے کا شکریہ"
+  },
+  {
+    "code": "ky",
+    "name": "Kyrgyz",
+    "native_name": "Кыргызча",
+    "direction": "ltr",
+    "outro": "Көргөнүңүз үчүн рахмат"
+  },
+  {
+    "code": "kk",
+    "name": "Kazakh",
+    "native_name": "Қазақша",
+    "direction": "ltr",
+    "outro": "Көргеніңіз үшін рақмет"
+  },
+  {
+    "code": "tg",
+    "name": "Tajik",
+    "native_name": "Тоҷикӣ",
+    "direction": "ltr",
+    "outro": "Ташаккур барои тамошо"
+  },
+  {
+    "code": "tk",
+    "name": "Turkmen",
+    "native_name": "Türkmençe",
+    "direction": "ltr",
+    "outro": "Tomaşa edeniňiz üçin sag boluň"
+  },
+  {
+    "code": "az",
+    "name": "Azerbaijani",
+    "native_name": "Azərbaycanca",
+    "direction": "ltr",
+    "outro": "İzlədiyiniz üçün təşəkkürlər"
+  },
+  {
+    "code": "ka",
+    "name": "Georgian",
+    "native_name": "ქართული",
+    "direction": "ltr",
+    "outro": "გმადლობთ ყურებისთვის"
+  },
+  {
+    "code": "es",
+    "name": "Spanish",
+    "native_name": "Español",
+    "direction": "ltr",
+    "outro": "Gracias por ver"
+  },
+  {
+    "code": "ar-EG",
+    "name": "Egyptian Arabic",
+    "native_name": "العربية المصرية",
+    "direction": "rtl",
+    "outro": "شكراً على المشاهدة"
+  },
+  {
+    "code": "ha",
+    "name": "Hausa",
+    "native_name": "Hausa",
+    "direction": "ltr",
+    "outro": "Mun gode da kallo"
+  },
+  {
+    "code": "pt",
+    "name": "Portuguese",
+    "native_name": "Português",
+    "direction": "ltr",
+    "outro": "Obrigado por assistir"
+  },
+  {
+    "code": "it",
+    "name": "Italian",
+    "native_name": "Italiano",
+    "direction": "ltr",
+    "outro": "Grazie per la visione"
+  },
+  {
+    "code": "ja",
+    "name": "Japanese",
+    "native_name": "日本語",
+    "direction": "ltr",
+    "outro": "ご視聴ありがとうございました"
+  },
+  {
+    "code": "id",
+    "name": "Indonesian",
+    "native_name": "Bahasa Indonesia",
+    "direction": "ltr",
+    "outro": "Terima kasih telah menonton"
+  },
+  {
+    "code": "bn",
+    "name": "Bengali",
+    "native_name": "বাংলা",
+    "direction": "ltr",
+    "outro": "দেখার জন্য ধন্যবাদ"
+  },
+  {
+    "code": "vi",
+    "name": "Vietnamese",
+    "native_name": "Tiếng Việt",
+    "direction": "ltr",
+    "outro": "Cảm ơn bạn đã xem"
+  },
+  {
+    "code": "th",
+    "name": "Thai",
+    "native_name": "ไทย",
+    "direction": "ltr",
+    "outro": "ขอบคุณที่รับชม"
+  },
+  {
+    "code": "pl",
+    "name": "Polish",
+    "native_name": "Polski",
+    "direction": "ltr",
+    "outro": "Dziękujemy za oglądanie"
+  },
+  {
+    "code": "uk",
+    "name": "Ukrainian",
+    "native_name": "Українська",
+    "direction": "ltr",
+    "outro": "Дякуємо за перегляд"
+  }
+]

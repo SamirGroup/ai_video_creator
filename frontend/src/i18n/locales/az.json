@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Yüklənir…",
+    "retry": "Yenidən cəhd et",
+    "save": "Saxla",
+    "cancel": "Ləğv et",
+    "close": "Bağla",
+    "search": "Axtar",
+    "back": "Geri",
+    "confirm": "Təsdiqlə",
+    "actions": "Əməliyyatlar",
+    "status": "Status",
+    "date": "Tarix",
+    "unknown": "Naməlum"
+  },
+  "nav": {
+    "dashboard": "İdarəetmə paneli",
+    "channel": "Kanal",
+    "preferences": "Seçimlər",
+    "videos": "Videolar",
+    "revenue": "Gəlir",
+    "billing": "Ödənişlər",
+    "contract": "Müqavilə",
+    "adminUsers": "İstifadəçilər",
+    "adminVideos": "Video tapşırıqları",
+    "adminModeration": "Moderasiya",
+    "adminFinance": "Maliyyə",
+    "adminConfig": "Konfiqurasiya",
+    "logout": "Çıxış",
+    "language": "Dil",
+    "theme": "Mövzu"
+  },
+  "auth": {
+    "login": {
+      "title": "Daxil ol",
+      "email": "E-poçt",
+      "password": "Şifrə",
+      "submit": "Daxil ol"
+    },
+    "register": {
+      "title": "Hesab yarat",
+      "fullName": "Tam ad",
+      "email": "E-poçt",
+      "password": "Şifrə",
+      "submit": "Hesab yarat"
+    }
+  },
+  "preferences": {
+    "language": "Məzmun dili",
+    "videoDuration": "Video müddəti (saniyə)",
+    "frequency": "Yayım tezliyi",
+    "frequencyOptions": {
+      "daily": "Gündəlik",
+      "weekly": "Həftəlik",
+      "monthly": "Aylıq"
+    },
+    "publishTime": "Yayım vaxtı",
+    "privacyStatus": "Məxfilik",
+    "privacyOptions": {
+      "public": "Açıq",
+      "unlisted": "Siyahıda olmayan",
+      "private": "Şəxsi"
+    },
+    "approvalMode": "Təsdiq rejimi",
+    "save": "Seçimləri saxla",
+    "saved": "Seçimlər saxlanıldı.",
+    "timezone": "Saat qurşağı",
+    "publishDays": "Günlər (həftə: 0–6; ay: 1–28)",
+    "title": "Seçimlər"
+  },
+  "dashboard": {
+    "title": "İdarəetmə paneli"
+  },
+  "channel": {
+    "title": "Kanal"
+  },
+  "video": {
+    "title": "Videolar"
+  },
+  "revenue": {
+    "title": "Gəlir"
+  },
+  "billing": {
+    "title": "Ödənişlər"
+  },
+  "contract": {
+    "title": "Müqavilə"
+  }
+}

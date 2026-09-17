@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Caricamento…",
+    "retry": "Riprova",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "close": "Chiudi",
+    "search": "Cerca",
+    "back": "Indietro",
+    "confirm": "Conferma",
+    "actions": "Azioni",
+    "status": "Stato",
+    "date": "Data",
+    "unknown": "Sconosciuto"
+  },
+  "nav": {
+    "dashboard": "Pannello",
+    "channel": "Canale",
+    "preferences": "Preferenze",
+    "videos": "Video",
+    "revenue": "Ricavi",
+    "billing": "Fatturazione",
+    "contract": "Contratto",
+    "adminUsers": "Utenti",
+    "adminVideos": "Attività video",
+    "adminModeration": "Moderazione",
+    "adminFinance": "Finanze",
+    "adminConfig": "Configurazione",
+    "logout": "Esci",
+    "language": "Lingua",
+    "theme": "Tema"
+  },
+  "auth": {
+    "login": {
+      "title": "Accedi",
+      "email": "E-mail",
+      "password": "Password",
+      "submit": "Accedi"
+    },
+    "register": {
+      "title": "Crea account",
+      "fullName": "Nome completo",
+      "email": "E-mail",
+      "password": "Password",
+      "submit": "Crea account"
+    }
+  },
+  "preferences": {
+    "language": "Lingua dei contenuti",
+    "videoDuration": "Durata del video (secondi)",
+    "frequency": "Frequenza di pubblicazione",
+    "frequencyOptions": {
+      "daily": "Giornaliera",
+      "weekly": "Settimanale",
+      "monthly": "Mensile"
+    },
+    "publishTime": "Ora di pubblicazione",
+    "privacyStatus": "Visibilità",
+    "privacyOptions": {
+      "public": "Pubblico",
+      "unlisted": "Non in elenco",
+      "private": "Privato"
+    },
+    "approvalMode": "Modalità di approvazione",
+    "save": "Salva preferenze",
+    "saved": "Preferenze salvate.",
+    "timezone": "Fuso orario",
+    "publishDays": "Giorni (settimana: 0–6; mese: 1–28)",
+    "title": "Preferenze"
+  },
+  "dashboard": {
+    "title": "Pannello"
+  },
+  "channel": {
+    "title": "Canale"
+  },
+  "video": {
+    "title": "Video"
+  },
+  "revenue": {
+    "title": "Ricavi"
+  },
+  "billing": {
+    "title": "Fatturazione"
+  },
+  "contract": {
+    "title": "Contratto"
+  }
+}

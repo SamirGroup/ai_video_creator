@@ -37,18 +37,17 @@ export function Sidebar() {
       <aside
         aria-label="Primary"
         className={cn(
-          'fixed inset-y-0 left-0 z-40 w-64 shrink-0 border-r border-border bg-surface transition-transform lg:sticky lg:top-0 lg:h-svh lg:translate-x-0',
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full',
+          'dashboard-sidebar fixed inset-y-0 start-0 z-40 w-64 shrink-0 border-e border-border bg-surface transition-transform lg:sticky lg:top-0 lg:h-svh lg:translate-x-0',
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full rtl:translate-x-full',
         )}
       >
         <div className="flex h-14 items-center gap-2 border-b border-border px-4">
-          <span className="text-sm font-semibold text-foreground">
-            {t('app.name')}
-          </span>
+          <span className="text-sm font-semibold text-foreground">{t('app.name')}</span>
         </div>
         <nav className="flex flex-col gap-1 overflow-y-auto p-3">
           {creatorNavItems.map((item) => (
             <NavLink key={item.to} to={item.to} className={linkClasses}>
+              <span className="nav-dot" aria-hidden="true" />
               {t(item.labelKey)}
             </NavLink>
           ))}
@@ -62,6 +61,7 @@ export function Sidebar() {
                 .filter((item) => !item.roles || hasAnyRole(item.roles))
                 .map((item) => (
                   <NavLink key={item.to} to={item.to} className={linkClasses}>
+                    <span className="nav-dot" aria-hidden="true" />
                     {t(item.labelKey)}
                   </NavLink>
                 ))}

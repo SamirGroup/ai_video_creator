@@ -15,6 +15,7 @@ Both tasks are idempotent and safe to run concurrently (row locks with
 `skip_locked`). Schedules are seeded into django-celery-beat by
 `content_planning/migrations/0002_seed_beat_schedule.py` (D-7).
 """
+
 from __future__ import annotations
 
 import logging
@@ -60,14 +61,20 @@ def _notify_once(user, key: str, type_: str, ctx: dict) -> None:
 
 
 def _notify_blocked(user, code: str) -> None:
-    subject, message = _BLOCK_MESSAGES.get(code, ("Video generation is on hold", "Please check your dashboard."))
-    _notify_once(user, code, "generation.blocked", {"subject": subject, "message": message})
+    subject, message = _BLOCK_MESSAGES.get(
+        code, ("Video generation is on hold", "Please check your dashboard.")
+    )
+    _notify_once(
+        user, code, "generation.blocked", {"subject": subject, "message": message}
+    )
 
 
 def _notify_quota_exhausted(user, quota) -> None:
     from billing.models import UsageCounter
 
-    counter = UsageCounter.objects.filter(user=user, period_start=quota.period_start).first()
+    counter = UsageCounter.objects.filter(
+        user=user, period_start=quota.period_start
+    ).first()
     if counter is None or counter.exhausted_notified_at is not None:
         return
     counter.exhausted_notified_at = timezone.now()
@@ -98,7 +105,9 @@ def materialise_scheduled_jobs() -> dict:
     created = skipped = 0
 
     prefs = (
-        ContentPreference.objects.filter(is_paused=False, deleted_at__isnull=True)
+        ContentPreference.objects.filter(
+            is_paused=False, automatic_schedule_enabled=True, deleted_at__isnull=True
+        )
         .select_related("channel", "user")
         .order_by("created_at")
     )
@@ -112,7 +121,9 @@ def materialise_scheduled_jobs() -> dict:
             _notify_blocked(user, eligibility.code)
             skipped += 1
             continue
-        if VideoJob.objects.filter(preference=pref, status=JobStatus.SCHEDULED).exists():
+        if VideoJob.objects.filter(
+            preference=pref, status=JobStatus.SCHEDULED
+        ).exists():
             skipped += 1
             continue
         quota = remaining(user)
@@ -124,7 +135,10 @@ def materialise_scheduled_jobs() -> dict:
         try:
             slot = next_publish_slot(pref, now)
         except (ValueError, KeyError) as exc:
-            logger.warning("scheduler_slot_error", extra={"preference_id": str(pref.id), "error": str(exc)})
+            logger.warning(
+                "scheduler_slot_error",
+                extra={"preference_id": str(pref.id), "error": str(exc)},
+            )
             skipped += 1
             continue
         if slot - now > lead:
@@ -150,10 +164,16 @@ def materialise_scheduled_jobs() -> dict:
                 action="video_job.scheduled",
                 resource_type="video_job",
                 resource_id=str(job.id),
-                after={"scheduled_for": slot.isoformat(), "preference_id": str(pref.id)},
+                after={
+                    "scheduled_for": slot.isoformat(),
+                    "preference_id": str(pref.id),
+                },
             )
         created += 1
-        logger.info("scheduler_job_materialised", extra={"job_id": str(job.id), "scheduled_for": slot.isoformat()})
+        logger.info(
+            "scheduler_job_materialised",
+            extra={"job_id": str(job.id), "scheduled_for": slot.isoformat()},
+        )
 
     return {"created": created, "skipped": skipped}
 
@@ -174,7 +194,9 @@ def enqueue_due_jobs() -> dict:
     enqueued = held = canceled = 0
 
     due_ids = list(
-        VideoJob.objects.filter(status=JobStatus.SCHEDULED, scheduled_for__lte=due_cutoff)
+        VideoJob.objects.filter(
+            status=JobStatus.SCHEDULED, scheduled_for__lte=due_cutoff
+        )
         .order_by("scheduled_for")
         .values_list("id", flat=True)
     )
@@ -192,9 +214,19 @@ def enqueue_due_jobs() -> dict:
             if job.scheduled_for < stale_before:
                 job.status = JobStatus.CANCELED
                 job.error_code = "stale_schedule"
-                job.error_message = "Scheduled slot passed while generation was on hold."
+                job.error_message = (
+                    "Scheduled slot passed while generation was on hold."
+                )
                 job.completed_at = now
-                job.save(update_fields=["status", "error_code", "error_message", "completed_at", "updated_at"])
+                job.save(
+                    update_fields=[
+                        "status",
+                        "error_code",
+                        "error_message",
+                        "completed_at",
+                        "updated_at",
+                    ]
+                )
                 record_audit_event(
                     actor_type="system",
                     action="video_job.canceled",
@@ -228,7 +260,10 @@ def enqueue_due_jobs() -> dict:
                 held += 1
                 continue
             except Exception as exc:  # concurrent-jobs cap: try again next run
-                logger.info("scheduler_enqueue_deferred", extra={"job_id": str(job.id), "reason": str(exc)})
+                logger.info(
+                    "scheduler_enqueue_deferred",
+                    extra={"job_id": str(job.id), "reason": str(exc)},
+                )
                 held += 1
                 continue
 
@@ -239,10 +274,20 @@ def enqueue_due_jobs() -> dict:
                 action="video_job.queued",
                 resource_type="video_job",
                 resource_id=str(job.id),
-                after={"status": job.status, "scheduled_for": job.scheduled_for.isoformat()},
+                after={
+                    "status": job.status,
+                    "scheduled_for": job.scheduled_for.isoformat(),
+                },
             )
             transaction.on_commit(lambda jid=str(job.id): _enqueue_script_stage(jid))
         enqueued += 1
         logger.info("scheduler_job_enqueued", extra={"job_id": str(job_id)})
 
     return {"enqueued": enqueued, "held": held, "canceled": canceled}
+
+
+@shared_task(name="content_planning.tasks.prepare_content_plan", acks_late=True)
+def prepare_content_plan(plan_id):
+    from content_planning.proposals import prepare_proposal
+
+    return prepare_proposal(plan_id)

@@ -12,19 +12,26 @@ share is the exact remainder (`gross - creator_share`), so
 `platform_share_amount + creator_share_amount == gross_revenue` holds by
 construction, and a tie always rounds in the creator's favour.
 """
+
 from __future__ import annotations
 
 import logging
 from datetime import date, timedelta
 from decimal import ROUND_HALF_UP, Decimal
 
+from django.db import transaction
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.exceptions import APIException
 
 from audit.services import record_audit_event
 from notifications.services import notify, notify_admins
-from revenue.models import RevenueRecord, RevenueShareStatement, StatementStatus
+from revenue.models import (
+    RevenueRecord,
+    RevenueShareStatement,
+    RevenueSettlement,
+    StatementStatus,
+)
 from revenue.pdf import render_statement_pdf
 
 logger = logging.getLogger("revenue.statements")
@@ -61,7 +68,9 @@ def previous_calendar_month(today: date | None = None) -> tuple[date, date]:
 # ---------------------------------------------------------------------------
 # Gross revenue (FR-65: platform-generated videos only)
 # ---------------------------------------------------------------------------
-def _revenue_rows_for_period(user, period_start: date, period_end: date) -> list[RevenueRecord]:
+def _revenue_rows_for_period(
+    user, period_start: date, period_end: date, *, published_only: bool = False
+) -> list[RevenueRecord]:
     """One row per `(job, date)`: AdSense (FR-20 "AdSense-confirmed") wins over
     YouTube Analytics when both are present for the same video/day.
     """
@@ -79,48 +88,84 @@ def _revenue_rows_for_period(user, period_start: date, period_end: date) -> list
         .select_related("job")
         .order_by("job_id", "date")
     )
+    if published_only:
+        # Set by our successful YouTube upload path; a generated/exported file alone is ineligible.
+        qs = qs.filter(
+            job__youtube_upload_status="uploaded", job__published_at__isnull=False
+        ).exclude(job__youtube_video_id="")
     by_key: dict[tuple, RevenueRecord] = {}
     for row in qs:
         key = (row.job_id, row.date)
         existing = by_key.get(key)
-        if existing is None or (row.source == RevenueSource.ADSENSE and existing.source != RevenueSource.ADSENSE):
+        if existing is None or (
+            row.source == RevenueSource.ADSENSE
+            and existing.source != RevenueSource.ADSENSE
+        ):
             by_key[key] = row
     return list(by_key.values())
 
 
-def gross_for_period(user, period_start: date, period_end: date) -> tuple[Decimal, dict, int]:
+def gross_for_period(
+    user, period_start: date, period_end: date, *, published_only: bool = False
+) -> tuple[Decimal, dict, int]:
     """`(gross_revenue, breakdown[str(job_id)] -> str(amount), video_count)`,
     all cent-quantized (FR-68 breakdown, AC-7 sum invariant).
     """
-    rows = _revenue_rows_for_period(user, period_start, period_end)
+    rows = _revenue_rows_for_period(
+        user, period_start, period_end, published_only=published_only
+    )
     breakdown: dict[str, Decimal] = {}
     for row in rows:
         key = str(row.job_id)
         breakdown[key] = breakdown.get(key, Decimal("0")) + row.estimated_revenue
     gross = sum(breakdown.values(), Decimal("0")).quantize(CENT, rounding=ROUND_HALF_UP)
-    breakdown_out = {k: str(v.quantize(CENT, rounding=ROUND_HALF_UP)) for k, v in breakdown.items()}
+    breakdown_out = {
+        k: str(v.quantize(CENT, rounding=ROUND_HALF_UP)) for k, v in breakdown.items()
+    }
     return gross, breakdown_out, len(breakdown)
 
 
-def split_50_50(gross: Decimal, *, platform_pct: Decimal, creator_pct: Decimal) -> tuple[Decimal, Decimal]:
+def split_revenue(
+    gross: Decimal, *, platform_pct: Decimal, creator_pct: Decimal
+) -> tuple[Decimal, Decimal]:
     """FR-67: returns `(platform_share, creator_share)`; `platform_share +
     creator_share == gross` always (platform absorbs the rounding remainder).
     """
-    creator_share = (gross * creator_pct / Decimal("100")).quantize(CENT, rounding=ROUND_HALF_UP)
+    if not all(value.is_finite() for value in (gross, platform_pct, creator_pct)):
+        raise ValueError("Revenue and percentages must be finite decimals.")
+    if gross < 0 or not 0 <= platform_pct <= 100 or not 0 <= creator_pct <= 100:
+        raise ValueError(
+            "Revenue must be nonnegative and percentages must be between 0 and 100."
+        )
+    if platform_pct + creator_pct != Decimal("100"):
+        raise ValueError("Revenue-share percentages must sum to 100.")
+    creator_share = (gross * creator_pct / Decimal("100")).quantize(
+        CENT, rounding=ROUND_HALF_UP
+    )
     platform_share = gross - creator_share
     return platform_share, creator_share
+
+
+# Compatibility for integrations that still import the historical function name.
+split_50_50 = split_revenue
 
 
 # ---------------------------------------------------------------------------
 # Period close (FR-67..FR-70b)
 # ---------------------------------------------------------------------------
-def close_period_for_user(user, period_start: date, period_end: date) -> RevenueShareStatement | None:
+@transaction.atomic
+def close_period_for_user(
+    user, period_start: date, period_end: date
+) -> RevenueShareStatement | None:
     """Idempotent: a second call for the same `(user, period)` returns the
     existing statement untouched. Returns `None` when there is nothing to
     report (no platform-generated revenue, or no active contract — the latter
     is logged as an anomaly since FR-32 should prevent generation without one).
     """
     from contracts.models import Contract, ContractStatus
+    from accounts.models import User
+
+    User.objects.select_for_update().get(pk=user.pk)
 
     existing = RevenueShareStatement.objects.filter(
         user=user, period_start=period_start, period_end=period_end
@@ -128,18 +173,46 @@ def close_period_for_user(user, period_start: date, period_end: date) -> Revenue
     if existing is not None:
         return existing
 
-    gross, breakdown, video_count = gross_for_period(user, period_start, period_end)
-    if gross <= 0:
+    contract = (
+        Contract.objects.filter(user=user, status=ContractStatus.ACTIVE)
+        .order_by("-signed_at")
+        .first()
+    )
+    if contract is None:
+        logger.error(
+            "revenue_period_close_no_active_contract", extra={"user_id": str(user.id)}
+        )
         return None
 
-    contract = Contract.objects.filter(user=user, status=ContractStatus.ACTIVE).order_by("-signed_at").first()
-    if contract is None:
-        logger.error("revenue_period_close_no_active_contract", extra={"user_id": str(user.id)})
+    strict = contract.contract_version.revenue_only_platform_published
+    if strict:
+        settlements = RevenueSettlement.objects.filter(
+            user=user,
+            period_start=period_start,
+            period_end=period_end,
+            job__is_platform_generated=True,
+            job__youtube_upload_status="uploaded",
+            job__published_at__isnull=False,
+            currency="USD",
+        ).exclude(job__youtube_video_id="")
+        breakdown = {
+            str(row.job_id): str(row.amount.quantize(CENT, rounding=ROUND_HALF_UP))
+            for row in settlements
+        }
+        gross = sum(
+            (Decimal(amount) for amount in breakdown.values()), Decimal("0")
+        ).quantize(CENT)
+        video_count = len(breakdown)
+    else:
+        gross, breakdown, video_count = gross_for_period(user, period_start, period_end)
+    if gross <= 0:
         return None
 
     platform_pct = contract.contract_version.revenue_share_platform_pct
     creator_pct = contract.contract_version.revenue_share_creator_pct
-    platform_share, creator_share = split_50_50(gross, platform_pct=platform_pct, creator_pct=creator_pct)
+    platform_share, creator_share = split_revenue(
+        gross, platform_pct=platform_pct, creator_pct=creator_pct
+    )
 
     statement = RevenueShareStatement.objects.create(
         user=user,
@@ -153,12 +226,15 @@ def close_period_for_user(user, period_start: date, period_end: date) -> Revenue
         video_count=video_count,
         breakdown=breakdown,
         contract=contract,
-        status=StatementStatus.FINALIZED,
-        finalized_at=timezone.now(),
+        status=StatementStatus.DRAFT if strict else StatementStatus.FINALIZED,
+        review_deadline=timezone.now() + DISPUTE_WINDOW if strict else None,
+        finalized_at=None if strict else timezone.now(),
     )
     record_audit_event(
         actor_type="system",
-        action="revenue_share_statement.finalized",
+        action="revenue_share_statement.ready"
+        if strict
+        else "revenue_share_statement.finalized",
         resource_type="revenue_share_statement",
         resource_id=str(statement.id),
         after={
@@ -178,7 +254,8 @@ def close_period_for_user(user, period_start: date, period_end: date) -> Revenue
             "creator_share": str(creator_share),
         },
     )
-    _invoice_or_carry_forward(statement)
+    if not strict:
+        _invoice_or_carry_forward(statement)
     return statement
 
 
@@ -198,14 +275,21 @@ def _invoice_or_carry_forward(statement: RevenueShareStatement) -> None:
             statement.save(update_fields=["status", "updated_at"])
             logger.info(
                 "revenue_statement_carried_forward",
-                extra={"statement_id": str(statement.id), "amount": str(statement.platform_share_amount)},
+                extra={
+                    "statement_id": str(statement.id),
+                    "amount": str(statement.platform_share_amount),
+                },
             )
             return
         # FR-70a's mandatory saved payment method should make this unreachable —
         # an operational anomaly worth an admin alert, not a silent skip.
         logger.error(
             "revenue_statement_invoice_failed",
-            extra={"statement_id": str(statement.id), "user_id": str(statement.user_id), "error": str(exc)},
+            extra={
+                "statement_id": str(statement.id),
+                "user_id": str(statement.user_id),
+                "error": str(exc),
+            },
         )
         notify_admins(
             "admin.alert",
@@ -232,15 +316,22 @@ def _invoice_or_carry_forward(statement: RevenueShareStatement) -> None:
 # ---------------------------------------------------------------------------
 # Finalize (admin, FR-67) — statements created in `draft` by an out-of-band path
 # ---------------------------------------------------------------------------
-def finalize_statement(staff_user, statement: RevenueShareStatement, request=None) -> RevenueShareStatement:
+@transaction.atomic
+def finalize_statement(
+    staff_user, statement: RevenueShareStatement, request=None
+) -> RevenueShareStatement:
+    RevenueShareStatement.objects.select_for_update().get(pk=statement.pk)
+    statement.refresh_from_db()
     if statement.status != StatementStatus.DRAFT:
         raise StatementNotDisputable(f"Statement is {statement.status}, not draft.")
+    if statement.review_deadline and timezone.now() < statement.review_deadline:
+        raise StatementNotDisputable("The creator review window has not ended.")
     statement.status = StatementStatus.FINALIZED
     statement.finalized_at = timezone.now()
     statement.save(update_fields=["status", "finalized_at", "updated_at"])
     record_audit_event(
-        actor_type="staff",
-        actor_id=staff_user.id,
+        actor_type="staff" if staff_user else "system",
+        actor_id=staff_user.id if staff_user else None,
         action="revenue_share_statement.finalized",
         resource_type="revenue_share_statement",
         resource_id=str(statement.id),
@@ -254,16 +345,41 @@ def finalize_statement(staff_user, statement: RevenueShareStatement, request=Non
 # ---------------------------------------------------------------------------
 # Dispute (FR-69)
 # ---------------------------------------------------------------------------
-def dispute_statement(user, statement: RevenueShareStatement, reason: str, request=None) -> RevenueShareStatement:
-    if statement.status not in (StatementStatus.FINALIZED, StatementStatus.INVOICED, StatementStatus.PAID):
-        raise StatementNotDisputable(f"Statement is {statement.status} and cannot be disputed.")
-    if statement.finalized_at is None or timezone.now() - statement.finalized_at > DISPUTE_WINDOW:
-        raise DisputeWindowClosed("The 14-day dispute window for this statement has closed.")
+@transaction.atomic
+def dispute_statement(
+    user, statement: RevenueShareStatement, reason: str, request=None
+) -> RevenueShareStatement:
+    RevenueShareStatement.objects.select_for_update().get(pk=statement.pk)
+    statement.refresh_from_db()
+    reviewable_draft = (
+        statement.status == StatementStatus.DRAFT
+        and statement.review_deadline is not None
+    )
+    if not reviewable_draft and statement.status not in (
+        StatementStatus.FINALIZED,
+        StatementStatus.INVOICED,
+        StatementStatus.PAID,
+    ):
+        raise StatementNotDisputable(
+            f"Statement is {statement.status} and cannot be disputed."
+        )
+    if (reviewable_draft and timezone.now() > statement.review_deadline) or (
+        not reviewable_draft
+        and (
+            statement.finalized_at is None
+            or timezone.now() - statement.finalized_at > DISPUTE_WINDOW
+        )
+    ):
+        raise DisputeWindowClosed(
+            "The 14-day dispute window for this statement has closed."
+        )
 
     statement.status = StatementStatus.DISPUTED
     statement.disputed_at = timezone.now()
     statement.dispute_reason = reason
-    statement.save(update_fields=["status", "disputed_at", "dispute_reason", "updated_at"])
+    statement.save(
+        update_fields=["status", "disputed_at", "dispute_reason", "updated_at"]
+    )
     record_audit_event(
         actor_type="user",
         actor_id=user.id,

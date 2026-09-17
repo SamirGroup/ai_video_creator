@@ -51,3 +51,10 @@ export interface VerifyEmailPayload {
 export interface GoogleLoginPayload {
   id_token: string
 }
+
+export interface TwoFactorSession {
+  requires_2fa: true
+  challenge_token: string
+  setup_required: boolean
+}
+export type LoginResponse = AuthSession | TwoFactorSession

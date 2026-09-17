@@ -1,6 +1,7 @@
 """SPEC 5.16 `revenue_records`, 5.17 `revenue_share_statements`, 5.18 `invoices`,
 5.21 `ledger_entries` (append-only financial source of truth, FR-72).
 """
+
 from __future__ import annotations
 
 import uuid
@@ -24,12 +25,22 @@ class RevenueRecord(models.Model):
     """
 
     id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="revenue_records")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="revenue_records",
+    )
     channel = models.ForeignKey(
-        "channels.YouTubeChannel", on_delete=models.CASCADE, related_name="revenue_records"
+        "channels.YouTubeChannel",
+        on_delete=models.CASCADE,
+        related_name="revenue_records",
     )
     job = models.ForeignKey(
-        VideoJob, on_delete=models.SET_NULL, null=True, blank=True, related_name="revenue_records"
+        VideoJob,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="revenue_records",
     )
     youtube_video_id = models.CharField(max_length=32, blank=True, default="")
     source = models.CharField(max_length=20, choices=RevenueSource.choices)
@@ -38,7 +49,9 @@ class RevenueRecord(models.Model):
     views = models.BigIntegerField(default=0)
     estimated_minutes_watched = models.BigIntegerField(default=0)
     estimated_revenue = models.DecimalField(max_digits=14, decimal_places=4, default=0)
-    estimated_ad_revenue = models.DecimalField(max_digits=14, decimal_places=4, default=0)
+    estimated_ad_revenue = models.DecimalField(
+        max_digits=14, decimal_places=4, default=0
+    )
     cpm = models.DecimalField(max_digits=14, decimal_places=4, null=True, blank=True)
     rpm = models.DecimalField(max_digits=14, decimal_places=4, null=True, blank=True)
     currency = models.CharField(max_length=3, default="USD")
@@ -57,7 +70,9 @@ class RevenueRecord(models.Model):
         ]
         indexes = [
             models.Index(fields=["user", "date"], name="ix_revenue_records_user_date"),
-            models.Index(fields=["is_final", "date"], name="ix_revenue_records_final_date"),
+            models.Index(
+                fields=["is_final", "date"], name="ix_revenue_records_final_date"
+            ),
         ]
 
     def __str__(self) -> str:
@@ -78,13 +93,15 @@ class RevenueShareStatement(TimestampedModel):
     """FR-67..FR-69."""
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="revenue_share_statements"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="revenue_share_statements",
     )
     period_start = models.DateField()
     period_end = models.DateField()
     currency = models.CharField(max_length=3, default="USD")
     gross_revenue = models.DecimalField(max_digits=14, decimal_places=4)
-    platform_share_pct = models.DecimalField(max_digits=5, decimal_places=2, default=50)
+    platform_share_pct = models.DecimalField(max_digits=5, decimal_places=2, default=30)
     platform_share_amount = models.DecimalField(max_digits=14, decimal_places=4)
     creator_share_amount = models.DecimalField(max_digits=14, decimal_places=4)
     video_count = models.IntegerField(default=0)
@@ -92,7 +109,10 @@ class RevenueShareStatement(TimestampedModel):
     contract = models.ForeignKey(
         Contract, on_delete=models.PROTECT, related_name="revenue_share_statements"
     )
-    status = models.CharField(max_length=20, choices=StatementStatus.choices, default=StatementStatus.DRAFT)
+    status = models.CharField(
+        max_length=20, choices=StatementStatus.choices, default=StatementStatus.DRAFT
+    )
+    review_deadline = models.DateTimeField(null=True, blank=True)
     finalized_at = models.DateTimeField(null=True, blank=True)
     disputed_at = models.DateTimeField(null=True, blank=True)
     dispute_reason = models.TextField(blank=True, default="")
@@ -103,7 +123,8 @@ class RevenueShareStatement(TimestampedModel):
         db_table = "revenue_share_statements"
         constraints = [
             models.UniqueConstraint(
-                fields=["user", "period_start", "period_end"], name="uq_statement_period"
+                fields=["user", "period_start", "period_end"],
+                name="uq_statement_period",
             )
         ]
 
@@ -128,7 +149,9 @@ class InvoiceStatus(models.TextChoices):
 class Invoice(TimestampedModel):
     """FR-70, FR-70a, FR-70b."""
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="invoices")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="invoices"
+    )
     statement = models.ForeignKey(
         RevenueShareStatement,
         on_delete=models.SET_NULL,
@@ -137,14 +160,22 @@ class Invoice(TimestampedModel):
         related_name="invoices",
     )
     subscription = models.ForeignKey(
-        "billing.Subscription", on_delete=models.SET_NULL, null=True, blank=True, related_name="invoices"
+        "billing.Subscription",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="invoices",
     )
     kind = models.CharField(max_length=20, choices=InvoiceKind.choices)
     amount = models.DecimalField(max_digits=14, decimal_places=4)
     currency = models.CharField(max_length=3, default="USD")
-    stripe_invoice_id = models.CharField(max_length=255, unique=True, null=True, blank=True)
+    stripe_invoice_id = models.CharField(
+        max_length=255, unique=True, null=True, blank=True
+    )
     stripe_payment_intent_id = models.CharField(max_length=255, blank=True, default="")
-    status = models.CharField(max_length=20, choices=InvoiceStatus.choices, default=InvoiceStatus.DRAFT)
+    status = models.CharField(
+        max_length=20, choices=InvoiceStatus.choices, default=InvoiceStatus.DRAFT
+    )
     due_at = models.DateTimeField()
     paid_at = models.DateTimeField(null=True, blank=True)
     attempts = models.SmallIntegerField(default=0)
@@ -152,7 +183,9 @@ class Invoice(TimestampedModel):
 
     class Meta:
         db_table = "invoices"
-        indexes = [models.Index(fields=["user", "status"], name="ix_invoices_user_status")]
+        indexes = [
+            models.Index(fields=["user", "status"], name="ix_invoices_user_status")
+        ]
 
     def __str__(self) -> str:
         return f"{self.user_id}:{self.kind}:{self.amount}"
@@ -180,7 +213,11 @@ class LedgerEntry(AppendOnlyModel):
     id = models.BigAutoField(primary_key=True)
     entry_uuid = models.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="ledger_entries"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="ledger_entries",
     )
     ref_type = models.CharField(max_length=20, choices=LedgerRefType.choices)
     ref_id = models.UUIDField()
@@ -196,7 +233,9 @@ class LedgerEntry(AppendOnlyModel):
         db_table = "ledger_entries"
         indexes = [
             models.Index(fields=["ref_type", "ref_id"], name="ix_ledger_entries_ref"),
-            models.Index(fields=["user", "occurred_at"], name="ix_ledger_entries_user_time"),
+            models.Index(
+                fields=["user", "occurred_at"], name="ix_ledger_entries_user_time"
+            ),
         ]
 
     def __str__(self) -> str:
@@ -226,11 +265,15 @@ class StripeConnectedAccount(TimestampedModel):
     """SPEC 5.19 `stripe_connected_accounts` — schema only in MVP (FR-71)."""
 
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="stripe_connected_account"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="stripe_connected_account",
     )
     stripe_account_id = models.CharField(max_length=255, unique=True)
     account_type = models.CharField(
-        max_length=20, choices=ConnectedAccountType.choices, default=ConnectedAccountType.EXPRESS
+        max_length=20,
+        choices=ConnectedAccountType.choices,
+        default=ConnectedAccountType.EXPRESS,
     )
     country = models.CharField(max_length=2, blank=True, default="")
     default_currency = models.CharField(max_length=3, default="USD")
@@ -239,7 +282,9 @@ class StripeConnectedAccount(TimestampedModel):
     details_submitted = models.BooleanField(default=False)
     requirements = models.JSONField(default=dict, blank=True)
     onboarding_status = models.CharField(
-        max_length=20, choices=ConnectOnboardingStatus.choices, default=ConnectOnboardingStatus.PENDING
+        max_length=20,
+        choices=ConnectOnboardingStatus.choices,
+        default=ConnectOnboardingStatus.PENDING,
     )
 
     class Meta:
@@ -260,24 +305,71 @@ class PayoutStatus(models.TextChoices):
 class Payout(TimestampedModel):
     """SPEC 5.20 `payouts` — schema only in MVP (FR-71)."""
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="payouts")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="payouts"
+    )
     connected_account = models.ForeignKey(
         StripeConnectedAccount, on_delete=models.PROTECT, related_name="payouts"
     )
     statement = models.ForeignKey(
-        RevenueShareStatement, on_delete=models.SET_NULL, null=True, blank=True, related_name="payouts"
+        RevenueShareStatement,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="payouts",
     )
     amount = models.DecimalField(max_digits=14, decimal_places=4)
     currency = models.CharField(max_length=3, default="USD")
-    stripe_transfer_id = models.CharField(max_length=255, unique=True, null=True, blank=True)
-    status = models.CharField(max_length=20, choices=PayoutStatus.choices, default=PayoutStatus.PENDING)
+    stripe_transfer_id = models.CharField(
+        max_length=255, unique=True, null=True, blank=True
+    )
+    status = models.CharField(
+        max_length=20, choices=PayoutStatus.choices, default=PayoutStatus.PENDING
+    )
     failure_reason = models.TextField(blank=True, default="")
     initiated_at = models.DateTimeField(null=True, blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         db_table = "payouts"
-        indexes = [models.Index(fields=["user", "status"], name="ix_payouts_user_status")]
+        indexes = [
+            models.Index(fields=["user", "status"], name="ix_payouts_user_status")
+        ]
 
     def __str__(self) -> str:
         return f"{self.user_id}:{self.amount}:{self.status}"
+
+
+class RevenueSettlement(TimestampedModel):
+    """Verified per-video revenue. Channel-wide AdSense totals cannot be entered as a video allocation."""
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="revenue_settlements",
+    )
+    job = models.ForeignKey(
+        VideoJob, on_delete=models.PROTECT, related_name="settlements"
+    )
+    period_start = models.DateField()
+    period_end = models.DateField()
+    amount = models.DecimalField(max_digits=14, decimal_places=4)
+    currency = models.CharField(max_length=3, default="USD")
+    evidence_reference = models.CharField(max_length=500)
+    verified_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="verified_settlements",
+    )
+    verified_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["job", "period_start", "period_end"],
+                name="unique_video_settlement",
+            ),
+            models.CheckConstraint(
+                condition=models.Q(amount__gte=0), name="nonnegative_settlement"
+            ),
+        ]

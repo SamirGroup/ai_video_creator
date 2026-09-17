@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Wird geladen…",
+    "retry": "Erneut versuchen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "search": "Suchen",
+    "back": "Zurück",
+    "confirm": "Bestätigen",
+    "actions": "Aktionen",
+    "status": "Status",
+    "date": "Datum",
+    "unknown": "Unbekannt"
+  },
+  "nav": {
+    "dashboard": "Übersicht",
+    "channel": "Kanal",
+    "preferences": "Einstellungen",
+    "videos": "Videos",
+    "revenue": "Einnahmen",
+    "billing": "Abrechnung",
+    "contract": "Vertrag",
+    "adminUsers": "Benutzer",
+    "adminVideos": "Videoaufträge",
+    "adminModeration": "Moderation",
+    "adminFinance": "Finanzen",
+    "adminConfig": "Konfiguration",
+    "logout": "Abmelden",
+    "language": "Sprache",
+    "theme": "Design"
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Anmelden"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "fullName": "Vollständiger Name",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Konto erstellen"
+    }
+  },
+  "preferences": {
+    "language": "Inhaltssprache",
+    "videoDuration": "Videolänge (Sekunden)",
+    "frequency": "Veröffentlichungshäufigkeit",
+    "frequencyOptions": {
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "monthly": "Monatlich"
+    },
+    "publishTime": "Veröffentlichungszeit",
+    "privacyStatus": "Sichtbarkeit",
+    "privacyOptions": {
+      "public": "Öffentlich",
+      "unlisted": "Nicht gelistet",
+      "private": "Privat"
+    },
+    "approvalMode": "Freigabemodus",
+    "save": "Einstellungen speichern",
+    "saved": "Einstellungen gespeichert.",
+    "timezone": "Zeitzone",
+    "publishDays": "Tage (Woche: 0–6; Monat: 1–28)",
+    "title": "Einstellungen"
+  },
+  "dashboard": {
+    "title": "Übersicht"
+  },
+  "channel": {
+    "title": "Kanal"
+  },
+  "video": {
+    "title": "Videos"
+  },
+  "revenue": {
+    "title": "Einnahmen"
+  },
+  "billing": {
+    "title": "Abrechnung"
+  },
+  "contract": {
+    "title": "Vertrag"
+  }
+}

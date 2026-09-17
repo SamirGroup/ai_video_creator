@@ -1,4 +1,5 @@
 """SPEC 5.8 `contract_versions`, 5.9 `contracts`."""
+
 from __future__ import annotations
 
 import uuid
@@ -6,7 +7,6 @@ import uuid
 from django.conf import settings
 from django.db import models
 
-from core.models import TimestampedModel
 
 
 class ContractVersion(models.Model):
@@ -20,8 +20,13 @@ class ContractVersion(models.Model):
     body_markdown = models.TextField()
     body_sha256 = models.CharField(max_length=64, editable=False)
     locale = models.CharField(max_length=5, default="en")
-    revenue_share_platform_pct = models.DecimalField(max_digits=5, decimal_places=2, default=50)
-    revenue_share_creator_pct = models.DecimalField(max_digits=5, decimal_places=2, default=50)
+    revenue_share_platform_pct = models.DecimalField(
+        max_digits=5, decimal_places=2, default=30
+    )
+    revenue_share_creator_pct = models.DecimalField(
+        max_digits=5, decimal_places=2, default=70
+    )
+    revenue_only_platform_published = models.BooleanField(default=True)
     effective_from = models.DateTimeField()
     is_active = models.BooleanField(default=False)
     created_by = models.ForeignKey(
@@ -39,7 +44,9 @@ class ContractVersion(models.Model):
     def save(self, *args, **kwargs):
         import hashlib
 
-        self.body_sha256 = hashlib.sha256(self.body_markdown.encode("utf-8")).hexdigest()
+        self.body_sha256 = hashlib.sha256(
+            self.body_markdown.encode("utf-8")
+        ).hexdigest()
         super().save(*args, **kwargs)
 
 
@@ -56,7 +63,9 @@ class Contract(models.Model):
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="contracts")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="contracts"
+    )
     contract_version = models.ForeignKey(
         ContractVersion, on_delete=models.PROTECT, related_name="contracts"
     )
@@ -69,9 +78,13 @@ class Contract(models.Model):
     consent_revenue_share = models.BooleanField(default=False)
     consent_publish_to_channel = models.BooleanField(default=False)
     consent_data_processing = models.BooleanField(default=False)
-    consent_marketing = models.BooleanField(default=False)  # FR-30(d): optional, default OFF.
+    consent_marketing = models.BooleanField(
+        default=False
+    )  # FR-30(d): optional, default OFF.
 
-    status = models.CharField(max_length=20, choices=ContractStatus.choices, default=ContractStatus.ACTIVE)
+    status = models.CharField(
+        max_length=20, choices=ContractStatus.choices, default=ContractStatus.ACTIVE
+    )
     terminated_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:

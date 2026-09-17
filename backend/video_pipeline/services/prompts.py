@@ -19,7 +19,10 @@ they are the difference between a usable product and a policy strike:
 The output contract is a single JSON object. It is stated once, precisely, with
 no examples that the model could copy verbatim into the actual script.
 """
+
 from __future__ import annotations
+
+from core.languages import language_info
 
 import hashlib
 import json
@@ -129,18 +132,22 @@ def build_script_user_prompt(
         "",
         f"Niche / topic area: {niche}",
         (
-            f"Spoken language: {language} (write the title, description, tags and "
+            f"Spoken language: {language_info(language)['name']} ({language}) (write the title, description, tags and "
             f"all narration in this language)"
         ),
         (
             f"Target total duration: {duration_sec} seconds "
-            f"(~{words_target} spoken words at a natural pace)"
+            f"(natural native pacing; approximately {words_target} words only for space-delimited languages)"
         ),
         f"Target number of segments: about {segments}",
     ]
 
     if custom_brief:
-        parts += ["", "CREATOR BRIEF (highest priority after the safety rules):", custom_brief.strip()]
+        parts += [
+            "",
+            "CREATOR BRIEF (highest priority after the safety rules):",
+            custom_brief.strip(),
+        ]
 
     if brand_voice:
         parts += [

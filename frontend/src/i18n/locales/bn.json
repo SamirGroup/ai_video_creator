@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "লোড হচ্ছে…",
+    "retry": "আবার চেষ্টা করুন",
+    "save": "সংরক্ষণ",
+    "cancel": "বাতিল",
+    "close": "বন্ধ করুন",
+    "search": "খুঁজুন",
+    "back": "ফিরে যান",
+    "confirm": "নিশ্চিত করুন",
+    "actions": "কাজ",
+    "status": "অবস্থা",
+    "date": "তারিখ",
+    "unknown": "অজানা"
+  },
+  "nav": {
+    "dashboard": "ড্যাশবোর্ড",
+    "channel": "চ্যানেল",
+    "preferences": "পছন্দসমূহ",
+    "videos": "ভিডিও",
+    "revenue": "আয়",
+    "billing": "বিলিং",
+    "contract": "চুক্তি",
+    "adminUsers": "ব্যবহারকারী",
+    "adminVideos": "ভিডিও কাজ",
+    "adminModeration": "বিষয়বস্তু পর্যালোচনা",
+    "adminFinance": "অর্থ",
+    "adminConfig": "কনফিগারেশন",
+    "logout": "লগ আউট",
+    "language": "ভাষা",
+    "theme": "থিম"
+  },
+  "auth": {
+    "login": {
+      "title": "লগ ইন",
+      "email": "ইমেইল",
+      "password": "পাসওয়ার্ড",
+      "submit": "লগ ইন"
+    },
+    "register": {
+      "title": "অ্যাকাউন্ট তৈরি করুন",
+      "fullName": "পূর্ণ নাম",
+      "email": "ইমেইল",
+      "password": "পাসওয়ার্ড",
+      "submit": "অ্যাকাউন্ট তৈরি করুন"
+    }
+  },
+  "preferences": {
+    "language": "বিষয়বস্তুর ভাষা",
+    "videoDuration": "ভিডিওর দৈর্ঘ্য (সেকেন্ড)",
+    "frequency": "প্রকাশের হার",
+    "frequencyOptions": {
+      "daily": "দৈনিক",
+      "weekly": "সাপ্তাহিক",
+      "monthly": "মাসিক"
+    },
+    "publishTime": "প্রকাশের সময়",
+    "privacyStatus": "গোপনীয়তা",
+    "privacyOptions": {
+      "public": "সর্বজনীন",
+      "unlisted": "তালিকাবহির্ভূত",
+      "private": "ব্যক্তিগত"
+    },
+    "approvalMode": "অনুমোদনের ধরন",
+    "save": "পছন্দ সংরক্ষণ",
+    "saved": "পছন্দ সংরক্ষিত হয়েছে।",
+    "timezone": "সময় অঞ্চল",
+    "publishDays": "দিন (সপ্তাহ: 0–6; মাস: 1–28)",
+    "title": "পছন্দসমূহ"
+  },
+  "dashboard": {
+    "title": "ড্যাশবোর্ড"
+  },
+  "channel": {
+    "title": "চ্যানেল"
+  },
+  "video": {
+    "title": "ভিডিও"
+  },
+  "revenue": {
+    "title": "আয়"
+  },
+  "billing": {
+    "title": "বিলিং"
+  },
+  "contract": {
+    "title": "চুক্তি"
+  }
+}

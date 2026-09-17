@@ -1,3 +1,7 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+import { videosApi } from '@/api/videos'
+import { channelsApi } from '@/api/channels'
 import { useTranslation } from 'react-i18next'
 
 import { ErrorState, TableSkeleton } from '@/components/common/StateViews'
@@ -7,6 +11,13 @@ import { useVideoList } from '@/hooks/useVideos'
 
 export function VideosPage() {
   const { t } = useTranslation()
+  const client = useQueryClient()
+  const [channelId, setChannelId] = useState('')
+  const channels = useQuery({ queryKey: ['channels'], queryFn: channelsApi.list })
+  const generate = useMutation({
+    mutationFn: () => videosApi.generateNow(channelId || channels.data?.[0]?.id),
+    onSuccess: () => client.invalidateQueries({ queryKey: ['videos'] }),
+  })
   const { data, isLoading, isError, refetch } = useVideoList()
 
   return (
@@ -14,9 +25,31 @@ export function VideosPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-xl font-semibold text-foreground">{t('video.title')}</h1>
         {/* TODO: real API — POST /videos/generate (manual trigger, FR-36) */}
-        <Button size="sm">{t('video.generateNow')}</Button>
+        <div className="flex gap-2">
+          <select
+            aria-label={t('channel.title')}
+            className="rounded border border-border bg-surface p-2"
+            value={channelId || channels.data?.[0]?.id || ''}
+            onChange={(e) => setChannelId(e.target.value)}
+          >
+            {channels.data?.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.channel_title}
+              </option>
+            ))}
+          </select>
+          <Button
+            size="sm"
+            disabled={!channels.data?.length}
+            isLoading={generate.isPending}
+            onClick={() => generate.mutate()}
+          >
+            {t('video.generateNow')}
+          </Button>
+        </div>
       </div>
 
+      {(generate.isError || channels.isError) && <ErrorState />}
       {isLoading && <TableSkeleton />}
       {isError && <ErrorState onRetry={() => refetch()} />}
       {data && <VideoTable videos={data} />}

@@ -12,7 +12,11 @@ from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from accounts.cookies import REFRESH_COOKIE_NAME, clear_refresh_cookie, set_refresh_cookie
+from accounts.cookies import (
+    REFRESH_COOKIE_NAME,
+    clear_refresh_cookie,
+    set_refresh_cookie,
+)
 from accounts.emails import send_password_reset_email, send_verification_email
 from accounts.google_oauth import GoogleIDTokenError, verify_google_id_token
 from accounts.models import User
@@ -97,7 +101,10 @@ class LoginView(APIView):
 
         # --- Track E --- FR-9: staff / enrolled users must present a TOTP code
         # before any JWT is issued (see accounts.twofactor for the contract).
-        from accounts.twofactor import requires_2fa_for_login, two_factor_challenge_response
+        from accounts.twofactor import (
+            requires_2fa_for_login,
+            two_factor_challenge_response,
+        )
 
         if requires_2fa_for_login(user):
             logger.info("user_login_2fa_challenged", extra={"user_id": str(user.id)})
@@ -164,17 +171,23 @@ class VerifyEmailView(APIView):
 
         user_id = read_email_verification_token(serializer.validated_data["token"])
         if not user_id:
-            return Response({"detail": "Invalid or expired verification token."}, status=400)
+            return Response(
+                {"detail": "Invalid or expired verification token."}, status=400
+            )
 
         try:
             user = User.objects.get(pk=user_id)
         except User.DoesNotExist:
-            return Response({"detail": "Invalid or expired verification token."}, status=400)
+            return Response(
+                {"detail": "Invalid or expired verification token."}, status=400
+            )
 
         if not user.is_email_verified:
             user.is_email_verified = True
             user.email_verified_at = timezone.now()
-            user.save(update_fields=["is_email_verified", "email_verified_at", "updated_at"])
+            user.save(
+                update_fields=["is_email_verified", "email_verified_at", "updated_at"]
+            )
 
         return Response({"detail": "Email verified."})
 
@@ -215,7 +228,9 @@ class PasswordResetConfirmView(APIView):
 
         user_id, inner_token = parsed
         user = User.objects.filter(pk=user_id).first()
-        if user is None or not password_reset_token_generator.check_token(user, inner_token):
+        if user is None or not password_reset_token_generator.check_token(
+            user, inner_token
+        ):
             return Response({"detail": "Invalid or expired reset token."}, status=400)
 
         user.set_password(serializer.validated_data["new_password"])
@@ -254,7 +269,9 @@ class GoogleAuthView(APIView):
                     "google_sub": google_sub,
                     "full_name": claims.get("name", ""),
                     "is_email_verified": bool(claims.get("email_verified", False)),
-                    "email_verified_at": timezone.now() if claims.get("email_verified") else None,
+                    "email_verified_at": timezone.now()
+                    if claims.get("email_verified")
+                    else None,
                 },
             )
             if not user.google_sub:
@@ -262,7 +279,10 @@ class GoogleAuthView(APIView):
                 user.save(update_fields=["google_sub", "updated_at"])
 
         # --- Track E --- FR-9: Google sign-in is a first factor only for staff.
-        from accounts.twofactor import requires_2fa_for_login, two_factor_challenge_response
+        from accounts.twofactor import (
+            requires_2fa_for_login,
+            two_factor_challenge_response,
+        )
 
         if requires_2fa_for_login(user):
             logger.info("user_login_2fa_challenged", extra={"user_id": str(user.id)})
@@ -288,3 +308,13 @@ class MeView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(UserSerializer(request.user).data)
+
+
+class PublicConfigurationView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request):
+        from django.conf import settings
+
+        return Response({"google_client_id": settings.GOOGLE_OAUTH_CLIENT_ID})

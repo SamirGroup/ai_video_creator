@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Завантаження…",
+    "retry": "Повторити",
+    "save": "Зберегти",
+    "cancel": "Скасувати",
+    "close": "Закрити",
+    "search": "Пошук",
+    "back": "Назад",
+    "confirm": "Підтвердити",
+    "actions": "Дії",
+    "status": "Статус",
+    "date": "Дата",
+    "unknown": "Невідомо"
+  },
+  "nav": {
+    "dashboard": "Панель керування",
+    "channel": "Канал",
+    "preferences": "Налаштування",
+    "videos": "Відео",
+    "revenue": "Доходи",
+    "billing": "Платежі",
+    "contract": "Договір",
+    "adminUsers": "Користувачі",
+    "adminVideos": "Відеозавдання",
+    "adminModeration": "Модерація",
+    "adminFinance": "Фінанси",
+    "adminConfig": "Конфігурація",
+    "logout": "Вийти",
+    "language": "Мова",
+    "theme": "Тема"
+  },
+  "auth": {
+    "login": {
+      "title": "Увійти",
+      "email": "Електронна пошта",
+      "password": "Пароль",
+      "submit": "Увійти"
+    },
+    "register": {
+      "title": "Створити обліковий запис",
+      "fullName": "Повне ім’я",
+      "email": "Електронна пошта",
+      "password": "Пароль",
+      "submit": "Створити обліковий запис"
+    }
+  },
+  "preferences": {
+    "language": "Мова контенту",
+    "videoDuration": "Тривалість відео (секунди)",
+    "frequency": "Частота публікацій",
+    "frequencyOptions": {
+      "daily": "Щодня",
+      "weekly": "Щотижня",
+      "monthly": "Щомісяця"
+    },
+    "publishTime": "Час публікації",
+    "privacyStatus": "Приватність",
+    "privacyOptions": {
+      "public": "Публічне",
+      "unlisted": "За посиланням",
+      "private": "Приватне"
+    },
+    "approvalMode": "Режим затвердження",
+    "save": "Зберегти налаштування",
+    "saved": "Налаштування збережено.",
+    "timezone": "Часовий пояс",
+    "publishDays": "Дні (тиждень: 0–6; місяць: 1–28)",
+    "title": "Налаштування"
+  },
+  "dashboard": {
+    "title": "Панель керування"
+  },
+  "channel": {
+    "title": "Канал"
+  },
+  "video": {
+    "title": "Відео"
+  },
+  "revenue": {
+    "title": "Доходи"
+  },
+  "billing": {
+    "title": "Платежі"
+  },
+  "contract": {
+    "title": "Договір"
+  }
+}

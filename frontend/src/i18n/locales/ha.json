@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Ana lodawa…",
+    "retry": "Sake gwadawa",
+    "save": "Ajiye",
+    "cancel": "Soke",
+    "close": "Rufe",
+    "search": "Nema",
+    "back": "Baya",
+    "confirm": "Tabbatar",
+    "actions": "Ayyuka",
+    "status": "Matsayi",
+    "date": "Kwanan wata",
+    "unknown": "Ba a sani ba"
+  },
+  "nav": {
+    "dashboard": "Allon sarrafawa",
+    "channel": "Tasha",
+    "preferences": "Zaɓuɓɓuka",
+    "videos": "Bidiyoyi",
+    "revenue": "Kuɗin shiga",
+    "billing": "Biyan kuɗi",
+    "contract": "Yarjejeniyar",
+    "adminUsers": "Masu amfani",
+    "adminVideos": "Ayyukan bidiyo",
+    "adminModeration": "Binciken abun ciki",
+    "adminFinance": "Kuɗi",
+    "adminConfig": "Saituna",
+    "logout": "Fita",
+    "language": "Harshe",
+    "theme": "Jigo"
+  },
+  "auth": {
+    "login": {
+      "title": "Shiga",
+      "email": "Imel",
+      "password": "Kalmar sirri",
+      "submit": "Shiga"
+    },
+    "register": {
+      "title": "Ƙirƙiri asusu",
+      "fullName": "Cikakken suna",
+      "email": "Imel",
+      "password": "Kalmar sirri",
+      "submit": "Ƙirƙiri asusu"
+    }
+  },
+  "preferences": {
+    "language": "Harshen abun ciki",
+    "videoDuration": "Tsawon bidiyo (daƙiƙa)",
+    "frequency": "Yawan wallafawa",
+    "frequencyOptions": {
+      "daily": "Kullum",
+      "weekly": "Kowane mako",
+      "monthly": "Kowane wata"
+    },
+    "publishTime": "Lokacin wallafawa",
+    "privacyStatus": "Sirri",
+    "privacyOptions": {
+      "public": "Na jama’a",
+      "unlisted": "Ba a jera ba",
+      "private": "Na sirri"
+    },
+    "approvalMode": "Yanayin amincewa",
+    "save": "Ajiye zaɓuɓɓuka",
+    "saved": "An ajiye zaɓuɓɓuka.",
+    "timezone": "Yankin lokaci",
+    "publishDays": "Kwanaki (mako: 0–6; wata: 1–28)",
+    "title": "Zaɓuɓɓuka"
+  },
+  "dashboard": {
+    "title": "Allon sarrafawa"
+  },
+  "channel": {
+    "title": "Tasha"
+  },
+  "video": {
+    "title": "Bidiyoyi"
+  },
+  "revenue": {
+    "title": "Kuɗin shiga"
+  },
+  "billing": {
+    "title": "Biyan kuɗi"
+  },
+  "contract": {
+    "title": "Yarjejeniyar"
+  }
+}

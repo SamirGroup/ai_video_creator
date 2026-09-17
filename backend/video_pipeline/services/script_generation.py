@@ -13,7 +13,10 @@ Flow:
 The parsing/normalisation half of this module is deliberately free of Django
 model access so it can be unit-tested without a database.
 """
+
 from __future__ import annotations
+
+from video_pipeline.services.preferences import job_preferences
 
 import difflib
 import hashlib
@@ -108,10 +111,14 @@ def extract_json_object(content: str) -> dict:
         try:
             parsed = json.loads(text[start : end + 1])
         except json.JSONDecodeError as exc:
-            raise ScriptParseError(f"Model response was not valid JSON ({exc.msg}).") from None
+            raise ScriptParseError(
+                f"Model response was not valid JSON ({exc.msg})."
+            ) from None
 
     if not isinstance(parsed, dict):
-        raise ScriptParseError(f"Model returned a JSON {type(parsed).__name__}, expected an object.")
+        raise ScriptParseError(
+            f"Model returned a JSON {type(parsed).__name__}, expected an object."
+        )
     return parsed
 
 
@@ -197,7 +204,9 @@ def max_title_similarity(title: str, recent_titles: list[str]) -> tuple[float, s
     best_ratio = 0.0
     best_title = ""
     for existing in recent_titles or []:
-        ratio = difflib.SequenceMatcher(None, candidate, normalize_title_for_comparison(existing)).ratio()
+        ratio = difflib.SequenceMatcher(
+            None, candidate, normalize_title_for_comparison(existing)
+        ).ratio()
         if ratio > best_ratio:
             best_ratio, best_title = ratio, existing
     return best_ratio, best_title
@@ -211,9 +220,14 @@ def _coerce_int(value, default: int = 0) -> int:
 
 
 def _estimate_seconds_from_text(text: str) -> int:
-    words = len((text or "").split())
+    # CJK characters and Thai text do not require spaces between words.
+    # This remains a planning estimate; measured TTS timing drives assembly.
+    text = text or ""
+    compact = re.findall(r"[\u3400-\u9fff\u3040-\u30ff\u0e00-\u0e7f]", text)
+    spaced = re.sub(r"[\u3400-\u9fff\u3040-\u30ff\u0e00-\u0e7f]", " ", text)
+    words = len(spaced.split())
     wpm = max(1, int(getattr(settings, "SCRIPT_WORDS_PER_MINUTE", 150)))
-    return round(words / wpm * 60)
+    return round(words / wpm * 60 + len(compact) / 5)
 
 
 def normalize_script(payload: dict, *, target_duration_sec: int) -> GeneratedScript:
@@ -224,7 +238,9 @@ def normalize_script(payload: dict, *, target_duration_sec: int) -> GeneratedScr
     if not title:
         raise ScriptValidationError("Model response is missing a title.")
 
-    description = truncate_bytes(str(payload.get("description") or ""), prompts.MAX_DESCRIPTION_BYTES)
+    description = truncate_bytes(
+        str(payload.get("description") or ""), prompts.MAX_DESCRIPTION_BYTES
+    )
     tags = normalize_tags(payload.get("tags"))
 
     raw_segments = payload.get("segments")
@@ -245,7 +261,9 @@ def normalize_script(payload: dict, *, target_duration_sec: int) -> GeneratedScr
         segments.append(
             ScriptSegment(
                 index=index,
-                heading=truncate_chars(str(raw.get("heading") or f"Segment {index}"), 80),
+                heading=truncate_chars(
+                    str(raw.get("heading") or f"Segment {index}"), 80
+                ),
                 narration=narration,
                 visual_prompt=truncate_chars(str(raw.get("visual_prompt") or ""), 400),
                 target_duration_sec=duration,
@@ -253,7 +271,9 @@ def normalize_script(payload: dict, *, target_duration_sec: int) -> GeneratedScr
         )
 
     if not segments:
-        raise ScriptValidationError("Model response contained segments, but none had narration text.")
+        raise ScriptValidationError(
+            "Model response contained segments, but none had narration text."
+        )
 
     script_text = "\n\n".join(s.narration for s in segments)
     word_count = len(script_text.split())
@@ -276,7 +296,12 @@ def normalize_script(payload: dict, *, target_duration_sec: int) -> GeneratedScr
             "target_duration_sec": target_duration_sec,
             "segment_count": len(segments),
             "duration_deviation_pct": (
-                round((narration_estimate - target_duration_sec) / target_duration_sec * 100, 1)
+                round(
+                    (narration_estimate - target_duration_sec)
+                    / target_duration_sec
+                    * 100,
+                    1,
+                )
                 if target_duration_sec
                 else None
             ),
@@ -312,7 +337,7 @@ def collect_recent_topics(job, limit: int | None = None) -> list[str]:
 
 
 def _preference_of(job):
-    preference = job.preference
+    preference = job_preferences(job)
     if preference is None:
         raise JobNotReady(
             f"Video job {job.pk} has no content_preferences row; the script stage "
@@ -334,6 +359,9 @@ def _check_cost_ceiling(job, total_cost: Decimal) -> None:
 
 def _call_llm_and_log(client, config, job, messages) -> LLMResponse:
     """One provider call + exactly one `api_usage_logs` row, success or failure."""
+    from video_pipeline.services.cost_control import check_cost_ceiling
+
+    check_cost_ceiling(job)
     try:
         response = client.chat_completion(messages=messages)
     except Exception as exc:
@@ -404,7 +432,9 @@ def generate_script_for_job(job, *, attempt: int = 1, client=None) -> GeneratedS
     language = job.language or preference.language or "en"
     recent_titles = collect_recent_topics(job)
 
-    similarity_threshold = float(getattr(settings, "SCRIPT_TITLE_SIMILARITY_THRESHOLD", 0.9))
+    similarity_threshold = float(
+        getattr(settings, "SCRIPT_TITLE_SIMILARITY_THRESHOLD", 0.9)
+    )
     max_samples = max(1, int(getattr(settings, "SCRIPT_MAX_DEDUP_ATTEMPTS", 2)))
 
     regeneration_note = ""
@@ -417,7 +447,13 @@ def generate_script_for_job(job, *, attempt: int = 1, client=None) -> GeneratedS
     for sample in range(1, max_samples + 1):
         user_prompt = prompts.build_script_user_prompt(
             niche=preference.niche,
-            custom_brief=preference.custom_brief,
+            custom_brief=preference.custom_brief
+            + (
+                "\nApproved content-plan topic and brief: "
+                + json.dumps(job.generation_context, ensure_ascii=False)
+                if job.generation_context
+                else ""
+            ),
             brand_voice=preference.brand_voice,
             banned_topics=list(preference.banned_topics or []),
             language=language,
@@ -429,7 +465,9 @@ def generate_script_for_job(job, *, attempt: int = 1, client=None) -> GeneratedS
         fingerprint = prompts.prompt_fingerprint(messages)
 
         response = _call_llm_and_log(client, config, job, messages)
-        script = normalize_script(extract_json_object(response.content), target_duration_sec=duration_sec)
+        script = normalize_script(
+            extract_json_object(response.content), target_duration_sec=duration_sec
+        )
 
         similarity, similar_to = max_title_similarity(script.title, recent_titles)
         if similarity < similarity_threshold or sample == max_samples:
@@ -437,11 +475,15 @@ def generate_script_for_job(job, *, attempt: int = 1, client=None) -> GeneratedS
 
         logger.warning(
             "script_title_near_duplicate_resampling",
-            extra={"job_id": str(job.pk), "similarity": round(similarity, 3), "sample": sample},
+            extra={
+                "job_id": str(job.pk),
+                "similarity": round(similarity, 3),
+                "sample": sample,
+            },
         )
         regeneration_note = (
-            f"Your previous attempt produced the title \"{script.title}\", which is a "
-            f"near-duplicate of the already published title \"{similar_to}\". Choose a "
+            f'Your previous attempt produced the title "{script.title}", which is a '
+            f'near-duplicate of the already published title "{similar_to}". Choose a '
             "different subject entirely — not a rewording, not a narrower slice of the "
             "same subject."
         )
@@ -537,7 +579,11 @@ def _persist_script(job, script: GeneratedScript, *, config, response) -> None:
     job.script_text = script.script_text
     job.duration_sec = script.estimated_duration_sec
     job.language = script.meta.get("language") or job.language
-    job.script_meta = {**(job.script_meta or {}), **script.meta, "checksum_sha256": checksum}
+    job.script_meta = {
+        **(job.script_meta or {}),
+        **script.meta,
+        "checksum_sha256": checksum,
+    }
 
     total_cost = job_total_cost_usd(job.pk)
     job.total_cost_usd = total_cost

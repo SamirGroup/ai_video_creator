@@ -1,14 +1,50 @@
 import { apiClient } from './client'
-import type { ContractVersion, SignContractPayload, SignedContract } from '@/types/contract'
+import type {
+  ContractVersion,
+  SignContractPayload,
+  SignedContract,
+} from '@/types/contract'
 
-// Endpoint group: Contracts (SPEC 6, FR-28..FR-32, FR-70a). TODO: real API.
+export interface CurrentContractState {
+  version: ContractVersion | null
+  signed: boolean
+  has_payment_method: boolean
+  requires_signature: boolean
+  requires_resign: boolean
+  generation_allowed: boolean
+  generation_block_code: string | null
+}
+interface ContractResponse {
+  id: string
+  contract_version: string
+  version: string
+  signed_at: string
+  status: SignedContract['status']
+  has_pdf: boolean
+}
+function normalizeContract(data: ContractResponse): SignedContract {
+  return {
+    id: data.id,
+    contract_version_id: data.contract_version,
+    version: data.version,
+    signed_at: data.signed_at,
+    status: data.status,
+    pdf_url: data.has_pdf ? `/api/v1/contracts/${data.id}/pdf` : null,
+  }
+}
 export const contractsApi = {
-  current: () => apiClient.get<ContractVersion>('/contracts/current').then((r) => r.data),
-
-  history: () => apiClient.get<SignedContract[]>('/contracts/history').then((r) => r.data),
-
+  current: () =>
+    apiClient.get<CurrentContractState>('/contracts/current').then((r) => r.data),
+  history: () =>
+    apiClient
+      .get<ContractResponse[]>('/contracts/history')
+      .then((r) => r.data.map(normalizeContract)),
   sign: (payload: SignContractPayload) =>
-    apiClient.post<SignedContract>('/contracts/sign', payload).then((r) => r.data),
-
-  pdfUrl: (id: string) => `/api/v1/contracts/${id}/pdf`,
+    apiClient
+      .post<{ contract: ContractResponse }>('/contracts/sign', payload)
+      .then((r) => normalizeContract(r.data.contract)),
+  downloadPdf: (id: string) =>
+    apiClient
+      .get<Blob>(`/contracts/${id}/pdf`, { responseType: 'blob' })
+      .then((r) => r.data),
 }

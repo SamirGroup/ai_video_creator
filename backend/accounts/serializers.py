@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from django.contrib.auth import authenticate, password_validation
 from django.core.exceptions import ValidationError as DjangoValidationError
-from django.utils import timezone
 from rest_framework import serializers
 
 from accounts.models import User

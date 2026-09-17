@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
@@ -8,8 +9,7 @@ import { CardSkeletonGrid, ErrorState } from '@/components/common/StateViews'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Checkbox } from '@/components/ui/Checkbox'
-import { mockContractVersion, mockSignedContracts, mockSubscription } from '@/mocks/fixtures'
-import { mockFetch } from '@/mocks/mockFetch'
+import { contractsApi } from '@/api/contracts'
 
 const consentSchema = z.object({
   consent_revenue_share: z.literal(true),
@@ -20,28 +20,26 @@ const consentSchema = z.object({
 
 type ConsentFormValues = z.infer<typeof consentSchema>
 
-// TODO: real API — replace with contractsApi.current/history/sign (src/api/contracts.ts)
-function useContractVersion() {
-  return useQuery({ queryKey: ['contract-current'], queryFn: () => mockFetch(mockContractVersion) })
-}
-function useContractHistory() {
-  return useQuery({ queryKey: ['contract-history'], queryFn: () => mockFetch(mockSignedContracts) })
-}
-function useHasPaymentMethod() {
-  return useQuery({
-    queryKey: ['subscription-payment-method'],
-    queryFn: () => mockFetch(Boolean(mockSubscription.default_payment_method_id)),
-  })
-}
-
 export function ContractPage() {
   const { t } = useTranslation()
   const queryClient = useQueryClient()
-  const versionQuery = useContractVersion()
-  const historyQuery = useContractHistory()
-  const hasPaymentMethodQuery = useHasPaymentMethod()
+  const stateQuery = useQuery({
+    queryKey: ['contract-current'],
+    queryFn: contractsApi.current,
+  })
+  const versionQuery = { ...stateQuery, data: stateQuery.data?.version }
+  const historyQuery = useQuery({
+    queryKey: ['contract-history'],
+    queryFn: contractsApi.history,
+  })
+  const hasPaymentMethodQuery = { data: stateQuery.data?.has_payment_method }
 
-  const { register, handleSubmit } = useForm<ConsentFormValues>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ConsentFormValues>({
     resolver: zodResolver(consentSchema),
     defaultValues: {
       consent_revenue_share: false as unknown as true,
@@ -52,17 +50,42 @@ export function ContractPage() {
   })
 
   const signMutation = useMutation({
-    mutationFn: () => mockFetch({ ...mockSignedContracts[0], id: `c_${Date.now()}` }, 500),
-    onSuccess: (signed) =>
-      queryClient.setQueryData(['contract-history'], (list: typeof mockSignedContracts = []) => [
-        signed,
-        ...list,
-      ]),
+    mutationFn: (values: ConsentFormValues) => {
+      if (!versionQuery.data) throw new Error(t('common.error.generic'))
+      return contractsApi.sign({
+        ...values,
+        consent_marketing: values.consent_marketing ?? false,
+        contract_version_id: versionQuery.data.id,
+      })
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['contract-history'] }),
+        queryClient.invalidateQueries({ queryKey: ['contract-current'] }),
+      ])
+    },
+  })
+  const downloadMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const blob = await contractsApi.downloadPdf(id)
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `contract-${id}.pdf`
+      link.click()
+      setTimeout(() => URL.revokeObjectURL(url), 1000)
+    },
   })
 
-  const alreadySigned = historyQuery.data?.some(
-    (c) => c.contract_version_id === versionQuery.data?.id && c.status === 'active',
-  )
+  const alreadySigned = stateQuery.data?.signed ?? false
+  useEffect(() => {
+    reset({
+      consent_revenue_share: false as unknown as true,
+      consent_publish_to_channel: false as unknown as true,
+      consent_data_processing: false as unknown as true,
+      consent_marketing: false,
+    })
+  }, [versionQuery.data?.id, reset])
 
   return (
     <div className="flex flex-col gap-6">
@@ -92,11 +115,14 @@ export function ContractPage() {
             ) : (
               <form
                 className="flex flex-col gap-3"
-                onSubmit={handleSubmit(() => signMutation.mutate())}
+                onSubmit={handleSubmit((values) => signMutation.mutate(values))}
                 noValidate
               >
                 <Checkbox
-                  label={t('contract.consentRevenueShare')}
+                  label={t('contract.consentRevenueShare', {
+                    platform: versionQuery.data.revenue_share_platform_pct,
+                    creator: versionQuery.data.revenue_share_creator_pct,
+                  })}
                   {...register('consent_revenue_share')}
                 />
                 <Checkbox
@@ -118,11 +144,16 @@ export function ContractPage() {
                   </p>
                 )}
 
+                {(signMutation.isError || Object.keys(errors).length > 0) && (
+                  <p role="alert">
+                    {signMutation.error?.message ?? t('common.error.generic')}
+                  </p>
+                )}
                 <div>
                   <Button
                     type="submit"
                     isLoading={signMutation.isPending}
-                    disabled={hasPaymentMethodQuery.data === false}
+                    disabled={!hasPaymentMethodQuery.data || stateQuery.isFetching}
                   >
                     {t('contract.sign')}
                   </Button>
@@ -133,8 +164,13 @@ export function ContractPage() {
         </Card>
       )}
 
+      {stateQuery.isSuccess && !versionQuery.data && <p>{t('common.empty.title')}</p>}
+      {historyQuery.isError && <ErrorState onRetry={() => historyQuery.refetch()} />}
+      {downloadMutation.isError && <p role="alert">{downloadMutation.error.message}</p>}
       <div>
-        <h2 className="mb-3 text-sm font-semibold text-foreground">{t('contract.history')}</h2>
+        <h2 className="mb-3 text-sm font-semibold text-foreground">
+          {t('contract.history')}
+        </h2>
         {historyQuery.data && historyQuery.data.length > 0 && (
           <ul className="flex flex-col gap-2">
             {historyQuery.data.map((signed) => (
@@ -146,9 +182,16 @@ export function ContractPage() {
                 <span className="text-muted-foreground">
                   {new Date(signed.signed_at).toLocaleDateString()}
                 </span>
-                <a href={signed.pdf_url ?? '#'} className="text-primary-600 hover:underline">
-                  {t('contract.downloadPdf')}
-                </a>
+                {signed.pdf_url && (
+                  <button
+                    type="button"
+                    disabled={downloadMutation.isPending}
+                    onClick={() => downloadMutation.mutate(signed.id)}
+                    className="text-primary-600 hover:underline"
+                  >
+                    {t('contract.downloadPdf')}
+                  </button>
+                )}
               </li>
             ))}
           </ul>

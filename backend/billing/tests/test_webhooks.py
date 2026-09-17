@@ -5,6 +5,7 @@ Signature verification exercises the *real* `stripe.Webhook.construct_event`
 than mocking it away — this genuinely proves "invalid signature -> 400,
 state unchanged" (AC-8), not just that our code trusts whatever it's told.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -36,7 +37,9 @@ def _sign(payload: bytes, secret: str, timestamp: int) -> str:
     return f"t={timestamp},v1={signature}"
 
 
-def _post_event(client, event: dict, *, secret: str = WEBHOOK_SECRET, bad_signature: bool = False):
+def _post_event(
+    client, event: dict, *, secret: str = WEBHOOK_SECRET, bad_signature: bool = False
+):
     payload = json.dumps(event).encode()
     timestamp = int(time.time())
     sig_header = _sign(payload, "wrong-secret" if bad_signature else secret, timestamp)
@@ -50,13 +53,20 @@ def _post_event(client, event: dict, *, secret: str = WEBHOOK_SECRET, bad_signat
 
 
 def _event(event_id: str, event_type: str, obj: dict) -> dict:
-    return {"id": event_id, "object": "event", "type": event_type, "data": {"object": obj}}
+    return {
+        "id": event_id,
+        "object": "event",
+        "type": event_type,
+        "data": {"object": obj},
+    }
 
 
 class TestSignatureVerification:
     def test_invalid_signature_is_rejected_with_400_and_nothing_is_recorded(self):
         client = APIClient()
-        event = _event("evt_bad_sig", "invoice.paid", {"id": "in_1", "customer": "cus_1"})
+        event = _event(
+            "evt_bad_sig", "invoice.paid", {"id": "in_1", "customer": "cus_1"}
+        )
 
         response = _post_event(client, event, bad_signature=True)
 
@@ -68,7 +78,10 @@ class TestSignatureVerification:
         payload = json.dumps(_event("evt_no_sig", "invoice.paid", {})).encode()
 
         response = client.generic(
-            "POST", reverse("billing:stripe-webhook"), data=payload, content_type="application/json"
+            "POST",
+            reverse("billing:stripe-webhook"),
+            data=payload,
+            content_type="application/json",
         )
 
         assert response.status_code == 400
@@ -76,7 +89,9 @@ class TestSignatureVerification:
 
     def test_tampered_payload_after_signing_is_rejected(self):
         client = APIClient()
-        payload = json.dumps(_event("evt_tampered", "invoice.paid", {"id": "in_1"})).encode()
+        payload = json.dumps(
+            _event("evt_tampered", "invoice.paid", {"id": "in_1"})
+        ).encode()
         sig_header = _sign(payload, WEBHOOK_SECRET, int(time.time()))
         tampered_payload = payload.replace(b"in_1", b"in_2_evil")
 
@@ -102,7 +117,12 @@ class TestIdempotency:
         event = _event(
             "evt_dup_1",
             "invoice.paid",
-            {"id": "in_dup", "customer": "cus_dedupe", "amount_paid": 5000, "currency": "usd"},
+            {
+                "id": "in_dup",
+                "customer": "cus_dedupe",
+                "amount_paid": 5000,
+                "currency": "usd",
+            },
         )
 
         first = _post_event(client, event)
@@ -119,7 +139,9 @@ class TestEventHandling:
         client = APIClient()
         user = UserFactory(email="checkout@example.com")
         plan = PlanFactory(code="professional")
-        subscription = SubscriptionFactory(user=user, status=SubscriptionStatus.TRIALING)
+        subscription = SubscriptionFactory(
+            user=user, status=SubscriptionStatus.TRIALING
+        )
         event = _event(
             "evt_checkout_1",
             "checkout.session.completed",
@@ -141,11 +163,19 @@ class TestEventHandling:
         assert subscription.stripe_subscription_id == "sub_new"
         assert subscription.plan_id == plan.id
 
-    def test_invoice_payment_failed_moves_active_subscription_to_past_due_with_grace_period(self):
+    def test_invoice_payment_failed_moves_active_subscription_to_past_due_with_grace_period(
+        self,
+    ):
         client = APIClient()
         user = UserFactory(email="pastdue@example.com")
-        subscription = SubscriptionFactory(user=user, status=SubscriptionStatus.ACTIVE, stripe_customer_id="cus_pd")
-        event = _event("evt_failed_1", "invoice.payment_failed", {"id": "in_failed", "customer": "cus_pd"})
+        subscription = SubscriptionFactory(
+            user=user, status=SubscriptionStatus.ACTIVE, stripe_customer_id="cus_pd"
+        )
+        event = _event(
+            "evt_failed_1",
+            "invoice.payment_failed",
+            {"id": "in_failed", "customer": "cus_pd"},
+        )
 
         response = _post_event(client, event)
 
@@ -161,7 +191,14 @@ class TestEventHandling:
             user=user, status=SubscriptionStatus.PAST_DUE, stripe_customer_id="cus_rec"
         )
         event = _event(
-            "evt_paid_1", "invoice.paid", {"id": "in_rec", "customer": "cus_rec", "amount_paid": 5000, "currency": "usd"}
+            "evt_paid_1",
+            "invoice.paid",
+            {
+                "id": "in_rec",
+                "customer": "cus_rec",
+                "amount_paid": 5000,
+                "currency": "usd",
+            },
         )
 
         response = _post_event(client, event)
@@ -175,7 +212,9 @@ class TestEventHandling:
         client = APIClient()
         user = UserFactory(email="updated@example.com")
         subscription = SubscriptionFactory(
-            user=user, status=SubscriptionStatus.ACTIVE, stripe_subscription_id="sub_upd"
+            user=user,
+            status=SubscriptionStatus.ACTIVE,
+            stripe_subscription_id="sub_upd",
         )
         event = _event(
             "evt_updated_1",
@@ -205,12 +244,18 @@ class TestEventHandling:
         client = APIClient()
         user = UserFactory(email="canceled@example.com")
         subscription = SubscriptionFactory(
-            user=user, status=SubscriptionStatus.ACTIVE, stripe_subscription_id="sub_del"
+            user=user,
+            status=SubscriptionStatus.ACTIVE,
+            stripe_subscription_id="sub_del",
         )
         event = _event(
             "evt_del_1",
             "customer.subscription.deleted",
-            {"id": "sub_del", "object": "subscription", "customer": subscription.stripe_customer_id},
+            {
+                "id": "sub_del",
+                "object": "subscription",
+                "customer": subscription.stripe_customer_id,
+            },
         )
 
         response = _post_event(client, event)
@@ -229,3 +274,27 @@ class TestEventHandling:
         assert response.status_code == 200
         webhook_event = WebhookEvent.objects.get(event_id="evt_unknown_1")
         assert webhook_event.status == "processed"
+
+
+@pytest.mark.parametrize(
+    "extra", [{"mode": "setup"}, {"mode": "subscription", "payment_status": "unpaid"}]
+)
+def test_card_setup_and_unpaid_checkout_do_not_activate_subscription(extra):
+    subscription = SubscriptionFactory(
+        user=UserFactory(), status=SubscriptionStatus.PAST_DUE
+    )
+    response = _post_event(
+        APIClient(),
+        _event(
+            "evt_not_paid",
+            "checkout.session.completed",
+            {
+                "id": "cs_not_paid",
+                "metadata": {"user_id": str(subscription.user_id)},
+                **extra,
+            },
+        ),
+    )
+    assert response.status_code == 200
+    subscription.refresh_from_db()
+    assert subscription.status == SubscriptionStatus.PAST_DUE

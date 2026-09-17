@@ -112,7 +112,12 @@
       "passwordRequired": "Password is required.",
       "passwordMinLength": "Password must be at least 10 characters.",
       "fullNameRequired": "Full name is required."
-    }
+    },
+    "googleUnavailable": "Google sign-in is not configured yet. Use email to continue.",
+    "twoFactor": "Two-factor authentication",
+    "setupAuthenticator": "Set up authenticator",
+    "authenticatorSecret": "Add this secret to your authenticator app:",
+    "verificationCode": "Verification code"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -126,7 +131,11 @@
     "quotaUsed": "{{used}} of {{total}} used",
     "connected": "Connected",
     "disconnected": "Not connected",
-    "connectChannel": "Connect YouTube channel"
+    "connectChannel": "Connect YouTube channel",
+    "demoNotice": "Interface preview · demonstration data shown",
+    "analyticsTitle": "Revenue overview",
+    "activityTitle": "Daily views",
+    "shareTitle": "New agreement terms"
   },
   "channel": {
     "title": "Channel",
@@ -176,7 +185,9 @@
     "pause": "Pause schedule",
     "resume": "Resume schedule",
     "save": "Save preferences",
-    "saved": "Preferences saved."
+    "saved": "Preferences saved.",
+    "timezone": "Timezone",
+    "publishDays": "Days (week: 0–6, Monday first; month: 1–28)"
   },
   "video": {
     "title": "Videos",
@@ -246,7 +257,7 @@
     "notMonetized": "This channel is not monetized yet, revenue is $0.",
     "topVideos": "Top videos",
     "statements": "Revenue-share statements",
-    "dispute": "Dispute",
+    "dispute": "Dispute statement",
     "statementStatus": {
       "draft": "Draft",
       "finalized": "Finalized",
@@ -255,7 +266,9 @@
       "disputed": "Disputed",
       "written_off": "Written off",
       "carried_forward": "Carried forward"
-    }
+    },
+    "disputeReason": "Explain the discrepancy",
+    "reviewUntil": "Review until {{date}}"
   },
   "billing": {
     "title": "Billing",
@@ -276,7 +289,7 @@
     "title": "Contract",
     "currentVersion": "Current version",
     "sign": "Sign contract",
-    "consentRevenueShare": "I agree to the 50/50 revenue share terms",
+    "consentRevenueShare": "I agree to a {{platform}}% platform share and {{creator}}% creator share only on revenue from videos created inside the ecosystem and published through it. Revenue from other videos is excluded.",
     "consentPublish": "I authorize the platform to publish videos to my channel",
     "consentDataProcessing": "I agree to the use of my data for AI content processing",
     "consentMarketing": "I want to receive marketing emails (optional)",
@@ -308,12 +321,110 @@
       "activeSubscriptions": "Active subscriptions",
       "revenueShareTotal": "Revenue-share total",
       "uncollected": "Uncollected invoices",
-      "export": "Export"
+      "export": "Export",
+      "settlementTitle": "Verify video revenue",
+      "settlementHelp": "Enter verified revenue for one ecosystem video and cite the source report. Channel totals and estimates cannot be used. Verified entries are immutable.",
+      "videoId": "Ecosystem video ID",
+      "month": "Revenue month",
+      "verifiedAmount": "Verified revenue (USD)",
+      "evidence": "Source report reference",
+      "settlementSaved": "Verified revenue saved."
     },
     "config": {
       "title": "Configuration",
       "plans": "Plans",
       "providers": "AI providers"
+    }
+  },
+  "landing": {
+    "navigation": "Navigation",
+    "navServices": "Capabilities",
+    "navProcess": "Process",
+    "navShare": "Terms",
+    "badge": "The ecosystem for YouTube creators",
+    "heroAccent": "From idea to video",
+    "heroEnd": "in one ecosystem",
+    "description": "Plan your content, create videos with AI and manage your YouTube channel in one workspace.",
+    "start": "Create an account",
+    "discover": "Explore more",
+    "servicesTitle": "Your creative workspace",
+    "servicesLead": "You choose the direction. The ecosystem brings your content tools together, from idea to publication.",
+    "services": [
+      {
+        "title": "Ideas and content plans",
+        "text": "Channel topics, video ideas and publication schedules tailored to your language and time zone."
+      },
+      {
+        "title": "Video creation",
+        "text": "Develop scripts, voiceovers and visuals with AI tools in your profile."
+      },
+      {
+        "title": "Content review",
+        "text": "Moderation before publication and actionable feedback to improve your video."
+      },
+      {
+        "title": "Publishing and analytics",
+        "text": "Manage videos and Shorts, track performance and follow your video revenue."
+      }
+    ],
+    "processTitle": "From concept to publication",
+    "steps": [
+      "Create an account and connect your channel",
+      "Choose a plan, topic and language",
+      "Prepare and approve your content",
+      "Complete moderation and publish",
+      "Track your results"
+    ],
+    "shareTitle": "Your channel. Your revenue.",
+    "creatorShare": "Creator share",
+    "platformShare": "Platform share",
+    "shareScope": "30% applies only to revenue from videos created inside our ecosystem and published through it. Revenue from other videos on your channel is excluded.",
+    "shareDetails": "Terms are recorded in your agreement. Subscription fees are separate. Revenue depends on video performance and YouTube policies; earnings are not guaranteed.",
+    "faqTitle": "Questions, answered",
+    "faqs": [
+      {
+        "q": "Do I keep my channel?",
+        "a": "Yes. You control your channel and grant connection permissions. You can revoke access."
+      },
+      {
+        "q": "Is the fee on my whole channel?",
+        "a": "No. The platform’s 30% share applies only to videos created and published through the ecosystem. Other videos are excluded."
+      },
+      {
+        "q": "Can I choose my content language?",
+        "a": "Settings include a catalog of 30 language variants. Voice generation availability depends on the connected provider."
+      },
+      {
+        "q": "Are videos published without review?",
+        "a": "Content goes through moderation before publication. Material requiring corrections is returned for revision."
+      }
+    ],
+    "ctaTitle": "Your next idea starts here.",
+    "ctaText": "Create a profile, explore the tools and set up a workspace for your channel.",
+    "footer": "One workspace for creating and managing YouTube content."
+  },
+  "planning": {
+    "title": "Content plan",
+    "explanation": "Suggestions use videos found on YouTube. Times follow your preferences, not unverified audience activity claims. Review and approve selected videos before generation starts.",
+    "edit": "Edit",
+    "brief": "Brief",
+    "localTime": "New time (your current timezone)",
+    "period": "Period",
+    "count": "Video count",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "propose": "Propose a plan",
+    "approve": "Approve selected videos",
+    "sources": "Research sources",
+    "failed": "The plan could not be prepared. Check provider and channel configuration.",
+    "status": {
+      "pending": "Queued",
+      "generating": "Researching",
+      "ready": "Awaiting your decision",
+      "approved": "Approved",
+      "failed": "Failed",
+      "canceled": "Canceled"
     }
   }
 }

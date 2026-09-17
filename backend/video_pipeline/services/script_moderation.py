@@ -14,6 +14,7 @@ Two policy decisions worth stating explicitly:
   If OpenAI flags the text but every score sits under our thresholds, the verdict
   is still `flag` — we do not out-vote the provider downwards.
 """
+
 from __future__ import annotations
 
 import logging
@@ -154,7 +155,9 @@ def evaluate_scores(
             flagged.append((category, score, flag_threshold))
 
     if blocked:
-        category, score, _ = max(blocked, key=lambda item: item[1] / item[2] if item[2] else item[1])
+        category, score, _ = max(
+            blocked, key=lambda item: item[1] / item[2] if item[2] else item[1]
+        )
         return ModerationVerdict.BLOCK, category, score
     if flagged:
         category, score, _ = max(flagged, key=lambda item: item[1])
@@ -170,12 +173,16 @@ def resolve_thresholds(config: ApiCredentialConfig) -> dict:
     return {
         "block_threshold": float(
             config.get_option(
-                "block_threshold", getattr(settings, "MODERATION_BLOCK_THRESHOLD", DEFAULT_BLOCK_THRESHOLD)
+                "block_threshold",
+                getattr(
+                    settings, "MODERATION_BLOCK_THRESHOLD", DEFAULT_BLOCK_THRESHOLD
+                ),
             )
         ),
         "flag_threshold": float(
             config.get_option(
-                "flag_threshold", getattr(settings, "MODERATION_FLAG_THRESHOLD", DEFAULT_FLAG_THRESHOLD)
+                "flag_threshold",
+                getattr(settings, "MODERATION_FLAG_THRESHOLD", DEFAULT_FLAG_THRESHOLD),
             )
         ),
         "category_thresholds": dict(config.get_option("category_thresholds", {}) or {}),
@@ -203,14 +210,17 @@ class OpenAIModerationClient:
         self.base_url = config.get_option("base_url", settings.OPENAI_MODERATION_URL)
         self.model = config.model_name or "omni-moderation-latest"
         self.timeout = int(
-            config.get_option("request_timeout_sec", getattr(settings, "MODERATION_TIMEOUT_SEC", 30))
+            config.get_option(
+                "request_timeout_sec", getattr(settings, "MODERATION_TIMEOUT_SEC", 30)
+            )
         )
 
     def moderate(self, chunks: list[str]) -> tuple[dict, int, int]:
         """Return `(payload, latency_ms, http_status)` for a batch of text chunks."""
         if not chunks:
             raise ProviderPermanentError(
-                "Nothing to moderate: the script text is empty.", error_code="moderation_empty_input"
+                "Nothing to moderate: the script text is empty.",
+                error_code="moderation_empty_input",
             )
 
         started = time.monotonic()
@@ -229,7 +239,9 @@ class OpenAIModerationClient:
                 f"OpenAI Moderation request timed out after {self.timeout}s."
             ) from exc
         except requests.exceptions.ConnectionError as exc:
-            raise ProviderRetryableError("Could not reach the OpenAI Moderation API.") from exc
+            raise ProviderRetryableError(
+                "Could not reach the OpenAI Moderation API."
+            ) from exc
         except requests.exceptions.RequestException as exc:
             raise ProviderRetryableError(
                 f"OpenAI Moderation request failed: {type(exc).__name__}."
@@ -244,10 +256,13 @@ class OpenAIModerationClient:
             except (TypeError, ValueError):
                 retry_after_sec = None
             raise ProviderRateLimitError(
-                f"OpenAI Moderation returned HTTP {status}.", retry_after_sec=retry_after_sec
+                f"OpenAI Moderation returned HTTP {status}.",
+                retry_after_sec=retry_after_sec,
             )
         if status in (401, 403):
-            raise ProviderAuthError(f"OpenAI Moderation returned HTTP {status}.", http_status=status)
+            raise ProviderAuthError(
+                f"OpenAI Moderation returned HTTP {status}.", http_status=status
+            )
         if status >= 500:
             raise ProviderRetryableError(
                 f"OpenAI Moderation returned HTTP {status}.", http_status=status
@@ -260,12 +275,20 @@ class OpenAIModerationClient:
         try:
             payload = response.json()
         except ValueError as exc:
-            raise ProviderResponseError("OpenAI Moderation returned a non-JSON body.") from exc
+            raise ProviderResponseError(
+                "OpenAI Moderation returned a non-JSON body."
+            ) from exc
 
-        if not isinstance(payload, dict) or not isinstance(payload.get("results"), list):
-            raise ProviderResponseError("OpenAI Moderation response has no `results` array.")
+        if not isinstance(payload, dict) or not isinstance(
+            payload.get("results"), list
+        ):
+            raise ProviderResponseError(
+                "OpenAI Moderation response has no `results` array."
+            )
         if not payload["results"]:
-            raise ProviderResponseError("OpenAI Moderation returned an empty `results` array.")
+            raise ProviderResponseError(
+                "OpenAI Moderation returned an empty `results` array."
+            )
 
         return payload, latency_ms, status
 
@@ -290,10 +313,19 @@ def moderate_script_for_job(job, *, client=None) -> ModerationOutcome:
 
     max_chars = int(
         config.get_option(
-            "max_chars_per_chunk", getattr(settings, "MODERATION_MAX_CHARS_PER_CHUNK", 8000)
+            "max_chars_per_chunk",
+            getattr(settings, "MODERATION_MAX_CHARS_PER_CHUNK", 8000),
         )
     )
-    chunks = chunk_text(job.script_text, max_chars)
+    public_text = "\n".join(
+        [
+            job.title or "",
+            job.description or "",
+            ", ".join(job.tags or []),
+            job.script_text or "",
+        ]
+    )
+    chunks = chunk_text(public_text, max_chars)
 
     try:
         payload, latency_ms, http_status = client.moderate(chunks)
@@ -393,9 +425,8 @@ def apply_verdict_to_job(job, outcome: ModerationOutcome) -> str:
 
     if outcome.verdict == ModerationVerdict.PASS:
         new_status = JobStatus.SCRIPT_READY
-    elif (
-        outcome.verdict == ModerationVerdict.BLOCK
-        and getattr(settings, "MODERATION_AUTO_REJECT_ON_BLOCK", False)
+    elif outcome.verdict == ModerationVerdict.BLOCK and getattr(
+        settings, "MODERATION_AUTO_REJECT_ON_BLOCK", False
     ):
         new_status = JobStatus.MODERATION_REJECTED
     else:
@@ -413,4 +444,7 @@ def apply_verdict_to_job(job, outcome: ModerationOutcome) -> str:
         update_fields += ["error_code", "error_message"]
 
     job.save(update_fields=update_fields)
-    return new_status
+    from video_pipeline.services.revisions import maybe_auto_revise
+
+    maybe_auto_revise(job, outcome)
+    return job.status

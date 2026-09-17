@@ -6,6 +6,7 @@ so running a sync twice never duplicates a row. Rows whose date is older than
 `FINAL_AFTER_HOURS` are flagged `is_final=True` (YouTube revises data for
 48-72h); only final rows enter a statement (FR-67).
 """
+
 from __future__ import annotations
 
 import logging
@@ -56,7 +57,9 @@ def _job_map(channel: YouTubeChannel, video_ids: set[str]) -> dict[str, object]:
         return {}
     return {
         vid: job_id
-        for job_id, vid in VideoJob.objects.filter(channel=channel, youtube_video_id__in=video_ids)
+        for job_id, vid in VideoJob.objects.filter(
+            channel=channel, youtube_video_id__in=video_ids
+        )
         .exclude(youtube_video_id="")
         .values_list("id", "youtube_video_id")
     }
@@ -69,7 +72,12 @@ def _rpm(row: MetricRow):
 
 
 def upsert_records(
-    *, channel: YouTubeChannel, source: str, rows: list[MetricRow], synced_at=None, currency: str = "USD"
+    *,
+    channel: YouTubeChannel,
+    source: str,
+    rows: list[MetricRow],
+    synced_at=None,
+    currency: str = "USD",
 ) -> int:
     """Idempotent upsert on `(source, channel, youtube_video_id, date)`.
     Returns the number of rows written. Maps `youtube_video_id` -> `job` FK.
@@ -77,7 +85,6 @@ def upsert_records(
     if not rows:
         return 0
     synced_at = synced_at or timezone.now()
-    cutoff = final_cutoff_date(synced_at)
     jobs = _job_map(channel, {r.youtube_video_id for r in rows if r.youtube_video_id})
 
     # Collapse duplicates inside one batch so ON CONFLICT never sees the same key twice.
@@ -102,7 +109,7 @@ def upsert_records(
             cpm=row.cpm,
             rpm=_rpm(row),
             currency=str(payload.get("currency") or currency)[:3].upper(),
-            is_final=row.date <= cutoff,
+            is_final=False,
             synced_at=synced_at,
             raw_payload=payload,
         )
@@ -120,10 +127,8 @@ def upsert_records(
 
 
 def mark_final_rows(channel: YouTubeChannel, now=None) -> int:
-    """FR-63: flips `is_final` on rows older than 72h that were never re-synced."""
-    return RevenueRecord.objects.filter(
-        channel=channel, is_final=False, date__lte=final_cutoff_date(now)
-    ).update(is_final=True)
+    """Elapsed time cannot confirm estimated revenue. Retained as a no-op for callers."""
+    return 0
 
 
 def sync_window(now=None, days: int = SYNC_WINDOW_DAYS) -> tuple[date, date]:
@@ -131,7 +136,9 @@ def sync_window(now=None, days: int = SYNC_WINDOW_DAYS) -> tuple[date, date]:
     return today - timedelta(days=days), today
 
 
-def sync_channel(channel: YouTubeChannel, *, days: int = SYNC_WINDOW_DAYS, now=None) -> dict:
+def sync_channel(
+    channel: YouTubeChannel, *, days: int = SYNC_WINDOW_DAYS, now=None
+) -> dict:
     """Full FR-61..FR-63 sync for one channel. Returns a small stats dict.
     Raises AnalyticsRetryableError (task retries) / AnalyticsAuthError.
     A channel whose refresh fails is disconnected by `channels.services` and
@@ -157,7 +164,11 @@ def sync_channel(channel: YouTubeChannel, *, days: int = SYNC_WINDOW_DAYS, now=N
     channel.save(update_fields=["last_synced_at", "updated_at"])
     logger.info(
         "revenue_channel_synced",
-        extra={"channel_id": str(channel.id), "rows": written, "reason": metrics.revenue_unavailable_reason},
+        extra={
+            "channel_id": str(channel.id),
+            "rows": written,
+            "reason": metrics.revenue_unavailable_reason,
+        },
     )
     return {
         "rows": written,
@@ -168,12 +179,16 @@ def sync_channel(channel: YouTubeChannel, *, days: int = SYNC_WINDOW_DAYS, now=N
     }
 
 
-def sync_adsense_account(account: AdSenseAccount, *, days: int = SYNC_WINDOW_DAYS, now=None) -> dict:
+def sync_adsense_account(
+    account: AdSenseAccount, *, days: int = SYNC_WINDOW_DAYS, now=None
+) -> dict:
     """FR-19/FR-20: AdSense channel-level rows for the user's connected channel."""
     if account.status != ConnectionStatus.CONNECTED:
         return {"skipped": "not_connected"}
     channel = (
-        YouTubeChannel.objects.filter(user_id=account.user_id, status=ConnectionStatus.CONNECTED)
+        YouTubeChannel.objects.filter(
+            user_id=account.user_id, status=ConnectionStatus.CONNECTED
+        )
         .order_by("connected_at")
         .first()
     )
@@ -183,7 +198,9 @@ def sync_adsense_account(account: AdSenseAccount, *, days: int = SYNC_WINDOW_DAY
     start, end = sync_window(now, days)
     rows = fetch_adsense_daily_earnings(account, start, end)
     synced_at = now or timezone.now()
-    written = upsert_records(channel=channel, source=RevenueSource.ADSENSE, rows=rows, synced_at=synced_at)
+    written = upsert_records(
+        channel=channel, source=RevenueSource.ADSENSE, rows=rows, synced_at=synced_at
+    )
     mark_final_rows(channel, synced_at)
     account.last_synced_at = synced_at
     account.save(update_fields=["last_synced_at", "updated_at"])

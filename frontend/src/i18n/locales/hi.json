@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "लोड हो रहा है…",
+    "retry": "फिर कोशिश करें",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "close": "बंद करें",
+    "search": "खोजें",
+    "back": "वापस",
+    "confirm": "पुष्टि करें",
+    "actions": "कार्रवाइयाँ",
+    "status": "स्थिति",
+    "date": "तारीख",
+    "unknown": "अज्ञात"
+  },
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "channel": "चैनल",
+    "preferences": "प्राथमिकताएँ",
+    "videos": "वीडियो",
+    "revenue": "आय",
+    "billing": "बिलिंग",
+    "contract": "अनुबंध",
+    "adminUsers": "उपयोगकर्ता",
+    "adminVideos": "वीडियो कार्य",
+    "adminModeration": "सामग्री समीक्षा",
+    "adminFinance": "वित्त",
+    "adminConfig": "विन्यास",
+    "logout": "लॉग आउट",
+    "language": "भाषा",
+    "theme": "थीम"
+  },
+  "auth": {
+    "login": {
+      "title": "लॉग इन",
+      "email": "ईमेल",
+      "password": "पासवर्ड",
+      "submit": "लॉग इन"
+    },
+    "register": {
+      "title": "खाता बनाएँ",
+      "fullName": "पूरा नाम",
+      "email": "ईमेल",
+      "password": "पासवर्ड",
+      "submit": "खाता बनाएँ"
+    }
+  },
+  "preferences": {
+    "language": "सामग्री की भाषा",
+    "videoDuration": "वीडियो की अवधि (सेकंड)",
+    "frequency": "प्रकाशन की आवृत्ति",
+    "frequencyOptions": {
+      "daily": "दैनिक",
+      "weekly": "साप्ताहिक",
+      "monthly": "मासिक"
+    },
+    "publishTime": "प्रकाशन का समय",
+    "privacyStatus": "गोपनीयता",
+    "privacyOptions": {
+      "public": "सार्वजनिक",
+      "unlisted": "असूचीबद्ध",
+      "private": "निजी"
+    },
+    "approvalMode": "अनुमोदन का तरीका",
+    "save": "प्राथमिकताएँ सहेजें",
+    "saved": "प्राथमिकताएँ सहेजी गईं।",
+    "timezone": "समय क्षेत्र",
+    "publishDays": "दिन (सप्ताह: 0–6; महीना: 1–28)",
+    "title": "प्राथमिकताएँ"
+  },
+  "dashboard": {
+    "title": "डैशबोर्ड"
+  },
+  "channel": {
+    "title": "चैनल"
+  },
+  "video": {
+    "title": "वीडियो"
+  },
+  "revenue": {
+    "title": "आय"
+  },
+  "billing": {
+    "title": "बिलिंग"
+  },
+  "contract": {
+    "title": "अनुबंध"
+  }
+}

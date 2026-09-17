@@ -1,37 +1,42 @@
-import { useQuery } from '@tanstack/react-query'
+import { adminApi } from '@/api/admin'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 import { ErrorState, TableSkeleton } from '@/components/common/StateViews'
 import { Button } from '@/components/ui/Button'
 import { VideoStatusBadge } from '@/components/video/VideoStatusBadge'
-import { mockAdminVideos } from '@/mocks/fixtures'
-import { mockFetch } from '@/mocks/mockFetch'
 
-// TODO: real API — replace with adminApi.listVideoJobs (src/api/admin.ts)
 function useAdminVideos() {
-  return useQuery({ queryKey: ['admin-videos'], queryFn: () => mockFetch(mockAdminVideos) })
+  return useQuery({ queryKey: ['admin-videos'], queryFn: adminApi.allVideos })
 }
 
 export function AdminVideosPage() {
   const { t } = useTranslation()
   const { data, isLoading, isError, refetch } = useAdminVideos()
 
+  const action = useMutation({
+    mutationFn: ({ id, retry }: { id: string; retry: boolean }) =>
+      retry ? adminApi.retryVideoJob(id) : adminApi.cancelVideoJob(id),
+    onSuccess: () => refetch(),
+  })
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-semibold text-foreground">{t('admin.videos.title')}</h1>
 
+      {action.isError && <ErrorState />}
       {isLoading && <TableSkeleton />}
       {isError && <ErrorState onRetry={() => refetch()} />}
 
       {data && (
         <div className="overflow-x-auto rounded-lg border border-border">
-          <table className="w-full min-w-[720px] text-left text-sm">
+          <table className="w-full min-w-[720px] text-start text-sm">
             <thead className="border-b border-border bg-muted/50 text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 font-medium">{t('video.table.title')}</th>
                 <th className="px-4 py-3 font-medium">User</th>
                 <th className="px-4 py-3 font-medium">{t('video.table.status')}</th>
-                <th className="px-4 py-3 text-right font-medium">{t('common.actions')}</th>
+                <th className="px-4 py-3 text-end font-medium">{t('common.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -44,13 +49,22 @@ export function AdminVideosPage() {
                   <td className="px-4 py-3">
                     <VideoStatusBadge status={job.status} />
                   </td>
-                  <td className="px-4 py-3 text-right">
+                  <td className="px-4 py-3 text-end">
                     <div className="flex justify-end gap-2">
-                      {/* TODO: real API — POST /admin/videos/{id}/retry|cancel */}
-                      <Button size="sm" variant="outline">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        isLoading={action.isPending}
+                        onClick={() => action.mutate({ id: job.id, retry: true })}
+                      >
                         {t('admin.videos.retry')}
                       </Button>
-                      <Button size="sm" variant="ghost">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        isLoading={action.isPending}
+                        onClick={() => action.mutate({ id: job.id, retry: false })}
+                      >
                         {t('admin.videos.cancel')}
                       </Button>
                     </div>

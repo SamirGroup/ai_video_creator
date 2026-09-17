@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "불러오는 중…",
+    "retry": "다시 시도",
+    "save": "저장",
+    "cancel": "취소",
+    "close": "닫기",
+    "search": "검색",
+    "back": "뒤로",
+    "confirm": "확인",
+    "actions": "작업",
+    "status": "상태",
+    "date": "날짜",
+    "unknown": "알 수 없음"
+  },
+  "nav": {
+    "dashboard": "대시보드",
+    "channel": "채널",
+    "preferences": "환경 설정",
+    "videos": "동영상",
+    "revenue": "수익",
+    "billing": "결제",
+    "contract": "계약",
+    "adminUsers": "사용자",
+    "adminVideos": "동영상 작업",
+    "adminModeration": "콘텐츠 검토",
+    "adminFinance": "재무",
+    "adminConfig": "구성",
+    "logout": "로그아웃",
+    "language": "언어",
+    "theme": "테마"
+  },
+  "auth": {
+    "login": {
+      "title": "로그인",
+      "email": "이메일",
+      "password": "비밀번호",
+      "submit": "로그인"
+    },
+    "register": {
+      "title": "계정 만들기",
+      "fullName": "성명",
+      "email": "이메일",
+      "password": "비밀번호",
+      "submit": "계정 만들기"
+    }
+  },
+  "preferences": {
+    "language": "콘텐츠 언어",
+    "videoDuration": "동영상 길이(초)",
+    "frequency": "게시 빈도",
+    "frequencyOptions": {
+      "daily": "매일",
+      "weekly": "매주",
+      "monthly": "매월"
+    },
+    "publishTime": "게시 시간",
+    "privacyStatus": "공개 설정",
+    "privacyOptions": {
+      "public": "공개",
+      "unlisted": "일부 공개",
+      "private": "비공개"
+    },
+    "approvalMode": "승인 방식",
+    "save": "설정 저장",
+    "saved": "설정이 저장되었습니다.",
+    "timezone": "시간대",
+    "publishDays": "날짜(요일: 0–6, 월: 1–28)",
+    "title": "환경 설정"
+  },
+  "dashboard": {
+    "title": "대시보드"
+  },
+  "channel": {
+    "title": "채널"
+  },
+  "video": {
+    "title": "동영상"
+  },
+  "revenue": {
+    "title": "수익"
+  },
+  "billing": {
+    "title": "결제"
+  },
+  "contract": {
+    "title": "계약"
+  }
+}

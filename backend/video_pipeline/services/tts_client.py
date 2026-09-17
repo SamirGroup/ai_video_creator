@@ -13,6 +13,7 @@ Status mapping follows the project taxonomy (NFR-24): 429/5xx/timeouts are
 retryable, everything else 4xx is permanent. Character counts are returned for
 FR-51 per-character pricing.
 """
+
 from __future__ import annotations
 
 import logging
@@ -71,22 +72,41 @@ class ElevenLabsClient:
         self._api_key = api_key if api_key is not None else resolve_api_key(config)
         self._session = session or requests.Session()
         self.base_url = str(
-            config.get_option("base_url", getattr(settings, "ELEVENLABS_BASE_URL", "https://api.elevenlabs.io/v1"))
+            config.get_option(
+                "base_url",
+                getattr(
+                    settings, "ELEVENLABS_BASE_URL", "https://api.elevenlabs.io/v1"
+                ),
+            )
         ).rstrip("/")
         self.model_id = config.model_name or DEFAULT_MODEL_ID
-        self.output_format = str(config.get_option("output_format", DEFAULT_OUTPUT_FORMAT))
+        self.output_format = str(
+            config.get_option("output_format", DEFAULT_OUTPUT_FORMAT)
+        )
         self.timeout = int(
-            config.get_option("request_timeout_sec", getattr(settings, "VOICE_TTS_TIMEOUT_SEC", 120))
+            config.get_option(
+                "request_timeout_sec", getattr(settings, "VOICE_TTS_TIMEOUT_SEC", 120)
+            )
         )
         self.default_voice_id = str(config.get_option("default_voice_id", "") or "")
         self.voice_settings = dict(config.get_option("voice_settings", {}) or {})
-        self.max_chars_per_request = int(config.get_option("max_chars_per_request", 5000))
+        self.max_chars_per_request = int(
+            config.get_option("max_chars_per_request", 5000)
+        )
 
     # -- public API ----------------------------------------------------------
-    def synthesize(self, text: str, *, voice_id: str | None = None, language_code: str | None = None) -> TTSResult:
+    def synthesize(
+        self,
+        text: str,
+        *,
+        voice_id: str | None = None,
+        language_code: str | None = None,
+    ) -> TTSResult:
         text = (text or "").strip()
         if not text:
-            raise ProviderPermanentError("Cannot synthesize empty text.", error_code="tts_empty_input")
+            raise ProviderPermanentError(
+                "Cannot synthesize empty text.", error_code="tts_empty_input"
+            )
         if len(text) > self.max_chars_per_request:
             raise ProviderPermanentError(
                 f"Segment has {len(text)} characters; the provider limit is {self.max_chars_per_request}.",
@@ -103,7 +123,9 @@ class ElevenLabsClient:
         if self.voice_settings:
             payload["voice_settings"] = self.voice_settings
         if language_code and self.config.get_option("send_language_code", False):
-            payload["language_code"] = language_code
+            payload["language_code"] = self.config.get_option("language_codes", {}).get(
+                language_code, language_code.split("-")[0]
+            )
 
         url = f"{self.base_url}/text-to-speech/{voice}"
         started = time.monotonic()
@@ -116,11 +138,17 @@ class ElevenLabsClient:
                 timeout=self.timeout,
             )
         except requests.exceptions.Timeout as exc:
-            raise ProviderTimeoutError(f"ElevenLabs request timed out after {self.timeout}s.") from exc
+            raise ProviderTimeoutError(
+                f"ElevenLabs request timed out after {self.timeout}s."
+            ) from exc
         except requests.exceptions.ConnectionError as exc:
-            raise ProviderRetryableError("Could not reach ElevenLabs (connection error).") from exc
+            raise ProviderRetryableError(
+                "Could not reach ElevenLabs (connection error)."
+            ) from exc
         except requests.exceptions.RequestException as exc:
-            raise ProviderRetryableError(f"ElevenLabs request failed: {type(exc).__name__}.") from exc
+            raise ProviderRetryableError(
+                f"ElevenLabs request failed: {type(exc).__name__}."
+            ) from exc
 
         latency_ms = int((time.monotonic() - started) * 1000)
         self._raise_for_status(response)
@@ -133,7 +161,11 @@ class ElevenLabsClient:
         return TTSResult(
             audio=audio,
             characters=len(text),
-            request_id=str(response.headers.get("request-id") or response.headers.get("x-request-id") or ""),
+            request_id=str(
+                response.headers.get("request-id")
+                or response.headers.get("x-request-id")
+                or ""
+            ),
             latency_ms=latency_ms,
             http_status=response.status_code,
             content_type=content_type or "audio/mpeg",
@@ -160,7 +192,9 @@ class ElevenLabsClient:
         if status in (401, 403):
             raise ProviderAuthError(detail, http_status=status)
         if status == 402:
-            raise ProviderPermanentError(detail, error_code="provider_insufficient_credit", http_status=status)
+            raise ProviderPermanentError(
+                detail, error_code="provider_insufficient_credit", http_status=status
+            )
         if status >= 500:
             raise ProviderRetryableError(detail, http_status=status)
         raise ProviderPermanentError(detail, http_status=status)

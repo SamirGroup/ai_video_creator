@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "لوڈ ہو رہا ہے…",
+    "retry": "دوبارہ کوشش کریں",
+    "save": "محفوظ کریں",
+    "cancel": "منسوخ کریں",
+    "close": "بند کریں",
+    "search": "تلاش کریں",
+    "back": "واپس",
+    "confirm": "تصدیق کریں",
+    "actions": "اعمال",
+    "status": "حالت",
+    "date": "تاریخ",
+    "unknown": "نامعلوم"
+  },
+  "nav": {
+    "dashboard": "ڈیش بورڈ",
+    "channel": "چینل",
+    "preferences": "ترجیحات",
+    "videos": "ویڈیوز",
+    "revenue": "آمدنی",
+    "billing": "بلنگ",
+    "contract": "معاہدہ",
+    "adminUsers": "صارفین",
+    "adminVideos": "ویڈیو کام",
+    "adminModeration": "مواد کی جانچ",
+    "adminFinance": "مالیات",
+    "adminConfig": "ترتیبات",
+    "logout": "لاگ آؤٹ",
+    "language": "زبان",
+    "theme": "تھیم"
+  },
+  "auth": {
+    "login": {
+      "title": "لاگ ان",
+      "email": "ای میل",
+      "password": "پاس ورڈ",
+      "submit": "لاگ ان"
+    },
+    "register": {
+      "title": "اکاؤنٹ بنائیں",
+      "fullName": "پورا نام",
+      "email": "ای میل",
+      "password": "پاس ورڈ",
+      "submit": "اکاؤنٹ بنائیں"
+    }
+  },
+  "preferences": {
+    "language": "مواد کی زبان",
+    "videoDuration": "ویڈیو کا دورانیہ (سیکنڈ)",
+    "frequency": "اشاعت کی تکرار",
+    "frequencyOptions": {
+      "daily": "روزانہ",
+      "weekly": "ہفتہ وار",
+      "monthly": "ماہانہ"
+    },
+    "publishTime": "اشاعت کا وقت",
+    "privacyStatus": "رازداری",
+    "privacyOptions": {
+      "public": "عوامی",
+      "unlisted": "غیر فہرست شدہ",
+      "private": "نجی"
+    },
+    "approvalMode": "منظوری کا طریقہ",
+    "save": "ترجیحات محفوظ کریں",
+    "saved": "ترجیحات محفوظ ہو گئیں۔",
+    "timezone": "ٹائم زون",
+    "publishDays": "دن (ہفتہ: 0–6؛ مہینہ: 1–28)",
+    "title": "ترجیحات"
+  },
+  "dashboard": {
+    "title": "ڈیش بورڈ"
+  },
+  "channel": {
+    "title": "چینل"
+  },
+  "video": {
+    "title": "ویڈیوز"
+  },
+  "revenue": {
+    "title": "آمدنی"
+  },
+  "billing": {
+    "title": "بلنگ"
+  },
+  "contract": {
+    "title": "معاہدہ"
+  }
+}

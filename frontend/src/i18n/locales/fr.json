@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Chargement…",
+    "retry": "Réessayer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "search": "Rechercher",
+    "back": "Retour",
+    "confirm": "Confirmer",
+    "actions": "Actions",
+    "status": "État",
+    "date": "Date",
+    "unknown": "Inconnu"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "channel": "Chaîne",
+    "preferences": "Préférences",
+    "videos": "Vidéos",
+    "revenue": "Revenus",
+    "billing": "Facturation",
+    "contract": "Contrat",
+    "adminUsers": "Utilisateurs",
+    "adminVideos": "Tâches vidéo",
+    "adminModeration": "Modération",
+    "adminFinance": "Finances",
+    "adminConfig": "Configuration",
+    "logout": "Déconnexion",
+    "language": "Langue",
+    "theme": "Thème"
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "submit": "Connexion"
+    },
+    "register": {
+      "title": "Créer un compte",
+      "fullName": "Nom complet",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "submit": "Créer un compte"
+    }
+  },
+  "preferences": {
+    "language": "Langue du contenu",
+    "videoDuration": "Durée de la vidéo (secondes)",
+    "frequency": "Fréquence de publication",
+    "frequencyOptions": {
+      "daily": "Chaque jour",
+      "weekly": "Chaque semaine",
+      "monthly": "Chaque mois"
+    },
+    "publishTime": "Heure de publication",
+    "privacyStatus": "Confidentialité",
+    "privacyOptions": {
+      "public": "Publique",
+      "unlisted": "Non répertoriée",
+      "private": "Privée"
+    },
+    "approvalMode": "Mode de validation",
+    "save": "Enregistrer les préférences",
+    "saved": "Préférences enregistrées.",
+    "timezone": "Fuseau horaire",
+    "publishDays": "Jours (semaine : 0–6 ; mois : 1–28)",
+    "title": "Préférences"
+  },
+  "dashboard": {
+    "title": "Tableau de bord"
+  },
+  "channel": {
+    "title": "Chaîne"
+  },
+  "video": {
+    "title": "Vidéos"
+  },
+  "revenue": {
+    "title": "Revenus"
+  },
+  "billing": {
+    "title": "Facturation"
+  },
+  "contract": {
+    "title": "Contrat"
+  }
+}

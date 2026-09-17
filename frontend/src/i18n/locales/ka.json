@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "იტვირთება…",
+    "retry": "ხელახლა ცდა",
+    "save": "შენახვა",
+    "cancel": "გაუქმება",
+    "close": "დახურვა",
+    "search": "ძებნა",
+    "back": "უკან",
+    "confirm": "დადასტურება",
+    "actions": "მოქმედებები",
+    "status": "სტატუსი",
+    "date": "თარიღი",
+    "unknown": "უცნობი"
+  },
+  "nav": {
+    "dashboard": "მართვის პანელი",
+    "channel": "არხი",
+    "preferences": "პარამეტრები",
+    "videos": "ვიდეოები",
+    "revenue": "შემოსავალი",
+    "billing": "გადახდები",
+    "contract": "ხელშეკრულება",
+    "adminUsers": "მომხმარებლები",
+    "adminVideos": "ვიდეოდავალებები",
+    "adminModeration": "მოდერაცია",
+    "adminFinance": "ფინანსები",
+    "adminConfig": "კონფიგურაცია",
+    "logout": "გასვლა",
+    "language": "ენა",
+    "theme": "თემა"
+  },
+  "auth": {
+    "login": {
+      "title": "შესვლა",
+      "email": "ელფოსტა",
+      "password": "პაროლი",
+      "submit": "შესვლა"
+    },
+    "register": {
+      "title": "ანგარიშის შექმნა",
+      "fullName": "სრული სახელი",
+      "email": "ელფოსტა",
+      "password": "პაროლი",
+      "submit": "ანგარიშის შექმნა"
+    }
+  },
+  "preferences": {
+    "language": "კონტენტის ენა",
+    "videoDuration": "ვიდეოს ხანგრძლივობა (წამი)",
+    "frequency": "გამოქვეყნების სიხშირე",
+    "frequencyOptions": {
+      "daily": "ყოველდღე",
+      "weekly": "ყოველკვირა",
+      "monthly": "ყოველთვე"
+    },
+    "publishTime": "გამოქვეყნების დრო",
+    "privacyStatus": "კონფიდენციალურობა",
+    "privacyOptions": {
+      "public": "საჯარო",
+      "unlisted": "ბმულით ხელმისაწვდომი",
+      "private": "პირადი"
+    },
+    "approvalMode": "დამტკიცების რეჟიმი",
+    "save": "პარამეტრების შენახვა",
+    "saved": "პარამეტრები შენახულია.",
+    "timezone": "საათის სარტყელი",
+    "publishDays": "დღეები (კვირა: 0–6; თვე: 1–28)",
+    "title": "პარამეტრები"
+  },
+  "dashboard": {
+    "title": "მართვის პანელი"
+  },
+  "channel": {
+    "title": "არხი"
+  },
+  "video": {
+    "title": "ვიდეოები"
+  },
+  "revenue": {
+    "title": "შემოსავალი"
+  },
+  "billing": {
+    "title": "გადახდები"
+  },
+  "contract": {
+    "title": "ხელშეკრულება"
+  }
+}

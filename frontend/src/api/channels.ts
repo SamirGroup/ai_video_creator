@@ -1,3 +1,4 @@
+import { collectPages } from './pagination'
 import { apiClient } from './client'
 import type {
   AdSenseAccount,
@@ -8,24 +9,26 @@ import type {
 
 // Endpoint groups: OAuth (Google), Channels, Preferences (SPEC 6). TODO: real API.
 export const channelsApi = {
-  list: () => apiClient.get<YoutubeChannel[]>('/channels').then((r) => r.data),
+  list: () => collectPages<YoutubeChannel>('/channels'),
 
-  get: (id: string) => apiClient.get<YoutubeChannel>(`/channels/${id}`).then((r) => r.data),
+  get: (id: string) =>
+    apiClient.get<YoutubeChannel>(`/channels/${id}`).then((r) => r.data),
 
   sync: (id: string) =>
     apiClient.post<YoutubeChannel>(`/channels/${id}/sync`).then((r) => r.data),
 
-  disconnect: (id: string) => apiClient.delete<void>(`/channels/${id}`).then((r) => r.data),
+  disconnect: (id: string) =>
+    apiClient.delete<void>(`/channels/${id}`).then((r) => r.data),
 
   /** Kicks off Google OAuth authorization-code + PKCE flow (FR-10). */
   getYoutubeAuthorizeUrl: () =>
     apiClient
-      .get<{ authorize_url: string }>('/oauth/youtube/authorize')
+      .get<{ authorization_url: string }>('/oauth/youtube/authorize')
       .then((r) => r.data),
 
   getAdsenseAuthorizeUrl: () =>
     apiClient
-      .get<{ authorize_url: string }>('/oauth/adsense/authorize')
+      .get<{ authorization_url: string }>('/oauth/adsense/authorize')
       .then((r) => r.data),
 
   getAdsenseAccount: () =>
@@ -42,6 +45,11 @@ export const channelsApi = {
   savePreferences: (channelId: string, input: ContentPreferencesInput) =>
     apiClient
       .post<ContentPreferences>(`/channels/${channelId}/preferences`, input)
+      .then((r) => r.data),
+
+  updatePreferences: (channelId: string, input: Partial<ContentPreferencesInput>) =>
+    apiClient
+      .patch<ContentPreferences>(`/channels/${channelId}/preferences`, input)
       .then((r) => r.data),
 
   pausePreferences: (channelId: string) =>

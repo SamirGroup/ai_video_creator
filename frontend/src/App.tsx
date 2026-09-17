@@ -10,13 +10,16 @@ import { queryClient } from '@/lib/queryClient'
 import { AppLayout } from '@/layouts/AppLayout'
 import { AuthLayout } from '@/layouts/AuthLayout'
 import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage'
+import { OAuthCallbackPage } from '@/pages/auth/OAuthCallbackPage'
 import { LoginPage } from '@/pages/auth/LoginPage'
 import { RegisterPage } from '@/pages/auth/RegisterPage'
 import { VerifyEmailPage } from '@/pages/auth/VerifyEmailPage'
 import { ChannelPage } from '@/pages/creator/ChannelPage'
 import { BillingPage } from '@/pages/creator/BillingPage'
 import { ContractPage } from '@/pages/creator/ContractPage'
+import { LandingPage } from '@/pages/public/LandingPage'
 import { DashboardPage } from '@/pages/creator/DashboardPage'
+import { ContentPlanPage } from '@/pages/creator/ContentPlanPage'
 import { PreferencesPage } from '@/pages/creator/PreferencesPage'
 import { RevenuePage } from '@/pages/creator/RevenuePage'
 import { VideoDetailPage } from '@/pages/creator/VideoDetailPage'
@@ -42,14 +45,18 @@ function AppRoutes() {
 
       {/* Creator + admin (auth-guarded, SPEC 6) */}
       <Route element={<ProtectedRoute />}>
+        <Route path="/oauth/:kind/callback" element={<OAuthCallbackPage />} />
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/channel" element={<ChannelPage />} />
+          <Route path="/content-plan" element={<ContentPlanPage />} />
           <Route path="/preferences" element={<PreferencesPage />} />
           <Route path="/videos" element={<VideosPage />} />
           <Route path="/videos/:videoId" element={<VideoDetailPage />} />
           <Route path="/revenue" element={<RevenuePage />} />
           <Route path="/billing" element={<BillingPage />} />
+          <Route path="/billing/success" element={<BillingPage />} />
+          <Route path="/billing/cancel" element={<BillingPage />} />
           <Route path="/contract" element={<ContractPage />} />
 
           {/* Admin (role-guarded on top of auth — client-side UX only, server is
@@ -64,7 +71,7 @@ function AppRoutes() {
         </Route>
       </Route>
 
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/" element={<LandingPage />} />
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   )

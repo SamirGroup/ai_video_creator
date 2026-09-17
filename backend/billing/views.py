@@ -33,7 +33,11 @@ class MySubscriptionView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        subscription = Subscription.objects.filter(user=request.user).select_related("plan").first()
+        subscription = (
+            Subscription.objects.filter(user=request.user)
+            .select_related("plan")
+            .first()
+        )
         if subscription is None:
             return Response({"detail": "No active subscription."}, status=404)
         return Response(SubscriptionSerializer(subscription).data)
@@ -51,7 +55,10 @@ class CheckoutSessionView(APIView):
         plan_code = request.data.get("plan_code")
         plan = Plan.objects.filter(code=plan_code, is_active=True).first()
         if plan is None:
-            return Response({"detail": "Unknown or inactive plan."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "Unknown or inactive plan."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         if not plan.stripe_price_id:
             return Response(
                 {"detail": "This plan has no Stripe price configured yet."},
@@ -61,17 +68,29 @@ class CheckoutSessionView(APIView):
         success_url = request.data.get("success_url") or (
             f"{settings.FRONTEND_BASE_URL}/billing/success?session_id={{CHECKOUT_SESSION_ID}}"
         )
-        cancel_url = request.data.get("cancel_url") or f"{settings.FRONTEND_BASE_URL}/billing/cancel"
+        cancel_url = (
+            request.data.get("cancel_url")
+            or f"{settings.FRONTEND_BASE_URL}/billing/cancel"
+        )
 
         try:
             session = services.create_checkout_session(
-                user=request.user, plan=plan, success_url=success_url, cancel_url=cancel_url
+                user=request.user,
+                plan=plan,
+                success_url=success_url,
+                cancel_url=cancel_url,
             )
         except stripe.error.StripeError as exc:
             logger.error("stripe_checkout_session_failed", extra={"error": str(exc)})
-            return Response({"detail": "Could not start checkout session."}, status=status.HTTP_502_BAD_GATEWAY)
+            return Response(
+                {"detail": "Could not start checkout session."},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
 
-        return Response({"checkout_url": session.url, "session_id": session.id}, status=status.HTTP_201_CREATED)
+        return Response(
+            {"checkout_url": session.url, "session_id": session.id},
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class PortalSessionView(APIView):
@@ -80,14 +99,21 @@ class PortalSessionView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        return_url = request.data.get("return_url") or f"{settings.FRONTEND_BASE_URL}/billing"
+        return_url = (
+            request.data.get("return_url") or f"{settings.FRONTEND_BASE_URL}/billing"
+        )
         try:
-            session = services.create_portal_session(user=request.user, return_url=return_url)
+            session = services.create_portal_session(
+                user=request.user, return_url=return_url
+            )
         except ValueError as exc:
             return Response({"detail": str(exc)}, status=status.HTTP_409_CONFLICT)
         except stripe.error.StripeError as exc:
             logger.error("stripe_portal_session_failed", extra={"error": str(exc)})
-            return Response({"detail": "Could not start billing portal session."}, status=status.HTTP_502_BAD_GATEWAY)
+            return Response(
+                {"detail": "Could not start billing portal session."},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
         return Response({"portal_url": session.url})
 
 
@@ -108,13 +134,21 @@ class StripeWebhookView(APIView):
         try:
             event = services.construct_stripe_event(request.body, sig_header)
         except (ValueError, stripe.error.SignatureVerificationError) as exc:
-            logger.warning("stripe_webhook_signature_invalid", extra={"error": str(exc)})
-            return Response({"detail": "Invalid payload or signature."}, status=status.HTTP_400_BAD_REQUEST)
+            logger.warning(
+                "stripe_webhook_signature_invalid", extra={"error": str(exc)}
+            )
+            return Response(
+                {"detail": "Invalid payload or signature."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         try:
             services.record_and_dispatch_webhook_event(event)
         except Exception:  # noqa: BLE001 — handler failure: 500 so Stripe retries; event_id makes retry safe
-            return Response({"detail": "Webhook handler failed."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(
+                {"detail": "Webhook handler failed."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         return Response({"detail": "ok"}, status=status.HTTP_200_OK)
 
@@ -137,9 +171,16 @@ class SetupIntentView(APIView):
             return Response({"detail": str(exc)}, status=status.HTTP_409_CONFLICT)
         except stripe.error.StripeError as exc:
             logger.error("stripe_setup_intent_failed", extra={"error": str(exc)})
-            return Response({"detail": "Could not create payment setup."}, status=status.HTTP_502_BAD_GATEWAY)
+            return Response(
+                {"detail": "Could not create payment setup."},
+                status=status.HTTP_502_BAD_GATEWAY,
+            )
         return Response(
-            {"client_secret": intent.client_secret, "setup_intent_id": intent.id, "customer_id": intent.customer},
+            {
+                "client_secret": intent.client_secret,
+                "setup_intent_id": intent.id,
+                "customer_id": intent.customer,
+            },
             status=status.HTTP_201_CREATED,
         )
 
@@ -153,3 +194,21 @@ class MyQuotaView(APIView):
         from billing.quota import remaining
 
         return Response(remaining(request.user).as_dict())
+
+
+class PaymentSetupCheckoutView(APIView):
+    """Stripe-hosted card setup. A webhook, never the return URL, confirms the saved method."""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            session = services.create_payment_setup_checkout(request.user)
+        except ValueError as exc:
+            return Response({"detail": str(exc)}, status=409)
+        except stripe.error.StripeError:
+            return Response(
+                {"detail": "Payment provider is unavailable or not configured."},
+                status=502,
+            )
+        return Response({"checkout_url": session.url}, status=201)

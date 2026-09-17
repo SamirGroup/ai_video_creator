@@ -54,7 +54,7 @@ export function UserMenu() {
               role="menuitem"
               disabled={isLoggingOut}
               onClick={() => logout()}
-              className="mt-1 flex w-full items-center rounded px-3 py-2 text-left text-sm text-destructive-600 hover:bg-destructive-50 disabled:opacity-60 dark:hover:bg-destructive-700/10"
+              className="mt-1 flex w-full items-center rounded px-3 py-2 text-start text-sm text-destructive-600 hover:bg-destructive-50 disabled:opacity-60 dark:hover:bg-destructive-700/10"
             >
               {isLoggingOut ? t('common.loading') : t('nav.logout')}
             </button>

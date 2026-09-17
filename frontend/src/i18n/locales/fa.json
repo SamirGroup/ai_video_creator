@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "در حال بارگذاری…",
+    "retry": "تلاش دوباره",
+    "save": "ذخیره",
+    "cancel": "لغو",
+    "close": "بستن",
+    "search": "جستجو",
+    "back": "بازگشت",
+    "confirm": "تأیید",
+    "actions": "عملیات",
+    "status": "وضعیت",
+    "date": "تاریخ",
+    "unknown": "نامشخص"
+  },
+  "nav": {
+    "dashboard": "داشبورد",
+    "channel": "کانال",
+    "preferences": "تنظیمات",
+    "videos": "ویدیوها",
+    "revenue": "درآمد",
+    "billing": "صورتحساب",
+    "contract": "قرارداد",
+    "adminUsers": "کاربران",
+    "adminVideos": "کارهای ویدیویی",
+    "adminModeration": "بررسی محتوا",
+    "adminFinance": "امور مالی",
+    "adminConfig": "پیکربندی",
+    "logout": "خروج",
+    "language": "زبان",
+    "theme": "پوسته"
+  },
+  "auth": {
+    "login": {
+      "title": "ورود",
+      "email": "ایمیل",
+      "password": "گذرواژه",
+      "submit": "ورود"
+    },
+    "register": {
+      "title": "ساخت حساب",
+      "fullName": "نام کامل",
+      "email": "ایمیل",
+      "password": "گذرواژه",
+      "submit": "ساخت حساب"
+    }
+  },
+  "preferences": {
+    "language": "زبان محتوا",
+    "videoDuration": "مدت ویدیو (ثانیه)",
+    "frequency": "دفعات انتشار",
+    "frequencyOptions": {
+      "daily": "روزانه",
+      "weekly": "هفتگی",
+      "monthly": "ماهانه"
+    },
+    "publishTime": "زمان انتشار",
+    "privacyStatus": "حریم خصوصی",
+    "privacyOptions": {
+      "public": "عمومی",
+      "unlisted": "فهرست‌نشده",
+      "private": "خصوصی"
+    },
+    "approvalMode": "حالت تأیید",
+    "save": "ذخیره تنظیمات",
+    "saved": "تنظیمات ذخیره شد.",
+    "timezone": "منطقه زمانی",
+    "publishDays": "روزها (هفته: 0–6؛ ماه: 1–28)",
+    "title": "تنظیمات"
+  },
+  "dashboard": {
+    "title": "داشبورد"
+  },
+  "channel": {
+    "title": "کانال"
+  },
+  "video": {
+    "title": "ویدیوها"
+  },
+  "revenue": {
+    "title": "درآمد"
+  },
+  "billing": {
+    "title": "صورتحساب"
+  },
+  "contract": {
+    "title": "قرارداد"
+  }
+}

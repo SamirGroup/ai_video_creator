@@ -1,7 +1,6 @@
 """SPEC 5.5 `plans`, 5.6 `subscriptions`, 5.30 `webhook_events`."""
 from __future__ import annotations
 
-import uuid
 
 from django.conf import settings
 from django.db import models

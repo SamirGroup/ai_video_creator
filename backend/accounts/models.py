@@ -1,4 +1,5 @@
 """SPEC 5.1 `users`, 5.2 `roles`/`user_roles`."""
+
 from __future__ import annotations
 
 import uuid
@@ -10,6 +11,7 @@ from django.db import models
 from accounts.managers import UserManager
 from core.fields import EncryptedTextField
 from core.models import TimestampedModel
+from core.languages import DEFAULT_LANGUAGE, LANGUAGE_CHOICES
 
 
 class UserStatus(models.TextChoices):
@@ -46,7 +48,9 @@ class User(AbstractBaseUser, PermissionsMixin, TimestampedModel):
     is_email_verified = models.BooleanField(default=False)
     email_verified_at = models.DateTimeField(null=True, blank=True)
     google_sub = models.CharField(max_length=255, unique=True, null=True, blank=True)
-    locale = models.CharField(max_length=5, choices=Locale.choices, default=Locale.EN)
+    locale = models.CharField(
+        max_length=10, choices=LANGUAGE_CHOICES, default=DEFAULT_LANGUAGE
+    )
     timezone = models.CharField(max_length=64, default="UTC")
     status = models.CharField(
         max_length=20, choices=UserStatus.choices, default=UserStatus.ACTIVE
@@ -140,7 +144,10 @@ class Consent(models.Model):
     class Meta:
         db_table = "consents"
         indexes = [
-            models.Index(fields=["user", "consent_type", "granted_at"], name="ix_consents_user_type_at"),
+            models.Index(
+                fields=["user", "consent_type", "granted_at"],
+                name="ix_consents_user_type_at",
+            ),
         ]
 
     def __str__(self) -> str:
@@ -158,7 +165,9 @@ class SessionMeta(models.Model):
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="session_meta")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="session_meta"
+    )
     user_agent = models.TextField(blank=True, default="")
     ip_address = models.GenericIPAddressField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -167,7 +176,9 @@ class SessionMeta(models.Model):
 
     class Meta:
         db_table = "session_meta"
-        indexes = [models.Index(fields=["user", "revoked_at"], name="ix_session_meta_user")]
+        indexes = [
+            models.Index(fields=["user", "revoked_at"], name="ix_session_meta_user")
+        ]
 
     def __str__(self) -> str:
         return f"{self.user_id}:{self.id}"
@@ -194,10 +205,14 @@ class DataRequest(models.Model):
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="data_requests")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="data_requests"
+    )
     kind = models.CharField(max_length=10, choices=DataRequestKind.choices)
     status = models.CharField(
-        max_length=12, choices=DataRequestStatus.choices, default=DataRequestStatus.PENDING
+        max_length=12,
+        choices=DataRequestStatus.choices,
+        default=DataRequestStatus.PENDING,
     )
     requested_at = models.DateTimeField(auto_now_add=True)
     scheduled_for = models.DateTimeField(null=True, blank=True)
@@ -213,8 +228,12 @@ class DataRequest(models.Model):
     class Meta:
         db_table = "data_requests"
         indexes = [
-            models.Index(fields=["user", "kind", "status"], name="ix_data_requests_user_kind"),
-            models.Index(fields=["kind", "status", "scheduled_for"], name="ix_data_requests_due"),
+            models.Index(
+                fields=["user", "kind", "status"], name="ix_data_requests_user_kind"
+            ),
+            models.Index(
+                fields=["kind", "status", "scheduled_for"], name="ix_data_requests_due"
+            ),
         ]
 
     def __str__(self) -> str:

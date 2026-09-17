@@ -27,5 +27,5 @@ export interface SignContractPayload {
   consent_data_processing: boolean
   consent_marketing: boolean
   /** Stripe SetupIntent id confirming a saved payment method (FR-70a). */
-  setup_intent_id: string
+  setup_intent_id?: string
 }

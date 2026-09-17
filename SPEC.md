@@ -1,3 +1,7 @@
+> **2026-09-17 — mahsulot oqimi yangilandi:** ustuvor aniqlashtirishlar [PRODUCT_REQUIREMENTS_UZ.md](./PRODUCT_REQUIREMENTS_UZ.md)da. AI YouTube tahlili va creator tanlaydigan kontent reja, mustaqil moderatsiya/qayta ishlash, video/Shorts statistikasi talab qilinadi. Yangi ulush: **faqat ekotizim yaratgan videolar daromadidan 30% platformaga / 70% creatorga**. Eski 50/50 yozuvlar tarixiy; imzolangan shartnomalarni retroaktiv o‘zgartirishga asos emas.
+
+> **2026-09-17 — yangi ustuvor talab:** kontent **va interfeys** 30 ta til/lokal variantni qo‘llashi kerak; asosiy til — ruscha (`ru`). `backend/core/languages.json` ro‘yxati va `IMPLEMENTATION_STATUS_UZ.md` holati qo‘llanadi. Quyidagi eski Q3 “faqat inglizcha” va en/ru/uz bilan cheklanish qarorlari bu talab uchun bekor qilingan. Moliyaviy model haqidagi eski qarorlar avtomatik o‘zgartirilmagan.
+
 # SPEC: AI YouTube Content Ecosystem
 
 > Hujjat maqsadi: xom TZ'ni bir ma'noli, tekshiriladigan talablar to'plamiga aylantirish.
