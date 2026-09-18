@@ -14,6 +14,7 @@ import { ApiError } from '@/api/client'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { useAuthStore } from '@/stores/authStore'
+import { homePath } from '@/routes/homePath'
 
 const loginSchema = z.object({
   email: z
@@ -31,7 +32,7 @@ export function LoginPage() {
   const location = useLocation()
   const setSession = useAuthStore((s) => s.setSession)
   const from = (location.state as { from?: { pathname: string; search?: string } })?.from
-  const fromPath = from ? `${from.pathname}${from.search ?? ''}` : '/dashboard'
+  const fromPath = from ? `${from.pathname}${from.search ?? ''}` : null
 
   const {
     register,
@@ -42,7 +43,7 @@ export function LoginPage() {
   const [challenge, setChallenge] = useState<TwoFactorSession | null>(null)
   const finishLogin = (session: AuthSession) => {
     setSession(session.user, session.access)
-    navigate(fromPath, { replace: true })
+    navigate(fromPath ?? homePath(session.user), { replace: true })
   }
   const googleMutation = useMutation({
     mutationFn: (id_token: string) => authApi.loginWithGoogle({ id_token }),
@@ -122,7 +123,7 @@ export function LoginPage() {
 
       <p className="text-center text-sm text-muted-foreground">
         {t('auth.login.noAccount')}{' '}
-        <Link to="/register" className="font-medium text-primary-600 hover:underline">
+        <Link to="/signup" className="font-medium text-primary-600 hover:underline">
           {t('auth.login.registerLink')}
         </Link>
       </p>

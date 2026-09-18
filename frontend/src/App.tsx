@@ -5,7 +5,6 @@ import { Navigate, Route, BrowserRouter, Routes } from 'react-router-dom'
 
 import { AuthBootstrap } from '@/components/common/AuthBootstrap'
 import { ErrorBoundary } from '@/components/common/ErrorBoundary'
-import { STAFF_ROLES } from '@/components/layout/navConfig'
 import { useApplyTheme } from '@/components/layout/ThemeToggle'
 import { queryClient } from '@/lib/queryClient'
 import { AppLayout } from '@/layouts/AppLayout'
@@ -19,7 +18,6 @@ import { ChannelPage } from '@/pages/creator/ChannelPage'
 import { BillingPage } from '@/pages/creator/BillingPage'
 import { ContractPage } from '@/pages/creator/ContractPage'
 import { LandingPage } from '@/pages/public/LandingPage'
-import { DashboardPage } from '@/pages/creator/DashboardPage'
 import { ContentPlanPage } from '@/pages/creator/ContentPlanPage'
 import { PreferencesPage } from '@/pages/creator/PreferencesPage'
 import { RevenuePage } from '@/pages/creator/RevenuePage'
@@ -32,6 +30,15 @@ import { ModerationPage } from '@/pages/admin/ModerationPage'
 import { UsersPage } from '@/pages/admin/UsersPage'
 import { ProtectedRoute } from '@/routes/ProtectedRoute'
 import { RoleRoute } from '@/routes/RoleRoute'
+import { CreatorHomeRoute } from '@/routes/CreatorHomeRoute'
+import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage'
+import { useAuthStore } from '@/stores/authStore'
+import { homePath } from '@/routes/homePath'
+
+function HomeRedirect() {
+  const user = useAuthStore((s) => s.user)
+  return <Navigate to={user ? homePath(user) : '/login'} replace />
+}
 
 function AppRoutes() {
   return (
@@ -40,6 +47,7 @@ function AppRoutes() {
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/signup" element={<RegisterPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Route>
@@ -48,7 +56,9 @@ function AppRoutes() {
       <Route element={<ProtectedRoute />}>
         <Route path="/oauth/:kind/callback" element={<OAuthCallbackPage />} />
         <Route element={<AppLayout />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<HomeRedirect />} />
+          <Route path="/creator/:id" element={<CreatorHomeRoute />} />
+          <Route element={<RoleRoute allow={['creator']} />}>
           <Route path="/channel" element={<ChannelPage />} />
           <Route path="/content-plan" element={<ContentPlanPage />} />
           <Route path="/preferences" element={<PreferencesPage />} />
@@ -59,21 +69,33 @@ function AppRoutes() {
           <Route path="/billing/success" element={<BillingPage />} />
           <Route path="/billing/cancel" element={<BillingPage />} />
           <Route path="/contract" element={<ContractPage />} />
+          </Route>
 
           {/* Admin (role-guarded on top of auth — client-side UX only, server is
               the real authority; see routes/RoleRoute.tsx) */}
-          <Route element={<RoleRoute allow={STAFF_ROLES} />}>
+          <Route element={<RoleRoute allow={['admin']} />}>
+            <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
+          </Route>
+          <Route element={<RoleRoute allow={['admin']} />}>
             <Route path="/admin/users" element={<UsersPage />} />
+          </Route>
+          <Route element={<RoleRoute allow={['admin', 'support']} />}>
             <Route path="/admin/videos" element={<AdminVideosPage />} />
+          </Route>
+          <Route element={<RoleRoute allow={['admin', 'moderator']} />}>
             <Route path="/admin/moderation" element={<ModerationPage />} />
+          </Route>
+          <Route element={<RoleRoute allow={['admin', 'finance']} />}>
             <Route path="/admin/finance" element={<AdminFinancePage />} />
+          </Route>
+          <Route element={<RoleRoute allow={['admin']} />}>
             <Route path="/admin/config" element={<AdminConfigPage />} />
           </Route>
         </Route>
       </Route>
 
       <Route path="/" element={<LandingPage />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }

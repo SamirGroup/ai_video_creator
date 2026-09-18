@@ -16,7 +16,7 @@ services:
     # Prefer a managed PostgreSQL (RDS/Cloud SQL/DO Managed DB) in production
     # per SPEC A-25 note ("+ managed PostgreSQL"). If you do use the
     # containerized db instead, never expose 5432 publicly.
-    ports: []
+    ports: !override []
     deploy:
       resources:
         limits:
@@ -24,7 +24,7 @@ services:
           memory: 1G
 
   redis:
-    ports: []
+    ports: !override []
     deploy:
       resources:
         limits:
@@ -32,10 +32,13 @@ services:
           memory: 512M
 
   backend:
+    image: ai_video_creator-backend:${IMAGE_TAG:-latest}
     build:
       target: prod
-    volumes: []
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 4 --timeout 120 --access-logfile - --error-logfile -
+    volumes: !override []
+    ports: !override
+      - "127.0.0.1:18080:8000"
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --timeout 120 --access-logfile - --error-logfile -
     environment:
       - DJANGO_DEBUG=false
     restart: always
@@ -55,6 +58,7 @@ services:
   # container startup path (zero-downtime: apply backward-compatible
   # migrations BEFORE swapping backend/worker images, per NFR-39).
   migrate:
+    image: ai_video_creator-backend:${IMAGE_TAG:-latest}
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -67,6 +71,7 @@ services:
       - app_net
 
   collectstatic:
+    image: ai_video_creator-backend:${IMAGE_TAG:-latest}
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -81,9 +86,11 @@ services:
       - app_net
 
   celery_worker:
+    image: ai_video_creator-backend:${IMAGE_TAG:-latest}
     build:
       target: prod
-    volumes: []
+    volumes: !override []
+    command: celery -A config worker -Q q_script,q_voice,q_visual,q_upload,celery -l info --concurrency=2
     restart: always
     deploy:
       replicas: 1
@@ -98,9 +105,22 @@ services:
         max-file: "5"
 
   celery_beat:
+    image: ai_video_creator-backend:${IMAGE_TAG:-latest}
     build:
       target: prod
-    volumes: []
+    volumes: !override []
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  celery_render:
+    image: ai_video_creator-backend:${IMAGE_TAG:-latest}
+    build:
+      target: prod
+    volumes: !override []
     restart: always
     logging:
       driver: json-file
@@ -109,11 +129,13 @@ services:
         max-file: "5"
 
   frontend:
+    image: ai_video_creator-frontend:${IMAGE_TAG:-latest}
     build:
       target: prod
+    volumes: !override []
     restart: always
-    ports:
-      - "3000:80"
+    ports: !override
+      - "127.0.0.1:13080:80"
     logging:
       driver: json-file
       options:

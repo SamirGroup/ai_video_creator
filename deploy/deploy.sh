@@ -27,9 +27,12 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_DIR"
 
 COMPOSE="docker compose -f docker-compose.yml -f docker-compose.prod.yml"
+if [ -f deploy/arbitech-live.yml ]; then
+  COMPOSE="$COMPOSE -f deploy/arbitech-live.yml"
+fi
 STATE_DIR="$REPO_DIR/deploy/.state"
 LAST_GOOD_FILE="$STATE_DIR/last_good_sha"
-HEALTH_URL="http://localhost:8000/api/health/"
+HEALTH_URL="http://127.0.0.1:18080/api/health/"
 HEALTH_RETRIES=10
 HEALTH_DELAY=5
 
@@ -40,15 +43,14 @@ log() { printf '\n[deploy] %s\n' "$*"; }
 rollback() {
   local target_sha="$1"
   log "Rolling back to ${target_sha}..."
-  git checkout "$target_sha"
-  IMAGE_TAG="$target_sha" $COMPOSE up -d --no-deps backend celery_worker celery_beat frontend
+  IMAGE_TAG="$target_sha" $COMPOSE up -d --no-deps backend celery_worker celery_beat celery_render frontend
   log "Rollback to ${target_sha} complete."
   exit 1
 }
 
 health_check() {
   for i in $(seq 1 "$HEALTH_RETRIES"); do
-    if curl -fsS "$HEALTH_URL" > /dev/null 2>&1; then
+    if curl -fsS -H "Host: arbitechglobal.com" -H "X-Forwarded-Proto: https" "$HEALTH_URL" > /dev/null 2>&1; then
       log "Health check passed (attempt $i)."
       return 0
     fi
@@ -75,16 +77,17 @@ git checkout "$GIT_REF"
 git pull --ff-only
 
 NEW_SHA="$(git rev-parse --short HEAD)"
+PREVIOUS_SHA="$(git rev-parse --short "$PREVIOUS_SHA")"
 export IMAGE_TAG="$NEW_SHA"
 
 log "Building images for ${NEW_SHA}..."
-$COMPOSE build backend celery_worker celery_beat frontend
-
-log "Applying database migrations (one-off container, before swapping traffic)..."
-$COMPOSE run --rm migrate
+$COMPOSE build backend frontend
 
 log "Ensuring infra services (db, redis) are up..."
 $COMPOSE up -d db redis
+
+log "Applying database migrations (one-off container, before swapping traffic)..."
+$COMPOSE run --rm migrate
 
 log "Recreating backend..."
 $COMPOSE up -d --no-deps backend
@@ -94,8 +97,8 @@ if ! health_check; then
   rollback "$PREVIOUS_SHA"
 fi
 
-log "Recreating celery_worker, celery_beat, frontend..."
-$COMPOSE up -d --no-deps celery_worker celery_beat frontend
+log "Recreating celery_worker, celery_beat, celery_render, frontend..."
+$COMPOSE up -d --no-deps celery_worker celery_beat celery_render frontend
 
 echo "$NEW_SHA" > "$LAST_GOOD_FILE"
 log "Deploy of ${NEW_SHA} succeeded (previous good: ${PREVIOUS_SHA})."

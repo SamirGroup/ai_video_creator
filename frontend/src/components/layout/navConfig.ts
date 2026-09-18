@@ -19,7 +19,7 @@ export const creatorNavItems: NavItem[] = [
 ]
 
 export const adminNavItems: NavItem[] = [
-  { to: '/admin/users', labelKey: 'nav.adminUsers', roles: ['admin', 'support'] },
+  { to: '/admin/users', labelKey: 'nav.adminUsers', roles: ['admin'] },
   { to: '/admin/videos', labelKey: 'nav.adminVideos', roles: ['admin', 'support'] },
   {
     to: '/admin/moderation',

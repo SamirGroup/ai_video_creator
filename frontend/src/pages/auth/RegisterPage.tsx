@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { GoogleSignIn } from '@/components/common/GoogleSignIn'
 import { TwoFactorChallenge } from '@/components/common/TwoFactorChallenge'
 import { useAuthStore } from '@/stores/authStore'
+import { homePath } from '@/routes/homePath'
 import type { AuthSession, TwoFactorSession } from '@/types/auth'
 import { z } from 'zod'
 
@@ -34,7 +35,7 @@ export function RegisterPage() {
   const [challenge, setChallenge] = useState<TwoFactorSession | null>(null)
   const finish = (session: AuthSession) => {
     setSession(session.user, session.access)
-    navigate('/dashboard', { replace: true })
+    navigate(homePath(session.user), { replace: true })
   }
   const google = useMutation({
     mutationFn: (id_token: string) => authApi.loginWithGoogle({ id_token }),

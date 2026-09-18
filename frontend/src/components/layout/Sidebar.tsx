@@ -8,7 +8,7 @@ import { useUiStore } from '@/stores/uiStore'
 
 export function Sidebar() {
   const { t } = useTranslation()
-  const { hasAnyRole } = useAuth()
+  const { hasAnyRole, user } = useAuth()
   const isSidebarOpen = useUiStore((s) => s.isSidebarOpen)
   const setSidebarOpen = useUiStore((s) => s.setSidebarOpen)
   const isStaff = hasAnyRole(STAFF_ROLES)
@@ -45,8 +45,8 @@ export function Sidebar() {
           <span className="text-sm font-semibold text-foreground">{t('app.name')}</span>
         </div>
         <nav className="flex flex-col gap-1 overflow-y-auto p-3">
-          {creatorNavItems.map((item) => (
-            <NavLink key={item.to} to={item.to} className={linkClasses}>
+          {user?.roles.includes('creator') && creatorNavItems.map((item) => (
+            <NavLink key={item.to} to={item.to === '/dashboard' ? `/creator/${user.id}` : item.to} className={linkClasses}>
               <span className="nav-dot" aria-hidden="true" />
               {t(item.labelKey)}
             </NavLink>
@@ -57,6 +57,12 @@ export function Sidebar() {
               <p className="mt-4 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 Admin
               </p>
+              {user?.roles.includes('admin') && (
+                <NavLink to="/admin-dashboard" className={linkClasses}>
+                  <span className="nav-dot" aria-hidden="true" />
+                  Admin dashboard
+                </NavLink>
+              )}
               {adminNavItems
                 .filter((item) => !item.roles || hasAnyRole(item.roles))
                 .map((item) => (

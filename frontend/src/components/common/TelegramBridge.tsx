@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useQueryClient } from '@tanstack/react-query'
 import { apiClient } from '@/api/client'
 import { useAuthStore } from '@/stores/authStore'
+import { homePath } from '@/routes/homePath'
 import type { AuthSession } from '@/types/auth'
 
 declare global {
@@ -35,8 +36,8 @@ export function TelegramBridge() {
         .then(({ data }) => {
           useAuthStore.getState().setSession(data.user, data.access)
           void client.invalidateQueries()
-          if (['/', '/login', '/register'].includes(window.location.pathname))
-            navigate('/dashboard', { replace: true })
+          if (['/', '/login', '/register', '/signup'].includes(window.location.pathname))
+            navigate(homePath(data.user), { replace: true })
         })
         .catch(() => {})
   }, [client, navigate])

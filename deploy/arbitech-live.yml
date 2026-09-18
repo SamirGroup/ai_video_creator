@@ -1,0 +1,51 @@
+services:
+  backend:
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+      LOCAL_MEDIA_ROOT: /app/media_local
+    volumes:
+      - media_data:/app/media_local
+      - static_data:/app/staticfiles
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "-H", "Host: arbitechglobal.com", "-H", "X-Forwarded-Proto: https", "http://127.0.0.1:8000/api/health/"]
+  celery_worker:
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+      LOCAL_MEDIA_ROOT: /app/media_local
+    volumes:
+      - media_data:/app/media_local
+    command: celery -A config worker -Q q_script,q_voice,q_visual,q_upload,celery -l info --concurrency=1 --hostname=worker@%h
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A config inspect ping -d worker@$$HOSTNAME --timeout=8 | grep -q pong"]
+      interval: 60s
+      timeout: 15s
+      start_period: 60s
+  celery_render:
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+      LOCAL_MEDIA_ROOT: /app/media_local
+    volumes:
+      - media_data:/app/media_local
+    command: celery -A config worker -Q q_render -l info --concurrency=1 --hostname=render@%h
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A config inspect ping -d render@$$HOSTNAME --timeout=8 | grep -q pong"]
+      interval: 60s
+      timeout: 15s
+      start_period: 60s
+  celery_beat:
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+    healthcheck:
+      test: ["CMD-SHELL", "kill -0 1"]
+      interval: 30s
+  frontend:
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:80/"]
+  migrate:
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+  collectstatic:
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+volumes:
+  media_data:

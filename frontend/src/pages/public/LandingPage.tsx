@@ -48,7 +48,7 @@ export function LandingPage() {
               {t('landing.heroEnd')}
             </h1>
             <p>{t('landing.description')}</p>
-            <Link className="marketing-button" to="/register">
+            <Link className="marketing-button" to="/signup">
               {t('landing.start')} <span>↗</span>
             </Link>
           </div>
@@ -145,7 +145,7 @@ export function LandingPage() {
           <span className="marketing-pill">CREATOR AI ECOSYSTEM</span>
           <h2>{t('landing.ctaTitle')}</h2>
           <p>{t('landing.ctaText')}</p>
-          <Link className="marketing-button" to="/register">
+          <Link className="marketing-button" to="/signup">
             {t('landing.start')} ↗
           </Link>
         </section>
