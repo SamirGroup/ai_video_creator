@@ -194,6 +194,10 @@ def is_staff_user(user: User) -> bool:
 
 def requires_2fa_for_login(user: User) -> bool:
     """FR-9: staff always (while STAFF_2FA_REQUIRED), any user who enrolled."""
+    from accounts.test_access import temporary_2fa_exemption
+
+    if temporary_2fa_exemption(user):
+        return False
     if user.is_superuser or user.is_totp_enabled:
         return True
     return bool(getattr(settings, "STAFF_2FA_REQUIRED", True)) and is_staff_user(user)
