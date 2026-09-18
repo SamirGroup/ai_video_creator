@@ -1,3 +1,4 @@
+import { AuthLogoSettings } from './AuthLogoSettings'
 import { ProviderPriceEditor } from './ProviderPriceEditor'
 import { CommercialSettings } from './CommercialSettings'
 import { adminApi } from '@/api/admin'
@@ -32,6 +33,7 @@ export function AdminConfigPage() {
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-semibold text-foreground">{t('admin.config.title')}</h1>
 
+      <AuthLogoSettings />
       <CommercialSettings />
       <ProviderPriceEditor />
       {update.isError && <ErrorState />}

@@ -69,6 +69,13 @@ export function LoginPage() {
         <p className="text-sm text-muted-foreground">{t('auth.login.subtitle')}</p>
       </div>
 
+      <div className="auth-divider text-center text-xs text-muted-foreground">
+        <span className="px-2">{t('auth.login.orGoogle')}</span>
+      </div>
+
+      <GoogleSignIn onCredential={(token) => googleMutation.mutate(token)} />
+      {googleMutation.isError && <p role="alert">{t('common.error.generic')}</p>}
+
       <form
         className="flex flex-col gap-4"
         onSubmit={handleSubmit((values) => loginMutation.mutate(values))}
@@ -112,13 +119,6 @@ export function LoginPage() {
           {loginMutation.isPending ? t('auth.login.submitting') : t('auth.login.submit')}
         </Button>
       </form>
-
-      <div className="relative text-center text-xs text-muted-foreground">
-        <span className="bg-background px-2">{t('auth.login.orGoogle')}</span>
-      </div>
-
-      <GoogleSignIn onCredential={(token) => googleMutation.mutate(token)} />
-      {googleMutation.isError && <p role="alert">{t('common.error.generic')}</p>}
 
       <p className="text-center text-sm text-muted-foreground">
         {t('auth.login.noAccount')}{' '}

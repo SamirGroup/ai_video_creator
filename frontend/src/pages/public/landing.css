@@ -12,16 +12,42 @@
   font-display: swap;
 }
 .marketing {
-  --gold: #ffc700;
-  background: #050505;
-  color: #fafafa;
+  /* Light palette for the public site. */
+  --page-bg: #eef2f6;
+  --card-bg: #fff;
+  --ink: #364152;
+  --secondary-ink: #697586;
+  --line: #e3e8ef;
+  --accent: #673ab7;
+  --accent-end: #4527a0;
+  --accent-glow: #673ab71a;
+  --cyan: #087eaa;
+  --nav-bg: #ffffffc9;
+  --color-surface: var(--card-bg);
+  --color-foreground: var(--ink);
+  --color-border: var(--line);
+  --color-muted: #ede7f6;
+  --color-muted-foreground: var(--secondary-ink);
+  --color-ring: var(--accent);
+  background: var(--page-bg);
+  color: var(--ink);
   overflow: clip;
   font-family: ui-monospace, SFMono-Regular, monospace;
-  --color-surface: #111;
-  --color-foreground: #fafafa;
-  --color-border: #333;
-  --color-muted: #222;
-  --color-ring: #ffc700;
+  color-scheme: light;
+}
+.dark .marketing {
+  /* Zivvo dark palette, shared with the dashboard. */
+  --page-bg: #080e25;
+  --card-bg: #101936;
+  --ink: #eef0ff;
+  --secondary-ink: #a0a8c4;
+  --line: #202a4a;
+  --accent: #b752ff;
+  --accent-end: #7a27f5;
+  --accent-glow: #b752ff1a;
+  --cyan: #21c3fc;
+  --nav-bg: #101936cc;
+  --color-muted: #172243;
   color-scheme: dark;
 }
 .marketing a {
@@ -36,7 +62,7 @@
   justify-content: space-between;
   gap: 24px;
   padding: 28px 5%;
-  border-bottom: 1px solid #ffffff15;
+  border-bottom: 1px solid var(--line);
 }
 .marketing-logo {
   font-size: 25px;
@@ -45,7 +71,7 @@
   white-space: nowrap;
 }
 .marketing-logo span {
-  color: var(--gold);
+  color: var(--accent);
 }
 .marketing-nav nav,
 .marketing-controls {
@@ -57,13 +83,13 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #aaa;
+  color: var(--secondary-ink);
 }
 .marketing-nav a:hover {
-  color: var(--gold);
+  color: var(--accent);
 }
 .marketing-login {
-  border: 1px solid #ffffff30;
+  border: 1px solid var(--line);
   border-radius: 30px;
   padding: 12px 22px;
   font-size: 12px;
@@ -92,9 +118,9 @@
   font-size: 10px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  border: 1px solid #ffffff30;
+  border: 1px solid var(--line);
   border-radius: 30px;
-  background: #ffffff0c;
+  background: var(--line);
   padding: 10px 20px;
 }
 .marketing h1 {
@@ -106,14 +132,14 @@
   margin: 26px 0;
 }
 .marketing h1 em {
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 200;
   font-size: 0.88em;
 }
 .marketing-hero p {
   max-width: 520px;
   margin: 26px auto 38px;
-  color: #aaa;
+  color: var(--secondary-ink);
   font-size: 13px;
   line-height: 1.9;
 }
@@ -124,36 +150,26 @@
   gap: 25px;
   border-radius: 50px;
   padding: 19px 34px;
-  background: linear-gradient(110deg, #ffc700, #ffdf40, #ffc700);
-  color: #171300;
+  background: linear-gradient(110deg, var(--accent), var(--accent-end));
+  color: #fff;
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
-  box-shadow: 0 10px 35px #ffc70025;
+  box-shadow: 0 10px 35px var(--accent-glow);
   transition: transform 0.2s;
 }
 .marketing-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 45px #ffc70045;
-}
-.marketing-globe {
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  top: 46%;
-  transform: translate(-50%, -50%);
-  width: min(850px, 100%);
-  height: 650px;
-  pointer-events: none;
+  box-shadow: 0 15px 45px var(--accent-glow);
 }
 .marketing-scroll {
   position: absolute;
   bottom: 30px;
   left: 5%;
   font-size: 20px;
-  color: #aaa;
+  color: var(--secondary-ink);
 }
 .marketing-scroll span {
   font-size: 9px;
@@ -166,8 +182,8 @@
   gap: 30px;
   flex-wrap: wrap;
   padding: 35px 20px;
-  border-block: 1px solid #ffffff15;
-  color: #777;
+  border-block: 1px solid var(--line);
+  color: var(--secondary-ink);
   font-size: 18px;
   letter-spacing: 3px;
 }
@@ -181,7 +197,7 @@
   font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   margin-bottom: 26px;
 }
 .marketing h2 {
@@ -194,11 +210,11 @@
   max-width: 950px;
 }
 .marketing h2 > span {
-  color: var(--gold);
+  color: var(--accent);
 }
 .marketing-lead {
   font-size: 13px;
-  color: #909090;
+  color: var(--secondary-ink);
   max-width: 650px;
   line-height: 1.9;
 }
@@ -209,14 +225,14 @@
   margin-top: 60px;
 }
 .marketing-card {
-  border: 1px solid #ffffff18;
+  border: 1px solid var(--line);
   border-radius: 30px;
   padding: 34px;
-  background: radial-gradient(ellipse at 100% 0, #ffc70009, transparent 65%), #0b0b0b;
+  background: radial-gradient(ellipse at 100% 0, var(--accent-glow), transparent 65%), var(--card-bg);
   transition: border-color 0.3s;
 }
 .marketing-card:hover {
-  border-color: #ffc70080;
+  border-color: var(--accent-glow);
 }
 .marketing-card:first-child,
 .marketing-card:last-child {
@@ -226,13 +242,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #777;
+  color: var(--secondary-ink);
   font-size: 10px;
   letter-spacing: 2px;
   margin-bottom: 50px;
 }
 .marketing-symbol {
-  color: var(--gold);
+  color: var(--accent);
   font-size: 30px;
 }
 .marketing-card h3 {
@@ -242,7 +258,7 @@
   font-weight: 200;
 }
 .marketing-card p {
-  color: #999;
+  color: var(--secondary-ink);
   font-size: 12px;
   line-height: 1.9;
   margin: 20px 0 30px;
@@ -251,10 +267,10 @@
 .marketing-card a {
   font-size: 10px;
   letter-spacing: 2px;
-  color: var(--gold);
+  color: var(--accent);
 }
 .marketing-process {
-  border-block: 1px solid #ffffff12;
+  border-block: 1px solid var(--line);
 }
 .marketing-steps {
   margin-top: 50px;
@@ -263,11 +279,11 @@
   display: flex;
   align-items: center;
   gap: 35px;
-  border-top: 1px solid #ffffff20;
+  border-top: 1px solid var(--line);
   padding: 28px 0;
 }
 .marketing-steps > div > span:first-child {
-  color: var(--gold);
+  color: var(--accent);
   font-size: 12px;
 }
 .marketing-steps h3 {
@@ -278,7 +294,7 @@
 }
 .marketing-steps > div > span:last-child {
   font-size: 26px;
-  color: #777;
+  color: var(--secondary-ink);
 }
 .marketing-share {
   display: grid;
@@ -288,27 +304,27 @@
 }
 .marketing-share > div {
   padding: 35px;
-  border: 1px solid #ffffff20;
+  border: 1px solid var(--line);
   border-radius: 30px;
-  background: #0b0b0b;
+  background: var(--card-bg);
 }
 .marketing-share strong {
   font-family: Sentient, Georgia, serif;
   font-size: clamp(70px, 12vw, 150px);
   font-weight: 200;
   line-height: 1.1;
-  color: var(--gold);
+  color: var(--accent);
 }
 .marketing-share strong span {
   font-size: 0.35em;
 }
 .marketing-share p {
   font-size: 12px;
-  color: #aaa;
+  color: var(--secondary-ink);
   margin-top: 15px;
 }
 .marketing-share-note {
-  border-inline-start: 2px solid var(--gold);
+  border-inline-start: 2px solid var(--accent);
   padding: 5px 22px;
   font-size: 15px;
   line-height: 1.8;
@@ -323,10 +339,10 @@
   margin-top: 50px;
 }
 .marketing-faq details {
-  border: 1px solid #ffffff20;
+  border: 1px solid var(--line);
   border-radius: 18px;
   padding: 24px;
-  background: #0b0b0b;
+  background: var(--card-bg);
 }
 .marketing-faq summary {
   cursor: pointer;
@@ -341,7 +357,7 @@
   display: none;
 }
 .marketing-faq summary span {
-  color: var(--gold);
+  color: var(--accent);
 }
 .marketing-faq details[open] summary span {
   transform: rotate(45deg);
@@ -349,14 +365,14 @@
 .marketing-faq details p {
   font-size: 12px;
   line-height: 1.9;
-  color: #aaa;
+  color: var(--secondary-ink);
   margin-top: 24px;
 }
 .marketing-cta {
   text-align: center;
-  border: 1px solid #ffc70040;
+  border: 1px solid var(--accent-glow);
   border-radius: 45px;
-  background: radial-gradient(ellipse at 50% 0, #ffc70013, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0, var(--accent-glow), transparent 70%);
   margin: 60px auto 100px;
   max-width: 1050px;
 }
@@ -365,7 +381,7 @@
   margin: 35px auto;
 }
 .marketing-cta p {
-  color: #aaa;
+  color: var(--secondary-ink);
   max-width: 600px;
   margin: 0 auto 35px;
   line-height: 1.8;
@@ -373,14 +389,14 @@
 }
 .marketing-footer {
   padding: 65px 5% 30px;
-  border-top: 1px solid #ffffff20;
+  border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 .marketing-footer p {
   font-size: 12px;
-  color: #999;
+  color: var(--secondary-ink);
   max-width: 480px;
 }
 .marketing-footer div {
@@ -389,7 +405,7 @@
   font-size: 12px;
 }
 .marketing-footer small {
-  color: #666;
+  color: var(--secondary-ink);
   text-align: end;
 }
 
@@ -465,35 +481,35 @@
   inset-inline: 5%;
   max-width: 1180px;
   margin: auto;
-  border: 1px solid #ffffff35;
+  border: 1px solid var(--line);
   border-radius: 60px;
   padding: 10px 16px;
-  background: linear-gradient(110deg, #ffffff55, #fff4ca55);
+  background: var(--nav-bg);
   backdrop-filter: blur(24px);
-  box-shadow: 0 0 40px #ffc70008;
+  box-shadow: 0 0 40px var(--accent-glow);
   gap: 16px;
-  color: #fff;
+  color: var(--ink);
 }
 .marketing-nav nav {
-  border: 1px solid #ffffff25;
+  border: 1px solid var(--line);
   border-radius: 30px;
   padding: 14px 22px;
   gap: 24px;
 }
 .marketing-nav nav a {
   font-weight: 700;
-  color: #eee;
+  color: var(--ink);
   font-size: 10px;
 }
 .marketing-login {
-  background: linear-gradient(110deg, #ffc700, #ffdf40);
+  background: linear-gradient(110deg, var(--accent), var(--accent-end));
   border: 0;
-  color: #141000;
+  color: #fff;
   font-weight: 800;
   padding: 13px 22px;
 }
 .marketing-nav .marketing-login:hover {
-  color: #141000;
+  color: #fff;
 }
 .marketing-logo {
   font-family: Sentient, Georgia, serif;
@@ -502,10 +518,7 @@
 }
 .marketing-hero {
   padding-bottom: 64px;
-  background: #000;
-}
-.marketing-globe {
-  z-index: 0;
+  background: var(--page-bg);
 }
 .marketing-hero h1 {
   font-size: clamp(50px, 8.8vw, 128px);
@@ -514,13 +527,13 @@
 .marketing-hero h1 em {
   display: inline-block;
   margin: 8px 0 24px;
-  background: linear-gradient(90deg, #ffc700, #ffee7c, #ffc700);
+  background: linear-gradient(90deg, var(--accent), var(--cyan), var(--accent));
   background-clip: text;
   color: transparent;
 }
 .marketing-hero .marketing-button {
   margin-top: 14px;
-  background: linear-gradient(110deg, #ffdb21, #fff8dd);
+  background: linear-gradient(110deg, var(--accent), var(--accent-end));
 }
 @media (max-width: 900px) {
   .marketing-nav {
@@ -546,8 +559,30 @@
   .marketing-hero h1 {
     font-size: clamp(42px, 10vw, 62px);
   }
-  .marketing-globe {
-    height: 460px;
-    top: 40%;
-  }
+}
+
+.marketing-hero .myweb-auth-particles {
+  z-index: 0;
+  mask-image: linear-gradient(transparent, #000 18%, #000 70%, transparent);
+}
+.marketing-hero {
+  background: radial-gradient(ellipse at 50% 35%, var(--accent-glow), transparent 65%), var(--page-bg);
+}
+.marketing a:focus-visible,
+.marketing summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+.marketing-controls > button { flex-shrink: 0; }
+@media (max-width: 1100px) {
+  .marketing-nav nav { display: none; }
+}
+@media (max-width: 600px) {
+  .marketing-nav { flex-wrap: wrap; justify-content: center; border-radius: 28px; }
+  .marketing-controls { justify-content: center; flex-wrap: wrap; }
+  .marketing-hero-content { min-width: 0; }
+  .marketing h1, .marketing h2 { overflow-wrap: anywhere; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marketing *, .marketing *::before, .marketing *::after { transition: none !important; }
 }

@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 import './landing.css'
-import { ParticleGlobe } from './ParticleGlobe'
+import { MyWebParticleBackground } from '@/components/ui/myweb-particle-background'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
+import { useUiStore } from '@/stores/uiStore'
 
 export function LandingPage() {
   const { t } = useTranslation()
+  const theme = useUiStore((state) => state.theme)
   const services = t('landing.services', { returnObjects: true }) as {
     title: string
     text: string
@@ -26,6 +29,7 @@ export function LandingPage() {
         </nav>
         <div className="marketing-controls">
           <LanguageSwitcher />
+          <ThemeToggle />
           <Link to="/login" className="marketing-login">
             {t('auth.login.submit')} ↗
           </Link>
@@ -33,7 +37,7 @@ export function LandingPage() {
       </header>
       <main>
         <section className="marketing-hero">
-          <ParticleGlobe />
+          <MyWebParticleBackground tone={theme} />
           <div className="marketing-hero-content">
             <span className="marketing-pill">{t('landing.badge')}</span>
             <h1>

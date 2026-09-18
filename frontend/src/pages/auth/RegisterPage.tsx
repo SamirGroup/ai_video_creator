@@ -85,6 +85,9 @@ export function RegisterPage() {
 
       <GoogleSignIn onCredential={(token) => google.mutate(token)} />
       {google.isError && <p role="alert">{t('common.error.generic')}</p>}
+      <div className="auth-divider text-center text-xs text-muted-foreground">
+        <span>{t('auth.register.email')}</span>
+      </div>
       <form
         className="flex flex-col gap-4"
         onSubmit={handleSubmit((values) => registerMutation.mutate(values))}

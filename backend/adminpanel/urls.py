@@ -1,10 +1,14 @@
 from django.urls import path
 
 from adminpanel import views
+from adminpanel.auth_logos import PublicAuthLogos, AdminAuthLogos, AdminAuthLogoDetail
 
 app_name = "adminpanel"
 
 urlpatterns = [
+    path("public/auth-logos", PublicAuthLogos.as_view()),
+    path("admin/auth-logos", AdminAuthLogos.as_view()),
+    path("admin/auth-logos/<int:pk>", AdminAuthLogoDetail.as_view()),
     # --- Users (FR-79) ---
     path("admin/users", views.AdminUserListView.as_view(), name="user-list"),
     path("admin/users/<uuid:user_id>", views.AdminUserDetailView.as_view(), name="user-detail"),
