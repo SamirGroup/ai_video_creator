@@ -1,588 +1,87 @@
+/* Landing page chrome. The layout itself is Tailwind (see LandingPage.tsx);
+   this file only carries what utilities cannot express: the Sentient webfont,
+   the marquee keyframes and the <details> marker reset. */
+
 @font-face {
   font-family: Sentient;
   src: url('/fonts/Sentient-Extralight.woff') format('woff');
-  font-weight: 200 600;
+  font-weight: 200;
+  font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: Sentient;
   src: url('/fonts/Sentient-LightItalic.woff') format('woff');
+  font-weight: 300;
   font-style: italic;
-  font-weight: 200 600;
   font-display: swap;
 }
-.marketing {
-  /* Light palette for the public site. */
-  --page-bg: #eef2f6;
-  --card-bg: #fff;
-  --ink: #364152;
-  --secondary-ink: #697586;
-  --line: #e3e8ef;
-  --accent: #673ab7;
-  --accent-end: #4527a0;
-  --accent-glow: #673ab71a;
-  --cyan: #087eaa;
-  --nav-bg: #ffffffc9;
-  --color-surface: var(--card-bg);
-  --color-foreground: var(--ink);
-  --color-border: var(--line);
-  --color-muted: #ede7f6;
-  --color-muted-foreground: var(--secondary-ink);
-  --color-ring: var(--accent);
-  background: var(--page-bg);
-  color: var(--ink);
-  overflow: clip;
-  font-family: ui-monospace, SFMono-Regular, monospace;
-  color-scheme: light;
+
+/* Sentient only ships Extralight + LightItalic here, so the heavier weights the
+   design asks for are synthesised rather than swapped to a fallback family. */
+.font-sentient {
+  font-synthesis-weight: auto;
 }
-.dark .marketing {
-  /* Zivvo dark palette, shared with the dashboard. */
-  --page-bg: #080e25;
-  --card-bg: #101936;
-  --ink: #eef0ff;
-  --secondary-ink: #a0a8c4;
-  --line: #202a4a;
-  --accent: #b752ff;
-  --accent-end: #7a27f5;
-  --accent-glow: #b752ff1a;
-  --cyan: #21c3fc;
-  --nav-bg: #101936cc;
-  --color-muted: #172243;
-  color-scheme: dark;
+
+/* The landing runs on a neutral black/white palette rather than the app's navy
+   one. Rebinding the semantic tokens on the page root keeps shared components
+   (ThemeToggle, LanguageSwitcher) on-palette here without touching the rest of
+   the app, which still reads the values from index.css. Figures are the neutral
+   ramp myweb.uz's oklch tokens resolve to. */
+.landing-root {
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0a;
+  --color-surface: #ffffff;
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #737373;
+  --color-border: #e5e5e5;
+  --color-ring: #a1a1a1;
 }
-.marketing a {
-  text-decoration: none;
+
+:where(.dark) .landing-root {
+  --color-background: #0a0a0a;
+  --color-foreground: #fafafa;
+  --color-surface: #0a0a0a;
+  --color-muted: #262626;
+  --color-muted-foreground: #a1a1a1;
+  --color-border: #262626;
+  --color-ring: #525252;
 }
-.marketing-nav {
-  position: absolute;
-  z-index: 10;
-  inset-inline: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 28px 5%;
-  border-bottom: 1px solid var(--line);
+
+/* Logo strip. Duplicated track scrolls one full width, then snaps back. */
+@keyframes landing-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
-.marketing-logo {
-  font-size: 25px;
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  white-space: nowrap;
+
+.landing-marquee {
+  animation: landing-marquee 32s linear infinite;
 }
-.marketing-logo span {
-  color: var(--accent);
+
+.landing-marquee:hover {
+  animation-play-state: paused;
 }
-.marketing-nav nav,
-.marketing-controls {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-.marketing-nav nav a {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--secondary-ink);
-}
-.marketing-nav a:hover {
-  color: var(--accent);
-}
-.marketing-login {
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  padding: 12px 22px;
-  font-size: 12px;
-}
-.marketing-controls {
-  gap: 12px;
-}
-.marketing-controls select {
-  max-width: 130px;
-}
-.marketing-hero {
-  min-height: 100svh;
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 180px 20px 85px;
-  isolation: isolate;
-}
-.marketing-hero-content {
-  z-index: 2;
-  text-align: center;
-}
-.marketing-pill {
-  display: inline-block;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  background: var(--line);
-  padding: 10px 20px;
-}
-.marketing h1 {
-  font-family: Sentient, Georgia, serif;
-  font-weight: 200;
-  font-size: clamp(50px, 8.8vw, 120px);
-  letter-spacing: -0.055em;
-  line-height: 1.04;
-  margin: 26px 0;
-}
-.marketing h1 em {
-  color: var(--accent);
-  font-weight: 200;
-  font-size: 0.88em;
-}
-.marketing-hero p {
-  max-width: 520px;
-  margin: 26px auto 38px;
-  color: var(--secondary-ink);
-  font-size: 13px;
-  line-height: 1.9;
-}
-.marketing-button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  border-radius: 50px;
-  padding: 19px 34px;
-  background: linear-gradient(110deg, var(--accent), var(--accent-end));
-  color: #fff;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  box-shadow: 0 10px 35px var(--accent-glow);
-  transition: transform 0.2s;
-}
-.marketing-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 45px var(--accent-glow);
-}
-.marketing-scroll {
-  position: absolute;
-  bottom: 30px;
-  left: 5%;
-  font-size: 20px;
-  color: var(--secondary-ink);
-}
-.marketing-scroll span {
-  font-size: 9px;
-  letter-spacing: 2px;
-  margin-inline-start: 14px;
-}
-.marketing-strip {
-  display: flex;
-  justify-content: space-evenly;
-  gap: 30px;
-  flex-wrap: wrap;
-  padding: 35px 20px;
-  border-block: 1px solid var(--line);
-  color: var(--secondary-ink);
-  font-size: 18px;
-  letter-spacing: 3px;
-}
-.marketing-section {
-  max-width: 1280px;
-  margin: auto;
-  padding: 110px 40px;
-  scroll-margin-top: 30px;
-}
-.marketing-eyebrow {
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 26px;
-}
-.marketing h2 {
-  font-family: Sentient, Georgia, serif;
-  font-size: clamp(40px, 6.5vw, 90px);
-  line-height: 1.05;
-  letter-spacing: -0.045em;
-  font-weight: 200;
-  margin: 0 0 30px;
-  max-width: 950px;
-}
-.marketing h2 > span {
-  color: var(--accent);
-}
-.marketing-lead {
-  font-size: 13px;
-  color: var(--secondary-ink);
-  max-width: 650px;
-  line-height: 1.9;
-}
-.marketing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 60px;
-}
-.marketing-card {
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  padding: 34px;
-  background: radial-gradient(ellipse at 100% 0, var(--accent-glow), transparent 65%), var(--card-bg);
-  transition: border-color 0.3s;
-}
-.marketing-card:hover {
-  border-color: var(--accent-glow);
-}
-.marketing-card:first-child,
-.marketing-card:last-child {
-  grid-column: span 2;
-}
-.marketing-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--secondary-ink);
-  font-size: 10px;
-  letter-spacing: 2px;
-  margin-bottom: 50px;
-}
-.marketing-symbol {
-  color: var(--accent);
-  font-size: 30px;
-}
-.marketing-card h3 {
-  font-family: Sentient, Georgia, serif;
-  font-size: 32px;
-  line-height: 1.2;
-  font-weight: 200;
-}
-.marketing-card p {
-  color: var(--secondary-ink);
-  font-size: 12px;
-  line-height: 1.9;
-  margin: 20px 0 30px;
-  max-width: 440px;
-}
-.marketing-card a {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--accent);
-}
-.marketing-process {
-  border-block: 1px solid var(--line);
-}
-.marketing-steps {
-  margin-top: 50px;
-}
-.marketing-steps > div {
-  display: flex;
-  align-items: center;
-  gap: 35px;
-  border-top: 1px solid var(--line);
-  padding: 28px 0;
-}
-.marketing-steps > div > span:first-child {
-  color: var(--accent);
-  font-size: 12px;
-}
-.marketing-steps h3 {
-  font-family: Sentient, Georgia, serif;
-  font-size: clamp(22px, 3vw, 38px);
-  font-weight: 200;
-  flex: 1;
-}
-.marketing-steps > div > span:last-child {
-  font-size: 26px;
-  color: var(--secondary-ink);
-}
-.marketing-share {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin: 45px 0;
-}
-.marketing-share > div {
-  padding: 35px;
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  background: var(--card-bg);
-}
-.marketing-share strong {
-  font-family: Sentient, Georgia, serif;
-  font-size: clamp(70px, 12vw, 150px);
-  font-weight: 200;
-  line-height: 1.1;
-  color: var(--accent);
-}
-.marketing-share strong span {
-  font-size: 0.35em;
-}
-.marketing-share p {
-  font-size: 12px;
-  color: var(--secondary-ink);
-  margin-top: 15px;
-}
-.marketing-share-note {
-  border-inline-start: 2px solid var(--accent);
-  padding: 5px 22px;
-  font-size: 15px;
-  line-height: 1.8;
-  max-width: 850px;
-  margin-bottom: 25px;
-}
-.marketing-faq {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: start;
-  margin-top: 50px;
-}
-.marketing-faq details {
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 24px;
-  background: var(--card-bg);
-}
-.marketing-faq summary {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  font-family: Sentient, Georgia, serif;
-  font-size: 20px;
+
+/* FAQ rows: hide the native disclosure triangle in every engine. */
+.landing-faq summary {
   list-style: none;
 }
-.marketing-faq summary::-webkit-details-marker {
+
+.landing-faq summary::-webkit-details-marker {
   display: none;
 }
-.marketing-faq summary span {
-  color: var(--accent);
-}
-.marketing-faq details[open] summary span {
-  transform: rotate(45deg);
-}
-.marketing-faq details p {
-  font-size: 12px;
-  line-height: 1.9;
-  color: var(--secondary-ink);
-  margin-top: 24px;
-}
-.marketing-cta {
-  text-align: center;
-  border: 1px solid var(--accent-glow);
-  border-radius: 45px;
-  background: radial-gradient(ellipse at 50% 0, var(--accent-glow), transparent 70%);
-  margin: 60px auto 100px;
-  max-width: 1050px;
-}
-.marketing-cta h2 {
-  font-size: clamp(38px, 5vw, 65px);
-  margin: 35px auto;
-}
-.marketing-cta p {
-  color: var(--secondary-ink);
-  max-width: 600px;
-  margin: 0 auto 35px;
-  line-height: 1.8;
-  font-size: 13px;
-}
-.marketing-footer {
-  padding: 65px 5% 30px;
-  border-top: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-}
-.marketing-footer p {
-  font-size: 12px;
-  color: var(--secondary-ink);
-  max-width: 480px;
-}
-.marketing-footer div {
-  display: flex;
-  gap: 30px;
-  font-size: 12px;
-}
-.marketing-footer small {
-  color: var(--secondary-ink);
-  text-align: end;
+
+.landing-faq summary::marker {
+  content: '';
 }
 
-@media (max-width: 900px) {
-  .marketing-nav nav {
-    display: none;
-  }
-  .marketing-section {
-    padding: 75px 24px;
-  }
-  .marketing-cta {
-    margin-inline: 20px;
-  }
-  .marketing-nav {
-    padding: 20px;
-  }
-  .marketing-grid {
-    gap: 16px;
-  }
-  .marketing-card {
-    padding: 25px;
-  }
-  .marketing-controls select {
-    max-width: 100px;
-  }
-}
-@media (max-width: 600px) {
-  .marketing-hero {
-    padding-top: 160px;
-  }
-  .marketing-logo {
-    font-size: 20px;
-  }
-  .marketing-login {
-    padding: 9px 12px;
-  }
-  .marketing-controls {
-    gap: 7px;
-  }
-  .marketing-grid,
-  .marketing-faq,
-  .marketing-footer {
-    grid-template-columns: 1fr;
-  }
-  .marketing-card:first-child,
-  .marketing-card:last-child {
-    grid-column: auto;
-  }
-  .marketing-share {
-    gap: 12px;
-  }
-  .marketing-share > div {
-    padding: 20px;
-  }
-  .marketing-footer small {
-    text-align: start;
-  }
-  .marketing-strip {
-    font-size: 12px;
-  }
-  .marketing h1 {
-    font-size: clamp(43px, 10vw, 62px);
-  }
-  .marketing-scroll span {
-    display: none;
-  }
-}
-
-/* Floating capsule navigation and hero proportions from the supplied MyWeb build. */
-.marketing-nav {
-  position: absolute;
-  top: 20px;
-  inset-inline: 5%;
-  max-width: 1180px;
-  margin: auto;
-  border: 1px solid var(--line);
-  border-radius: 60px;
-  padding: 10px 16px;
-  background: var(--nav-bg);
-  backdrop-filter: blur(24px);
-  box-shadow: 0 0 40px var(--accent-glow);
-  gap: 16px;
-  color: var(--ink);
-}
-.marketing-nav nav {
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  padding: 14px 22px;
-  gap: 24px;
-}
-.marketing-nav nav a {
-  font-weight: 700;
-  color: var(--ink);
-  font-size: 10px;
-}
-.marketing-login {
-  background: linear-gradient(110deg, var(--accent), var(--accent-end));
-  border: 0;
-  color: #fff;
-  font-weight: 800;
-  padding: 13px 22px;
-}
-.marketing-nav .marketing-login:hover {
-  color: #fff;
-}
-.marketing-logo {
-  font-family: Sentient, Georgia, serif;
-  font-size: 28px;
-  letter-spacing: -1px;
-}
-.marketing-hero {
-  padding-bottom: 64px;
-  background: var(--page-bg);
-}
-.marketing-hero h1 {
-  font-size: clamp(50px, 8.8vw, 128px);
-  line-height: 1.05;
-}
-.marketing-hero h1 em {
-  display: inline-block;
-  margin: 8px 0 24px;
-  background: linear-gradient(90deg, var(--accent), var(--cyan), var(--accent));
-  background-clip: text;
-  color: transparent;
-}
-.marketing-hero .marketing-button {
-  margin-top: 14px;
-  background: linear-gradient(110deg, var(--accent), var(--accent-end));
-}
-@media (max-width: 900px) {
-  .marketing-nav {
-    inset-inline: 20px;
-    padding: 10px 16px;
-  }
-  .marketing-nav nav {
-    display: none;
-  }
-}
-@media (max-width: 600px) {
-  .marketing-nav {
-    inset-inline: 12px;
-    gap: 8px;
-    padding: 10px 12px;
-  }
-  .marketing-logo {
-    font-size: 21px;
-  }
-  .marketing-login {
-    padding: 10px 13px;
-  }
-  .marketing-hero h1 {
-    font-size: clamp(42px, 10vw, 62px);
-  }
-}
-
-.marketing-hero .myweb-auth-particles {
-  z-index: 0;
-  mask-image: linear-gradient(transparent, #000 18%, #000 70%, transparent);
-}
-.marketing-hero {
-  background: radial-gradient(ellipse at 50% 35%, var(--accent-glow), transparent 65%), var(--page-bg);
-}
-.marketing a:focus-visible,
-.marketing summary:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 5px;
-}
-.marketing-controls > button { flex-shrink: 0; }
-@media (max-width: 1100px) {
-  .marketing-nav nav { display: none; }
-}
-@media (max-width: 600px) {
-  .marketing-nav { flex-wrap: wrap; justify-content: center; border-radius: 28px; }
-  .marketing-controls { justify-content: center; flex-wrap: wrap; }
-  .marketing-hero-content { min-width: 0; }
-  .marketing h1, .marketing h2 { overflow-wrap: anywhere; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .marketing *, .marketing *::before, .marketing *::after { transition: none !important; }
+  .landing-marquee {
+    animation: none;
+  }
 }

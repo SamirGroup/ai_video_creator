@@ -5,6 +5,10 @@
 
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Display + mono pair used by the public landing page (see pages/public/landing.css
+     for the Sentient @font-face; Geist Mono is loaded from index.html). */
+  --font-sentient: 'Sentient', Georgia, serif;
+  --font-geist: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Brand */
   --color-primary-50: #eff6ff;
