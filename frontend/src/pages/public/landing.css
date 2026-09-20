@@ -67,6 +67,38 @@
   animation-play-state: paused;
 }
 
+/* Accent wordmark: the gradient slides across itself rather than the text
+   moving. Ported from myweb.uz's gradient-x. */
+@keyframes landing-gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.landing-gradient-x {
+  background-size: 200% 200%;
+  animation: landing-gradient-x 6s ease infinite;
+}
+
+/* Diagonal glare that crosses the revenue-split figures once they scroll in.
+   Ported from myweb.uz's stat-shimmer. */
+@keyframes landing-shimmer {
+  from {
+    transform: skew(-20deg) translateX(-150%);
+  }
+  to {
+    transform: skew(-20deg) translateX(150%);
+  }
+}
+
+.landing-shimmer {
+  animation: landing-shimmer 2.4s ease-in-out infinite;
+}
+
 /* FAQ rows: hide the native disclosure triangle in every engine. */
 .landing-faq summary {
   list-style: none;
@@ -81,7 +113,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .landing-marquee {
+  .landing-marquee,
+  .landing-gradient-x,
+  .landing-shimmer {
     animation: none;
   }
 }
