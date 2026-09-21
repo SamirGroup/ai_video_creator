@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Beranda",
+   "services": "Fitur",
+   "portfolio": "Cara kerja",
+   "pricing": "Harga",
+   "about": "Ketentuan",
+   "contact": "Kontak",
+   "call": "MASUK",
+   "menu": "Menu"
+  },
+  "hero": {
+   "badge": "EKOSISTEM UNTUK KREATOR YOUTUBE",
+   "agency": "Ekosistem",
+   "desc": "Rencanakan konten, buat video dengan AI, dan kelola channel YouTube Anda di satu tempat.",
+   "btn": "Buat akun",
+   "chat": "Obrolan",
+   "p1": "Ide dan rencana konten",
+   "p2": "Pembuatan video",
+   "p3": "Peninjauan konten",
+   "p4": "Publikasi dan analitik",
+   "p5": "Satu ruang kerja"
+  },
+  "stats": {
+   "title": "Cara kerja ekosistem",
+   "subtitle": "Platform masih dikembangkan secara aktif. Inilah ketentuan yang berlaku saat ini.",
+   "completed": "Bahasa antarmuka",
+   "ongoing": "Bagian kreator",
+   "exp": "Bagian platform",
+   "happy": "Ditinjau sebelum tayang",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Selalu"
+  },
+  "blueprint": {
+   "console": "Konsol utama",
+   "core": "Inti Creator AI",
+   "arch": "Menyiapkan ruang kerja",
+   "status": "Status pengembangan",
+   "deploy": "Bagian ini masih dibangun. Ruang kerja kreator, publikasi, dan analitik tersedia setelah Anda masuk.",
+   "s_title": "Status",
+   "s_lat": "Respons",
+   "s_branch": "Channel",
+   "logs": "Log aktivitas",
+   "p_core": "Mesin konten",
+   "p_guard": "Moderasi",
+   "p_deploy": "Publikasi",
+   "v_core": "Generasi AI",
+   "v_guard": "Tinjauan sebelum tayang",
+   "v_deploy": "Integrasi YouTube",
+   "scan": "Menyiapkan ruang kerja..."
+  }
+ },
+ "fH": {
+  "label": "Kemampuan",
+  "title": "Apa yang diberikan ekosistem",
+  "lead": "Perencanaan konten, produksi dengan AI, tinjauan sebelum tayang, dan pengelolaan channel — dalam satu tempat.",
+  "features": [
+   {
+    "label": "Jangkauan",
+    "title": "30 bahasa antarmuka",
+    "description": "Bekerjalah dalam bahasa Anda sendiri: antarmuka tersedia dalam 30 bahasa, dan konten bisa dibuat dalam bahasa yang Anda pilih.",
+    "metric": "01 / Bahasa",
+    "cta": "Pilih bahasa"
+   },
+   {
+    "label": "Keamanan",
+    "title": "Tinjauan sebelum tayang",
+    "description": "Tidak ada yang tayang tanpa diperiksa. Materi yang perlu diperbaiki dikembalikan untuk direvisi sebelum sampai ke channel Anda.",
+    "metric": "02 / Tinjauan",
+    "cta": "Selalu diperiksa"
+   },
+   {
+    "label": "Pendapatan",
+    "title": "70% tetap milik Anda",
+    "description": "Platform mengambil 30%, dan hanya dari video yang dibuat di dalam ekosistem serta dipublikasikan lewat ekosistem. Video lain di channel Anda tidak dihitung.",
+    "metric": "03 / Bagian",
+    "cta": "Channel Anda, hasil Anda"
+   },
+   {
+    "label": "Fokus",
+    "title": "Satu ruang kerja",
+    "description": "Ide, naskah, suara, visual, publikasi, dan analitik — tanpa harus berpindah-pindah antara alat yang terpisah.",
+    "metric": "04 / Ruang kerja",
+    "cta": "Semua di satu tempat"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Yang Anda dapatkan",
+  "sectionTitle": "Satu tempat untuk berkarya",
+  "sectionLead": "Arahnya Anda yang menentukan. Ekosistem menyatukan alat-alatnya, dari ide sampai publikasi.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Ide dan rencana konten",
+    "desc": "Tema channel, ide video, dan jadwal tayang yang menyesuaikan bahasa serta zona waktu Anda.",
+    "cta": "Buka",
+    "signal": "Rencana"
+   },
+   {
+    "id": "02",
+    "title": "Naskah",
+    "desc": "Naskah disusun dari brief, siap Anda baca dan sesuaikan.",
+    "cta": "Buka",
+    "signal": "Teks"
+   },
+   {
+    "id": "03",
+    "title": "Suara",
+    "desc": "Sulih suara dalam bahasa yang Anda pilih. Ketersediaannya bergantung pada penyedia yang terhubung.",
+    "cta": "Buka",
+    "signal": "Audio"
+   },
+   {
+    "id": "04",
+    "title": "Visual",
+    "desc": "Visual dan penyusunan video jadi, disiapkan di dalam ruang kerja.",
+    "cta": "Buka",
+    "signal": "Video"
+   },
+   {
+    "id": "05",
+    "title": "Peninjauan konten",
+    "desc": "Moderasi sebelum tayang, lengkap dengan catatan jelas tentang apa yang perlu diperbaiki.",
+    "cta": "Buka",
+    "signal": "Tinjauan"
+   },
+   {
+    "id": "06",
+    "title": "Publikasi dan analitik",
+    "desc": "Kelola video dan Shorts, pantau hasilnya dan pendapatan yang masuk.",
+    "cta": "Buka",
+    "signal": "Hasil"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Cara kerja",
+  "title": "Dari ide sampai video tayang",
+  "lead": "Lima langkah, dari menghubungkan channel sampai memantau hasilnya.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Hubungkan",
+    "desc": "Daftar dan hubungkan channel YouTube Anda.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Pilih",
+    "desc": "Pilih paket, tema, dan bahasa.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Buat",
+    "desc": "Siapkan kontennya lalu setujui.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Terbitkan",
+    "desc": "Lewati tinjauan dan tayangkan ke channel.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Pantau",
+    "desc": "Ikuti hasilnya dan pendapatan Anda.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Ada pertanyaan?",
+  "words": [
+   "Sering",
+   "Ditanya"
+  ],
+  "items": [
+   {
+    "q": "Apakah channel tetap milik saya?",
+    "a": "Ya. Anda yang mengelola channel dan Anda juga yang memberikan akses untuk koneksinya. Akses itu bisa Anda cabut kapan saja."
+   },
+   {
+    "q": "Apakah komisi diambil dari seluruh channel?",
+    "a": "Tidak. 30% milik platform hanya berlaku untuk video yang dibuat di dalam ekosistem dan dipublikasikan lewat ekosistem. Video lain tidak dihitung."
+   },
+   {
+    "q": "Bisakah saya memilih bahasa konten?",
+    "a": "Pengaturan menyediakan katalog berisi 30 pilihan bahasa. Pembuatan suara bergantung pada penyedia yang terhubung."
+   },
+   {
+    "q": "Apakah ada yang tayang tanpa ditinjau?",
+    "a": "Tidak. Konten melewati moderasi sebelum tayang, dan materi yang perlu diperbaiki dikembalikan untuk direvisi."
+   },
+   {
+    "q": "Ada berapa bahasa antarmuka?",
+    "a": "Ada 30. Antarmuka dan pengaturan konten memakai daftar yang sama."
+   },
+   {
+    "q": "Apakah langganan termasuk dalam bagi hasil?",
+    "a": "Tidak. Biaya langganan ditagih terpisah dari bagi hasil pendapatan."
+   },
+   {
+    "q": "Apakah pendapatan dijamin?",
+    "a": "Tidak. Pendapatan bergantung pada performa video dan aturan YouTube sendiri, jadi tidak ada jumlah yang dijamin."
+   },
+   {
+    "q": "Bagaimana cara menghubungkan channel YouTube?",
+    "a": "Anda memberi izin koneksinya dari profil Anda. Ekosistem hanya mendapat akses sebatas yang Anda berikan."
+   },
+   {
+    "q": "Bisakah akses dicabut nanti?",
+    "a": "Ya. Izinnya bisa Anda tarik kapan saja, dan publikasi akan berhenti."
+   },
+   {
+    "q": "Bisakah saya melihat video sebelum tayang?",
+    "a": "Ya. Setiap video melewati tahap persetujuan: Anda bisa menerimanya, meminta perubahan, atau menolaknya."
+   },
+   {
+    "q": "Apakah Shorts didukung?",
+    "a": "Ya. Video biasa dan Shorts ditangani di ruang kerja yang sama."
+   },
+   {
+    "q": "Bisakah saya mengekspor atau menghapus data saya?",
+    "a": "Ya. Anda bisa meminta ekspor data atau penghapusannya lewat pengaturan akun."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Mulai di sini",
+  "title": "Ide Anda berikutnya dimulai di sini.",
+  "desc": "Buat profil, jelajahi alat-alatnya, dan siapkan ruang kerja untuk channel Anda.",
+  "btn": "Buat akun",
+  "secondaryBtn": "Masuk"
+ },
+ "KH": {
+  "desc": "Ekosistem untuk kreator YouTube: rencanakan konten, buat video dengan AI, tinjau, dan publikasikan dari satu ruang kerja.",
+  "lists": [
+   {
+    "title": "Bagian",
+    "items": [
+     "Yang Anda dapatkan",
+     "Integrasi",
+     "Cara kerja",
+     "Tanya jawab"
+    ]
+   },
+   {
+    "title": "Ekosistem",
+    "items": [
+     "Rencana konten",
+     "Produksi AI",
+     "Tinjauan sebelum tayang",
+     "Publikasi dan analitik"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Kontak",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Semua hak dilindungi.",
+  "author": "Dibuat oleh Abdulxamidov S.A.",
+  "links": [
+   "Kebijakan Privasi",
+   "Ketentuan Layanan"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Bekerja",
+   "dengan"
+  ],
+  "label": "Integrasi dan teknologi"
+ }
+}

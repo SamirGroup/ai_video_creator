@@ -17,9 +17,15 @@ export { SUPPORTED_LOCALES } from './registry'
    and pulled in only when someone selects them. */
 const CORE = { ru, en, uz } as const
 
-const lazyLocales = import.meta.glob<{ default: Record<string, unknown> }>(
+// The three core locales are statically imported above; including them here
+// too would keep them in the entry chunk and leave the glob unable to split
+// them out, which Rollup warns about.
+const lazyLocales = import.meta.glob<{ default: Record<string, unknown> }>([
   './locales/*.json',
-)
+  '!./locales/ru.json',
+  '!./locales/en.json',
+  '!./locales/uz.json',
+])
 
 const loaded = new Set(Object.keys(CORE))
 

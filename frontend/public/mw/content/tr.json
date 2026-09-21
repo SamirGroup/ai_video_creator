@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Ana sayfa",
+   "services": "Özellikler",
+   "portfolio": "Nasıl çalışır",
+   "pricing": "Fiyatlar",
+   "about": "Koşullar",
+   "contact": "İletişim",
+   "call": "GİRİŞ YAP",
+   "menu": "Menü"
+  },
+  "hero": {
+   "badge": "YOUTUBE KREATÖRLERİ İÇİN EKOSİSTEM",
+   "agency": "Ekosistemi",
+   "desc": "İçeriğinizi planlayın, AI ile video üretin ve YouTube kanalınızı tek bir alandan yönetin.",
+   "btn": "Hesap oluştur",
+   "chat": "Sohbet",
+   "p1": "Fikir ve içerik planı",
+   "p2": "Video üretimi",
+   "p3": "İçerik kontrolü",
+   "p4": "Yayın ve analiz",
+   "p5": "Tek çalışma alanı"
+  },
+  "stats": {
+   "title": "Ekosistem nasıl çalışır",
+   "subtitle": "Platform aktif olarak geliştiriliyor. Şu anda geçerli olan koşullar aşağıda.",
+   "completed": "Arayüz dili",
+   "ongoing": "Kreatör payı",
+   "exp": "Platform payı",
+   "happy": "Yayından önce kontrol",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Her zaman"
+  },
+  "blueprint": {
+   "console": "Ana konsol",
+   "core": "Creator AI çekirdeği",
+   "arch": "Çalışma alanı hazırlanıyor",
+   "status": "Geliştirme durumu",
+   "deploy": "Bu bölüm hâlâ hazırlanıyor. Çalışma alanı, yayın ve analiz giriş yaptıktan sonra kullanılabilir.",
+   "s_title": "Durum",
+   "s_lat": "Yanıt",
+   "s_branch": "Kanal",
+   "logs": "Etkinlik günlüğü",
+   "p_core": "İçerik motoru",
+   "p_guard": "Moderasyon",
+   "p_deploy": "Yayın",
+   "v_core": "AI üretimi",
+   "v_guard": "Yayından önce kontrol",
+   "v_deploy": "YouTube entegrasyonu",
+   "scan": "Çalışma alanı hazırlanıyor..."
+  }
+ },
+ "fH": {
+  "label": "Özellikler",
+  "title": "Ekosistem size ne veriyor",
+  "lead": "İçerik planı, AI ile üretim, yayından önce kontrol ve kanal yönetimi — hepsi tek bir yerde.",
+  "features": [
+   {
+    "label": "Erişim",
+    "title": "30 arayüz dili",
+    "description": "Kendi dilinizde çalışın: arayüz 30 dilde hazır, içeriği ise seçtiğiniz dilde üretebilirsiniz.",
+    "metric": "01 / Diller",
+    "cta": "Dilinizi seçin"
+   },
+   {
+    "label": "Güvenlik",
+    "title": "Yayından önce kontrol",
+    "description": "Hiçbir şey kontrol edilmeden çıkmaz. Düzeltme gereken materyal kanalınıza ulaşmadan revizyona geri gönderilir.",
+    "metric": "02 / Kontrol",
+    "cta": "Her seferinde kontrol"
+   },
+   {
+    "label": "Gelir",
+    "title": "%70 sizde kalır",
+    "description": "Platform %30 alır ve yalnızca ekosistem içinde üretilip buradan yayımlanan videolardan. Kanalınızdaki diğer videolar hesaba katılmaz.",
+    "metric": "03 / Pay",
+    "cta": "Kanal sizin, gelir sizin"
+   },
+   {
+    "label": "Odak",
+    "title": "Tek çalışma alanı",
+    "description": "Fikir, senaryo, seslendirme, görsel, yayın ve analiz — ayrı araçlar arasında gezinmeden.",
+    "metric": "04 / Alan",
+    "cta": "Hepsi tek yerde"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Ne elde edersiniz",
+  "sectionTitle": "Üretiminiz için tek bir alan",
+  "sectionLead": "Yönü siz belirlersiniz. Ekosistem araçları fikirden yayına kadar birleştirir.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Fikir ve içerik planı",
+    "desc": "Kanalınızın konusu, video fikirleri ve dilinize, saat diliminize uyan bir yayın takvimi.",
+    "cta": "Aç",
+    "signal": "Planlama"
+   },
+   {
+    "id": "02",
+    "title": "Senaryo",
+    "desc": "Brife göre hazırlanan senaryo — okuyup düzenleyebilirsiniz.",
+    "cta": "Aç",
+    "signal": "Metin"
+   },
+   {
+    "id": "03",
+    "title": "Seslendirme",
+    "desc": "Seçtiğiniz dilde seslendirme. Kullanılabilirlik bağlı sağlayıcıya göre değişir.",
+    "cta": "Aç",
+    "signal": "Ses"
+   },
+   {
+    "id": "04",
+    "title": "Görsel",
+    "desc": "Hazır video için görseller ve kurgu — çalışma alanının içinde.",
+    "cta": "Aç",
+    "signal": "Video"
+   },
+   {
+    "id": "05",
+    "title": "İçerik kontrolü",
+    "desc": "Yayından önce moderasyon ve neyin iyileştirileceğine dair net notlar.",
+    "cta": "Aç",
+    "signal": "Kontrol"
+   },
+   {
+    "id": "06",
+    "title": "Yayın ve analiz",
+    "desc": "Videoları ve Shorts'ları yönetin, sonuçları ve getirdiği geliri izleyin.",
+    "cta": "Aç",
+    "signal": "Sonuç"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Nasıl çalışır",
+  "title": "Fikirden yayımlanan videoya",
+  "lead": "Kanalı bağlamaktan sonuçları izlemeye kadar beş adım.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Bağlantı",
+    "desc": "Kaydolun ve YouTube kanalınızı bağlayın.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Seçim",
+    "desc": "Tarifenizi, konunuzu ve dilinizi seçin.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Hazırlık",
+    "desc": "İçeriği hazırlayın ve onaylayın.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Yayın",
+    "desc": "Moderasyondan geçin ve kanalınıza yayımlayın.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Takip",
+    "desc": "Sonuçları ve gelirinizi takip edin.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Sorularınız mı var?",
+  "words": [
+   "Sıkça",
+   "sorulan"
+  ],
+  "items": [
+   {
+    "q": "Kanalım bende mi kalıyor?",
+    "a": "Evet. Kanalı siz yönetirsiniz ve bağlantı için erişim izni verirsiniz. Bu izni istediğiniz zaman geri alabilirsiniz."
+   },
+   {
+    "q": "Komisyon kanalın tamamından mı alınıyor?",
+    "a": "Hayır. Platformun %30'u yalnızca ekosistem içinde üretilen ve buradan yayımlanan videolar için geçerlidir. Diğer videolar hesaba katılmaz."
+   },
+   {
+    "q": "İçerik dilini seçebilir miyim?",
+    "a": "Ayarlarda 30 dilden oluşan bir katalog var. Seslendirme üretimi bağlı sağlayıcıya göre değişir."
+   },
+   {
+    "q": "Kontrol edilmeden yayımlanan bir şey olur mu?",
+    "a": "Hayır. İçerik yayından önce moderasyondan geçer, düzeltme gereken materyal revizyona geri gönderilir."
+   },
+   {
+    "q": "Arayüz kaç dilde?",
+    "a": "Otuz. Arayüz de içerik ayarları da aynı listeyi kullanır."
+   },
+   {
+    "q": "Abonelik gelir payına dahil mi?",
+    "a": "Hayır. Abonelik ücreti gelir payından ayrı hesaplanır."
+   },
+   {
+    "q": "Gelir garanti mi?",
+    "a": "Hayır. Kazanç videoların performansına ve YouTube'un kurallarına bağlıdır, bu yüzden hiçbir tutar garanti edilmez."
+   },
+   {
+    "q": "YouTube kanalını nasıl bağlarım?",
+    "a": "Bağlantıya profilinizden izin verirsiniz. Ekosistem yalnızca verdiğiniz erişim kapsamında çalışır."
+   },
+   {
+    "q": "İzni sonradan geri alabilir miyim?",
+    "a": "Evet. İzni istediğiniz an geri çekebilirsiniz, o anda yayın durur."
+   },
+   {
+    "q": "Videoyu yayımlanmadan önce görebilir miyim?",
+    "a": "Evet. Her video bir onay adımından geçer: kabul edebilir, düzeltme isteyebilir veya reddedebilirsiniz."
+   },
+   {
+    "q": "Shorts destekleniyor mu?",
+    "a": "Evet. Normal videolar da Shorts da aynı çalışma alanında yönetilir."
+   },
+   {
+    "q": "Verilerimi dışa aktarabilir veya silebilir miyim?",
+    "a": "Evet. Hesap ayarlarından verilerinizin dışa aktarılmasını ya da silinmesini talep edebilirsiniz."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Buradan başlayın",
+  "title": "Bir sonraki fikriniz burada başlıyor.",
+  "desc": "Profil oluşturun, araçları keşfedin ve kanalınız için çalışma alanını kurun.",
+  "btn": "Hesap oluştur",
+  "secondaryBtn": "Giriş yap"
+ },
+ "KH": {
+  "desc": "YouTube kreatörleri için ekosistem: içeriği planlayın, AI ile video üretin, kontrol edin ve tek bir alandan yayımlayın.",
+  "lists": [
+   {
+    "title": "Bölümler",
+    "items": [
+     "Ne elde edersiniz",
+     "Entegrasyonlar",
+     "Nasıl çalışır",
+     "Sorular"
+    ]
+   },
+   {
+    "title": "Ekosistem",
+    "items": [
+     "İçerik planı",
+     "AI ile üretim",
+     "Yayından önce kontrol",
+     "Yayın ve analiz"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "İletişim",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Tüm hakları saklıdır.",
+  "author": "Hazırlayan: Abdulxamidov S.A.",
+  "links": [
+   "Gizlilik politikası",
+   "Kullanım koşulları"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Nelerle",
+   "çalışır"
+  ],
+  "label": "Entegrasyonlar ve teknolojiler"
+ }
+}

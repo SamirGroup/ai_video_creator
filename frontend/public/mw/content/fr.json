@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Accueil",
+   "services": "Fonctionnalités",
+   "portfolio": "Fonctionnement",
+   "pricing": "Tarifs",
+   "about": "Conditions",
+   "contact": "Contact",
+   "call": "CONNEXION",
+   "menu": "Navigation"
+  },
+  "hero": {
+   "badge": "L'ÉCOSYSTÈME DES CRÉATEURS YOUTUBE",
+   "agency": "Écosystème",
+   "desc": "Planifiez vos contenus, créez vos vidéos avec l'IA et pilotez votre chaîne YouTube au même endroit.",
+   "btn": "Créer un compte",
+   "chat": "Chat",
+   "p1": "Idées et plan de contenu",
+   "p2": "Création vidéo",
+   "p3": "Contrôle du contenu",
+   "p4": "Publication et analyse",
+   "p5": "Un seul espace"
+  },
+  "stats": {
+   "title": "Comment fonctionne l'écosystème",
+   "subtitle": "La plateforme est en développement actif. Voici les conditions qui s'appliquent aujourd'hui.",
+   "completed": "Langues d'interface",
+   "ongoing": "Part du créateur",
+   "exp": "Part de la plateforme",
+   "happy": "Contrôle avant publication",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Toujours"
+  },
+  "blueprint": {
+   "console": "Console principale",
+   "core": "Cœur de Creator AI",
+   "arch": "Construction de l'espace de travail",
+   "status": "État du développement",
+   "deploy": "Cette section est encore en construction. L'espace de travail, la publication et l'analyse sont accessibles après connexion.",
+   "s_title": "État",
+   "s_lat": "Réponse",
+   "s_branch": "Chaîne",
+   "logs": "Journal d'activité",
+   "p_core": "Moteur de contenu",
+   "p_guard": "Modération",
+   "p_deploy": "Publication",
+   "v_core": "Génération IA",
+   "v_guard": "Contrôle avant publication",
+   "v_deploy": "Intégration YouTube",
+   "scan": "Préparation de l'espace de travail..."
+  }
+ },
+ "fH": {
+  "label": "Fonctionnalités",
+  "title": "Ce que l'écosystème vous apporte",
+  "lead": "Plan de contenu, production assistée par l'IA, contrôle avant publication et gestion de la chaîne, au même endroit.",
+  "features": [
+   {
+    "label": "Portée",
+    "title": "30 langues d'interface",
+    "description": "Travaillez dans votre langue : l'interface existe en 30 langues, et vos contenus se préparent dans celle que vous choisissez.",
+    "metric": "01 / Langues",
+    "cta": "Choisir sa langue"
+   },
+   {
+    "label": "Sécurité",
+    "title": "Contrôle avant publication",
+    "description": "Rien ne sort sans vérification. Tout élément à retravailler repart en correction avant d'arriver sur votre chaîne.",
+    "metric": "02 / Contrôle",
+    "cta": "Vérifié à chaque fois"
+   },
+   {
+    "label": "Revenus",
+    "title": "70% restent pour vous",
+    "description": "La plateforme prend 30%, uniquement sur les vidéos créées dans l'écosystème et publiées par son intermédiaire. Les autres vidéos de votre chaîne ne sont pas comptées.",
+    "metric": "03 / Part",
+    "cta": "Votre chaîne, vos revenus"
+   },
+   {
+    "label": "Clarté",
+    "title": "Un seul espace",
+    "description": "Idée, script, voix, visuels, publication et analyse, sans passer d'un outil à l'autre.",
+    "metric": "04 / Espace",
+    "cta": "Tout au même endroit"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Ce que vous obtenez",
+  "sectionTitle": "Un seul espace pour votre création",
+  "sectionLead": "Vous choisissez la direction. L'écosystème relie les outils, de l'idée à la publication.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Idées et plan de contenu",
+    "desc": "Le thème de votre chaîne, des idées de vidéos et un calendrier de publication adapté à votre langue et à votre fuseau horaire.",
+    "cta": "Ouvrir",
+    "signal": "Planning"
+   },
+   {
+    "id": "02",
+    "title": "Script",
+    "desc": "Un script rédigé à partir du brief, prêt à être relu et ajusté.",
+    "cta": "Ouvrir",
+    "signal": "Texte"
+   },
+   {
+    "id": "03",
+    "title": "Voix",
+    "desc": "Voix off dans la langue choisie. La disponibilité dépend du fournisseur connecté.",
+    "cta": "Ouvrir",
+    "signal": "Audio"
+   },
+   {
+    "id": "04",
+    "title": "Visuels",
+    "desc": "Visuels et montage de la vidéo finale, préparés dans l'espace de travail.",
+    "cta": "Ouvrir",
+    "signal": "Vidéo"
+   },
+   {
+    "id": "05",
+    "title": "Contrôle du contenu",
+    "desc": "Modération avant publication, avec des remarques claires sur ce qu'il faut améliorer.",
+    "cta": "Ouvrir",
+    "signal": "Contrôle"
+   },
+   {
+    "id": "06",
+    "title": "Publication et analyse",
+    "desc": "Gérez vos vidéos et vos Shorts, suivez les résultats et les revenus qu'ils génèrent.",
+    "cta": "Ouvrir",
+    "signal": "Résultats"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Fonctionnement",
+  "title": "De l'idée à la vidéo publiée",
+  "lead": "Cinq étapes, de la connexion de votre chaîne au suivi des résultats.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Connecter",
+    "desc": "Inscrivez-vous et connectez votre chaîne YouTube.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Choisir",
+    "desc": "Choisissez votre formule, votre thème et votre langue.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Créer",
+    "desc": "Préparez le contenu et validez-le.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Publier",
+    "desc": "Passez le contrôle et publiez sur votre chaîne.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Suivre",
+    "desc": "Suivez les résultats et vos revenus.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Des questions ?",
+  "words": [
+   "Questions",
+   "fréquentes"
+  ],
+  "items": [
+   {
+    "q": "Ma chaîne reste-t-elle la mienne ?",
+    "a": "Oui. Vous gardez la main sur la chaîne et vous accordez vous-même l'accès nécessaire à la connexion. Cet accès peut être retiré à tout moment."
+   },
+   {
+    "q": "La commission porte-t-elle sur toute la chaîne ?",
+    "a": "Non. Les 30% de la plateforme ne concernent que les vidéos créées dans l'écosystème et publiées par son intermédiaire. Les autres vidéos ne sont pas comptées."
+   },
+   {
+    "q": "Puis-je choisir la langue du contenu ?",
+    "a": "Les paramètres proposent un catalogue de 30 langues. La génération de la voix dépend du fournisseur connecté."
+   },
+   {
+    "q": "Quelque chose peut-il être publié sans contrôle ?",
+    "a": "Non. Le contenu passe la modération avant publication, et tout élément à retravailler repart en correction."
+   },
+   {
+    "q": "Combien y a-t-il de langues d'interface ?",
+    "a": "Trente. L'interface et les paramètres de contenu s'appuient sur la même liste."
+   },
+   {
+    "q": "L'abonnement entre-t-il dans le partage des revenus ?",
+    "a": "Non. L'abonnement est facturé séparément du partage des revenus."
+   },
+   {
+    "q": "Les revenus sont-ils garantis ?",
+    "a": "Non. Les revenus dépendent des performances des vidéos et des règles de YouTube : aucun montant n'est garanti."
+   },
+   {
+    "q": "Comment connecter une chaîne YouTube ?",
+    "a": "Vous autorisez la connexion depuis votre profil. L'écosystème ne reçoit que l'accès que vous accordez."
+   },
+   {
+    "q": "Puis-je retirer l'accès plus tard ?",
+    "a": "Oui. Vous pouvez retirer l'autorisation à tout moment, et la publication s'arrête."
+   },
+   {
+    "q": "Puis-je voir une vidéo avant sa sortie ?",
+    "a": "Oui. Chaque vidéo passe par une étape de validation : vous pouvez l'accepter, demander des modifications ou la refuser."
+   },
+   {
+    "q": "Les Shorts sont-ils pris en charge ?",
+    "a": "Oui. Les vidéos classiques et les Shorts se gèrent dans le même espace."
+   },
+   {
+    "q": "Puis-je exporter ou supprimer mes données ?",
+    "a": "Oui. Depuis les paramètres de votre compte, vous pouvez demander l'export de vos données ou leur suppression."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Commencer ici",
+  "title": "Votre prochaine idée commence ici.",
+  "desc": "Créez un profil, explorez les outils et configurez l'espace de travail de votre chaîne.",
+  "btn": "Créer un compte",
+  "secondaryBtn": "Se connecter"
+ },
+ "KH": {
+  "desc": "Un écosystème pour les créateurs YouTube : planifiez vos contenus, créez vos vidéos avec l'IA, faites-les contrôler et publiez depuis un seul espace.",
+  "lists": [
+   {
+    "title": "Sections",
+    "items": [
+     "Ce que vous obtenez",
+     "Intégrations",
+     "Fonctionnement",
+     "FAQ"
+    ]
+   },
+   {
+    "title": "Écosystème",
+    "items": [
+     "Plan de contenu",
+     "Production IA",
+     "Contrôle avant publication",
+     "Publication et analyse"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Contact",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Tous droits réservés.",
+  "author": "Créé par Abdulxamidov S.A.",
+  "links": [
+   "Politique de confidentialité",
+   "Conditions d'utilisation"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Compatible",
+   "avec"
+  ],
+  "label": "Intégrations et technologies"
+ }
+}

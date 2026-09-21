@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Home",
+   "services": "Features",
+   "portfolio": "How it works",
+   "pricing": "Pricing",
+   "about": "Terms",
+   "contact": "Contact",
+   "call": "SIGN IN",
+   "menu": "Navigation"
+  },
+  "hero": {
+   "badge": "ECOSYSTEM FOR YOUTUBE CREATORS",
+   "agency": "Ecosystem",
+   "desc": "Plan your content, create video with AI and run your YouTube channel in one place.",
+   "btn": "Create an account",
+   "chat": "Chat",
+   "p1": "Ideas and content plan",
+   "p2": "Video creation",
+   "p3": "Content review",
+   "p4": "Publishing and analytics",
+   "p5": "One workspace"
+  },
+  "stats": {
+   "title": "How the ecosystem works",
+   "subtitle": "The platform is in active development. These are the terms it runs on today.",
+   "completed": "Interface languages",
+   "ongoing": "Creator share",
+   "exp": "Platform share",
+   "happy": "Review before publishing",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Always"
+  },
+  "blueprint": {
+   "console": "Main console",
+   "core": "Creator AI core",
+   "arch": "Building the workspace",
+   "status": "Development status",
+   "deploy": "This section is still being built. The creator workspace, publishing and analytics are available after you sign in.",
+   "s_title": "Status",
+   "s_lat": "Response",
+   "s_branch": "Channel",
+   "logs": "Activity log",
+   "p_core": "Content engine",
+   "p_guard": "Moderation",
+   "p_deploy": "Publishing",
+   "v_core": "AI generation",
+   "v_guard": "Review before publishing",
+   "v_deploy": "YouTube integration",
+   "scan": "Preparing the workspace..."
+  }
+ },
+ "fH": {
+  "label": "Capabilities",
+  "title": "What the ecosystem gives you",
+  "lead": "Content planning, AI production, review before publishing and channel management, in one place.",
+  "features": [
+   {
+    "label": "Reach",
+    "title": "30 interface languages",
+    "description": "Work in your own language: the interface ships in 30, and content can be produced in the language you choose.",
+    "metric": "01 / Languages",
+    "cta": "Pick your language"
+   },
+   {
+    "label": "Safety",
+    "title": "Review before publishing",
+    "description": "Nothing goes out unchecked. Material that needs changes is sent back for rework before it reaches your channel.",
+    "metric": "02 / Review",
+    "cta": "Checked every time"
+   },
+   {
+    "label": "Revenue",
+    "title": "70% stays with you",
+    "description": "The platform takes 30%, and only from videos created in the ecosystem and published through it. Other videos on your channel are not counted.",
+    "metric": "03 / Share",
+    "cta": "Your channel, your revenue"
+   },
+   {
+    "label": "Focus",
+    "title": "One workspace",
+    "description": "Idea, script, voice, visuals, publishing and analytics — without moving between separate tools.",
+    "metric": "04 / Workspace",
+    "cta": "Everything in one place"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "What you get",
+  "sectionTitle": "One place for your creativity",
+  "sectionLead": "You choose the direction. The ecosystem joins the tools together, from idea to publication.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Ideas and content plan",
+    "desc": "Your channel topic, video ideas and a publishing schedule that fits your language and time zone.",
+    "cta": "Open",
+    "signal": "Planning"
+   },
+   {
+    "id": "02",
+    "title": "Script",
+    "desc": "A script drafted from the brief, ready for you to read through and adjust.",
+    "cta": "Open",
+    "signal": "Text"
+   },
+   {
+    "id": "03",
+    "title": "Voice",
+    "desc": "Voice-over in the language you picked. Availability depends on the connected provider.",
+    "cta": "Open",
+    "signal": "Audio"
+   },
+   {
+    "id": "04",
+    "title": "Visuals",
+    "desc": "Visuals and assembly for the finished video, prepared inside the workspace.",
+    "cta": "Open",
+    "signal": "Video"
+   },
+   {
+    "id": "05",
+    "title": "Content review",
+    "desc": "Moderation before publishing, with clear notes on what to improve.",
+    "cta": "Open",
+    "signal": "Review"
+   },
+   {
+    "id": "06",
+    "title": "Publishing and analytics",
+    "desc": "Manage videos and Shorts, follow the results and the revenue they bring.",
+    "cta": "Open",
+    "signal": "Results"
+   }
+  ]
+ },
+ "AH": {
+  "label": "How it works",
+  "title": "From idea to published video",
+  "lead": "Five steps from connecting your channel to tracking the results.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Connect",
+    "desc": "Sign up and connect your YouTube channel.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Choose",
+    "desc": "Pick your plan, topic and language.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Create",
+    "desc": "Prepare the content and approve it.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Publish",
+    "desc": "Pass review and publish to your channel.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Track",
+    "desc": "Follow the results and your revenue.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Got Questions?",
+  "words": [
+   "Frequently",
+   "Asked"
+  ],
+  "items": [
+   {
+    "q": "Does my channel stay mine?",
+    "a": "Yes. You run the channel and grant access for the connection. You can revoke that access at any time."
+   },
+   {
+    "q": "Is the commission taken from the whole channel?",
+    "a": "No. The platform's 30% applies only to videos created inside the ecosystem and published through it. Other videos are not counted."
+   },
+   {
+    "q": "Can I choose the content language?",
+    "a": "Settings offer a catalogue of 30 language options. Voice generation depends on the connected provider."
+   },
+   {
+    "q": "Is anything published without review?",
+    "a": "No. Content passes moderation before publishing, and material that needs changes is sent back for rework."
+   },
+   {
+    "q": "How many interface languages are there?",
+    "a": "Thirty. The interface and the content settings both use that list."
+   },
+   {
+    "q": "Is the subscription part of the revenue share?",
+    "a": "No. The subscription is billed separately from the revenue share."
+   },
+   {
+    "q": "Is revenue guaranteed?",
+    "a": "No. Earnings depend on how the videos perform and on YouTube's own rules, so no amount is guaranteed."
+   },
+   {
+    "q": "How do I connect a YouTube channel?",
+    "a": "You authorise the connection from your profile. The ecosystem only gets the access you grant."
+   },
+   {
+    "q": "Can I revoke access later?",
+    "a": "Yes. You can withdraw the permission at any point, and publishing stops."
+   },
+   {
+    "q": "Can I see a video before it goes out?",
+    "a": "Yes. Every video goes through an approval step where you can accept it, request changes or reject it."
+   },
+   {
+    "q": "Are Shorts supported?",
+    "a": "Yes. Both regular videos and Shorts are handled in the same workspace."
+   },
+   {
+    "q": "Can I export or delete my data?",
+    "a": "Yes. You can request an export of your data or its deletion from your account settings."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Start here",
+  "title": "Your next idea starts here.",
+  "desc": "Create a profile, explore the tools and set up the workspace for your channel.",
+  "btn": "Create an account",
+  "secondaryBtn": "Sign in"
+ },
+ "KH": {
+  "desc": "An ecosystem for YouTube creators: plan content, create video with AI, review it and publish from one workspace.",
+  "lists": [
+   {
+    "title": "Sections",
+    "items": [
+     "What you get",
+     "Integrations",
+     "How it works",
+     "FAQ"
+    ]
+   },
+   {
+    "title": "Ecosystem",
+    "items": [
+     "Content plan",
+     "AI production",
+     "Review before publishing",
+     "Publishing and analytics"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Contact",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. All rights reserved.",
+  "author": "Created by Abdulxamidov S.A.",
+  "links": [
+   "Privacy Policy",
+   "Terms of Service"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Works",
+   "with"
+  ],
+  "label": "Integrations and stack"
+ }
+}

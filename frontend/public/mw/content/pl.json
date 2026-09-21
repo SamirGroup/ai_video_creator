@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Start",
+   "services": "Możliwości",
+   "portfolio": "Jak to działa",
+   "pricing": "Cennik",
+   "about": "Warunki",
+   "contact": "Kontakt",
+   "call": "ZALOGUJ SIĘ",
+   "menu": "Nawigacja"
+  },
+  "hero": {
+   "badge": "EKOSYSTEM DLA TWÓRCÓW YOUTUBE",
+   "agency": "Ekosystem",
+   "desc": "Planuj treści, twórz wideo z AI i prowadź swój kanał YouTube w jednym miejscu.",
+   "btn": "Załóż konto",
+   "chat": "Czat",
+   "p1": "Pomysły i plan treści",
+   "p2": "Tworzenie wideo",
+   "p3": "Weryfikacja treści",
+   "p4": "Publikacja i analityka",
+   "p5": "Jedna przestrzeń pracy"
+  },
+  "stats": {
+   "title": "Jak działa ekosystem",
+   "subtitle": "Platforma jest w aktywnym rozwoju. Poniżej warunki, które obowiązują dzisiaj.",
+   "completed": "Języki interfejsu",
+   "ongoing": "Udział twórcy",
+   "exp": "Udział platformy",
+   "happy": "Weryfikacja przed publikacją",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Zawsze"
+  },
+  "blueprint": {
+   "console": "Główna konsola",
+   "core": "Rdzeń Creator AI",
+   "arch": "Budujemy przestrzeń pracy",
+   "status": "Status rozwoju",
+   "deploy": "Ta sekcja jest jeszcze w budowie. Przestrzeń twórcy, publikacja i analityka są dostępne po zalogowaniu.",
+   "s_title": "Status",
+   "s_lat": "Odpowiedź",
+   "s_branch": "Kanał",
+   "logs": "Dziennik aktywności",
+   "p_core": "Silnik treści",
+   "p_guard": "Moderacja",
+   "p_deploy": "Publikacja",
+   "v_core": "Generowanie AI",
+   "v_guard": "Weryfikacja przed publikacją",
+   "v_deploy": "Integracja z YouTube",
+   "scan": "Przygotowujemy przestrzeń pracy..."
+  }
+ },
+ "fH": {
+  "label": "Możliwości",
+  "title": "Co daje ekosystem",
+  "lead": "Plan treści, produkcja z AI, weryfikacja przed publikacją i zarządzanie kanałem — w jednym miejscu.",
+  "features": [
+   {
+    "label": "Zasięg",
+    "title": "30 języków interfejsu",
+    "description": "Pracuj we własnym języku: interfejs dostępny jest w 30 językach, a treści przygotujesz w tym, który wybierzesz.",
+    "metric": "01 / Języki",
+    "cta": "Wybierz język"
+   },
+   {
+    "label": "Bezpieczeństwo",
+    "title": "Weryfikacja przed publikacją",
+    "description": "Nic nie wychodzi bez sprawdzenia. Materiał wymagający poprawek wraca do dopracowania i nie trafia na kanał.",
+    "metric": "02 / Weryfikacja",
+    "cta": "Zawsze sprawdzane"
+   },
+   {
+    "label": "Przychód",
+    "title": "70% zostaje u Ciebie",
+    "description": "Platforma pobiera 30% i wyłącznie z filmów stworzonych w ekosystemie i opublikowanych przez niego. Pozostałe filmy na kanale nie są liczone.",
+    "metric": "03 / Udział",
+    "cta": "Twój kanał, Twój przychód"
+   },
+   {
+    "label": "Skupienie",
+    "title": "Jedna przestrzeń pracy",
+    "description": "Pomysł, scenariusz, lektor, oprawa wizualna, publikacja i analityka — bez przeskakiwania między osobnymi narzędziami.",
+    "metric": "04 / Przestrzeń",
+    "cta": "Wszystko w jednym miejscu"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Co otrzymujesz",
+  "sectionTitle": "Jedno miejsce dla Twojej twórczości",
+  "sectionLead": "Kierunek wybierasz Ty. Ekosystem łączy narzędzia — od pomysłu po publikację.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Pomysły i plan treści",
+    "desc": "Temat kanału, pomysły na filmy i harmonogram publikacji dopasowany do Twojego języka i strefy czasowej.",
+    "cta": "Otwórz",
+    "signal": "Planowanie"
+   },
+   {
+    "id": "02",
+    "title": "Scenariusz",
+    "desc": "Scenariusz przygotowany na podstawie briefu — możesz go przeczytać i poprawić.",
+    "cta": "Otwórz",
+    "signal": "Tekst"
+   },
+   {
+    "id": "03",
+    "title": "Lektor",
+    "desc": "Lektor w wybranym języku. Dostępność zależy od podłączonego dostawcy.",
+    "cta": "Otwórz",
+    "signal": "Audio"
+   },
+   {
+    "id": "04",
+    "title": "Oprawa wizualna",
+    "desc": "Materiał wizualny i montaż gotowego filmu — wewnątrz przestrzeni pracy.",
+    "cta": "Otwórz",
+    "signal": "Wideo"
+   },
+   {
+    "id": "05",
+    "title": "Weryfikacja treści",
+    "desc": "Moderacja przed publikacją i zrozumiałe uwagi, co poprawić.",
+    "cta": "Otwórz",
+    "signal": "Weryfikacja"
+   },
+   {
+    "id": "06",
+    "title": "Publikacja i analityka",
+    "desc": "Zarządzaj filmami i Shorts, śledź wyniki i przychód, który przynoszą.",
+    "cta": "Otwórz",
+    "signal": "Wyniki"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Jak to działa",
+  "title": "Od pomysłu do opublikowanego filmu",
+  "lead": "Pięć kroków: od podłączenia kanału po śledzenie wyników.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Podłącz",
+    "desc": "Zarejestruj się i podłącz swój kanał YouTube.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Wybierz",
+    "desc": "Wybierz plan, temat i język.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Twórz",
+    "desc": "Przygotuj treść i zatwierdź ją.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Publikuj",
+    "desc": "Przejdź weryfikację i opublikuj na kanale.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Śledź",
+    "desc": "Obserwuj wyniki i swój przychód.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Masz pytania?",
+  "words": [
+   "Często",
+   "zadawane"
+  ],
+  "items": [
+   {
+    "q": "Czy kanał pozostaje mój?",
+    "a": "Tak. Kanałem zarządzasz Ty i sam przyznajesz dostęp do połączenia. Możesz go cofnąć w dowolnym momencie."
+   },
+   {
+    "q": "Czy prowizja dotyczy całego kanału?",
+    "a": "Nie. 30% platformy dotyczy wyłącznie filmów stworzonych w ekosystemie i opublikowanych przez niego. Pozostałe filmy nie są liczone."
+   },
+   {
+    "q": "Czy mogę wybrać język treści?",
+    "a": "W ustawieniach dostępny jest katalog 30 języków. Generowanie lektora zależy od podłączonego dostawcy."
+   },
+   {
+    "q": "Czy coś publikuje się bez weryfikacji?",
+    "a": "Nie. Przed publikacją treść przechodzi moderację, a materiał wymagający poprawek wraca do dopracowania."
+   },
+   {
+    "q": "Ile jest języków interfejsu?",
+    "a": "Trzydzieści. Interfejs i ustawienia treści korzystają z tej samej listy."
+   },
+   {
+    "q": "Czy abonament wlicza się do podziału przychodu?",
+    "a": "Nie. Abonament rozliczany jest osobno od podziału przychodu."
+   },
+   {
+    "q": "Czy przychód jest gwarantowany?",
+    "a": "Nie. Zarobki zależą od wyników filmów i zasad YouTube, więc żadna kwota nie jest gwarantowana."
+   },
+   {
+    "q": "Jak podłączyć kanał YouTube?",
+    "a": "Połączenie autoryzujesz w swoim profilu. Ekosystem działa tylko w zakresie dostępu, który przyznasz."
+   },
+   {
+    "q": "Czy mogę później cofnąć dostęp?",
+    "a": "Tak. Uprawnienie możesz wycofać w dowolnej chwili — publikacja wtedy się zatrzyma."
+   },
+   {
+    "q": "Czy zobaczę film przed publikacją?",
+    "a": "Tak. Każdy film przechodzi etap zatwierdzenia: możesz go przyjąć, poprosić o poprawki albo odrzucić."
+   },
+   {
+    "q": "Czy Shorts są obsługiwane?",
+    "a": "Tak. Zwykłe filmy i Shorts prowadzisz w tej samej przestrzeni pracy."
+   },
+   {
+    "q": "Czy mogę wyeksportować lub usunąć swoje dane?",
+    "a": "Tak. W ustawieniach konta możesz poprosić o eksport danych albo o ich usunięcie."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Zacznij tutaj",
+  "title": "Twój następny pomysł zaczyna się tutaj.",
+  "desc": "Załóż profil, poznaj narzędzia i skonfiguruj przestrzeń pracy dla swojego kanału.",
+  "btn": "Załóż konto",
+  "secondaryBtn": "Zaloguj się"
+ },
+ "KH": {
+  "desc": "Ekosystem dla twórców YouTube: planuj treści, twórz wideo z AI, weryfikuj je i publikuj z jednej przestrzeni pracy.",
+  "lists": [
+   {
+    "title": "Sekcje",
+    "items": [
+     "Co otrzymujesz",
+     "Integracje",
+     "Jak to działa",
+     "Pytania"
+    ]
+   },
+   {
+    "title": "Ekosystem",
+    "items": [
+     "Plan treści",
+     "Produkcja z AI",
+     "Weryfikacja przed publikacją",
+     "Publikacja i analityka"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Kontakt",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Wszelkie prawa zastrzeżone.",
+  "author": "Autor: Abdulxamidov S.A.",
+  "links": [
+   "Polityka prywatności",
+   "Warunki korzystania"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Z czym",
+   "działa"
+  ],
+  "label": "Integracje i technologie"
+ }
+}

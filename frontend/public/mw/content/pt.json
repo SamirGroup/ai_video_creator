@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Início",
+   "services": "Recursos",
+   "portfolio": "Como funciona",
+   "pricing": "Planos",
+   "about": "Condições",
+   "contact": "Contato",
+   "call": "ENTRAR",
+   "menu": "Navegação"
+  },
+  "hero": {
+   "badge": "ECOSSISTEMA PARA CRIADORES DO YOUTUBE",
+   "agency": "Ecossistema",
+   "desc": "Planeje seu conteúdo, crie vídeo com IA e cuide do seu canal do YouTube em um só lugar.",
+   "btn": "Criar uma conta",
+   "chat": "Chat",
+   "p1": "Ideias e plano de conteúdo",
+   "p2": "Criação de vídeo",
+   "p3": "Revisão do conteúdo",
+   "p4": "Publicação e análise",
+   "p5": "Um só espaço"
+  },
+  "stats": {
+   "title": "Como o ecossistema funciona",
+   "subtitle": "A plataforma está em desenvolvimento ativo. Estas são as condições que valem hoje.",
+   "completed": "Idiomas da interface",
+   "ongoing": "Parte do criador",
+   "exp": "Parte da plataforma",
+   "happy": "Revisão antes de publicar",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Sempre"
+  },
+  "blueprint": {
+   "console": "Console principal",
+   "core": "Núcleo do Creator AI",
+   "arch": "Montando o espaço de trabalho",
+   "status": "Status do desenvolvimento",
+   "deploy": "Esta seção ainda está em construção. O espaço de trabalho, a publicação e a análise ficam disponíveis depois que você entra.",
+   "s_title": "Status",
+   "s_lat": "Resposta",
+   "s_branch": "Canal",
+   "logs": "Registro de atividade",
+   "p_core": "Motor de conteúdo",
+   "p_guard": "Moderação",
+   "p_deploy": "Publicação",
+   "v_core": "Geração com IA",
+   "v_guard": "Revisão antes de publicar",
+   "v_deploy": "Integração com o YouTube",
+   "scan": "Preparando o espaço de trabalho..."
+  }
+ },
+ "fH": {
+  "label": "Recursos",
+  "title": "O que o ecossistema te dá",
+  "lead": "Plano de conteúdo, produção com IA, revisão antes de publicar e gestão do canal, tudo em um só lugar.",
+  "features": [
+   {
+    "label": "Alcance",
+    "title": "30 idiomas de interface",
+    "description": "Trabalhe no seu idioma: a interface vem em 30 e o conteúdo pode ser produzido no idioma que você escolher.",
+    "metric": "01 / Idiomas",
+    "cta": "Escolha seu idioma"
+   },
+   {
+    "label": "Segurança",
+    "title": "Revisão antes de publicar",
+    "description": "Nada sai sem revisão. O material que precisa de ajustes volta para correção antes de chegar ao seu canal.",
+    "metric": "02 / Revisão",
+    "cta": "Sempre revisado"
+   },
+   {
+    "label": "Receita",
+    "title": "70% ficam com você",
+    "description": "A plataforma fica com 30%, e só dos vídeos criados dentro do ecossistema e publicados por ele. Os outros vídeos do seu canal não entram na conta.",
+    "metric": "03 / Divisão",
+    "cta": "Seu canal, sua receita"
+   },
+   {
+    "label": "Foco",
+    "title": "Um só espaço",
+    "description": "Ideia, roteiro, voz, imagens, publicação e análise, sem ficar pulando entre ferramentas.",
+    "metric": "04 / Espaço",
+    "cta": "Tudo em um lugar"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "O que você ganha",
+  "sectionTitle": "Um só lugar para a sua criação",
+  "sectionLead": "A direção é você quem escolhe. O ecossistema junta as ferramentas, da ideia à publicação.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Ideias e plano de conteúdo",
+    "desc": "O tema do seu canal, ideias de vídeos e um calendário de publicação que combina com seu idioma e fuso horário.",
+    "cta": "Abrir",
+    "signal": "Planejamento"
+   },
+   {
+    "id": "02",
+    "title": "Roteiro",
+    "desc": "Um roteiro escrito a partir do briefing, pronto para você ler e ajustar.",
+    "cta": "Abrir",
+    "signal": "Texto"
+   },
+   {
+    "id": "03",
+    "title": "Voz",
+    "desc": "Narração no idioma que você escolher. A disponibilidade depende do provedor conectado.",
+    "cta": "Abrir",
+    "signal": "Áudio"
+   },
+   {
+    "id": "04",
+    "title": "Imagens",
+    "desc": "Imagens e montagem do vídeo final, preparadas dentro do espaço de trabalho.",
+    "cta": "Abrir",
+    "signal": "Vídeo"
+   },
+   {
+    "id": "05",
+    "title": "Revisão do conteúdo",
+    "desc": "Moderação antes de publicar, com observações claras sobre o que melhorar.",
+    "cta": "Abrir",
+    "signal": "Revisão"
+   },
+   {
+    "id": "06",
+    "title": "Publicação e análise",
+    "desc": "Gerencie vídeos e Shorts e acompanhe os resultados e a receita que eles trazem.",
+    "cta": "Abrir",
+    "signal": "Resultados"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Como funciona",
+  "title": "Da ideia ao vídeo publicado",
+  "lead": "Cinco passos, de conectar o canal até acompanhar os resultados.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Conecte",
+    "desc": "Cadastre-se e conecte seu canal do YouTube.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Escolha",
+    "desc": "Escolha o plano, o tema e o idioma.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Crie",
+    "desc": "Prepare o conteúdo e aprove.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Publique",
+    "desc": "Passe pela revisão e publique no seu canal.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Acompanhe",
+    "desc": "Acompanhe os resultados e a sua receita.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Ficou com dúvidas?",
+  "words": [
+   "Perguntas",
+   "frequentes"
+  ],
+  "items": [
+   {
+    "q": "O canal continua sendo meu?",
+    "a": "Sim. Quem comanda o canal é você, e é você quem concede o acesso para a conexão. Esse acesso pode ser revogado a qualquer momento."
+   },
+   {
+    "q": "A comissão vale para o canal inteiro?",
+    "a": "Não. Os 30% da plataforma valem apenas para os vídeos criados dentro do ecossistema e publicados por ele. Os outros vídeos não entram na conta."
+   },
+   {
+    "q": "Posso escolher o idioma do conteúdo?",
+    "a": "Nas configurações há um catálogo com 30 opções de idioma. A geração de voz depende do provedor conectado."
+   },
+   {
+    "q": "Alguma coisa é publicada sem revisão?",
+    "a": "Não. O conteúdo passa pela moderação antes de ir ao ar, e o material que precisa de ajustes volta para correção."
+   },
+   {
+    "q": "Quantos idiomas tem a interface?",
+    "a": "Trinta. A interface e as configurações de conteúdo usam a mesma lista."
+   },
+   {
+    "q": "A assinatura entra na divisão da receita?",
+    "a": "Não. A assinatura é cobrada separadamente da divisão da receita."
+   },
+   {
+    "q": "A receita é garantida?",
+    "a": "Não. Os ganhos dependem do desempenho dos vídeos e das regras do YouTube, então nenhum valor é garantido."
+   },
+   {
+    "q": "Como conecto um canal do YouTube?",
+    "a": "Você autoriza a conexão pelo seu perfil. O ecossistema recebe apenas o acesso que você concede."
+   },
+   {
+    "q": "Posso revogar o acesso depois?",
+    "a": "Sim. Você pode retirar a permissão quando quiser, e a publicação para."
+   },
+   {
+    "q": "Consigo ver o vídeo antes de ele sair?",
+    "a": "Sim. Todo vídeo passa por uma etapa de aprovação: você pode aceitar, pedir mudanças ou recusar."
+   },
+   {
+    "q": "Os Shorts são suportados?",
+    "a": "Sim. Vídeos comuns e Shorts são cuidados no mesmo espaço."
+   },
+   {
+    "q": "Posso exportar ou apagar meus dados?",
+    "a": "Sim. Nas configurações da conta você pode pedir a exportação dos seus dados ou a exclusão deles."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Comece aqui",
+  "title": "Sua próxima ideia começa aqui.",
+  "desc": "Crie um perfil, conheça as ferramentas e configure o espaço de trabalho do seu canal.",
+  "btn": "Criar uma conta",
+  "secondaryBtn": "Entrar"
+ },
+ "KH": {
+  "desc": "Um ecossistema para criadores do YouTube: planeje conteúdo, crie vídeo com IA, revise e publique a partir de um só espaço.",
+  "lists": [
+   {
+    "title": "Seções",
+    "items": [
+     "O que você ganha",
+     "Integrações",
+     "Como funciona",
+     "Perguntas"
+    ]
+   },
+   {
+    "title": "Ecossistema",
+    "items": [
+     "Plano de conteúdo",
+     "Produção com IA",
+     "Revisão antes de publicar",
+     "Publicação e análise"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Contato",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Todos os direitos reservados.",
+  "author": "Criado por Abdulxamidov S.A.",
+  "links": [
+   "Política de Privacidade",
+   "Termos de Uso"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Funciona",
+   "com"
+  ],
+  "label": "Integrações e tecnologias"
+ }
+}

@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Baş sahypa",
+   "services": "Mümkinçilikler",
+   "portfolio": "Proses",
+   "pricing": "Nyrhlar",
+   "about": "Şertler",
+   "contact": "Habarlaşmak",
+   "call": "GIRMEK",
+   "menu": "Menýu"
+  },
+  "hero": {
+   "badge": "YOUTUBE KREATORLARY ÜÇIN EKOULGAM",
+   "agency": "Ekoulgamy",
+   "desc": "Kontenti meýilleşdiriň, AI bilen wideo dörediň we YouTube kanalyňyzy bir giňişlikden dolandyryň.",
+   "btn": "Hasap döretmek",
+   "chat": "Söhbet",
+   "p1": "Pikir we kontent meýilnamasy",
+   "p2": "Wideo döretmek",
+   "p3": "Kontent barlagy",
+   "p4": "Çap we seljerme",
+   "p5": "Bitewi iş giňişligi"
+  },
+  "stats": {
+   "title": "Ekoulgam nähili işleýär",
+   "subtitle": "Platforma işjeň işlenip düzülýär. Häzirki şertler aşakda.",
+   "completed": "Interfeýs dili",
+   "ongoing": "Kreatoryň paýy",
+   "exp": "Platformanyň paýy",
+   "happy": "Çapdan öň barlag",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Hemişe"
+  },
+  "blueprint": {
+   "console": "Esasy konsol",
+   "core": "Creator AI özeni",
+   "arch": "Iş giňişligi taýýarlanýar",
+   "status": "Işläp düzüliş ýagdaýy",
+   "deploy": "Bu bölüm entek taýýarlanýar. Iş giňişligi, çap we seljerme girenden soň elýeterli.",
+   "s_title": "Ýagdaý",
+   "s_lat": "Jogap",
+   "s_branch": "Kanal",
+   "logs": "Hereket žurnaly",
+   "p_core": "Kontent hereketlendirijisi",
+   "p_guard": "Moderasiýa",
+   "p_deploy": "Çap",
+   "v_core": "AI döredişi",
+   "v_guard": "Çapdan öň barlag",
+   "v_deploy": "YouTube integrasiýasy",
+   "scan": "Iş giňişligi taýýarlanýar..."
+  }
+ },
+ "fH": {
+  "label": "Mümkinçilikler",
+  "title": "Ekoulgam näme berýär",
+  "lead": "Kontent meýilnamasy, AI bilen öndüriş, çapdan öň barlag we kanal dolandyryşy — bir ýerde.",
+  "features": [
+   {
+    "label": "Gerim",
+    "title": "30 interfeýs dili",
+    "description": "Öz diliňizde işläň: interfeýs 30 dilde, kontenti bolsa saýlan diliňizde taýýarlap bolýar.",
+    "metric": "01 / Diller",
+    "cta": "Diliňizi saýlaň"
+   },
+   {
+    "label": "Howpsuzlyk",
+    "title": "Çapdan öň barlag",
+    "description": "Hiç zat barlagsyz çykmaýar. Düzediş talap edýän material kanala ýetmän, gaýtadan işlemäge ugradylýar.",
+    "metric": "02 / Barlag",
+    "cta": "Hemişe barlanýar"
+   },
+   {
+    "label": "Girdeji",
+    "title": "70% sizde galýar",
+    "description": "Platforma 30% alýar, diňe ekoulgamyň içinde döredilip, onuň üsti bilen çap edilen wideolardan. Kanalyňyzdaky beýleki wideolar hasaba alynmaýar.",
+    "metric": "03 / Paý",
+    "cta": "Kanal siziňki, girdeji siziňki"
+   },
+   {
+    "label": "Jemlenme",
+    "title": "Bitewi iş giňişligi",
+    "description": "Pikir, ssenariý, ses, wizual, çap we seljerme — aýry gurallaryň arasynda ýöremän.",
+    "metric": "04 / Giňişlik",
+    "cta": "Hemmesi bir ýerde"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Näme alýarsyňyz",
+  "sectionTitle": "Döredijiligiňiz üçin bir giňişlik",
+  "sectionLead": "Ugry siz saýlaýarsyňyz. Ekoulgam gurallary pikirden çapa çenli birleşdirýär.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Pikir we kontent meýilnamasy",
+    "desc": "Kanalyňyzyň mowzugy, wideo pikirleri we diliňize hem-de wagt guşaklygyňyza laýyk çap tertibi.",
+    "cta": "Açmak",
+    "signal": "Meýilnama"
+   },
+   {
+    "id": "02",
+    "title": "Ssenariý",
+    "desc": "Brif esasynda taýýarlanan ssenariý — okap, redaktirläp bilersiňiz.",
+    "cta": "Açmak",
+    "signal": "Tekst"
+   },
+   {
+    "id": "03",
+    "title": "Ses",
+    "desc": "Saýlan diliňizde ses. Mümkinçilik birikdirilen üpjünçä bagly.",
+    "cta": "Açmak",
+    "signal": "Audio"
+   },
+   {
+    "id": "04",
+    "title": "Wizual",
+    "desc": "Taýýar wideo üçin wizual we ýygnama — iş giňişliginiň içinde.",
+    "cta": "Açmak",
+    "signal": "Wideo"
+   },
+   {
+    "id": "05",
+    "title": "Kontent barlagy",
+    "desc": "Çapdan öň moderasiýa we nämäni gowulandyrmalydygy barada anyk bellikler.",
+    "cta": "Açmak",
+    "signal": "Barlag"
+   },
+   {
+    "id": "06",
+    "title": "Çap we seljerme",
+    "desc": "Wideolary we Shorts-y dolandyryň, netijelere we girdejä syn ediň.",
+    "cta": "Açmak",
+    "signal": "Netije"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Proses",
+  "title": "Pikirden taýýar çapa çenli",
+  "lead": "Kanaly birikdirmekden netijelere syn etmäge çenli bäş ädim.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Birikdiriş",
+    "desc": "Hasaba duruň we YouTube kanalyňyzy birikdiriň.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Saýlaw",
+    "desc": "Nyrhnamany, mowzugy we dili saýlaň.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Taýýarlyk",
+    "desc": "Kontenti taýýarlaň we tassyklaň.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Çap",
+    "desc": "Moderasiýadan geçiň we kanala ýerleşdiriň.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Syn",
+    "desc": "Netijelere we girdejä syn ediň.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Soraglaryňyz barmy?",
+  "words": [
+   "Köp",
+   "soralýan"
+  ],
+  "items": [
+   {
+    "q": "Kanal meniňki bolup galýarmy?",
+    "a": "Hawa. Kanaly siz dolandyrýarsyňyz we birikme üçin rugsat berýärsiňiz. Bu rugsady islendik wagt yzyna alyp bilersiňiz."
+   },
+   {
+    "q": "Komissiýa tutuş kanaldan alynýarmy?",
+    "a": "Ýok. Platformanyň 30% paýy diňe ekoulgamyň içinde döredilip, onuň üsti bilen çap edilen wideolara degişli. Beýleki wideolar hasaba alynmaýar."
+   },
+   {
+    "q": "Kontentiň dilini saýlap bolýarmy?",
+    "a": "Sazlamalarda 30 dil wariantyndan ybarat katalog bar. Sesiň döredilmegi birikdirilen üpjünçä bagly."
+   },
+   {
+    "q": "Barlagsyz çap edilýän zat barmy?",
+    "a": "Ýok. Çapdan öň kontent moderasiýadan geçýär, düzediş talap edýän material bolsa gaýtadan işlemäge ugradylýar."
+   },
+   {
+    "q": "Interfeýs näçe dilde?",
+    "a": "Otuz. Interfeýs hem, kontent sazlamalary hem şol sanawy ulanýar."
+   },
+   {
+    "q": "Abuna tölegi girdeji paýyna girýärmi?",
+    "a": "Ýok. Abuna tölegi girdeji paýyndan aýratyn hasaplanýar."
+   },
+   {
+    "q": "Girdeji kepillendirilýärmi?",
+    "a": "Ýok. Girdeji wideolaryň netijelerine we YouTube düzgünlerine bagly, şonuň üçin anyk möçber kepillendirilmeýär."
+   },
+   {
+    "q": "YouTube kanalyny nädip birikdirmeli?",
+    "a": "Birikmä profiliňizden rugsat berýärsiňiz. Ekoulgam diňe siziň beren rugsadyňyzyň çäginde işleýär."
+   },
+   {
+    "q": "Rugsady soňra yzyna alyp bolýarmy?",
+    "a": "Hawa. Rugsady islendik pursatda yzyna alyp bilersiňiz, şonda çap saklanýar."
+   },
+   {
+    "q": "Wideony çykmazyndan öň görüp bilerinmi?",
+    "a": "Hawa. Her wideo tassyklaýyş tapgyryndan geçýär: kabul edip, düzediş sorap ýa-da ret edip bilersiňiz."
+   },
+   {
+    "q": "Shorts goldanylýarmy?",
+    "a": "Hawa. Adaty wideolar hem, Shorts hem bir iş giňişliginde dolandyrylýar."
+   },
+   {
+    "q": "Maglumatlarymy ýükläp ýa-da pozup bolýarmy?",
+    "a": "Hawa. Hasap sazlamalaryndan maglumatlaryňyzyň eksportyny ýa-da pozulmagyny sorap bilersiňiz."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Şu ýerden başlaň",
+  "title": "Indiki pikiriňiz şu ýerden başlaýar.",
+  "desc": "Profil dörediň, gurallar bilen tanşyň we kanalyňyz üçin iş giňişligini sazlaň.",
+  "btn": "Hasap döretmek",
+  "secondaryBtn": "Girmek"
+ },
+ "KH": {
+  "desc": "YouTube kreatorlary üçin ekoulgam: kontenti meýilleşdiriň, AI bilen wideo dörediň, barlaň we bir giňişlikden çap ediň.",
+  "lists": [
+   {
+    "title": "Bölümler",
+    "items": [
+     "Näme alýarsyňyz",
+     "Integrasiýalar",
+     "Proses",
+     "Soraglar"
+    ]
+   },
+   {
+    "title": "Ekoulgam",
+    "items": [
+     "Kontent meýilnamasy",
+     "AI bilen öndüriş",
+     "Çapdan öň barlag",
+     "Çap we seljerme"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Habarlaşmak",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Ähli hukuklar goralan.",
+  "author": "Awtor: Abdulxamidov S.A.",
+  "links": [
+   "Gizlinlik syýasaty",
+   "Ulanyş şertleri"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Nämeler",
+   "bilen"
+  ],
+  "label": "Integrasiýalar we tehnologiýalar"
+ }
+}

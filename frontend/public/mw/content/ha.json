@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Gida",
+   "services": "Damarmaki",
+   "portfolio": "Yadda yake aiki",
+   "pricing": "Farashi",
+   "about": "Sharuɗɗa",
+   "contact": "Tuntuɓe mu",
+   "call": "SHIGA",
+   "menu": "Kewayawa"
+  },
+  "hero": {
+   "badge": "TSARI GA MASU ƘIRƘIRAR YOUTUBE",
+   "agency": "Tsari",
+   "desc": "Tsara abun cikinka, ka ƙirƙiri bidiyo da AI, ka kuma gudanar da tashar YouTube ɗinka a wuri guda.",
+   "btn": "Buɗe asusu",
+   "chat": "Hira",
+   "p1": "Dabaru da tsarin wallafawa",
+   "p2": "Ƙirƙirar bidiyo",
+   "p3": "Dubawar abun ciki",
+   "p4": "Wallafawa da nazari",
+   "p5": "Filin aiki guda"
+  },
+  "stats": {
+   "title": "Yadda tsarin ke aiki",
+   "subtitle": "Ana ci gaba da gina dandalin. Waɗannan su ne sharuɗɗan da ke aiki a yau.",
+   "completed": "Harsunan shafin",
+   "ongoing": "Rabon mai ƙirƙira",
+   "exp": "Rabon dandali",
+   "happy": "Dubawa kafin wallafawa",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Kullum"
+  },
+  "blueprint": {
+   "console": "Babban shafin sarrafawa",
+   "core": "Ginshiƙin Creator AI",
+   "arch": "Ana shirya filin aiki",
+   "status": "Matsayin ci gaba",
+   "deploy": "Ana ci gaba da gina wannan sashe. Filin aiki na mai ƙirƙira, wallafawa da nazari suna samuwa bayan ka shiga.",
+   "s_title": "Matsayi",
+   "s_lat": "Amsa",
+   "s_branch": "Tasha",
+   "logs": "Tarihin ayyuka",
+   "p_core": "Injin abun ciki",
+   "p_guard": "Tantancewa",
+   "p_deploy": "Wallafawa",
+   "v_core": "Ƙirƙira da AI",
+   "v_guard": "Dubawa kafin wallafawa",
+   "v_deploy": "Haɗi da YouTube",
+   "scan": "Ana shirya filin aiki..."
+  }
+ },
+ "fH": {
+  "label": "Damarmaki",
+  "title": "Abin da tsarin ke ba ka",
+  "lead": "Tsara abun ciki, ƙirƙira da AI, dubawa kafin wallafawa da gudanar da tasha — duk a wuri guda.",
+  "features": [
+   {
+    "label": "Yaɗuwa",
+    "title": "Harsuna 30 na shafin",
+    "description": "Yi aiki da harshenka: shafin yana da harsuna 30, kuma za ka iya shirya abun ciki a harshen da ka zaɓa.",
+    "metric": "01 / Harsuna",
+    "cta": "Zaɓi harshenka"
+   },
+   {
+    "label": "Tsaro",
+    "title": "Dubawa kafin wallafawa",
+    "description": "Babu abin da ke fita ba tare da an duba ba. Duk abin da ke buƙatar gyara yana komawa a sake yi kafin ya isa tasharka.",
+    "metric": "02 / Dubawa",
+    "cta": "Ana dubawa kullum"
+   },
+   {
+    "label": "Kuɗin shiga",
+    "title": "70% na zama naka",
+    "description": "Dandalin yana ɗaukar 30%, kuma daga bidiyon da aka ƙirƙira cikin tsarin aka kuma wallafa ta hanyarsa kaɗai. Sauran bidiyon tasharka ba a ƙirga su.",
+    "metric": "03 / Rabo",
+    "cta": "Tasharka, kuɗinka"
+   },
+   {
+    "label": "Mai da hankali",
+    "title": "Filin aiki guda",
+    "description": "Dabara, rubutu, murya, hoto, wallafawa da nazari — ba tare da tsallakawa tsakanin kayan aiki daban-daban ba.",
+    "metric": "04 / Filin aiki",
+    "cta": "Duk a wuri guda"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Abin da ka samu",
+  "sectionTitle": "Wuri guda don ƙirƙirarka",
+  "sectionLead": "Kai ne ka zaɓi hanya. Tsarin yana haɗa kayan aiki tun daga dabara har zuwa wallafawa.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Dabaru da tsarin wallafawa",
+    "desc": "Jigon tasharka, dabarun bidiyo da jadawalin wallafawa da ya dace da harshenka da yankin lokacinka.",
+    "cta": "Buɗe",
+    "signal": "Tsari"
+   },
+   {
+    "id": "02",
+    "title": "Rubutun bidiyo",
+    "desc": "Rubutun da aka shirya daga taƙaitaccen bayani, a shirye ka karanta ka kuma gyara.",
+    "cta": "Buɗe",
+    "signal": "Rubutu"
+   },
+   {
+    "id": "03",
+    "title": "Murya",
+    "desc": "Muryar karatu a harshen da ka zaɓa. Samuwarta ya dogara ga mai bayarwa da aka haɗa.",
+    "cta": "Buɗe",
+    "signal": "Sauti"
+   },
+   {
+    "id": "04",
+    "title": "Hoto",
+    "desc": "Hotuna da haɗa bidiyon ƙarshe, a cikin filin aiki.",
+    "cta": "Buɗe",
+    "signal": "Bidiyo"
+   },
+   {
+    "id": "05",
+    "title": "Dubawar abun ciki",
+    "desc": "Tantancewa kafin wallafawa, da bayyanannun shawarwari kan abin da ya kamata a gyara.",
+    "cta": "Buɗe",
+    "signal": "Dubawa"
+   },
+   {
+    "id": "06",
+    "title": "Wallafawa da nazari",
+    "desc": "Sarrafa bidiyo da Shorts, ka bi sakamako da kuɗin da suke kawowa.",
+    "cta": "Buɗe",
+    "signal": "Sakamako"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Yadda yake aiki",
+  "title": "Daga dabara zuwa bidiyon da aka wallafa",
+  "lead": "Matakai biyar daga haɗa tasharka zuwa bin sakamako.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Haɗawa",
+    "desc": "Yi rajista ka haɗa tashar YouTube ɗinka.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Zaɓi",
+    "desc": "Zaɓi shirin biyan kuɗi, jigo da harshe.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Ƙirƙira",
+    "desc": "Shirya abun ciki sannan ka amince da shi.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Wallafawa",
+    "desc": "Ka wuce dubawa ka wallafa a tasharka.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Bibiya",
+    "desc": "Bi sakamako da kuɗin shigarka.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Kana da tambaya?",
+  "words": [
+   "Tambayoyi",
+   "Akai-akai"
+  ],
+  "items": [
+   {
+    "q": "Tashar za ta ci gaba da zama tawa?",
+    "a": "Eh. Kai ne kake gudanar da tashar, kai kuma kake ba da izinin haɗi. Za ka iya janye wannan izini a kowane lokaci."
+   },
+   {
+    "q": "Ana ɗaukar kaso daga dukan tashar?",
+    "a": "A'a. Kaso 30% na dandalin yana kan bidiyon da aka ƙirƙira cikin tsarin aka kuma wallafa ta hanyarsa kaɗai. Sauran bidiyo ba a ƙirga su."
+   },
+   {
+    "q": "Zan iya zaɓar harshen abun ciki?",
+    "a": "A cikin saitunan akwai jerin zaɓuɓɓukan harsuna 30. Ƙirƙirar murya ya dogara ga mai bayarwa da aka haɗa."
+   },
+   {
+    "q": "Akwai abin da ake wallafawa ba tare da dubawa ba?",
+    "a": "A'a. Abun ciki yana wucewa ta tantancewa kafin a wallafa, kuma abin da ke buƙatar gyara yana komawa a sake yi."
+   },
+   {
+    "q": "Harsuna nawa shafin yake da su?",
+    "a": "Talatin. Shafin da saitunan abun ciki duka suna amfani da wannan jerin."
+   },
+   {
+    "q": "Kuɗin rajista yana cikin rabon kuɗin shiga?",
+    "a": "A'a. Ana ƙirga kuɗin rajista daban da rabon kuɗin shiga."
+   },
+   {
+    "q": "An tabbatar da kuɗin shiga?",
+    "a": "A'a. Kuɗin shiga ya dogara ga yadda bidiyon ke tafiya da kuma dokokin YouTube, don haka ba a tabbatar da wani adadi ba."
+   },
+   {
+    "q": "Yaya zan haɗa tashar YouTube?",
+    "a": "Kana ba da izinin haɗi daga bayananka. Tsarin yana samun izinin da ka bayar kaɗai."
+   },
+   {
+    "q": "Zan iya janye izini daga baya?",
+    "a": "Eh. Za ka iya janye izinin a kowane lokaci, sai wallafawa ya tsaya."
+   },
+   {
+    "q": "Zan iya ganin bidiyo kafin ya fita?",
+    "a": "Eh. Kowane bidiyo yana wucewa ta matakin amincewa: za ka iya karɓa, ka nemi gyara ko ka ƙi."
+   },
+   {
+    "q": "Ana goyon bayan Shorts?",
+    "a": "Eh. Ana sarrafa bidiyo na yau da kullum da Shorts a filin aiki guda."
+   },
+   {
+    "q": "Zan iya fitar da bayanaina ko share su?",
+    "a": "Eh. Za ka iya neman fitar da bayananka ko share su daga saitunan asusunka."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Fara daga nan",
+  "title": "Dabararka ta gaba tana farawa daga nan.",
+  "desc": "Ƙirƙiri bayananka, ka duba kayan aiki, ka kuma shirya filin aiki na tasharka.",
+  "btn": "Buɗe asusu",
+  "secondaryBtn": "Shiga"
+ },
+ "KH": {
+  "desc": "Tsari ga masu ƙirƙirar YouTube: tsara abun ciki, ka ƙirƙiri bidiyo da AI, ka duba shi ka kuma wallafa daga filin aiki guda.",
+  "lists": [
+   {
+    "title": "Sassa",
+    "items": [
+     "Abin da ka samu",
+     "Haɗe-haɗe",
+     "Yadda yake aiki",
+     "Tambayoyi"
+    ]
+   },
+   {
+    "title": "Tsarin",
+    "items": [
+     "Tsarin wallafawa",
+     "Ƙirƙira da AI",
+     "Dubawa kafin wallafawa",
+     "Wallafawa da nazari"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Tuntuɓe mu",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. An kiyaye duk haƙƙoƙi.",
+  "author": "Wanda ya ƙirƙira: Abdulxamidov S.A.",
+  "links": [
+   "Manufar sirri",
+   "Sharuɗɗan amfani"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Yana aiki",
+   "da"
+  ],
+  "label": "Haɗe-haɗe da fasaha"
+ }
+}

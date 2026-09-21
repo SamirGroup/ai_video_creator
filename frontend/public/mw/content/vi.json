@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Trang chủ",
+   "services": "Tính năng",
+   "portfolio": "Quy trình",
+   "pricing": "Bảng giá",
+   "about": "Điều khoản",
+   "contact": "Liên hệ",
+   "call": "ĐĂNG NHẬP",
+   "menu": "Menu"
+  },
+  "hero": {
+   "badge": "HỆ SINH THÁI CHO NHÀ SÁNG TẠO YOUTUBE",
+   "agency": "Hệ sinh thái",
+   "desc": "Lên kế hoạch nội dung, tạo video bằng AI và vận hành kênh YouTube của bạn ở cùng một nơi.",
+   "btn": "Tạo tài khoản",
+   "chat": "Trò chuyện",
+   "p1": "Ý tưởng và kế hoạch nội dung",
+   "p2": "Tạo video",
+   "p3": "Kiểm duyệt nội dung",
+   "p4": "Đăng tải và phân tích",
+   "p5": "Một không gian làm việc"
+  },
+  "stats": {
+   "title": "Hệ sinh thái hoạt động thế nào",
+   "subtitle": "Nền tảng đang được phát triển tích cực. Dưới đây là các điều kiện áp dụng hiện nay.",
+   "completed": "Ngôn ngữ giao diện",
+   "ongoing": "Phần của nhà sáng tạo",
+   "exp": "Phần của nền tảng",
+   "happy": "Kiểm duyệt trước khi đăng",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Luôn luôn"
+  },
+  "blueprint": {
+   "console": "Bảng điều khiển chính",
+   "core": "Lõi Creator AI",
+   "arch": "Đang dựng không gian làm việc",
+   "status": "Trạng thái phát triển",
+   "deploy": "Phần này vẫn đang được xây dựng. Không gian làm việc của nhà sáng tạo, phần đăng tải và phân tích sẽ có sau khi bạn đăng nhập.",
+   "s_title": "Trạng thái",
+   "s_lat": "Phản hồi",
+   "s_branch": "Kênh",
+   "logs": "Nhật ký hoạt động",
+   "p_core": "Bộ máy nội dung",
+   "p_guard": "Kiểm duyệt",
+   "p_deploy": "Đăng tải",
+   "v_core": "Tạo bằng AI",
+   "v_guard": "Kiểm duyệt trước khi đăng",
+   "v_deploy": "Tích hợp YouTube",
+   "scan": "Đang dựng không gian làm việc..."
+  }
+ },
+ "fH": {
+  "label": "Tính năng",
+  "title": "Hệ sinh thái mang lại điều gì",
+  "lead": "Kế hoạch nội dung, sản xuất bằng AI, kiểm duyệt trước khi đăng và quản lý kênh — gọn trong một nơi.",
+  "features": [
+   {
+    "label": "Phạm vi",
+    "title": "30 ngôn ngữ giao diện",
+    "description": "Làm việc bằng chính ngôn ngữ của bạn: giao diện có 30 ngôn ngữ, còn nội dung có thể sản xuất bằng ngôn ngữ bạn chọn.",
+    "metric": "01 / Ngôn ngữ",
+    "cta": "Chọn ngôn ngữ"
+   },
+   {
+    "label": "An toàn",
+    "title": "Kiểm duyệt trước khi đăng",
+    "description": "Không gì lên sóng mà chưa qua kiểm tra. Phần nội dung cần chỉnh sửa sẽ được trả lại để làm lại trước khi tới kênh của bạn.",
+    "metric": "02 / Kiểm duyệt",
+    "cta": "Luôn được kiểm tra"
+   },
+   {
+    "label": "Doanh thu",
+    "title": "70% thuộc về bạn",
+    "description": "Nền tảng giữ 30%, và chỉ tính trên những video được tạo trong hệ sinh thái và đăng qua hệ sinh thái. Các video khác trên kênh của bạn không được tính.",
+    "metric": "03 / Tỷ lệ",
+    "cta": "Kênh của bạn, doanh thu của bạn"
+   },
+   {
+    "label": "Tập trung",
+    "title": "Một không gian làm việc",
+    "description": "Ý tưởng, kịch bản, giọng đọc, hình ảnh, đăng tải và phân tích — không phải nhảy qua lại giữa những công cụ rời rạc.",
+    "metric": "04 / Không gian",
+    "cta": "Tất cả ở một nơi"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Bạn nhận được gì",
+  "sectionTitle": "Một nơi cho mọi sáng tạo của bạn",
+  "sectionLead": "Bạn chọn hướng đi. Hệ sinh thái nối các công cụ lại với nhau, từ ý tưởng đến lúc đăng.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Ý tưởng và kế hoạch nội dung",
+    "desc": "Chủ đề kênh, ý tưởng video và lịch đăng hợp với ngôn ngữ cùng múi giờ của bạn.",
+    "cta": "Mở",
+    "signal": "Kế hoạch"
+   },
+   {
+    "id": "02",
+    "title": "Kịch bản",
+    "desc": "Kịch bản dựng từ bản brief, sẵn sàng để bạn đọc lại và chỉnh sửa.",
+    "cta": "Mở",
+    "signal": "Văn bản"
+   },
+   {
+    "id": "03",
+    "title": "Giọng đọc",
+    "desc": "Lồng tiếng bằng ngôn ngữ bạn đã chọn. Khả năng đáp ứng tùy vào nhà cung cấp được kết nối.",
+    "cta": "Mở",
+    "signal": "Âm thanh"
+   },
+   {
+    "id": "04",
+    "title": "Hình ảnh",
+    "desc": "Hình ảnh và dựng video hoàn chỉnh, làm ngay trong không gian làm việc.",
+    "cta": "Mở",
+    "signal": "Video"
+   },
+   {
+    "id": "05",
+    "title": "Kiểm duyệt nội dung",
+    "desc": "Kiểm duyệt trước khi đăng, kèm ghi chú rõ ràng về những gì cần cải thiện.",
+    "cta": "Mở",
+    "signal": "Kiểm duyệt"
+   },
+   {
+    "id": "06",
+    "title": "Đăng tải và phân tích",
+    "desc": "Quản lý video và Shorts, theo dõi kết quả cùng doanh thu mà chúng mang lại.",
+    "cta": "Mở",
+    "signal": "Kết quả"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Quy trình",
+  "title": "Từ ý tưởng đến video lên sóng",
+  "lead": "Năm bước, từ lúc kết nối kênh đến khi theo dõi kết quả.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Kết nối",
+    "desc": "Đăng ký và kết nối kênh YouTube của bạn.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Lựa chọn",
+    "desc": "Chọn gói, chủ đề và ngôn ngữ.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Tạo",
+    "desc": "Chuẩn bị nội dung và duyệt nội dung đó.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Đăng",
+    "desc": "Qua kiểm duyệt rồi đăng lên kênh.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Theo dõi",
+    "desc": "Theo dõi kết quả và doanh thu của bạn.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Bạn có thắc mắc?",
+  "words": [
+   "Hỏi",
+   "Đáp"
+  ],
+  "items": [
+   {
+    "q": "Kênh có còn là của tôi không?",
+    "a": "Có. Bạn vẫn là người vận hành kênh và chính bạn cấp quyền để kết nối. Quyền đó có thể thu hồi bất cứ lúc nào."
+   },
+   {
+    "q": "Hoa hồng có tính trên cả kênh không?",
+    "a": "Không. 30% của nền tảng chỉ áp dụng cho những video được tạo trong hệ sinh thái và đăng qua hệ sinh thái. Các video khác không được tính."
+   },
+   {
+    "q": "Tôi có được chọn ngôn ngữ nội dung không?",
+    "a": "Phần cài đặt có danh mục 30 lựa chọn ngôn ngữ. Việc tạo giọng đọc tùy thuộc nhà cung cấp được kết nối."
+   },
+   {
+    "q": "Có nội dung nào đăng mà không qua kiểm duyệt không?",
+    "a": "Không. Nội dung phải qua kiểm duyệt trước khi đăng, còn phần cần chỉnh sửa sẽ được trả lại để làm lại."
+   },
+   {
+    "q": "Có bao nhiêu ngôn ngữ giao diện?",
+    "a": "30 ngôn ngữ. Giao diện và phần cài đặt nội dung đều dùng chung danh sách đó."
+   },
+   {
+    "q": "Phí thuê bao có nằm trong phần chia doanh thu không?",
+    "a": "Không. Phí thuê bao được tính tách riêng khỏi phần chia doanh thu."
+   },
+   {
+    "q": "Doanh thu có được bảo đảm không?",
+    "a": "Không. Thu nhập phụ thuộc vào hiệu quả của video và các quy định riêng của YouTube, nên không có mức nào được bảo đảm."
+   },
+   {
+    "q": "Kết nối kênh YouTube bằng cách nào?",
+    "a": "Bạn cấp phép kết nối ngay trong hồ sơ của mình. Hệ sinh thái chỉ nhận đúng phần quyền bạn đã cấp."
+   },
+   {
+    "q": "Sau này tôi thu hồi quyền được không?",
+    "a": "Được. Bạn có thể rút quyền vào bất cứ lúc nào, và việc đăng tải sẽ dừng lại."
+   },
+   {
+    "q": "Tôi xem video trước khi đăng được không?",
+    "a": "Được. Mỗi video đều qua một bước phê duyệt, ở đó bạn có thể chấp nhận, yêu cầu chỉnh sửa hoặc từ chối."
+   },
+   {
+    "q": "Có hỗ trợ Shorts không?",
+    "a": "Có. Cả video thường lẫn Shorts đều được xử lý trong cùng một không gian làm việc."
+   },
+   {
+    "q": "Tôi có thể xuất hoặc xóa dữ liệu của mình không?",
+    "a": "Có. Bạn có thể yêu cầu xuất dữ liệu hoặc xóa dữ liệu ngay trong phần cài đặt tài khoản."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Bắt đầu tại đây",
+  "title": "Ý tưởng tiếp theo của bạn bắt đầu từ đây.",
+  "desc": "Tạo hồ sơ, khám phá bộ công cụ và thiết lập không gian làm việc cho kênh của bạn.",
+  "btn": "Tạo tài khoản",
+  "secondaryBtn": "Đăng nhập"
+ },
+ "KH": {
+  "desc": "Hệ sinh thái cho nhà sáng tạo YouTube: lên kế hoạch nội dung, tạo video bằng AI, kiểm duyệt và đăng tải từ một không gian làm việc.",
+  "lists": [
+   {
+    "title": "Mục lục",
+    "items": [
+     "Bạn nhận được gì",
+     "Tích hợp",
+     "Quy trình",
+     "Hỏi đáp"
+    ]
+   },
+   {
+    "title": "Hệ sinh thái",
+    "items": [
+     "Kế hoạch nội dung",
+     "Sản xuất bằng AI",
+     "Kiểm duyệt trước khi đăng",
+     "Đăng tải và phân tích"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Liên hệ",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Bảo lưu mọi quyền.",
+  "author": "Thực hiện bởi Abdulxamidov S.A.",
+  "links": [
+   "Chính sách quyền riêng tư",
+   "Điều khoản dịch vụ"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Kết nối",
+   "với"
+  ],
+  "label": "Tích hợp và công nghệ"
+ }
+}

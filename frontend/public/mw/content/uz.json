@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Asosiy",
+   "services": "Imkoniyatlar",
+   "portfolio": "Jarayon",
+   "pricing": "Tariflar",
+   "about": "Shartlar",
+   "contact": "Aloqa",
+   "call": "KIRISH",
+   "menu": "Menyu"
+  },
+  "hero": {
+   "badge": "YOUTUBE CREATORLAR UCHUN EKOTIZIM",
+   "agency": "Ekotizimi",
+   "desc": "Kontentni rejalang, AI yordamida video yarating va YouTube kanalingizni yagona makonda boshqaring.",
+   "btn": "Ro‘yxatdan o‘tish",
+   "chat": "Suhbat",
+   "p1": "G‘oya va kontent reja",
+   "p2": "Video yaratish",
+   "p3": "Kontent tekshiruvi",
+   "p4": "Nashr va tahlil",
+   "p5": "Yagona ish makoni"
+  },
+  "stats": {
+   "title": "Ekotizim qanday ishlaydi",
+   "subtitle": "Platforma faol ishlab chiqilmoqda. Bugungi shartlar quyidagicha.",
+   "completed": "Interfeys tili",
+   "ongoing": "Creator ulushi",
+   "exp": "Platforma ulushi",
+   "happy": "Nashrdan oldin tekshiruv",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Doimiy"
+  },
+  "blueprint": {
+   "console": "Asosiy konsol",
+   "core": "Creator AI yadrosi",
+   "arch": "Ish makoni tayyorlanmoqda",
+   "status": "Ishlab chiqish holati",
+   "deploy": "Bu bo‘lim hali tayyorlanmoqda. Creator ish makoni, nashr va tahlil kirgandan so‘ng mavjud.",
+   "s_title": "Holat",
+   "s_lat": "Javob",
+   "s_branch": "Kanal",
+   "logs": "Faoliyat jurnali",
+   "p_core": "Kontent dvigateli",
+   "p_guard": "Moderatsiya",
+   "p_deploy": "Nashr",
+   "v_core": "AI yaratish",
+   "v_guard": "Nashrdan oldin tekshiruv",
+   "v_deploy": "YouTube integratsiyasi",
+   "scan": "Ish makoni tayyorlanmoqda..."
+  }
+ },
+ "fH": {
+  "label": "Imkoniyatlar",
+  "title": "Ekotizim nima beradi",
+  "lead": "Kontent rejasi, AI bilan ishlab chiqarish, nashrdan oldin tekshiruv va kanal boshqaruvi — yagona makonda.",
+  "features": [
+   {
+    "label": "Qamrov",
+    "title": "30 ta interfeys tili",
+    "description": "O‘z tilingizda ishlang: interfeys 30 tilda, kontentni esa siz tanlagan tilda tayyorlash mumkin.",
+    "metric": "01 / Tillar",
+    "cta": "Tilni tanlang"
+   },
+   {
+    "label": "Xavfsizlik",
+    "title": "Nashrdan oldin tekshiruv",
+    "description": "Hech narsa tekshiruvsiz chiqmaydi. Tuzatish talab qilinadigan material kanalga yetib bormay, qayta ishlashga yuboriladi.",
+    "metric": "02 / Tekshiruv",
+    "cta": "Har safar tekshiriladi"
+   },
+   {
+    "label": "Daromad",
+    "title": "70% sizda qoladi",
+    "description": "Platforma 30% oladi va faqat ekotizim ichida yaratilib, u orqali joylangan videolardan. Kanalingizdagi boshqa videolar hisobga kirmaydi.",
+    "metric": "03 / Ulush",
+    "cta": "Kanal sizniki, daromad sizniki"
+   },
+   {
+    "label": "Yig‘iqlik",
+    "title": "Yagona ish makoni",
+    "description": "G‘oya, ssenariy, ovoz, tasvir, nashr va tahlil — alohida vositalar orasida yurmasdan.",
+    "metric": "04 / Makon",
+    "cta": "Hammasi bir joyda"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Nima olasiz",
+  "sectionTitle": "Ijodingiz uchun bir makon",
+  "sectionLead": "Yo‘nalishni siz tanlaysiz. Ekotizim vositalarni g‘oyadan nashrgacha birlashtiradi.",
+  "items": [
+   {
+    "id": "01",
+    "title": "G‘oya va kontent reja",
+    "desc": "Kanalingiz mavzusi, video g‘oyalari va til hamda vaqt mintaqangizga mos nashr jadvali.",
+    "cta": "Ochish",
+    "signal": "Reja"
+   },
+   {
+    "id": "02",
+    "title": "Ssenariy",
+    "desc": "Brif asosida tayyorlangan ssenariy — o‘qib chiqib, tahrirlashingiz mumkin.",
+    "cta": "Ochish",
+    "signal": "Matn"
+   },
+   {
+    "id": "03",
+    "title": "Ovoz",
+    "desc": "Siz tanlagan tilda ovoz. Imkoniyat ulangan provayderga bog‘liq.",
+    "cta": "Ochish",
+    "signal": "Audio"
+   },
+   {
+    "id": "04",
+    "title": "Tasvir",
+    "desc": "Tayyor video uchun tasvir va yig‘ish — ish makoni ichida.",
+    "cta": "Ochish",
+    "signal": "Video"
+   },
+   {
+    "id": "05",
+    "title": "Kontent tekshiruvi",
+    "desc": "Nashrdan oldin moderatsiya va nimani yaxshilash kerakligi haqida aniq fikrlar.",
+    "cta": "Ochish",
+    "signal": "Tekshiruv"
+   },
+   {
+    "id": "06",
+    "title": "Nashr va tahlil",
+    "desc": "Video va Shortslarni boshqaring, natijalar va daromadni kuzating.",
+    "cta": "Ochish",
+    "signal": "Natija"
+   }
+  ]
+ },
+ "AH": {
+  "label": "Jarayon",
+  "title": "G‘oyadan tayyor nashrgacha",
+  "lead": "Kanalni ulashdan natijalarni kuzatishgacha besh qadam.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Ulanish",
+    "desc": "Ro‘yxatdan o‘ting va kanalni ulang.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Tanlov",
+    "desc": "Tarif, mavzu va tilni tanlang.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Tayyorlash",
+    "desc": "Kontentni tayyorlang va tasdiqlang.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Nashr",
+    "desc": "Moderatsiyadan o‘ting va joylang.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Kuzatuv",
+    "desc": "Natijalarni va daromadni kuzating.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Savollaringiz bormi?",
+  "words": [
+   "Ko‘p",
+   "so‘raladi"
+  ],
+  "items": [
+   {
+    "q": "Kanalim o‘zimda qoladimi?",
+    "a": "Ha. Kanalni siz boshqarasiz va ulanishga ruxsat berasiz. Berilgan ruxsatni istalgan vaqtda bekor qilishingiz mumkin."
+   },
+   {
+    "q": "Komissiya butun kanaldanmi?",
+    "a": "Yo‘q. Platformaning 30% ulushi faqat ekotizim ichida yaratilgan va u orqali joylangan videolarga tegishli. Boshqa videolar hisobga kirmaydi."
+   },
+   {
+    "q": "Kontent tilini tanlash mumkinmi?",
+    "a": "Sozlamalarda 30 ta til varianti katalogi mavjud. Ovoz yaratish imkoniyati ulangan provayderga bog‘liq."
+   },
+   {
+    "q": "Video tekshiruvsiz joylanadimi?",
+    "a": "Yo‘q. Nashrdan oldin kontent moderatsiyadan o‘tadi. Tuzatish talab qilinadigan materiallar qayta ishlashga yuboriladi."
+   },
+   {
+    "q": "Interfeys nechta tilda?",
+    "a": "O‘ttizta. Interfeys ham, kontent sozlamalari ham shu ro‘yxatdan foydalanadi."
+   },
+   {
+    "q": "Obuna to‘lovi daromad ulushiga kiradimi?",
+    "a": "Yo‘q. Obuna narxi daromad ulushidan alohida hisoblanadi."
+   },
+   {
+    "q": "Daromad kafolatlanadimi?",
+    "a": "Yo‘q. Daromad video natijalari va YouTube qoidalariga bog‘liq, shuning uchun aniq summa kafolatlanmaydi."
+   },
+   {
+    "q": "YouTube kanalini qanday ulayman?",
+    "a": "Ulanishga profilingizdan ruxsat berasiz. Ekotizim faqat siz bergan ruxsat doirasida ishlaydi."
+   },
+   {
+    "q": "Ruxsatni keyin bekor qila olamanmi?",
+    "a": "Ha. Ruxsatni istalgan vaqtda qaytarib olishingiz mumkin, shunda nashr to‘xtaydi."
+   },
+   {
+    "q": "Videoni chiqishidan oldin ko‘ra olamanmi?",
+    "a": "Ha. Har bir video tasdiqlash bosqichidan o‘tadi: qabul qilish, tuzatish so‘rash yoki rad etish mumkin."
+   },
+   {
+    "q": "Shorts qo‘llab-quvvatlanadimi?",
+    "a": "Ha. Oddiy videolar ham, Shorts ham bitta ish makonida boshqariladi."
+   },
+   {
+    "q": "Ma’lumotlarimni yuklab olish yoki o‘chirish mumkinmi?",
+    "a": "Ha. Hisob sozlamalaridan ma’lumotlaringizni eksport qilish yoki o‘chirishni so‘rashingiz mumkin."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Shu yerdan boshlang",
+  "title": "Keyingi g‘oyangiz shu yerdan boshlanadi.",
+  "desc": "Profil yarating, vositalar bilan tanishing va kanalingiz uchun ish joyini sozlang.",
+  "btn": "Ro‘yxatdan o‘tish",
+  "secondaryBtn": "Kirish"
+ },
+ "KH": {
+  "desc": "YouTube creatorlar uchun ekotizim: kontentni rejalang, AI bilan video yarating, tekshiring va yagona makondan joylang.",
+  "lists": [
+   {
+    "title": "Bo‘limlar",
+    "items": [
+     "Nima olasiz",
+     "Integratsiyalar",
+     "Jarayon",
+     "Savollar"
+    ]
+   },
+   {
+    "title": "Ekotizim",
+    "items": [
+     "Kontent reja",
+     "AI ishlab chiqarish",
+     "Nashrdan oldin tekshiruv",
+     "Nashr va tahlil"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Aloqa",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Barcha huquqlar himoyalangan.",
+  "author": "Muallif: Abdulxamidov S.A.",
+  "links": [
+   "Maxfiylik siyosati",
+   "Foydalanish shartlari"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Nimalar",
+   "bilan"
+  ],
+  "label": "Integratsiyalar va texnologiyalar"
+ }
+}

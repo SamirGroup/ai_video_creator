@@ -1,0 +1,283 @@
+{
+ "ab": {
+  "nav": {
+   "home": "Start",
+   "services": "Funktionen",
+   "portfolio": "So geht's",
+   "pricing": "Preise",
+   "about": "Bedingungen",
+   "contact": "Kontakt",
+   "call": "ANMELDEN",
+   "menu": "Navigation"
+  },
+  "hero": {
+   "badge": "ÖKOSYSTEM FÜR YOUTUBE-CREATOR",
+   "agency": "Ökosystem",
+   "desc": "Plane deine Inhalte, erstelle Videos mit KI und führe deinen YouTube-Kanal an einem Ort.",
+   "btn": "Konto erstellen",
+   "chat": "Chat",
+   "p1": "Ideen und Contentplan",
+   "p2": "Videoerstellung",
+   "p3": "Inhaltsprüfung",
+   "p4": "Veröffentlichung und Analytics",
+   "p5": "Ein Arbeitsbereich"
+  },
+  "stats": {
+   "title": "So funktioniert das Ökosystem",
+   "subtitle": "Die Plattform wird aktiv weiterentwickelt. Das sind die Bedingungen, die heute gelten.",
+   "completed": "Sprachen der Oberfläche",
+   "ongoing": "Anteil des Creators",
+   "exp": "Anteil der Plattform",
+   "happy": "Prüfung vor der Veröffentlichung",
+   "val_completed": "30",
+   "val_ongoing": "70%",
+   "val_exp": "30%",
+   "val_happy": "Immer"
+  },
+  "blueprint": {
+   "console": "Hauptkonsole",
+   "core": "Creator AI Kern",
+   "arch": "Arbeitsbereich entsteht",
+   "status": "Entwicklungsstatus",
+   "deploy": "Dieser Bereich wird noch gebaut. Arbeitsbereich, Veröffentlichung und Analytics stehen nach der Anmeldung bereit.",
+   "s_title": "Status",
+   "s_lat": "Antwort",
+   "s_branch": "Kanal",
+   "logs": "Aktivitätsprotokoll",
+   "p_core": "Content-Engine",
+   "p_guard": "Moderation",
+   "p_deploy": "Veröffentlichung",
+   "v_core": "KI-Generierung",
+   "v_guard": "Prüfung vor der Veröffentlichung",
+   "v_deploy": "YouTube-Integration",
+   "scan": "Arbeitsbereich wird vorbereitet..."
+  }
+ },
+ "fH": {
+  "label": "Funktionen",
+  "title": "Was dir das Ökosystem bringt",
+  "lead": "Contentplanung, KI-Produktion, Prüfung vor der Veröffentlichung und Kanalverwaltung – an einem Ort.",
+  "features": [
+   {
+    "label": "Reichweite",
+    "title": "30 Sprachen der Oberfläche",
+    "description": "Arbeite in deiner Sprache: Die Oberfläche gibt es in 30 Sprachen, und Inhalte entstehen in der Sprache, die du wählst.",
+    "metric": "01 / Sprachen",
+    "cta": "Sprache wählen"
+   },
+   {
+    "label": "Sicherheit",
+    "title": "Prüfung vor der Veröffentlichung",
+    "description": "Nichts geht ungeprüft raus. Material, das Änderungen braucht, geht zur Überarbeitung zurück, bevor es auf deinen Kanal gelangt.",
+    "metric": "02 / Prüfung",
+    "cta": "Immer geprüft"
+   },
+   {
+    "label": "Einnahmen",
+    "title": "70% bleiben bei dir",
+    "description": "Die Plattform nimmt 30%, und das nur von Videos, die im Ökosystem entstehen und darüber veröffentlicht werden. Andere Videos auf deinem Kanal zählen nicht.",
+    "metric": "03 / Anteil",
+    "cta": "Dein Kanal, deine Einnahmen"
+   },
+   {
+    "label": "Fokus",
+    "title": "Ein Arbeitsbereich",
+    "description": "Idee, Skript, Stimme, Visuals, Veröffentlichung und Analytics – ohne Wechsel zwischen einzelnen Tools.",
+    "metric": "04 / Arbeitsbereich",
+    "cta": "Alles an einem Ort"
+   }
+  ]
+ },
+ "hH": {
+  "sectionLabel": "Was du bekommst",
+  "sectionTitle": "Ein Ort für deine Kreativität",
+  "sectionLead": "Du bestimmst die Richtung. Das Ökosystem verbindet die Werkzeuge – von der Idee bis zur Veröffentlichung.",
+  "items": [
+   {
+    "id": "01",
+    "title": "Ideen und Contentplan",
+    "desc": "Dein Kanalthema, Videoideen und ein Veröffentlichungsplan, der zu deiner Sprache und Zeitzone passt.",
+    "cta": "Öffnen",
+    "signal": "Planung"
+   },
+   {
+    "id": "02",
+    "title": "Skript",
+    "desc": "Ein Skript aus dem Briefing, bereit zum Durchlesen und Anpassen.",
+    "cta": "Öffnen",
+    "signal": "Text"
+   },
+   {
+    "id": "03",
+    "title": "Stimme",
+    "desc": "Vertonung in der Sprache deiner Wahl. Die Verfügbarkeit hängt vom angebundenen Anbieter ab.",
+    "cta": "Öffnen",
+    "signal": "Audio"
+   },
+   {
+    "id": "04",
+    "title": "Visuals",
+    "desc": "Bildwelt und Schnitt für das fertige Video, direkt im Arbeitsbereich.",
+    "cta": "Öffnen",
+    "signal": "Video"
+   },
+   {
+    "id": "05",
+    "title": "Inhaltsprüfung",
+    "desc": "Moderation vor der Veröffentlichung, mit klaren Hinweisen, was noch besser werden soll.",
+    "cta": "Öffnen",
+    "signal": "Prüfung"
+   },
+   {
+    "id": "06",
+    "title": "Veröffentlichung und Analytics",
+    "desc": "Verwalte Videos und Shorts, verfolge die Ergebnisse und die Einnahmen daraus.",
+    "cta": "Öffnen",
+    "signal": "Ergebnis"
+   }
+  ]
+ },
+ "AH": {
+  "label": "So geht's",
+  "title": "Von der Idee zum veröffentlichten Video",
+  "lead": "Fünf Schritte – vom Verbinden deines Kanals bis zum Verfolgen der Ergebnisse.",
+  "steps": [
+   {
+    "id": "01",
+    "title": "Verbinden",
+    "desc": "Registriere dich und verbinde deinen YouTube-Kanal.",
+    "color": "from-[#ffc700] to-[#ff9d00]"
+   },
+   {
+    "id": "02",
+    "title": "Wählen",
+    "desc": "Wähle Tarif, Thema und Sprache.",
+    "color": "from-[#00c6ff] to-[#0072ff]"
+   },
+   {
+    "id": "03",
+    "title": "Erstellen",
+    "desc": "Bereite die Inhalte vor und gib sie frei.",
+    "color": "from-[#8e2de2] to-[#4a00e0]"
+   },
+   {
+    "id": "04",
+    "title": "Veröffentlichen",
+    "desc": "Prüfung bestehen und auf deinem Kanal veröffentlichen.",
+    "color": "from-[#f85032] to-[#e73827]"
+   },
+   {
+    "id": "05",
+    "title": "Verfolgen",
+    "desc": "Behalte Ergebnisse und Einnahmen im Blick.",
+    "color": "from-[#24fe41] to-[#00ae1a]"
+   }
+  ]
+ },
+ "VH": {
+  "subtitle": "Noch Fragen?",
+  "words": [
+   "Häufig",
+   "gefragt"
+  ],
+  "items": [
+   {
+    "q": "Bleibt mein Kanal meiner?",
+    "a": "Ja. Du führst den Kanal und erteilst den Zugriff für die Verbindung. Diesen Zugriff kannst du jederzeit widerrufen."
+   },
+   {
+    "q": "Wird die Provision vom ganzen Kanal genommen?",
+    "a": "Nein. Die 30% der Plattform gelten nur für Videos, die im Ökosystem entstehen und darüber veröffentlicht werden. Andere Videos zählen nicht."
+   },
+   {
+    "q": "Kann ich die Sprache der Inhalte wählen?",
+    "a": "In den Einstellungen steht ein Katalog mit 30 Sprachoptionen bereit. Die Sprachgenerierung hängt vom angebundenen Anbieter ab."
+   },
+   {
+    "q": "Wird etwas ohne Prüfung veröffentlicht?",
+    "a": "Nein. Inhalte durchlaufen vor der Veröffentlichung die Moderation, und Material, das Änderungen braucht, geht zur Überarbeitung zurück."
+   },
+   {
+    "q": "Wie viele Sprachen hat die Oberfläche?",
+    "a": "Dreißig. Die Oberfläche und die Einstellungen für Inhalte nutzen dieselbe Liste."
+   },
+   {
+    "q": "Zählt das Abo zur Umsatzbeteiligung?",
+    "a": "Nein. Das Abo wird getrennt von der Umsatzbeteiligung abgerechnet."
+   },
+   {
+    "q": "Sind Einnahmen garantiert?",
+    "a": "Nein. Die Einnahmen hängen davon ab, wie die Videos laufen, und von den Regeln von YouTube – ein bestimmter Betrag ist deshalb nicht garantiert."
+   },
+   {
+    "q": "Wie verbinde ich einen YouTube-Kanal?",
+    "a": "Du autorisierst die Verbindung in deinem Profil. Das Ökosystem erhält nur den Zugriff, den du erteilst."
+   },
+   {
+    "q": "Kann ich den Zugriff später widerrufen?",
+    "a": "Ja. Du kannst die Freigabe jederzeit zurücknehmen, dann stoppt die Veröffentlichung."
+   },
+   {
+    "q": "Sehe ich ein Video, bevor es rausgeht?",
+    "a": "Ja. Jedes Video durchläuft eine Freigabe: Du kannst es annehmen, Änderungen anfordern oder ablehnen."
+   },
+   {
+    "q": "Werden Shorts unterstützt?",
+    "a": "Ja. Normale Videos und Shorts laufen im selben Arbeitsbereich."
+   },
+   {
+    "q": "Kann ich meine Daten exportieren oder löschen?",
+    "a": "Ja. In den Kontoeinstellungen kannst du einen Export deiner Daten oder deren Löschung anfordern."
+   }
+  ]
+ },
+ "WH": {
+  "badge": "Hier starten",
+  "title": "Deine nächste Idee beginnt hier.",
+  "desc": "Leg ein Profil an, sieh dir die Werkzeuge an und richte den Arbeitsbereich für deinen Kanal ein.",
+  "btn": "Konto erstellen",
+  "secondaryBtn": "Anmelden"
+ },
+ "KH": {
+  "desc": "Ein Ökosystem für YouTube-Creator: Inhalte planen, Videos mit KI erstellen, prüfen lassen und aus einem Arbeitsbereich veröffentlichen.",
+  "lists": [
+   {
+    "title": "Bereiche",
+    "items": [
+     "Was du bekommst",
+     "Integrationen",
+     "So geht's",
+     "FAQ"
+    ]
+   },
+   {
+    "title": "Ökosystem",
+    "items": [
+     "Contentplan",
+     "KI-Produktion",
+     "Prüfung vor Veröffentlichung",
+     "Veröffentlichung und Analytics"
+    ]
+   }
+  ],
+  "contact": {
+   "title": "Kontakt",
+   "address": "",
+   "email": "",
+   "phone": ""
+  },
+  "rights": "© 2026 Creator AI. Alle Rechte vorbehalten.",
+  "author": "Erstellt von Abdulxamidov S.A.",
+  "links": [
+   "Datenschutzerklärung",
+   "Nutzungsbedingungen"
+  ]
+ },
+ "integr": {
+  "words": [
+   "Läuft",
+   "mit"
+  ],
+  "label": "Integrationen und Stack"
+ }
+}
