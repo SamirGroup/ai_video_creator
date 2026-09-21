@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "Video do AI sản xuất cho kênh YouTube của bạn"
+  },
   "common": {
     "loading": "Đang tải…",
     "retry": "Thử lại",
@@ -11,7 +15,34 @@
     "actions": "Thao tác",
     "status": "Trạng thái",
     "date": "Ngày",
-    "unknown": "Không rõ"
+    "unknown": "Không rõ",
+    "comingSoon": "Mục này sắp ra mắt.",
+    "empty": {
+      "title": "Chưa có gì ở đây",
+      "description": "Hiện chưa có dữ liệu để hiển thị."
+    },
+    "error": {
+      "title": "Đã xảy ra lỗi",
+      "description": "Không tải được dữ liệu này. Vui lòng thử lại.",
+      "generic": "Lỗi không mong muốn. Vui lòng thử lại."
+    },
+    "unauthorized": {
+      "title": "Phiên đã hết hạn",
+      "description": "Vui lòng đăng nhập lại để tiếp tục."
+    },
+    "forbidden": {
+      "title": "Không có quyền truy cập",
+      "description": "Bạn không có quyền xem trang này."
+    },
+    "offline": {
+      "title": "Bạn đang ngoại tuyến",
+      "description": "Hãy kiểm tra kết nối internet rồi thử lại."
+    },
+    "notFound": {
+      "title": "Không tìm thấy trang",
+      "description": "Trang bạn tìm không tồn tại.",
+      "backHome": "Về bảng điều khiển"
+    }
   },
   "nav": {
     "dashboard": "Bảng điều khiển",
@@ -33,19 +64,103 @@
   "auth": {
     "login": {
       "title": "Đăng nhập",
+      "subtitle": "Chào mừng trở lại — đăng nhập vào tài khoản nhà sáng tạo của bạn",
       "email": "Email",
       "password": "Mật khẩu",
-      "submit": "Đăng nhập"
+      "submit": "Đăng nhập",
+      "submitting": "Đang đăng nhập…",
+      "orGoogle": "Hoặc tiếp tục với Google",
+      "googleButton": "Đăng nhập bằng Google",
+      "forgotPassword": "Quên mật khẩu?",
+      "noAccount": "Chưa có tài khoản?",
+      "registerLink": "Tạo ngay",
+      "error": "Email hoặc mật khẩu không đúng."
     },
     "register": {
       "title": "Tạo tài khoản",
+      "subtitle": "Bắt đầu sản xuất video bằng AI chỉ trong vài phút",
       "fullName": "Họ và tên",
       "email": "Email",
       "password": "Mật khẩu",
-      "submit": "Tạo tài khoản"
+      "passwordHint": "Tối thiểu 10 ký tự.",
+      "marketingOptIn": "Tôi muốn nhận tin tức sản phẩm và mẹo qua email",
+      "submit": "Tạo tài khoản",
+      "submitting": "Đang tạo tài khoản…",
+      "hasAccount": "Đã có tài khoản?",
+      "loginLink": "Đăng nhập",
+      "success": "Đã tạo tài khoản. Hãy kiểm tra email để xác minh địa chỉ."
+    },
+    "verifyEmail": {
+      "title": "Xác minh email của bạn",
+      "pending": "Đang xác minh địa chỉ email…",
+      "success": "Email của bạn đã được xác minh. Bạn có thể đăng nhập.",
+      "error": "Liên kết xác minh này không hợp lệ hoặc đã hết hạn.",
+      "goToLogin": "Đến trang đăng nhập"
+    },
+    "forgotPassword": {
+      "title": "Đặt lại mật khẩu",
+      "subtitle": "Chúng tôi sẽ gửi email kèm liên kết đặt lại mật khẩu",
+      "email": "Email",
+      "submit": "Gửi liên kết",
+      "submitting": "Đang gửi…",
+      "success": "Nếu email đó tồn tại, liên kết đặt lại đang được gửi đi.",
+      "backToLogin": "Quay lại đăng nhập"
+    },
+    "validation": {
+      "emailRequired": "Vui lòng nhập email.",
+      "emailInvalid": "Hãy nhập địa chỉ email hợp lệ.",
+      "passwordRequired": "Vui lòng nhập mật khẩu.",
+      "passwordMinLength": "Mật khẩu phải có ít nhất 10 ký tự.",
+      "fullNameRequired": "Vui lòng nhập họ và tên."
+    },
+    "googleUnavailable": "Đăng nhập bằng Google chưa được thiết lập. Hãy dùng email để tiếp tục.",
+    "twoFactor": "Xác thực hai lớp",
+    "setupAuthenticator": "Thiết lập authenticator",
+    "authenticatorSecret": "Thêm mã bí mật này vào ứng dụng authenticator của bạn:",
+    "verificationCode": "Mã xác minh"
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "welcome": "Chào mừng trở lại, {{name}}",
+    "cards": {
+      "channelStatus": "Trạng thái kênh",
+      "videosThisMonth": "Video tháng này",
+      "estimatedRevenue": "Doanh thu ước tính",
+      "pendingApprovals": "Chờ phê duyệt"
+    },
+    "quotaUsed": "Đã dùng {{used}}/{{total}}",
+    "connected": "Đã kết nối",
+    "disconnected": "Chưa kết nối",
+    "connectChannel": "Kết nối kênh YouTube",
+    "demoNotice": "Xem trước giao diện · đang hiển thị dữ liệu mẫu",
+    "analyticsTitle": "Tổng quan doanh thu",
+    "activityTitle": "Lượt xem hằng ngày",
+    "shareTitle": "Điều khoản hợp đồng mới"
+  },
+  "channel": {
+    "title": "Kênh",
+    "connect": "Kết nối YouTube",
+    "disconnect": "Ngắt kết nối",
+    "disconnectConfirm": "Ngắt kết nối sẽ tạm dừng mọi video đã lên lịch của kênh này. Tiếp tục?",
+    "subscribers": "Người đăng ký",
+    "videos": "Video",
+    "monetization": {
+      "unknown": "Chưa xác nhận trạng thái kiếm tiền",
+      "monetized": "Đã bật kiếm tiền",
+      "notMonetized": "Chưa bật kiếm tiền"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "Kết nối AdSense",
+      "connected": "Đã kết nối — doanh thu được AdSense xác nhận",
+      "notConnected": "Chưa kết nối — doanh thu là ước tính từ YouTube Analytics"
     }
   },
   "preferences": {
+    "title": "Tùy chọn",
+    "niche": "Chủ đề ngách",
+    "customBrief": "Bản brief riêng",
+    "brandVoice": "Giọng thương hiệu",
     "language": "Ngôn ngữ nội dung",
     "videoDuration": "Thời lượng video (giây)",
     "frequency": "Tần suất đăng",
@@ -62,28 +177,254 @@
       "private": "Riêng tư"
     },
     "approvalMode": "Chế độ phê duyệt",
+    "approvalModeOptions": {
+      "review_required": "Cần duyệt trước khi đăng",
+      "auto": "Tự động đăng sau khi kiểm duyệt"
+    },
+    "paused": "Lịch đang tạm dừng",
+    "pause": "Tạm dừng lịch",
+    "resume": "Tiếp tục lịch",
     "save": "Lưu tùy chọn",
     "saved": "Đã lưu tùy chọn.",
     "timezone": "Múi giờ",
-    "publishDays": "Ngày (tuần: 0–6; tháng: 1–28)",
-    "title": "Tùy chọn"
-  },
-  "dashboard": {
-    "title": "Bảng điều khiển"
-  },
-  "channel": {
-    "title": "Kênh"
+    "publishDays": "Ngày (tuần: 0–6; tháng: 1–28)"
   },
   "video": {
-    "title": "Video"
+    "title": "Video",
+    "generateNow": "Tạo ngay",
+    "table": {
+      "title": "Tiêu đề",
+      "status": "Trạng thái",
+      "scheduledFor": "Lịch đăng",
+      "cost": "Chi phí",
+      "actions": "Thao tác"
+    },
+    "status": {
+      "draft": "Bản nháp",
+      "scheduled": "Đã lên lịch",
+      "queued": "Trong hàng đợi",
+      "generating_script": "Đang viết kịch bản",
+      "script_ready": "Kịch bản đã xong",
+      "moderating_script": "Đang kiểm duyệt kịch bản",
+      "generating_voice": "Đang tạo lời thuyết minh",
+      "voice_ready": "Lời thuyết minh đã xong",
+      "generating_visuals": "Đang tạo hình ảnh",
+      "visuals_ready": "Hình ảnh đã xong",
+      "assembling": "Đang dựng video",
+      "assembled": "Đã dựng xong",
+      "moderating_final": "Kiểm duyệt cuối",
+      "moderation_review": "Đang chờ kiểm duyệt",
+      "moderation_rejected": "Bị kiểm duyệt từ chối",
+      "awaiting_approval": "Chờ bạn phê duyệt",
+      "approved": "Đã duyệt",
+      "changes_requested": "Yêu cầu chỉnh sửa",
+      "rejected": "Bị từ chối",
+      "expired": "Đã hết hạn",
+      "upload_queued": "Chờ tải lên",
+      "uploading": "Đang tải lên YouTube",
+      "uploaded": "Đã tải lên",
+      "published": "Đã đăng",
+      "youtube_rejected": "YouTube từ chối",
+      "retrying": "Đang thử lại",
+      "failed": "Thất bại",
+      "canceled": "Đã hủy",
+      "deleted_on_youtube": "Đã xóa trên YouTube"
+    },
+    "approval": {
+      "title": "Duyệt video này",
+      "preview": "Xem trước",
+      "approve": "Phê duyệt",
+      "requestChanges": "Yêu cầu chỉnh sửa",
+      "reject": "Từ chối",
+      "reasonLabel": "Lý do",
+      "regenerateFrom": "Tạo lại từ",
+      "confirmApprove": "Phê duyệt và đưa vào hàng đợi tải lên?",
+      "confirmReject": "Từ chối video này? Video sẽ không được đăng."
+    },
+    "empty": {
+      "title": "Chưa có video nào",
+      "description": "Video sẽ xuất hiện ở đây khi tác vụ đầu tiên được lên lịch hoặc tạo xong."
+    },
+    "previewPlaceholder": "Chỗ hiển thị bản xem trước video",
+    "steps": "Các bước trong quy trình"
   },
   "revenue": {
-    "title": "Doanh thu"
+    "title": "Doanh thu",
+    "totalViews": "Tổng lượt xem",
+    "views": "lượt xem",
+    "estimated": "Ước tính (YouTube Analytics)",
+    "confirmed": "Đã được AdSense xác nhận",
+    "notMonetized": "Kênh này chưa bật kiếm tiền nên doanh thu là $0.",
+    "topVideos": "Video nổi bật",
+    "statements": "Bảng kê chia sẻ doanh thu",
+    "dispute": "Khiếu nại bảng kê",
+    "statementStatus": {
+      "draft": "Bản nháp",
+      "finalized": "Đã chốt",
+      "invoiced": "Đã xuất hóa đơn",
+      "paid": "Đã thanh toán",
+      "disputed": "Đang khiếu nại",
+      "written_off": "Đã xóa sổ",
+      "carried_forward": "Chuyển sang kỳ sau"
+    },
+    "disputeReason": "Giải thích khoản chênh lệch",
+    "reviewUntil": "Xem xét đến {{date}}"
   },
   "billing": {
-    "title": "Thanh toán"
+    "title": "Thanh toán",
+    "currentPlan": "Gói hiện tại",
+    "changePlan": "Đổi gói",
+    "managePayment": "Quản lý phương thức thanh toán",
+    "invoices": "Hóa đơn",
+    "status": {
+      "trialing": "Đang dùng thử",
+      "active": "Đang hoạt động",
+      "past_due": "Quá hạn",
+      "suspended": "Tạm ngưng",
+      "canceled": "Đã hủy",
+      "expired": "Đã hết hạn"
+    }
   },
   "contract": {
-    "title": "Hợp đồng"
+    "title": "Hợp đồng",
+    "currentVersion": "Phiên bản hiện tại",
+    "sign": "Ký hợp đồng",
+    "consentRevenueShare": "Tôi đồng ý mức chia {{platform}}% cho nền tảng và {{creator}}% cho nhà sáng tạo, chỉ áp dụng cho doanh thu từ những video được tạo trong hệ sinh thái và đăng qua hệ sinh thái. Doanh thu từ các video khác không được tính.",
+    "consentPublish": "Tôi cho phép nền tảng đăng video lên kênh của tôi",
+    "consentDataProcessing": "Tôi đồng ý cho sử dụng dữ liệu của mình để xử lý nội dung bằng AI",
+    "consentMarketing": "Tôi muốn nhận email tiếp thị (tùy chọn)",
+    "paymentMethodRequired": "Cần có phương thức thanh toán đã lưu để ký hợp đồng.",
+    "history": "Lịch sử ký kết",
+    "downloadPdf": "Tải PDF"
+  },
+  "admin": {
+    "users": {
+      "title": "Người dùng",
+      "search": "Tìm theo email hoặc tên",
+      "suspend": "Tạm ngưng",
+      "reactivate": "Kích hoạt lại"
+    },
+    "videos": {
+      "title": "Tác vụ video",
+      "retry": "Thử lại",
+      "cancel": "Hủy"
+    },
+    "moderation": {
+      "title": "Hàng đợi kiểm duyệt",
+      "approve": "Phê duyệt",
+      "reject": "Từ chối",
+      "reasonRequired": "Bắt buộc nhập lý do."
+    },
+    "finance": {
+      "title": "Tổng quan tài chính",
+      "mrr": "MRR",
+      "activeSubscriptions": "Thuê bao đang hoạt động",
+      "revenueShareTotal": "Tổng chia sẻ doanh thu",
+      "uncollected": "Hóa đơn chưa thu",
+      "export": "Xuất dữ liệu",
+      "settlementTitle": "Xác minh doanh thu video",
+      "settlementHelp": "Nhập doanh thu đã xác minh của một video trong hệ sinh thái và dẫn nguồn báo cáo. Không được dùng tổng số của kênh hay con số ước tính. Mục đã xác minh sẽ không thể chỉnh sửa.",
+      "videoId": "ID video hệ sinh thái",
+      "month": "Tháng doanh thu",
+      "verifiedAmount": "Doanh thu đã xác minh (USD)",
+      "evidence": "Tham chiếu báo cáo nguồn",
+      "settlementSaved": "Đã lưu doanh thu đã xác minh."
+    },
+    "config": {
+      "title": "Cấu hình",
+      "plans": "Gói dịch vụ",
+      "providers": "Nhà cung cấp AI"
+    }
+  },
+  "landing": {
+    "navigation": "Điều hướng",
+    "navServices": "Tính năng",
+    "navProcess": "Cách hoạt động",
+    "navShare": "Điều khoản",
+    "badge": "Hệ sinh thái dành cho nhà sáng tạo YouTube",
+    "heroAccent": "Từ ý tưởng đến video",
+    "heroEnd": "trong một hệ sinh thái",
+    "description": "Lên kế hoạch nội dung, tạo video bằng AI và quản lý kênh YouTube của bạn trong cùng một không gian làm việc.",
+    "start": "Tạo tài khoản",
+    "discover": "Tìm hiểu thêm",
+    "servicesTitle": "Không gian sáng tạo của bạn",
+    "servicesLead": "Bạn chọn hướng đi. Hệ sinh thái gom mọi công cụ nội dung về một chỗ, từ ý tưởng đến lúc lên sóng.",
+    "services": [
+      {
+        "title": "Ý tưởng và kế hoạch nội dung",
+        "text": "Chủ đề kênh, ý tưởng video và lịch đăng phù hợp với ngôn ngữ và múi giờ của bạn."
+      },
+      {
+        "title": "Sản xuất video",
+        "text": "Xây kịch bản, lời thuyết minh và hình ảnh bằng công cụ AI ngay trong hồ sơ của bạn."
+      },
+      {
+        "title": "Kiểm duyệt nội dung",
+        "text": "Duyệt trước khi đăng cùng nhận xét cụ thể để video của bạn hoàn thiện hơn."
+      },
+      {
+        "title": "Đăng tải và phân tích",
+        "text": "Quản lý video và Shorts, theo dõi hiệu quả và doanh thu từ video của bạn."
+      }
+    ],
+    "processTitle": "Từ ý tưởng đến lúc lên sóng",
+    "steps": [
+      "Tạo tài khoản và kết nối kênh của bạn",
+      "Chọn gói, chủ đề và ngôn ngữ",
+      "Chuẩn bị và phê duyệt nội dung",
+      "Hoàn tất kiểm duyệt rồi đăng tải",
+      "Theo dõi kết quả"
+    ],
+    "shareTitle": "Kênh của bạn. Doanh thu của bạn.",
+    "creatorShare": "Phần của nhà sáng tạo",
+    "platformShare": "Phần của nền tảng",
+    "shareScope": "30% chỉ áp dụng cho doanh thu từ những video được tạo trong hệ sinh thái của chúng tôi và đăng qua hệ sinh thái. Doanh thu từ các video khác trên kênh bạn không được tính.",
+    "shareDetails": "Các điều khoản được ghi trong hợp đồng của bạn. Phí thuê bao tính riêng. Doanh thu phụ thuộc vào hiệu quả video và chính sách của YouTube; mức thu nhập không được bảo đảm.",
+    "faqTitle": "Giải đáp thắc mắc",
+    "faqs": [
+      {
+        "q": "Kênh vẫn là của tôi chứ?",
+        "a": "Đúng vậy. Bạn toàn quyền kiểm soát kênh và tự cấp quyền kết nối. Bạn có thể thu hồi quyền truy cập bất cứ lúc nào."
+      },
+      {
+        "q": "Phí có tính trên toàn bộ kênh không?",
+        "a": "Không. Phần 30% của nền tảng chỉ áp dụng cho video được tạo và đăng qua hệ sinh thái. Các video khác không được tính."
+      },
+      {
+        "q": "Tôi có được chọn ngôn ngữ nội dung không?",
+        "a": "Phần cài đặt có danh mục 30 biến thể ngôn ngữ. Khả năng tạo giọng đọc tùy thuộc vào nhà cung cấp đang kết nối."
+      },
+      {
+        "q": "Video có được đăng mà không qua kiểm duyệt không?",
+        "a": "Mọi nội dung đều qua kiểm duyệt trước khi đăng. Phần nào cần sửa sẽ được trả lại để chỉnh."
+      }
+    ],
+    "ctaTitle": "Ý tưởng tiếp theo của bạn bắt đầu từ đây.",
+    "ctaText": "Tạo hồ sơ, khám phá bộ công cụ và thiết lập không gian làm việc cho kênh của bạn.",
+    "footer": "Một không gian làm việc để tạo và quản lý nội dung YouTube."
+  },
+  "planning": {
+    "title": "Kế hoạch nội dung",
+    "explanation": "Các gợi ý dựa trên video tìm được trên YouTube. Thời gian đề xuất theo tùy chọn của bạn, không dựa trên những khẳng định chưa kiểm chứng về hoạt động của khán giả. Hãy xem lại và phê duyệt các video đã chọn trước khi bắt đầu tạo.",
+    "edit": "Chỉnh sửa",
+    "brief": "Bản brief",
+    "localTime": "Giờ mới (múi giờ hiện tại của bạn)",
+    "period": "Kỳ",
+    "count": "Số lượng video",
+    "daily": "Hằng ngày",
+    "weekly": "Hằng tuần",
+    "monthly": "Hằng tháng",
+    "propose": "Đề xuất kế hoạch",
+    "approve": "Duyệt video đã chọn",
+    "sources": "Nguồn nghiên cứu",
+    "failed": "Không thể lập kế hoạch. Hãy kiểm tra cấu hình nhà cung cấp và kênh.",
+    "status": {
+      "pending": "Trong hàng đợi",
+      "generating": "Đang nghiên cứu",
+      "ready": "Chờ bạn quyết định",
+      "approved": "Đã duyệt",
+      "failed": "Thất bại",
+      "canceled": "Đã hủy"
+    }
   }
 }

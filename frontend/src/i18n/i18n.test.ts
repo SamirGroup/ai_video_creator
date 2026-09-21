@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it } from 'vitest'
-import i18n, { applyDocumentLocale } from './index'
+import i18n, { applyDocumentLocale, changeLocale } from './index'
 import { LANGUAGES } from './registry'
 
 afterEach(async () => {
@@ -13,7 +13,9 @@ describe('locale selection', () => {
   })
   it('switches all core navigation labels without falling back to a key', async () => {
     for (const language of LANGUAGES) {
-      await i18n.changeLanguage(language.code)
+      // changeLocale, not changeLanguage: non-core locales are code-split and
+      // have to be fetched first, which is what the app itself does.
+      await changeLocale(language.code)
       expect(i18n.hasResourceBundle(language.code, 'translation')).toBe(true)
       expect(i18n.getResource(language.code, 'translation', 'nav.language')).toBeTruthy()
       expect(i18n.t('nav.language')).not.toBe('nav.language')

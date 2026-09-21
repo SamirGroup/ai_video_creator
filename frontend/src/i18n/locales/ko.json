@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "내 YouTube 채널을 위한 AI 영상 제작"
+  },
   "common": {
     "loading": "불러오는 중…",
     "retry": "다시 시도",
@@ -11,7 +15,34 @@
     "actions": "작업",
     "status": "상태",
     "date": "날짜",
-    "unknown": "알 수 없음"
+    "unknown": "알 수 없음",
+    "comingSoon": "이 기능은 곧 제공될 예정입니다.",
+    "empty": {
+      "title": "아직 항목이 없습니다",
+      "description": "지금은 표시할 데이터가 없습니다."
+    },
+    "error": {
+      "title": "문제가 발생했습니다",
+      "description": "데이터를 불러오지 못했습니다. 다시 시도해 주세요.",
+      "generic": "예기치 못한 오류입니다. 다시 시도해 주세요."
+    },
+    "unauthorized": {
+      "title": "세션이 만료되었습니다",
+      "description": "계속하려면 다시 로그인해 주세요."
+    },
+    "forbidden": {
+      "title": "접근이 거부되었습니다",
+      "description": "이 페이지를 볼 권한이 없습니다."
+    },
+    "offline": {
+      "title": "오프라인 상태입니다",
+      "description": "인터넷 연결을 확인한 후 다시 시도해 주세요."
+    },
+    "notFound": {
+      "title": "페이지를 찾을 수 없습니다",
+      "description": "찾으시는 페이지가 존재하지 않습니다.",
+      "backHome": "대시보드로 이동"
+    }
   },
   "nav": {
     "dashboard": "대시보드",
@@ -33,19 +64,103 @@
   "auth": {
     "login": {
       "title": "로그인",
+      "subtitle": "다시 오셨군요 — 크리에이터 계정으로 로그인하세요",
       "email": "이메일",
       "password": "비밀번호",
-      "submit": "로그인"
+      "submit": "로그인",
+      "submitting": "로그인 중…",
+      "orGoogle": "또는 Google로 계속하기",
+      "googleButton": "Google로 로그인",
+      "forgotPassword": "비밀번호를 잊으셨나요?",
+      "noAccount": "계정이 없으신가요?",
+      "registerLink": "계정 만들기",
+      "error": "이메일 또는 비밀번호가 올바르지 않습니다."
     },
     "register": {
       "title": "계정 만들기",
+      "subtitle": "몇 분이면 AI로 영상 제작을 시작할 수 있습니다",
       "fullName": "성명",
       "email": "이메일",
       "password": "비밀번호",
-      "submit": "계정 만들기"
+      "passwordHint": "10자 이상이어야 합니다.",
+      "marketingOptIn": "제품 소식과 활용 팁을 이메일로 받겠습니다",
+      "submit": "계정 만들기",
+      "submitting": "계정 생성 중…",
+      "hasAccount": "이미 계정이 있으신가요?",
+      "loginLink": "로그인",
+      "success": "계정이 생성되었습니다. 이메일에서 주소를 인증해 주세요."
+    },
+    "verifyEmail": {
+      "title": "이메일 인증",
+      "pending": "이메일 주소를 확인하는 중…",
+      "success": "이메일이 인증되었습니다. 이제 로그인할 수 있습니다.",
+      "error": "인증 링크가 유효하지 않거나 만료되었습니다.",
+      "goToLogin": "로그인하러 가기"
+    },
+    "forgotPassword": {
+      "title": "비밀번호 재설정",
+      "subtitle": "재설정 링크를 이메일로 보내드립니다",
+      "email": "이메일",
+      "submit": "재설정 링크 보내기",
+      "submitting": "보내는 중…",
+      "success": "해당 이메일이 등록되어 있다면 재설정 링크가 곧 도착합니다.",
+      "backToLogin": "로그인으로 돌아가기"
+    },
+    "validation": {
+      "emailRequired": "이메일을 입력해 주세요.",
+      "emailInvalid": "올바른 이메일 주소를 입력해 주세요.",
+      "passwordRequired": "비밀번호를 입력해 주세요.",
+      "passwordMinLength": "비밀번호는 10자 이상이어야 합니다.",
+      "fullNameRequired": "성명을 입력해 주세요."
+    },
+    "googleUnavailable": "Google 로그인이 아직 설정되지 않았습니다. 이메일로 계속해 주세요.",
+    "twoFactor": "2단계 인증",
+    "setupAuthenticator": "인증 앱 설정",
+    "authenticatorSecret": "이 보안 키를 인증 앱에 추가하세요:",
+    "verificationCode": "인증 코드"
+  },
+  "dashboard": {
+    "title": "대시보드",
+    "welcome": "다시 오신 것을 환영합니다, {{name}}님",
+    "cards": {
+      "channelStatus": "채널 상태",
+      "videosThisMonth": "이번 달 동영상",
+      "estimatedRevenue": "예상 수익",
+      "pendingApprovals": "승인 대기"
+    },
+    "quotaUsed": "{{total}}개 중 {{used}}개 사용",
+    "connected": "연결됨",
+    "disconnected": "연결되지 않음",
+    "connectChannel": "YouTube 채널 연결",
+    "demoNotice": "인터페이스 미리보기 · 데모 데이터를 표시합니다",
+    "analyticsTitle": "수익 개요",
+    "activityTitle": "일별 조회수",
+    "shareTitle": "새 계약 조건"
+  },
+  "channel": {
+    "title": "채널",
+    "connect": "YouTube 연결",
+    "disconnect": "연결 해제",
+    "disconnectConfirm": "연결을 해제하면 이 채널의 예약된 동영상이 모두 일시중지됩니다. 계속할까요?",
+    "subscribers": "구독자",
+    "videos": "동영상",
+    "monetization": {
+      "unknown": "수익 창출 상태가 확인되지 않았습니다",
+      "monetized": "수익 창출 중",
+      "notMonetized": "수익 창출 안 함"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "AdSense 연결",
+      "connected": "연결됨 — 수익이 AdSense 확정 기준으로 표시됩니다",
+      "notConnected": "연결되지 않음 — 수익이 YouTube 애널리틱스 예상치로 표시됩니다"
     }
   },
   "preferences": {
+    "title": "환경 설정",
+    "niche": "분야",
+    "customBrief": "추가 설명",
+    "brandVoice": "브랜드 보이스",
     "language": "콘텐츠 언어",
     "videoDuration": "동영상 길이(초)",
     "frequency": "게시 빈도",
@@ -62,28 +177,254 @@
       "private": "비공개"
     },
     "approvalMode": "승인 방식",
+    "approvalModeOptions": {
+      "review_required": "게시 전 검토 필요",
+      "auto": "검토 통과 후 자동 게시"
+    },
+    "paused": "일정이 일시중지됨",
+    "pause": "일정 일시중지",
+    "resume": "일정 재개",
     "save": "설정 저장",
     "saved": "설정이 저장되었습니다.",
     "timezone": "시간대",
-    "publishDays": "날짜(요일: 0–6, 월: 1–28)",
-    "title": "환경 설정"
-  },
-  "dashboard": {
-    "title": "대시보드"
-  },
-  "channel": {
-    "title": "채널"
+    "publishDays": "날짜(요일: 0–6, 월: 1–28)"
   },
   "video": {
-    "title": "동영상"
+    "title": "동영상",
+    "generateNow": "지금 생성",
+    "table": {
+      "title": "제목",
+      "status": "상태",
+      "scheduledFor": "예약 시간",
+      "cost": "비용",
+      "actions": "작업"
+    },
+    "status": {
+      "draft": "초안",
+      "scheduled": "예약됨",
+      "queued": "대기 중",
+      "generating_script": "대본 작성 중",
+      "script_ready": "대본 준비 완료",
+      "moderating_script": "대본 검토 중",
+      "generating_voice": "음성 생성 중",
+      "voice_ready": "음성 준비 완료",
+      "generating_visuals": "영상 소스 생성 중",
+      "visuals_ready": "영상 소스 준비 완료",
+      "assembling": "동영상 합성 중",
+      "assembled": "합성 완료",
+      "moderating_final": "최종 검토 중",
+      "moderation_review": "검토 심사 중",
+      "moderation_rejected": "검토에서 거부됨",
+      "awaiting_approval": "승인 대기 중",
+      "approved": "승인됨",
+      "changes_requested": "수정 요청됨",
+      "rejected": "거부됨",
+      "expired": "만료됨",
+      "upload_queued": "업로드 대기 중",
+      "uploading": "YouTube에 업로드 중",
+      "uploaded": "업로드됨",
+      "published": "게시됨",
+      "youtube_rejected": "YouTube에서 거부됨",
+      "retrying": "재시도 중",
+      "failed": "실패",
+      "canceled": "취소됨",
+      "deleted_on_youtube": "YouTube에서 삭제됨"
+    },
+    "approval": {
+      "title": "이 동영상 검토",
+      "preview": "미리보기",
+      "approve": "승인",
+      "requestChanges": "수정 요청",
+      "reject": "거부",
+      "reasonLabel": "사유",
+      "regenerateFrom": "재생성 시작 단계",
+      "confirmApprove": "승인하고 업로드 대기열에 추가할까요?",
+      "confirmReject": "이 동영상을 거부할까요? 게시되지 않습니다."
+    },
+    "empty": {
+      "title": "아직 동영상이 없습니다",
+      "description": "첫 작업이 예약되거나 생성되면 여기에 표시됩니다."
+    },
+    "previewPlaceholder": "동영상 미리보기 자리",
+    "steps": "파이프라인 단계"
   },
   "revenue": {
-    "title": "수익"
+    "title": "수익",
+    "totalViews": "총 조회수",
+    "views": "회",
+    "estimated": "예상치(YouTube 애널리틱스)",
+    "confirmed": "AdSense 확정",
+    "notMonetized": "이 채널은 아직 수익 창출이 시작되지 않아 수익은 $0입니다.",
+    "topVideos": "인기 동영상",
+    "statements": "수익 배분 명세서",
+    "dispute": "명세서 이의 제기",
+    "statementStatus": {
+      "draft": "초안",
+      "finalized": "확정됨",
+      "invoiced": "청구서 발행됨",
+      "paid": "지급 완료",
+      "disputed": "이의 제기됨",
+      "written_off": "손실 처리됨",
+      "carried_forward": "다음 기간 이월"
+    },
+    "disputeReason": "차이가 발생한 이유를 설명해 주세요",
+    "reviewUntil": "{{date}}까지 검토 가능"
   },
   "billing": {
-    "title": "결제"
+    "title": "결제",
+    "currentPlan": "현재 요금제",
+    "changePlan": "요금제 변경",
+    "managePayment": "결제 수단 관리",
+    "invoices": "청구서",
+    "status": {
+      "trialing": "체험 중",
+      "active": "사용 중",
+      "past_due": "연체",
+      "suspended": "정지됨",
+      "canceled": "해지됨",
+      "expired": "만료됨"
+    }
   },
   "contract": {
-    "title": "계약"
+    "title": "계약",
+    "currentVersion": "현재 버전",
+    "sign": "계약 서명",
+    "consentRevenueShare": "생태계 안에서 제작되어 생태계를 통해 게시된 동영상의 수익에 한해 플랫폼 {{platform}}%, 크리에이터 {{creator}}% 배분에 동의합니다. 그 외 동영상의 수익은 제외됩니다.",
+    "consentPublish": "플랫폼이 내 채널에 동영상을 게시하는 것을 허용합니다",
+    "consentDataProcessing": "내 데이터를 AI 콘텐츠 처리에 사용하는 데 동의합니다",
+    "consentMarketing": "마케팅 이메일을 받겠습니다(선택)",
+    "paymentMethodRequired": "계약에 서명하려면 저장된 결제 수단이 필요합니다.",
+    "history": "서명 이력",
+    "downloadPdf": "PDF 다운로드"
+  },
+  "admin": {
+    "users": {
+      "title": "사용자",
+      "search": "이메일 또는 이름으로 검색",
+      "suspend": "이용 정지",
+      "reactivate": "정지 해제"
+    },
+    "videos": {
+      "title": "동영상 작업",
+      "retry": "재시도",
+      "cancel": "취소"
+    },
+    "moderation": {
+      "title": "검토 대기열",
+      "approve": "승인",
+      "reject": "거부",
+      "reasonRequired": "사유를 입력해야 합니다."
+    },
+    "finance": {
+      "title": "재무 개요",
+      "mrr": "MRR",
+      "activeSubscriptions": "활성 구독",
+      "revenueShareTotal": "수익 배분 총액",
+      "uncollected": "미수금 청구서",
+      "export": "내보내기",
+      "settlementTitle": "동영상 수익 검증",
+      "settlementHelp": "생태계 동영상 한 편의 검증된 수익을 입력하고 출처 보고서를 기재하세요. 채널 합계나 예상치는 사용할 수 없습니다. 검증된 기록은 수정할 수 없습니다.",
+      "videoId": "생태계 동영상 ID",
+      "month": "수익 발생 월",
+      "verifiedAmount": "검증된 수익(USD)",
+      "evidence": "출처 보고서 참조",
+      "settlementSaved": "검증된 수익을 저장했습니다."
+    },
+    "config": {
+      "title": "구성",
+      "plans": "요금제",
+      "providers": "AI 제공업체"
+    }
+  },
+  "landing": {
+    "navigation": "탐색",
+    "navServices": "주요 기능",
+    "navProcess": "진행 과정",
+    "navShare": "조건",
+    "badge": "YouTube 크리에이터를 위한 생태계",
+    "heroAccent": "아이디어에서 영상까지",
+    "heroEnd": "하나의 생태계에서",
+    "description": "콘텐츠 기획부터 AI 영상 제작, YouTube 채널 운영까지 하나의 작업 공간에서 해결하세요.",
+    "start": "계정 만들기",
+    "discover": "더 알아보기",
+    "servicesTitle": "나만의 크리에이티브 작업 공간",
+    "servicesLead": "방향은 크리에이터가 정합니다. 생태계는 아이디어부터 게시까지 필요한 도구를 한곳에 모아 줍니다.",
+    "services": [
+      {
+        "title": "아이디어와 콘텐츠 기획",
+        "text": "언어와 시간대에 맞춘 채널 주제, 영상 아이디어, 게시 일정을 제안합니다."
+      },
+      {
+        "title": "영상 제작",
+        "text": "대본, 음성, 영상까지 프로필 안의 AI 도구로 완성합니다."
+      },
+      {
+        "title": "콘텐츠 검토",
+        "text": "게시 전 검토와 함께 영상을 개선할 수 있는 구체적인 피드백을 드립니다."
+      },
+      {
+        "title": "게시와 분석",
+        "text": "일반 영상과 Shorts를 관리하고 성과와 영상 수익을 추적합니다."
+      }
+    ],
+    "processTitle": "기획에서 게시까지",
+    "steps": [
+      "계정을 만들고 채널을 연결하세요",
+      "요금제, 주제, 언어를 선택하세요",
+      "콘텐츠를 준비하고 승인하세요",
+      "검토를 거쳐 게시하세요",
+      "성과를 확인하세요"
+    ],
+    "shareTitle": "채널도, 수익도 크리에이터의 것.",
+    "creatorShare": "크리에이터 배분",
+    "platformShare": "플랫폼 배분",
+    "shareScope": "30%는 저희 생태계 안에서 제작되어 생태계를 통해 게시된 동영상의 수익에만 적용됩니다. 채널의 다른 동영상 수익은 포함되지 않습니다.",
+    "shareDetails": "세부 조건은 계약서에 기재됩니다. 구독료는 별도입니다. 수익은 영상 성과와 YouTube 정책에 따라 달라지며 보장되지 않습니다.",
+    "faqTitle": "자주 묻는 질문",
+    "faqs": [
+      {
+        "q": "채널은 계속 제 것인가요?",
+        "a": "네. 채널은 크리에이터가 관리하며, 연결 권한만 부여하는 방식입니다. 권한은 언제든 철회할 수 있습니다."
+      },
+      {
+        "q": "수수료가 채널 전체에 적용되나요?",
+        "a": "아닙니다. 플랫폼 30% 배분은 생태계를 통해 제작·게시된 동영상에만 적용되며, 다른 동영상은 제외됩니다."
+      },
+      {
+        "q": "콘텐츠 언어를 선택할 수 있나요?",
+        "a": "설정에서 30개 언어 버전을 제공합니다. 음성 생성 지원 여부는 연결된 제공업체에 따라 달라집니다."
+      },
+      {
+        "q": "검토 없이 영상이 게시되나요?",
+        "a": "모든 콘텐츠는 게시 전에 검토를 거칩니다. 수정이 필요한 자료는 보완을 위해 반환됩니다."
+      }
+    ],
+    "ctaTitle": "다음 아이디어는 여기서 시작됩니다.",
+    "ctaText": "프로필을 만들고 도구를 살펴보며 채널을 위한 작업 공간을 꾸며 보세요.",
+    "footer": "YouTube 콘텐츠 제작과 운영을 한곳에서."
+  },
+  "planning": {
+    "title": "콘텐츠 기획",
+    "explanation": "제안은 YouTube에서 찾은 동영상을 기반으로 합니다. 시간은 확인되지 않은 시청자 활동이 아니라 설정을 따릅니다. 생성이 시작되기 전에 선택한 동영상을 검토하고 승인하세요.",
+    "edit": "수정",
+    "brief": "요청 사항",
+    "localTime": "새 시간(현재 시간대 기준)",
+    "period": "기간",
+    "count": "동영상 수",
+    "daily": "하루",
+    "weekly": "일주일",
+    "monthly": "한 달",
+    "propose": "기획안 받기",
+    "approve": "선택한 동영상 승인",
+    "sources": "조사 출처",
+    "failed": "기획안을 만들지 못했습니다. 제공업체와 채널 설정을 확인하세요.",
+    "status": {
+      "pending": "대기 중",
+      "generating": "조사 중",
+      "ready": "결정 대기 중",
+      "approved": "승인됨",
+      "failed": "실패",
+      "canceled": "취소됨"
+    }
   }
 }

@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "Vídeos produzidos por IA para o seu canal do YouTube"
+  },
   "common": {
     "loading": "Carregando…",
     "retry": "Tentar novamente",
@@ -11,7 +15,34 @@
     "actions": "Ações",
     "status": "Estado",
     "date": "Data",
-    "unknown": "Desconhecido"
+    "unknown": "Desconhecido",
+    "comingSoon": "Esta seção estará disponível em breve.",
+    "empty": {
+      "title": "Ainda não há nada aqui",
+      "description": "No momento não há dados para exibir."
+    },
+    "error": {
+      "title": "Algo deu errado",
+      "description": "Não foi possível carregar estes dados. Tente novamente.",
+      "generic": "Erro inesperado. Tente novamente."
+    },
+    "unauthorized": {
+      "title": "Sessão expirada",
+      "description": "Entre novamente para continuar."
+    },
+    "forbidden": {
+      "title": "Acesso negado",
+      "description": "Você não tem permissão para ver esta página."
+    },
+    "offline": {
+      "title": "Você está offline",
+      "description": "Verifique sua conexão com a internet e tente novamente."
+    },
+    "notFound": {
+      "title": "Página não encontrada",
+      "description": "A página que você procura não existe.",
+      "backHome": "Voltar ao painel"
+    }
   },
   "nav": {
     "dashboard": "Painel",
@@ -33,19 +64,103 @@
   "auth": {
     "login": {
       "title": "Entrar",
+      "subtitle": "Bem-vindo de volta — acesse sua conta de criador",
       "email": "E-mail",
       "password": "Senha",
-      "submit": "Entrar"
+      "submit": "Entrar",
+      "submitting": "Entrando…",
+      "orGoogle": "Ou continue com o Google",
+      "googleButton": "Entrar com o Google",
+      "forgotPassword": "Esqueceu a senha?",
+      "noAccount": "Ainda não tem uma conta?",
+      "registerLink": "Criar agora",
+      "error": "E-mail ou senha inválidos."
     },
     "register": {
       "title": "Criar conta",
+      "subtitle": "Comece a produzir vídeos com IA em minutos",
       "fullName": "Nome completo",
       "email": "E-mail",
       "password": "Senha",
-      "submit": "Criar conta"
+      "passwordHint": "No mínimo 10 caracteres.",
+      "marketingOptIn": "Quero receber novidades e dicas do produto por e-mail",
+      "submit": "Criar conta",
+      "submitting": "Criando conta…",
+      "hasAccount": "Já tem uma conta?",
+      "loginLink": "Entrar",
+      "success": "Conta criada. Verifique seu e-mail para confirmar o endereço."
+    },
+    "verifyEmail": {
+      "title": "Confirme seu e-mail",
+      "pending": "Verificando seu endereço de e-mail…",
+      "success": "Seu e-mail foi confirmado. Agora você já pode entrar.",
+      "error": "Este link de verificação é inválido ou expirou.",
+      "goToLogin": "Ir para o login"
+    },
+    "forgotPassword": {
+      "title": "Redefinir sua senha",
+      "subtitle": "Enviaremos um link para redefinir sua senha",
+      "email": "E-mail",
+      "submit": "Enviar link",
+      "submitting": "Enviando…",
+      "success": "Se esse e-mail existir, o link já está a caminho.",
+      "backToLogin": "Voltar ao login"
+    },
+    "validation": {
+      "emailRequired": "O e-mail é obrigatório.",
+      "emailInvalid": "Informe um endereço de e-mail válido.",
+      "passwordRequired": "A senha é obrigatória.",
+      "passwordMinLength": "A senha deve ter pelo menos 10 caracteres.",
+      "fullNameRequired": "O nome completo é obrigatório."
+    },
+    "googleUnavailable": "O login com Google ainda não está configurado. Continue com seu e-mail.",
+    "twoFactor": "Autenticação em duas etapas",
+    "setupAuthenticator": "Configurar autenticador",
+    "authenticatorSecret": "Adicione esta chave ao seu app autenticador:",
+    "verificationCode": "Código de verificação"
+  },
+  "dashboard": {
+    "title": "Painel",
+    "welcome": "Bem-vindo de volta, {{name}}",
+    "cards": {
+      "channelStatus": "Status do canal",
+      "videosThisMonth": "Vídeos neste mês",
+      "estimatedRevenue": "Receita estimada",
+      "pendingApprovals": "Aprovações pendentes"
+    },
+    "quotaUsed": "{{used}} de {{total}} usados",
+    "connected": "Conectado",
+    "disconnected": "Não conectado",
+    "connectChannel": "Conectar canal do YouTube",
+    "demoNotice": "Prévia da interface · dados de demonstração",
+    "analyticsTitle": "Visão geral da receita",
+    "activityTitle": "Visualizações por dia",
+    "shareTitle": "Novas condições do contrato"
+  },
+  "channel": {
+    "title": "Canal",
+    "connect": "Conectar YouTube",
+    "disconnect": "Desconectar",
+    "disconnectConfirm": "Ao desconectar, todos os vídeos agendados deste canal serão pausados. Continuar?",
+    "subscribers": "Inscritos",
+    "videos": "Vídeos",
+    "monetization": {
+      "unknown": "Status de monetização não confirmado",
+      "monetized": "Monetizado",
+      "notMonetized": "Não monetizado"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "Conectar AdSense",
+      "connected": "Conectado — a receita é confirmada pelo AdSense",
+      "notConnected": "Não conectado — a receita é uma estimativa do YouTube Analytics"
     }
   },
   "preferences": {
+    "title": "Preferências",
+    "niche": "Nicho",
+    "customBrief": "Briefing personalizado",
+    "brandVoice": "Tom da marca",
     "language": "Idioma do conteúdo",
     "videoDuration": "Duração do vídeo (segundos)",
     "frequency": "Frequência de publicação",
@@ -62,28 +177,254 @@
       "private": "Privado"
     },
     "approvalMode": "Modo de aprovação",
+    "approvalModeOptions": {
+      "review_required": "Exige revisão antes de publicar",
+      "auto": "Publicar automaticamente após a moderação"
+    },
+    "paused": "Agenda pausada",
+    "pause": "Pausar agenda",
+    "resume": "Retomar agenda",
     "save": "Salvar preferências",
     "saved": "Preferências salvas.",
     "timezone": "Fuso horário",
-    "publishDays": "Dias (semana: 0–6; mês: 1–28)",
-    "title": "Preferências"
-  },
-  "dashboard": {
-    "title": "Painel"
-  },
-  "channel": {
-    "title": "Canal"
+    "publishDays": "Dias (semana: 0–6; mês: 1–28)"
   },
   "video": {
-    "title": "Vídeos"
+    "title": "Vídeos",
+    "generateNow": "Gerar agora",
+    "table": {
+      "title": "Título",
+      "status": "Estado",
+      "scheduledFor": "Agendado para",
+      "cost": "Custo",
+      "actions": "Ações"
+    },
+    "status": {
+      "draft": "Rascunho",
+      "scheduled": "Agendado",
+      "queued": "Na fila",
+      "generating_script": "Escrevendo o roteiro",
+      "script_ready": "Roteiro pronto",
+      "moderating_script": "Moderando o roteiro",
+      "generating_voice": "Gerando a narração",
+      "voice_ready": "Narração pronta",
+      "generating_visuals": "Gerando os visuais",
+      "visuals_ready": "Visuais prontos",
+      "assembling": "Montando o vídeo",
+      "assembled": "Montado",
+      "moderating_final": "Moderação final",
+      "moderation_review": "Em revisão de moderação",
+      "moderation_rejected": "Recusado pela moderação",
+      "awaiting_approval": "Aguardando sua aprovação",
+      "approved": "Aprovado",
+      "changes_requested": "Alterações solicitadas",
+      "rejected": "Recusado",
+      "expired": "Expirado",
+      "upload_queued": "Na fila de envio",
+      "uploading": "Enviando ao YouTube",
+      "uploaded": "Enviado",
+      "published": "Publicado",
+      "youtube_rejected": "Recusado pelo YouTube",
+      "retrying": "Tentando novamente",
+      "failed": "Falhou",
+      "canceled": "Cancelado",
+      "deleted_on_youtube": "Excluído no YouTube"
+    },
+    "approval": {
+      "title": "Revise este vídeo",
+      "preview": "Prévia",
+      "approve": "Aprovar",
+      "requestChanges": "Solicitar alterações",
+      "reject": "Recusar",
+      "reasonLabel": "Motivo",
+      "regenerateFrom": "Gerar novamente a partir de",
+      "confirmApprove": "Aprovar e colocar na fila de envio?",
+      "confirmReject": "Recusar este vídeo? Ele não será publicado."
+    },
+    "empty": {
+      "title": "Ainda não há vídeos",
+      "description": "Os vídeos aparecerão aqui assim que sua primeira tarefa for agendada ou gerada."
+    },
+    "previewPlaceholder": "Espaço para a prévia do vídeo",
+    "steps": "Etapas do processo"
   },
   "revenue": {
-    "title": "Receita"
+    "title": "Receita",
+    "totalViews": "Visualizações totais",
+    "views": "visualizações",
+    "estimated": "Estimada (YouTube Analytics)",
+    "confirmed": "Confirmada pelo AdSense",
+    "notMonetized": "Este canal ainda não é monetizado, a receita é US$ 0.",
+    "topVideos": "Vídeos em destaque",
+    "statements": "Demonstrativos de divisão de receita",
+    "dispute": "Contestar demonstrativo",
+    "statementStatus": {
+      "draft": "Rascunho",
+      "finalized": "Fechado",
+      "invoiced": "Faturado",
+      "paid": "Pago",
+      "disputed": "Contestado",
+      "written_off": "Baixado",
+      "carried_forward": "Transferido"
+    },
+    "disputeReason": "Explique a divergência",
+    "reviewUntil": "Contestação até {{date}}"
   },
   "billing": {
-    "title": "Faturamento"
+    "title": "Faturamento",
+    "currentPlan": "Plano atual",
+    "changePlan": "Mudar de plano",
+    "managePayment": "Gerenciar forma de pagamento",
+    "invoices": "Faturas",
+    "status": {
+      "trialing": "Em teste",
+      "active": "Ativo",
+      "past_due": "Pagamento atrasado",
+      "suspended": "Suspenso",
+      "canceled": "Cancelado",
+      "expired": "Expirado"
+    }
   },
   "contract": {
-    "title": "Contrato"
+    "title": "Contrato",
+    "currentVersion": "Versão atual",
+    "sign": "Assinar contrato",
+    "consentRevenueShare": "Concordo com uma divisão de {{platform}}% para a plataforma e {{creator}}% para o criador, aplicada apenas à receita de vídeos criados dentro do ecossistema e publicados por meio dele. A receita de outros vídeos fica excluída.",
+    "consentPublish": "Autorizo a plataforma a publicar vídeos no meu canal",
+    "consentDataProcessing": "Concordo com o uso dos meus dados para o processamento de conteúdo por IA",
+    "consentMarketing": "Quero receber e-mails de marketing (opcional)",
+    "paymentMethodRequired": "É necessário ter uma forma de pagamento salva para assinar o contrato.",
+    "history": "Histórico de assinaturas",
+    "downloadPdf": "Baixar PDF"
+  },
+  "admin": {
+    "users": {
+      "title": "Usuários",
+      "search": "Pesquisar por e-mail ou nome",
+      "suspend": "Suspender",
+      "reactivate": "Reativar"
+    },
+    "videos": {
+      "title": "Tarefas de vídeo",
+      "retry": "Tentar novamente",
+      "cancel": "Cancelar"
+    },
+    "moderation": {
+      "title": "Fila de moderação",
+      "approve": "Aprovar",
+      "reject": "Recusar",
+      "reasonRequired": "É obrigatório informar um motivo."
+    },
+    "finance": {
+      "title": "Visão geral financeira",
+      "mrr": "MRR",
+      "activeSubscriptions": "Assinaturas ativas",
+      "revenueShareTotal": "Total da divisão de receita",
+      "uncollected": "Faturas não recebidas",
+      "export": "Exportar",
+      "settlementTitle": "Verificar receita do vídeo",
+      "settlementHelp": "Informe a receita verificada de um vídeo do ecossistema e cite o relatório de origem. Totais do canal e estimativas não são aceitos. Registros verificados não podem ser alterados.",
+      "videoId": "ID do vídeo no ecossistema",
+      "month": "Mês de referência",
+      "verifiedAmount": "Receita verificada (USD)",
+      "evidence": "Referência do relatório de origem",
+      "settlementSaved": "Receita verificada salva."
+    },
+    "config": {
+      "title": "Configuração",
+      "plans": "Planos",
+      "providers": "Provedores de IA"
+    }
+  },
+  "landing": {
+    "navigation": "Navegação",
+    "navServices": "Recursos",
+    "navProcess": "Como funciona",
+    "navShare": "Condições",
+    "badge": "O ecossistema para criadores do YouTube",
+    "heroAccent": "Da ideia ao vídeo",
+    "heroEnd": "em um só ecossistema",
+    "description": "Planeje seu conteúdo, crie vídeos com IA e administre seu canal do YouTube em um único espaço.",
+    "start": "Criar conta",
+    "discover": "Saiba mais",
+    "servicesTitle": "Seu espaço criativo",
+    "servicesLead": "Você define a direção. O ecossistema reúne suas ferramentas de conteúdo, da ideia à publicação.",
+    "services": [
+      {
+        "title": "Ideias e plano de conteúdo",
+        "text": "Temas do canal, ideias de vídeo e calendário de publicação ajustados ao seu idioma e fuso horário."
+      },
+      {
+        "title": "Criação de vídeos",
+        "text": "Desenvolva roteiros, narrações e visuais com ferramentas de IA direto no seu perfil."
+      },
+      {
+        "title": "Revisão de conteúdo",
+        "text": "Moderação antes da publicação e retornos práticos para melhorar seu vídeo."
+      },
+      {
+        "title": "Publicação e analytics",
+        "text": "Gerencie vídeos e Shorts, acompanhe o desempenho e a receita de cada vídeo."
+      }
+    ],
+    "processTitle": "Do conceito à publicação",
+    "steps": [
+      "Crie uma conta e conecte seu canal",
+      "Escolha o plano, o tema e o idioma",
+      "Prepare e aprove seu conteúdo",
+      "Passe pela moderação e publique",
+      "Acompanhe seus resultados"
+    ],
+    "shareTitle": "Seu canal. Sua receita.",
+    "creatorShare": "Parte do criador",
+    "platformShare": "Parte da plataforma",
+    "shareScope": "Os 30% valem apenas para a receita de vídeos criados dentro do nosso ecossistema e publicados por meio dele. A receita dos demais vídeos do seu canal fica excluída.",
+    "shareDetails": "As condições ficam registradas no seu contrato. A assinatura é cobrada à parte. A receita depende do desempenho dos vídeos e das políticas do YouTube; os ganhos não são garantidos.",
+    "faqTitle": "Perguntas frequentes",
+    "faqs": [
+      {
+        "q": "O canal continua sendo meu?",
+        "a": "Sim. Você mantém o controle do canal e concede as permissões de conexão. O acesso pode ser revogado a qualquer momento."
+      },
+      {
+        "q": "A comissão vale para o canal inteiro?",
+        "a": "Não. Os 30% da plataforma se aplicam apenas aos vídeos criados e publicados pelo ecossistema. Os demais vídeos ficam de fora."
+      },
+      {
+        "q": "Posso escolher o idioma do conteúdo?",
+        "a": "As configurações incluem um catálogo com 30 variantes de idioma. A disponibilidade das vozes depende do provedor conectado."
+      },
+      {
+        "q": "Os vídeos são publicados sem revisão?",
+        "a": "Todo conteúdo passa por moderação antes da publicação. O material que precisa de correções volta para ajustes."
+      }
+    ],
+    "ctaTitle": "Sua próxima ideia começa aqui.",
+    "ctaText": "Crie um perfil, explore as ferramentas e monte um espaço de trabalho para o seu canal.",
+    "footer": "Um só espaço para criar e gerenciar conteúdo do YouTube."
+  },
+  "planning": {
+    "title": "Plano de conteúdo",
+    "explanation": "As sugestões usam vídeos encontrados no YouTube. Os horários seguem suas preferências, e não dados não verificados de atividade do público. Revise e aprove os vídeos selecionados antes que a geração comece.",
+    "edit": "Editar",
+    "brief": "Briefing",
+    "localTime": "Novo horário (seu fuso horário atual)",
+    "period": "Período",
+    "count": "Quantidade de vídeos",
+    "daily": "Diário",
+    "weekly": "Semanal",
+    "monthly": "Mensal",
+    "propose": "Propor um plano",
+    "approve": "Aprovar os vídeos selecionados",
+    "sources": "Fontes da pesquisa",
+    "failed": "Não foi possível preparar o plano. Verifique a configuração do provedor e do canal.",
+    "status": {
+      "pending": "Na fila",
+      "generating": "Pesquisando",
+      "ready": "Aguardando sua decisão",
+      "approved": "Aprovado",
+      "failed": "Falhou",
+      "canceled": "Cancelado"
+    }
   }
 }

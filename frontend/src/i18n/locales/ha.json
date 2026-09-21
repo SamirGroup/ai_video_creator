@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "Bidiyoyin da AI ke samarwa don tashar YouTube ɗinka"
+  },
   "common": {
     "loading": "Ana lodawa…",
     "retry": "Sake gwadawa",
@@ -11,7 +15,34 @@
     "actions": "Ayyuka",
     "status": "Matsayi",
     "date": "Kwanan wata",
-    "unknown": "Ba a sani ba"
+    "unknown": "Ba a sani ba",
+    "comingSoon": "Wannan sashe zai kasance a shirye nan ba da daɗewa ba.",
+    "empty": {
+      "title": "Babu komai a nan tukuna",
+      "description": "Babu bayanan da za a nuna a yanzu."
+    },
+    "error": {
+      "title": "An samu matsala",
+      "description": "Ba mu iya loda bayanan ba. Da fatan a sake gwadawa.",
+      "generic": "Kuskuren da ba a zata ba. Da fatan a sake gwadawa."
+    },
+    "unauthorized": {
+      "title": "Zaman ya ƙare",
+      "description": "Ka sake shiga don ci gaba."
+    },
+    "forbidden": {
+      "title": "An hana shiga",
+      "description": "Ba ka da izinin ganin wannan shafin."
+    },
+    "offline": {
+      "title": "Ba ka da haɗin Intanet",
+      "description": "Duba haɗin Intanet ɗinka sannan ka sake gwadawa."
+    },
+    "notFound": {
+      "title": "Ba a sami shafin ba",
+      "description": "Shafin da kake nema babu shi.",
+      "backHome": "Koma allon sarrafawa"
+    }
   },
   "nav": {
     "dashboard": "Allon sarrafawa",
@@ -33,19 +64,103 @@
   "auth": {
     "login": {
       "title": "Shiga",
+      "subtitle": "Barka da dawowa — shiga asusun mahaliccin abun ciki naka",
       "email": "Imel",
       "password": "Kalmar sirri",
-      "submit": "Shiga"
+      "submit": "Shiga",
+      "submitting": "Ana shiga…",
+      "orGoogle": "Ko ka ci gaba da Google",
+      "googleButton": "Shiga da Google",
+      "forgotPassword": "Ka manta kalmar sirri?",
+      "noAccount": "Ba ka da asusu?",
+      "registerLink": "Ƙirƙiri ɗaya",
+      "error": "Imel ko kalmar sirri ba daidai ba ce."
     },
     "register": {
       "title": "Ƙirƙiri asusu",
+      "subtitle": "Fara samar da bidiyo da AI cikin mintuna",
       "fullName": "Cikakken suna",
       "email": "Imel",
       "password": "Kalmar sirri",
-      "submit": "Ƙirƙiri asusu"
+      "passwordHint": "Aƙalla haruffa 10.",
+      "marketingOptIn": "Ina son karɓar labarai da shawarwari ta imel",
+      "submit": "Ƙirƙiri asusu",
+      "submitting": "Ana ƙirƙirar asusu…",
+      "hasAccount": "Kana da asusu tuni?",
+      "loginLink": "Shiga",
+      "success": "An ƙirƙiri asusu. Duba imel ɗinka don tabbatar da adireshin."
+    },
+    "verifyEmail": {
+      "title": "Tabbatar da imel ɗinka",
+      "pending": "Ana tabbatar da adireshin imel ɗinka…",
+      "success": "An tabbatar da imel ɗinka. Yanzu za ka iya shiga.",
+      "error": "Wannan hanyar tabbatarwa ba ta aiki ko kuma ta ƙare.",
+      "goToLogin": "Je zuwa shiga"
+    },
+    "forgotPassword": {
+      "title": "Sake saita kalmar sirri",
+      "subtitle": "Za mu aiko maka da hanyar sake saita kalmar sirri ta imel",
+      "email": "Imel",
+      "submit": "Aika hanyar sake saitawa",
+      "submitting": "Ana aikawa…",
+      "success": "Idan wannan imel ɗin yana nan, hanyar sake saitawa na kan hanya.",
+      "backToLogin": "Koma shiga"
+    },
+    "validation": {
+      "emailRequired": "Ana buƙatar imel.",
+      "emailInvalid": "Shigar da adireshin imel mai inganci.",
+      "passwordRequired": "Ana buƙatar kalmar sirri.",
+      "passwordMinLength": "Kalmar sirri dole ta kasance aƙalla haruffa 10.",
+      "fullNameRequired": "Ana buƙatar cikakken suna."
+    },
+    "googleUnavailable": "Ba a saita shiga da Google ba tukuna. Yi amfani da imel don ci gaba.",
+    "twoFactor": "Tabbatarwa ta matakai biyu",
+    "setupAuthenticator": "Saita manhajar tabbatarwa",
+    "authenticatorSecret": "Ƙara wannan sirrin cikin manhajar tabbatarwa:",
+    "verificationCode": "Lambar tabbatarwa"
+  },
+  "dashboard": {
+    "title": "Allon sarrafawa",
+    "welcome": "Barka da dawowa, {{name}}",
+    "cards": {
+      "channelStatus": "Matsayin tasha",
+      "videosThisMonth": "Bidiyoyin watan nan",
+      "estimatedRevenue": "Kuɗin shiga da aka ƙiyasta",
+      "pendingApprovals": "Suna jiran amincewa"
+    },
+    "quotaUsed": "An yi amfani da {{used}} daga {{total}}",
+    "connected": "An haɗa",
+    "disconnected": "Ba a haɗa ba",
+    "connectChannel": "Haɗa tashar YouTube",
+    "demoNotice": "Samfurin fuskar shiri · ana nuna bayanan gwaji",
+    "analyticsTitle": "Taƙaitaccen kuɗin shiga",
+    "activityTitle": "Kallace-kallace na yau da kullum",
+    "shareTitle": "Sabbin sharuɗɗan yarjejeniya"
+  },
+  "channel": {
+    "title": "Tasha",
+    "connect": "Haɗa YouTube",
+    "disconnect": "Cire haɗi",
+    "disconnectConfirm": "Cire haɗi zai dakatar da duk bidiyoyin da aka tsara don wannan tasha. A ci gaba?",
+    "subscribers": "Masu rajista",
+    "videos": "Bidiyoyi",
+    "monetization": {
+      "unknown": "Ba a tabbatar da matsayin samun kuɗi ba",
+      "monetized": "Yana samun kuɗi",
+      "notMonetized": "Ba ya samun kuɗi"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "Haɗa AdSense",
+      "connected": "An haɗa — ana nuna kuɗin shiga kamar yadda AdSense ya tabbatar",
+      "notConnected": "Ba a haɗa ba — ana nuna kuɗin shiga a matsayin ƙiyasin YouTube Analytics"
     }
   },
   "preferences": {
+    "title": "Zaɓuɓɓuka",
+    "niche": "Fannin abun ciki",
+    "customBrief": "Ƙarin bayani",
+    "brandVoice": "Salon alama",
     "language": "Harshen abun ciki",
     "videoDuration": "Tsawon bidiyo (daƙiƙa)",
     "frequency": "Yawan wallafawa",
@@ -62,28 +177,254 @@
       "private": "Na sirri"
     },
     "approvalMode": "Yanayin amincewa",
+    "approvalModeOptions": {
+      "review_required": "Ana buƙatar dubawa kafin wallafawa",
+      "auto": "Wallafa kai tsaye bayan bincike"
+    },
+    "paused": "An dakatar da tsarin lokaci",
+    "pause": "Dakatar da tsarin lokaci",
+    "resume": "Ci gaba da tsarin lokaci",
     "save": "Ajiye zaɓuɓɓuka",
     "saved": "An ajiye zaɓuɓɓuka.",
     "timezone": "Yankin lokaci",
-    "publishDays": "Kwanaki (mako: 0–6; wata: 1–28)",
-    "title": "Zaɓuɓɓuka"
-  },
-  "dashboard": {
-    "title": "Allon sarrafawa"
-  },
-  "channel": {
-    "title": "Tasha"
+    "publishDays": "Kwanaki (mako: 0–6; wata: 1–28)"
   },
   "video": {
-    "title": "Bidiyoyi"
+    "title": "Bidiyoyi",
+    "generateNow": "Ƙirƙira yanzu",
+    "table": {
+      "title": "Take",
+      "status": "Matsayi",
+      "scheduledFor": "An tsara don",
+      "cost": "Kuɗi",
+      "actions": "Ayyuka"
+    },
+    "status": {
+      "draft": "Daftari",
+      "scheduled": "An tsara",
+      "queued": "A jerin jira",
+      "generating_script": "Ana rubuta rubutun",
+      "script_ready": "Rubutun ya shirya",
+      "moderating_script": "Ana bincika rubutun",
+      "generating_voice": "Ana samar da murya",
+      "voice_ready": "Muryar ta shirya",
+      "generating_visuals": "Ana samar da hotuna",
+      "visuals_ready": "Hotunan sun shirya",
+      "assembling": "Ana haɗa bidiyon",
+      "assembled": "An haɗa",
+      "moderating_final": "Bincike na ƙarshe",
+      "moderation_review": "Ana bincikawa",
+      "moderation_rejected": "An ƙi a bincike",
+      "awaiting_approval": "Yana jiran amincewarka",
+      "approved": "An amince",
+      "changes_requested": "An nemi gyara",
+      "rejected": "An ƙi",
+      "expired": "Lokaci ya ƙare",
+      "upload_queued": "A jerin jiran ɗorawa",
+      "uploading": "Ana ɗorawa a YouTube",
+      "uploaded": "An ɗora",
+      "published": "An wallafa",
+      "youtube_rejected": "YouTube ya ƙi",
+      "retrying": "Ana sake gwadawa",
+      "failed": "Ya gaza",
+      "canceled": "An soke",
+      "deleted_on_youtube": "An share a YouTube"
+    },
+    "approval": {
+      "title": "Duba wannan bidiyon",
+      "preview": "Samfuri",
+      "approve": "Amince",
+      "requestChanges": "Nemi gyara",
+      "reject": "Ƙi",
+      "reasonLabel": "Dalili",
+      "regenerateFrom": "Sake ƙirƙira daga",
+      "confirmApprove": "A amince a kuma sa shi jerin jiran ɗorawa?",
+      "confirmReject": "A ƙi wannan bidiyon? Ba za a wallafa shi ba."
+    },
+    "empty": {
+      "title": "Babu bidiyo tukuna",
+      "description": "Bidiyoyi za su bayyana a nan da zarar an tsara ko an ƙirƙiri aiki na farko."
+    },
+    "previewPlaceholder": "Wurin samfurin bidiyo",
+    "steps": "Matakan aiki"
   },
   "revenue": {
-    "title": "Kuɗin shiga"
+    "title": "Kuɗin shiga",
+    "totalViews": "Jimillar kallace-kallace",
+    "views": "kallace-kallace",
+    "estimated": "Ƙiyasi (YouTube Analytics)",
+    "confirmed": "AdSense ya tabbatar",
+    "notMonetized": "Wannan tasha ba ta samun kuɗi tukuna, kuɗin shiga $0 ne.",
+    "topVideos": "Manyan bidiyoyi",
+    "statements": "Bayanan raba kuɗin shiga",
+    "dispute": "Ƙalubalanci bayanin",
+    "statementStatus": {
+      "draft": "Daftari",
+      "finalized": "An kammala",
+      "invoiced": "An fitar da lissafi",
+      "paid": "An biya",
+      "disputed": "Ana ƙalubalanta",
+      "written_off": "An soke daga littafi",
+      "carried_forward": "An mayar gaba"
+    },
+    "disputeReason": "Bayyana bambancin",
+    "reviewUntil": "Dubawa har zuwa {{date}}"
   },
   "billing": {
-    "title": "Biyan kuɗi"
+    "title": "Biyan kuɗi",
+    "currentPlan": "Shirin yanzu",
+    "changePlan": "Canza shiri",
+    "managePayment": "Sarrafa hanyar biya",
+    "invoices": "Lissafin kuɗi",
+    "status": {
+      "trialing": "Lokacin gwaji",
+      "active": "Yana aiki",
+      "past_due": "Ya wuce lokacin biya",
+      "suspended": "An dakatar",
+      "canceled": "An soke",
+      "expired": "Ya ƙare"
+    }
   },
   "contract": {
-    "title": "Yarjejeniyar"
+    "title": "Yarjejeniyar",
+    "currentVersion": "Sigar yanzu",
+    "sign": "Sanya hannu kan yarjejeniya",
+    "consentRevenueShare": "Na amince da rabon dandali na {{platform}}% da rabon mahalicci na {{creator}}% kan kuɗin shiga na bidiyoyin da aka ƙirƙira a cikin wannan tsarin kuma aka wallafa ta cikinsa kaɗai. Kuɗin shiga na sauran bidiyoyi ba ya shiga ciki.",
+    "consentPublish": "Na ba dandalin izinin wallafa bidiyo a tashata",
+    "consentDataProcessing": "Na amince a yi amfani da bayanaina wajen sarrafa abun ciki da AI",
+    "consentMarketing": "Ina son karɓar imel na talla (na zaɓi)",
+    "paymentMethodRequired": "Ana buƙatar hanyar biya da aka adana kafin sanya hannu kan yarjejeniyar.",
+    "history": "Tarihin sa hannu",
+    "downloadPdf": "Sauke PDF"
+  },
+  "admin": {
+    "users": {
+      "title": "Masu amfani",
+      "search": "Nema da imel ko suna",
+      "suspend": "Dakatar",
+      "reactivate": "Sake kunnawa"
+    },
+    "videos": {
+      "title": "Ayyukan bidiyo",
+      "retry": "Sake gwadawa",
+      "cancel": "Soke"
+    },
+    "moderation": {
+      "title": "Jerin jiran bincike",
+      "approve": "Amince",
+      "reject": "Ƙi",
+      "reasonRequired": "Ana buƙatar dalili."
+    },
+    "finance": {
+      "title": "Taƙaitaccen kuɗi",
+      "mrr": "MRR",
+      "activeSubscriptions": "Biyan kuɗi masu aiki",
+      "revenueShareTotal": "Jimillar rabon kuɗin shiga",
+      "uncollected": "Lissafin da ba a karɓa ba",
+      "export": "Fitar",
+      "settlementTitle": "Tabbatar da kuɗin shigar bidiyo",
+      "settlementHelp": "Shigar da kuɗin shiga da aka tabbatar na bidiyo ɗaya na tsarin sannan ka ambaci rahoton tushe. Ba a karɓar jimillar tasha ko ƙiyasi. Bayanan da aka tabbatar ba a canza su.",
+      "videoId": "ID ɗin bidiyon tsarin",
+      "month": "Watan kuɗin shiga",
+      "verifiedAmount": "Kuɗin shiga da aka tabbatar (USD)",
+      "evidence": "Nassoshin rahoton tushe",
+      "settlementSaved": "An ajiye kuɗin shiga da aka tabbatar."
+    },
+    "config": {
+      "title": "Saituna",
+      "plans": "Shirye-shirye",
+      "providers": "Masu samar da AI"
+    }
+  },
+  "landing": {
+    "navigation": "Kewayawa",
+    "navServices": "Iyawa",
+    "navProcess": "Yadda yake aiki",
+    "navShare": "Sharuɗɗa",
+    "badge": "Tsarin haɗin gwiwa ga masu ƙirƙirar YouTube",
+    "heroAccent": "Daga tunani zuwa bidiyo",
+    "heroEnd": "a tsari guda",
+    "description": "Tsara abun cikinka, ƙirƙiri bidiyo da AI, sannan ka sarrafa tashar YouTube ɗinka a wuri guda.",
+    "start": "Ƙirƙiri asusu",
+    "discover": "Ƙara sani",
+    "servicesTitle": "Wurin aikinka na ƙirƙira",
+    "servicesLead": "Kai ne ka zaɓi hanya. Tsarin yana haɗa kayan aikin abun ciki a wuri guda — daga tunani zuwa wallafawa.",
+    "services": [
+      {
+        "title": "Tunani da tsarin abun ciki",
+        "text": "Batutuwan tasha, tunanin bidiyo da jadawalin wallafawa bisa harshenka da yankin lokacinka."
+      },
+      {
+        "title": "Ƙirƙirar bidiyo",
+        "text": "Rubuta rubutu, samar da murya da hotuna da kayan aikin AI a cikin bayananka."
+      },
+      {
+        "title": "Duba abun ciki",
+        "text": "Bincike kafin wallafawa da shawarwari masu amfani don inganta bidiyonka."
+      },
+      {
+        "title": "Wallafawa da bincike",
+        "text": "Sarrafa bidiyoyi da Shorts, bi diddigin sakamako da kuɗin shigar bidiyonka."
+      }
+    ],
+    "processTitle": "Daga tunani zuwa wallafawa",
+    "steps": [
+      "Ƙirƙiri asusu ka haɗa tashar ka",
+      "Zaɓi shiri, batu da harshe",
+      "Shirya abun ciki ka amince da shi",
+      "Kammala bincike ka wallafa",
+      "Bi diddigin sakamakonka"
+    ],
+    "shareTitle": "Tashar ka. Kuɗin shigar ka.",
+    "creatorShare": "Rabon mahalicci",
+    "platformShare": "Rabon dandali",
+    "shareScope": "Kashi 30% yana shafar kuɗin shiga na bidiyoyin da aka ƙirƙira a cikin tsarinmu kuma aka wallafa ta cikinsa kaɗai. Kuɗin shiga na sauran bidiyoyin tashar ka ba ya shiga ciki.",
+    "shareDetails": "An rubuta sharuɗɗan a yarjejeniyarka. Kuɗin biyan kuɗi na wata daban yake. Kuɗin shiga ya dogara da yadda bidiyon ke aiki da ƙa'idojin YouTube; ba a tabbatar da riba ba.",
+    "faqTitle": "Amsoshin tambayoyi",
+    "faqs": [
+      {
+        "q": "Tashar za ta ci gaba da zama tawa?",
+        "a": "Eh. Kai ne ke sarrafa tashar ka kuma kai ke bayar da izinin haɗi. Za ka iya janye izinin a kowane lokaci."
+      },
+      {
+        "q": "Kuɗin yana shafar dukkan tashar?",
+        "a": "A'a. Rabon dandali na 30% yana shafar bidiyoyin da aka ƙirƙira aka kuma wallafa ta tsarin kaɗai. Sauran bidiyoyi ba sa shiga ciki."
+      },
+      {
+        "q": "Zan iya zaɓar harshen abun ciki?",
+        "a": "Saitunan sun ƙunshi jerin harsuna 30. Samuwar murya ya dogara da mai samar da hidimar da aka haɗa."
+      },
+      {
+        "q": "Ana wallafa bidiyo ba tare da dubawa ba?",
+        "a": "Abun ciki yana wucewa ta bincike kafin wallafawa. Abin da ke buƙatar gyara ana mayar da shi don a gyara."
+      }
+    ],
+    "ctaTitle": "Tunaninka na gaba yana farawa daga nan.",
+    "ctaText": "Ƙirƙiri bayananka, gwada kayan aiki, ka kuma shirya wurin aiki don tashar ka.",
+    "footer": "Wuri guda don ƙirƙira da sarrafa abun cikin YouTube."
+  },
+  "planning": {
+    "title": "Tsarin abun ciki",
+    "explanation": "Shawarwarin sun dogara da bidiyoyin da aka samu a YouTube. Lokuta suna bin zaɓinka, ba da'awar da ba a tabbatar ba game da yanayin masu kallo. Duba ka amince da bidiyoyin da aka zaɓa kafin a fara ƙirƙira.",
+    "edit": "Gyara",
+    "brief": "Bayani",
+    "localTime": "Sabon lokaci (yankin lokacinka na yanzu)",
+    "period": "Lokaci",
+    "count": "Yawan bidiyo",
+    "daily": "Kullum",
+    "weekly": "Mako-mako",
+    "monthly": "Wata-wata",
+    "propose": "Ba da shawarar tsari",
+    "approve": "Amince da bidiyoyin da aka zaɓa",
+    "sources": "Tushen bincike",
+    "failed": "Ba a iya shirya tsarin ba. Duba saitunan mai samarwa da na tasha.",
+    "status": {
+      "pending": "A jerin jira",
+      "generating": "Ana bincike",
+      "ready": "Yana jiran shawararka",
+      "approved": "An amince",
+      "failed": "Ya gaza",
+      "canceled": "An soke"
+    }
   }
 }

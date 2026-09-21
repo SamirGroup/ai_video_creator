@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "Video buatan AI untuk channel YouTube Anda"
+  },
   "common": {
     "loading": "Memuat…",
     "retry": "Coba lagi",
@@ -11,7 +15,34 @@
     "actions": "Tindakan",
     "status": "Status",
     "date": "Tanggal",
-    "unknown": "Tidak diketahui"
+    "unknown": "Tidak diketahui",
+    "comingSoon": "Bagian ini segera hadir.",
+    "empty": {
+      "title": "Belum ada apa-apa di sini",
+      "description": "Belum ada data yang bisa ditampilkan saat ini."
+    },
+    "error": {
+      "title": "Terjadi kesalahan",
+      "description": "Kami tidak dapat memuat data ini. Silakan coba lagi.",
+      "generic": "Terjadi kesalahan tak terduga. Silakan coba lagi."
+    },
+    "unauthorized": {
+      "title": "Sesi berakhir",
+      "description": "Masuk kembali untuk melanjutkan."
+    },
+    "forbidden": {
+      "title": "Akses ditolak",
+      "description": "Anda tidak punya izin untuk membuka halaman ini."
+    },
+    "offline": {
+      "title": "Anda sedang offline",
+      "description": "Periksa koneksi internet Anda lalu coba lagi."
+    },
+    "notFound": {
+      "title": "Halaman tidak ditemukan",
+      "description": "Halaman yang Anda cari tidak ada.",
+      "backHome": "Kembali ke dasbor"
+    }
   },
   "nav": {
     "dashboard": "Dasbor",
@@ -33,19 +64,103 @@
   "auth": {
     "login": {
       "title": "Masuk",
+      "subtitle": "Selamat datang kembali — masuk ke akun kreator Anda",
       "email": "Email",
       "password": "Kata sandi",
-      "submit": "Masuk"
+      "submit": "Masuk",
+      "submitting": "Sedang masuk…",
+      "orGoogle": "Atau lanjutkan dengan Google",
+      "googleButton": "Masuk dengan Google",
+      "forgotPassword": "Lupa kata sandi?",
+      "noAccount": "Belum punya akun?",
+      "registerLink": "Buat sekarang",
+      "error": "Email atau kata sandi salah."
     },
     "register": {
       "title": "Buat akun",
+      "subtitle": "Mulai membuat video dengan AI dalam hitungan menit",
       "fullName": "Nama lengkap",
       "email": "Email",
       "password": "Kata sandi",
-      "submit": "Buat akun"
+      "passwordHint": "Minimal 10 karakter.",
+      "marketingOptIn": "Saya ingin menerima kabar produk dan tips lewat email",
+      "submit": "Buat akun",
+      "submitting": "Membuat akun…",
+      "hasAccount": "Sudah punya akun?",
+      "loginLink": "Masuk",
+      "success": "Akun dibuat. Cek email Anda untuk memverifikasi alamat."
+    },
+    "verifyEmail": {
+      "title": "Verifikasi email Anda",
+      "pending": "Memverifikasi alamat email Anda…",
+      "success": "Email Anda terverifikasi. Anda sudah bisa masuk.",
+      "error": "Tautan verifikasi ini tidak valid atau sudah kedaluwarsa.",
+      "goToLogin": "Ke halaman masuk"
+    },
+    "forgotPassword": {
+      "title": "Atur ulang kata sandi",
+      "subtitle": "Kami akan mengirimkan tautan untuk mengatur ulang kata sandi",
+      "email": "Email",
+      "submit": "Kirim tautan",
+      "submitting": "Mengirim…",
+      "success": "Jika email itu terdaftar, tautan pengaturan ulang sedang dikirim.",
+      "backToLogin": "Kembali ke halaman masuk"
+    },
+    "validation": {
+      "emailRequired": "Email wajib diisi.",
+      "emailInvalid": "Masukkan alamat email yang valid.",
+      "passwordRequired": "Kata sandi wajib diisi.",
+      "passwordMinLength": "Kata sandi minimal 10 karakter.",
+      "fullNameRequired": "Nama lengkap wajib diisi."
+    },
+    "googleUnavailable": "Masuk dengan Google belum dikonfigurasi. Gunakan email untuk melanjutkan.",
+    "twoFactor": "Autentikasi dua faktor",
+    "setupAuthenticator": "Siapkan authenticator",
+    "authenticatorSecret": "Tambahkan kode rahasia ini ke aplikasi authenticator Anda:",
+    "verificationCode": "Kode verifikasi"
+  },
+  "dashboard": {
+    "title": "Dasbor",
+    "welcome": "Selamat datang kembali, {{name}}",
+    "cards": {
+      "channelStatus": "Status saluran",
+      "videosThisMonth": "Video bulan ini",
+      "estimatedRevenue": "Perkiraan pendapatan",
+      "pendingApprovals": "Menunggu persetujuan"
+    },
+    "quotaUsed": "{{used}} dari {{total}} terpakai",
+    "connected": "Terhubung",
+    "disconnected": "Belum terhubung",
+    "connectChannel": "Hubungkan saluran YouTube",
+    "demoNotice": "Pratinjau antarmuka · data demo ditampilkan",
+    "analyticsTitle": "Ringkasan pendapatan",
+    "activityTitle": "Tayangan harian",
+    "shareTitle": "Ketentuan perjanjian baru"
+  },
+  "channel": {
+    "title": "Saluran",
+    "connect": "Hubungkan YouTube",
+    "disconnect": "Putuskan",
+    "disconnectConfirm": "Memutuskan koneksi akan menjeda semua video terjadwal di saluran ini. Lanjutkan?",
+    "subscribers": "Subscriber",
+    "videos": "Video",
+    "monetization": {
+      "unknown": "Status monetisasi belum dipastikan",
+      "monetized": "Termonetisasi",
+      "notMonetized": "Belum termonetisasi"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "Hubungkan AdSense",
+      "connected": "Terhubung — pendapatan sudah dikonfirmasi AdSense",
+      "notConnected": "Belum terhubung — pendapatan berupa perkiraan YouTube Analytics"
     }
   },
   "preferences": {
+    "title": "Preferensi",
+    "niche": "Niche",
+    "customBrief": "Brief khusus",
+    "brandVoice": "Gaya brand",
     "language": "Bahasa konten",
     "videoDuration": "Durasi video (detik)",
     "frequency": "Frekuensi publikasi",
@@ -62,28 +177,254 @@
       "private": "Pribadi"
     },
     "approvalMode": "Mode persetujuan",
+    "approvalModeOptions": {
+      "review_required": "Perlu ditinjau sebelum dipublikasikan",
+      "auto": "Terbitkan otomatis setelah moderasi"
+    },
+    "paused": "Jadwal dijeda",
+    "pause": "Jeda jadwal",
+    "resume": "Lanjutkan jadwal",
     "save": "Simpan preferensi",
     "saved": "Preferensi disimpan.",
     "timezone": "Zona waktu",
-    "publishDays": "Hari (minggu: 0–6; bulan: 1–28)",
-    "title": "Preferensi"
-  },
-  "dashboard": {
-    "title": "Dasbor"
-  },
-  "channel": {
-    "title": "Saluran"
+    "publishDays": "Hari (minggu: 0–6; bulan: 1–28)"
   },
   "video": {
-    "title": "Video"
+    "title": "Video",
+    "generateNow": "Buat sekarang",
+    "table": {
+      "title": "Judul",
+      "status": "Status",
+      "scheduledFor": "Dijadwalkan",
+      "cost": "Biaya",
+      "actions": "Tindakan"
+    },
+    "status": {
+      "draft": "Draf",
+      "scheduled": "Terjadwal",
+      "queued": "Dalam antrean",
+      "generating_script": "Menulis naskah",
+      "script_ready": "Naskah siap",
+      "moderating_script": "Moderasi naskah",
+      "generating_voice": "Membuat voice-over",
+      "voice_ready": "Voice-over siap",
+      "generating_visuals": "Membuat visual",
+      "visuals_ready": "Visual siap",
+      "assembling": "Menyusun video",
+      "assembled": "Video tersusun",
+      "moderating_final": "Moderasi akhir",
+      "moderation_review": "Sedang ditinjau moderator",
+      "moderation_rejected": "Ditolak moderasi",
+      "awaiting_approval": "Menunggu persetujuan Anda",
+      "approved": "Disetujui",
+      "changes_requested": "Perlu perubahan",
+      "rejected": "Ditolak",
+      "expired": "Kedaluwarsa",
+      "upload_queued": "Antre untuk diunggah",
+      "uploading": "Mengunggah ke YouTube",
+      "uploaded": "Terunggah",
+      "published": "Terbit",
+      "youtube_rejected": "Ditolak YouTube",
+      "retrying": "Mencoba lagi",
+      "failed": "Gagal",
+      "canceled": "Dibatalkan",
+      "deleted_on_youtube": "Dihapus di YouTube"
+    },
+    "approval": {
+      "title": "Tinjau video ini",
+      "preview": "Pratinjau",
+      "approve": "Setujui",
+      "requestChanges": "Minta perubahan",
+      "reject": "Tolak",
+      "reasonLabel": "Alasan",
+      "regenerateFrom": "Buat ulang dari",
+      "confirmApprove": "Setujui dan masukkan ke antrean unggah?",
+      "confirmReject": "Tolak video ini? Video tidak akan dipublikasikan."
+    },
+    "empty": {
+      "title": "Belum ada video",
+      "description": "Video akan muncul di sini setelah tugas pertama Anda dijadwalkan atau dibuat."
+    },
+    "previewPlaceholder": "Placeholder pratinjau video",
+    "steps": "Tahapan pipeline"
   },
   "revenue": {
-    "title": "Pendapatan"
+    "title": "Pendapatan",
+    "totalViews": "Total tayangan",
+    "views": "tayangan",
+    "estimated": "Perkiraan (YouTube Analytics)",
+    "confirmed": "Dikonfirmasi AdSense",
+    "notMonetized": "Saluran ini belum termonetisasi, jadi pendapatannya $0.",
+    "topVideos": "Video teratas",
+    "statements": "Laporan bagi hasil",
+    "dispute": "Ajukan sanggahan",
+    "statementStatus": {
+      "draft": "Draf",
+      "finalized": "Final",
+      "invoiced": "Ditagihkan",
+      "paid": "Dibayar",
+      "disputed": "Disanggah",
+      "written_off": "Dihapusbukukan",
+      "carried_forward": "Dibawa ke periode berikutnya"
+    },
+    "disputeReason": "Jelaskan selisihnya",
+    "reviewUntil": "Tinjau hingga {{date}}"
   },
   "billing": {
-    "title": "Penagihan"
+    "title": "Penagihan",
+    "currentPlan": "Paket saat ini",
+    "changePlan": "Ganti paket",
+    "managePayment": "Kelola metode pembayaran",
+    "invoices": "Faktur",
+    "status": {
+      "trialing": "Masa uji coba",
+      "active": "Aktif",
+      "past_due": "Jatuh tempo",
+      "suspended": "Ditangguhkan",
+      "canceled": "Dibatalkan",
+      "expired": "Kedaluwarsa"
+    }
   },
   "contract": {
-    "title": "Kontrak"
+    "title": "Kontrak",
+    "currentVersion": "Versi saat ini",
+    "sign": "Tanda tangani kontrak",
+    "consentRevenueShare": "Saya menyetujui bagi hasil {{platform}}% untuk platform dan {{creator}}% untuk kreator, hanya atas pendapatan dari video yang dibuat di dalam ekosistem dan dipublikasikan melaluinya. Pendapatan dari video lain tidak termasuk.",
+    "consentPublish": "Saya memberi izin platform untuk memublikasikan video ke saluran saya",
+    "consentDataProcessing": "Saya setuju data saya digunakan untuk pemrosesan konten AI",
+    "consentMarketing": "Saya ingin menerima email pemasaran (opsional)",
+    "paymentMethodRequired": "Metode pembayaran tersimpan diperlukan untuk menandatangani kontrak.",
+    "history": "Riwayat tanda tangan",
+    "downloadPdf": "Unduh PDF"
+  },
+  "admin": {
+    "users": {
+      "title": "Pengguna",
+      "search": "Cari berdasarkan email atau nama",
+      "suspend": "Tangguhkan",
+      "reactivate": "Aktifkan kembali"
+    },
+    "videos": {
+      "title": "Tugas video",
+      "retry": "Coba lagi",
+      "cancel": "Batal"
+    },
+    "moderation": {
+      "title": "Antrean moderasi",
+      "approve": "Setujui",
+      "reject": "Tolak",
+      "reasonRequired": "Alasan wajib diisi."
+    },
+    "finance": {
+      "title": "Ringkasan keuangan",
+      "mrr": "MRR",
+      "activeSubscriptions": "Langganan aktif",
+      "revenueShareTotal": "Total bagi hasil",
+      "uncollected": "Faktur belum tertagih",
+      "export": "Ekspor",
+      "settlementTitle": "Verifikasi pendapatan video",
+      "settlementHelp": "Masukkan pendapatan terverifikasi untuk satu video ekosistem dan cantumkan laporan sumbernya. Total saluran dan angka perkiraan tidak dapat digunakan. Entri terverifikasi tidak bisa diubah.",
+      "videoId": "ID video ekosistem",
+      "month": "Bulan pendapatan",
+      "verifiedAmount": "Pendapatan terverifikasi (USD)",
+      "evidence": "Referensi laporan sumber",
+      "settlementSaved": "Pendapatan terverifikasi disimpan."
+    },
+    "config": {
+      "title": "Konfigurasi",
+      "plans": "Paket",
+      "providers": "Penyedia AI"
+    }
+  },
+  "landing": {
+    "navigation": "Navigasi",
+    "navServices": "Kemampuan",
+    "navProcess": "Cara kerja",
+    "navShare": "Ketentuan",
+    "badge": "Ekosistem untuk kreator YouTube",
+    "heroAccent": "Dari ide jadi video",
+    "heroEnd": "dalam satu ekosistem",
+    "description": "Rencanakan konten, buat video dengan AI, dan kelola channel YouTube Anda di satu ruang kerja.",
+    "start": "Buat akun",
+    "discover": "Pelajari lebih lanjut",
+    "servicesTitle": "Ruang kerja kreatif Anda",
+    "servicesLead": "Arahnya Anda yang menentukan. Ekosistem menyatukan semua alat konten Anda, dari ide sampai tayang.",
+    "services": [
+      {
+        "title": "Ide dan rencana konten",
+        "text": "Tema channel, ide video, dan jadwal tayang yang disesuaikan dengan bahasa dan zona waktu Anda."
+      },
+      {
+        "title": "Pembuatan video",
+        "text": "Garap naskah, voice-over, dan visual dengan alat AI langsung di profil Anda."
+      },
+      {
+        "title": "Peninjauan konten",
+        "text": "Moderasi sebelum tayang plus masukan konkret untuk menyempurnakan video Anda."
+      },
+      {
+        "title": "Publikasi dan analitik",
+        "text": "Kelola video dan Shorts, pantau performa, dan ikuti pendapatan dari video Anda."
+      }
+    ],
+    "processTitle": "Dari konsep sampai tayang",
+    "steps": [
+      "Buat akun dan hubungkan channel Anda",
+      "Pilih paket, tema, dan bahasa",
+      "Siapkan dan setujui konten Anda",
+      "Selesaikan moderasi lalu publikasikan",
+      "Pantau hasilnya"
+    ],
+    "shareTitle": "Channel Anda. Pendapatan Anda.",
+    "creatorShare": "Bagian kreator",
+    "platformShare": "Bagian platform",
+    "shareScope": "30% hanya berlaku untuk pendapatan dari video yang dibuat di dalam ekosistem kami dan dipublikasikan melaluinya. Pendapatan video lain di channel Anda tidak termasuk.",
+    "shareDetails": "Ketentuannya tercatat dalam perjanjian Anda. Biaya langganan dihitung terpisah. Pendapatan bergantung pada performa video dan kebijakan YouTube; penghasilan tidak dijamin.",
+    "faqTitle": "Pertanyaan yang sering muncul",
+    "faqs": [
+      {
+        "q": "Apakah channel tetap milik saya?",
+        "a": "Ya. Channel tetap Anda kendalikan dan Anda sendiri yang memberi izin koneksi. Izin itu bisa dicabut kapan saja."
+      },
+      {
+        "q": "Apakah potongannya berlaku untuk seluruh channel?",
+        "a": "Tidak. Bagian platform sebesar 30% hanya berlaku untuk video yang dibuat dan dipublikasikan lewat ekosistem. Video lain tidak termasuk."
+      },
+      {
+        "q": "Bisakah saya memilih bahasa konten?",
+        "a": "Di pengaturan tersedia katalog 30 varian bahasa. Ketersediaan pembuatan suara bergantung pada penyedia yang terhubung."
+      },
+      {
+        "q": "Apakah video langsung tayang tanpa ditinjau?",
+        "a": "Setiap konten melewati moderasi sebelum tayang. Materi yang perlu diperbaiki dikembalikan untuk direvisi."
+      }
+    ],
+    "ctaTitle": "Ide Anda berikutnya dimulai di sini.",
+    "ctaText": "Buat profil, jelajahi alatnya, dan siapkan ruang kerja untuk channel Anda.",
+    "footer": "Satu ruang kerja untuk membuat dan mengelola konten YouTube."
+  },
+  "planning": {
+    "title": "Rencana konten",
+    "explanation": "Saran disusun dari video yang ditemukan di YouTube. Waktunya mengikuti preferensi Anda, bukan klaim aktivitas audiens yang belum terverifikasi. Tinjau dan setujui video terpilih sebelum proses pembuatan dimulai.",
+    "edit": "Ubah",
+    "brief": "Brief",
+    "localTime": "Waktu baru (zona waktu Anda saat ini)",
+    "period": "Periode",
+    "count": "Jumlah video",
+    "daily": "Harian",
+    "weekly": "Mingguan",
+    "monthly": "Bulanan",
+    "propose": "Usulkan rencana",
+    "approve": "Setujui video terpilih",
+    "sources": "Sumber riset",
+    "failed": "Rencana tidak dapat disiapkan. Periksa konfigurasi penyedia dan saluran.",
+    "status": {
+      "pending": "Dalam antrean",
+      "generating": "Sedang meneliti",
+      "ready": "Menunggu keputusan Anda",
+      "approved": "Disetujui",
+      "failed": "Gagal",
+      "canceled": "Dibatalkan"
+    }
   }
 }

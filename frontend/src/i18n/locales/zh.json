@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "为你的 YouTube 频道打造 AI 视频"
+  },
   "common": {
     "loading": "加载中…",
     "retry": "重试",
@@ -11,7 +15,34 @@
     "actions": "操作",
     "status": "状态",
     "date": "日期",
-    "unknown": "未知"
+    "unknown": "未知",
+    "comingSoon": "此功能即将上线。",
+    "empty": {
+      "title": "暂无内容",
+      "description": "当前没有可显示的数据。"
+    },
+    "error": {
+      "title": "出了点问题",
+      "description": "无法加载数据，请重试。",
+      "generic": "发生意外错误，请重试。"
+    },
+    "unauthorized": {
+      "title": "登录已过期",
+      "description": "请重新登录以继续。"
+    },
+    "forbidden": {
+      "title": "访问被拒绝",
+      "description": "你没有权限查看此页面。"
+    },
+    "offline": {
+      "title": "当前处于离线状态",
+      "description": "请检查网络连接后重试。"
+    },
+    "notFound": {
+      "title": "页面不存在",
+      "description": "你访问的页面不存在。",
+      "backHome": "返回控制面板"
+    }
   },
   "nav": {
     "dashboard": "控制面板",
@@ -33,19 +64,103 @@
   "auth": {
     "login": {
       "title": "登录",
+      "subtitle": "欢迎回来，登录你的创作者账户",
       "email": "电子邮箱",
       "password": "密码",
-      "submit": "登录"
+      "submit": "登录",
+      "submitting": "正在登录…",
+      "orGoogle": "或使用 Google 继续",
+      "googleButton": "使用 Google 登录",
+      "forgotPassword": "忘记密码？",
+      "noAccount": "还没有账户？",
+      "registerLink": "立即创建",
+      "error": "邮箱或密码有误。"
     },
     "register": {
       "title": "创建账户",
+      "subtitle": "几分钟即可用 AI 制作视频",
       "fullName": "姓名",
       "email": "电子邮箱",
       "password": "密码",
-      "submit": "创建账户"
+      "passwordHint": "至少 10 个字符。",
+      "marketingOptIn": "我愿意通过邮件接收产品动态和使用技巧",
+      "submit": "创建账户",
+      "submitting": "正在创建账户…",
+      "hasAccount": "已有账户？",
+      "loginLink": "登录",
+      "success": "账户已创建。请查收邮件以验证邮箱地址。"
+    },
+    "verifyEmail": {
+      "title": "验证邮箱",
+      "pending": "正在验证你的邮箱地址…",
+      "success": "邮箱已验证，现在可以登录。",
+      "error": "此验证链接无效或已过期。",
+      "goToLogin": "前往登录"
+    },
+    "forgotPassword": {
+      "title": "重置密码",
+      "subtitle": "我们会向你的邮箱发送重置链接",
+      "email": "电子邮箱",
+      "submit": "发送重置链接",
+      "submitting": "发送中…",
+      "success": "如果该邮箱已注册，重置链接即将送达。",
+      "backToLogin": "返回登录"
+    },
+    "validation": {
+      "emailRequired": "请输入电子邮箱。",
+      "emailInvalid": "请输入有效的电子邮箱地址。",
+      "passwordRequired": "请输入密码。",
+      "passwordMinLength": "密码至少需要 10 个字符。",
+      "fullNameRequired": "请输入姓名。"
+    },
+    "googleUnavailable": "Google 登录尚未配置，请使用邮箱继续。",
+    "twoFactor": "两步验证",
+    "setupAuthenticator": "设置身份验证器",
+    "authenticatorSecret": "将此密钥添加到你的身份验证器应用：",
+    "verificationCode": "验证码"
+  },
+  "dashboard": {
+    "title": "控制面板",
+    "welcome": "欢迎回来，{{name}}",
+    "cards": {
+      "channelStatus": "频道状态",
+      "videosThisMonth": "本月视频",
+      "estimatedRevenue": "预估收入",
+      "pendingApprovals": "待审批"
+    },
+    "quotaUsed": "已使用 {{used}} / {{total}}",
+    "connected": "已连接",
+    "disconnected": "未连接",
+    "connectChannel": "连接 YouTube 频道",
+    "demoNotice": "界面预览 · 显示为演示数据",
+    "analyticsTitle": "收入概览",
+    "activityTitle": "每日观看量",
+    "shareTitle": "新协议条款"
+  },
+  "channel": {
+    "title": "频道",
+    "connect": "连接 YouTube",
+    "disconnect": "断开连接",
+    "disconnectConfirm": "断开连接后，该频道所有已排期的视频都将暂停。是否继续？",
+    "subscribers": "订阅者",
+    "videos": "视频",
+    "monetization": {
+      "unknown": "货币化状态未确认",
+      "monetized": "已开启货币化",
+      "notMonetized": "未开启货币化"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "连接 AdSense",
+      "connected": "已连接 — 收入显示为 AdSense 确认数据",
+      "notConnected": "未连接 — 收入显示为 YouTube Analytics 预估值"
     }
   },
   "preferences": {
+    "title": "偏好设置",
+    "niche": "领域",
+    "customBrief": "自定义需求",
+    "brandVoice": "品牌语调",
     "language": "内容语言",
     "videoDuration": "视频时长（秒）",
     "frequency": "发布频率",
@@ -62,28 +177,254 @@
       "private": "私密"
     },
     "approvalMode": "批准模式",
+    "approvalModeOptions": {
+      "review_required": "发布前需要审核",
+      "auto": "审核通过后自动发布"
+    },
+    "paused": "排期已暂停",
+    "pause": "暂停排期",
+    "resume": "恢复排期",
     "save": "保存设置",
     "saved": "设置已保存。",
     "timezone": "时区",
-    "publishDays": "日期（每周：0–6；每月：1–28）",
-    "title": "偏好设置"
-  },
-  "dashboard": {
-    "title": "控制面板"
-  },
-  "channel": {
-    "title": "频道"
+    "publishDays": "日期（每周：0–6；每月：1–28）"
   },
   "video": {
-    "title": "视频"
+    "title": "视频",
+    "generateNow": "立即生成",
+    "table": {
+      "title": "标题",
+      "status": "状态",
+      "scheduledFor": "排期时间",
+      "cost": "成本",
+      "actions": "操作"
+    },
+    "status": {
+      "draft": "草稿",
+      "scheduled": "已排期",
+      "queued": "队列中",
+      "generating_script": "撰写脚本中",
+      "script_ready": "脚本已就绪",
+      "moderating_script": "脚本审核中",
+      "generating_voice": "生成配音中",
+      "voice_ready": "配音已就绪",
+      "generating_visuals": "生成画面中",
+      "visuals_ready": "画面已就绪",
+      "assembling": "合成视频中",
+      "assembled": "已合成",
+      "moderating_final": "最终审核中",
+      "moderation_review": "人工审核中",
+      "moderation_rejected": "审核未通过",
+      "awaiting_approval": "等待你的批准",
+      "approved": "已批准",
+      "changes_requested": "已请求修改",
+      "rejected": "已拒绝",
+      "expired": "已过期",
+      "upload_queued": "等待上传",
+      "uploading": "正在上传到 YouTube",
+      "uploaded": "已上传",
+      "published": "已发布",
+      "youtube_rejected": "被 YouTube 拒绝",
+      "retrying": "重试中",
+      "failed": "失败",
+      "canceled": "已取消",
+      "deleted_on_youtube": "已在 YouTube 删除"
+    },
+    "approval": {
+      "title": "审核此视频",
+      "preview": "预览",
+      "approve": "批准",
+      "requestChanges": "请求修改",
+      "reject": "拒绝",
+      "reasonLabel": "原因",
+      "regenerateFrom": "重新生成自",
+      "confirmApprove": "批准并加入上传队列？",
+      "confirmReject": "确定拒绝该视频？它将不会被发布。"
+    },
+    "empty": {
+      "title": "暂无视频",
+      "description": "排期或生成首个任务后，视频会显示在这里。"
+    },
+    "previewPlaceholder": "视频预览占位图",
+    "steps": "流程步骤"
   },
   "revenue": {
-    "title": "收入"
+    "title": "收入",
+    "totalViews": "总观看量",
+    "views": "次观看",
+    "estimated": "预估（YouTube Analytics）",
+    "confirmed": "AdSense 已确认",
+    "notMonetized": "该频道尚未开启货币化，收入为 $0。",
+    "topVideos": "热门视频",
+    "statements": "收入分成结算单",
+    "dispute": "对结算单提出异议",
+    "statementStatus": {
+      "draft": "草稿",
+      "finalized": "已确认",
+      "invoiced": "已开票",
+      "paid": "已支付",
+      "disputed": "有异议",
+      "written_off": "已核销",
+      "carried_forward": "已结转"
+    },
+    "disputeReason": "请说明差异原因",
+    "reviewUntil": "审核截止 {{date}}"
   },
   "billing": {
-    "title": "账单"
+    "title": "账单",
+    "currentPlan": "当前套餐",
+    "changePlan": "更改套餐",
+    "managePayment": "管理支付方式",
+    "invoices": "账单记录",
+    "status": {
+      "trialing": "试用中",
+      "active": "生效中",
+      "past_due": "已逾期",
+      "suspended": "已暂停",
+      "canceled": "已取消",
+      "expired": "已过期"
+    }
   },
   "contract": {
-    "title": "合同"
+    "title": "合同",
+    "currentVersion": "当前版本",
+    "sign": "签署合同",
+    "consentRevenueShare": "我同意平台分成 {{platform}}%、创作者分成 {{creator}}%，且仅适用于在生态内创建并通过生态发布的视频收入。其他视频的收入不计入。",
+    "consentPublish": "我授权平台将视频发布到我的频道",
+    "consentDataProcessing": "我同意将我的数据用于 AI 内容处理",
+    "consentMarketing": "我愿意接收营销邮件（可选）",
+    "paymentMethodRequired": "签署合同需要已保存的支付方式。",
+    "history": "签署记录",
+    "downloadPdf": "下载 PDF"
+  },
+  "admin": {
+    "users": {
+      "title": "用户",
+      "search": "按邮箱或姓名搜索",
+      "suspend": "封禁",
+      "reactivate": "恢复"
+    },
+    "videos": {
+      "title": "视频任务",
+      "retry": "重试",
+      "cancel": "取消"
+    },
+    "moderation": {
+      "title": "审核队列",
+      "approve": "通过",
+      "reject": "拒绝",
+      "reasonRequired": "必须填写原因。"
+    },
+    "finance": {
+      "title": "财务概览",
+      "mrr": "MRR",
+      "activeSubscriptions": "有效订阅",
+      "revenueShareTotal": "收入分成总额",
+      "uncollected": "未收回账款",
+      "export": "导出",
+      "settlementTitle": "核实视频收入",
+      "settlementHelp": "请输入某个生态视频的已核实收入，并注明来源报表。不可使用频道总额或预估值。已核实的记录不可修改。",
+      "videoId": "生态视频 ID",
+      "month": "收入月份",
+      "verifiedAmount": "已核实收入（美元）",
+      "evidence": "来源报表编号",
+      "settlementSaved": "已核实收入已保存。"
+    },
+    "config": {
+      "title": "配置",
+      "plans": "套餐",
+      "providers": "AI 服务商"
+    }
+  },
+  "landing": {
+    "navigation": "导航",
+    "navServices": "功能",
+    "navProcess": "流程",
+    "navShare": "条款",
+    "badge": "为 YouTube 创作者打造的生态",
+    "heroAccent": "从灵感到成片",
+    "heroEnd": "一个生态搞定",
+    "description": "在同一个工作台里规划内容、用 AI 制作视频，并管理你的 YouTube 频道。",
+    "start": "创建账户",
+    "discover": "了解更多",
+    "servicesTitle": "属于你的创作工作台",
+    "servicesLead": "方向由你决定。生态把内容工具整合在一起，从灵感直达发布。",
+    "services": [
+      {
+        "title": "选题与内容排期",
+        "text": "契合你的语言与时区的频道选题、视频创意和发布排期。"
+      },
+      {
+        "title": "视频制作",
+        "text": "在个人工作台中用 AI 工具完成脚本、配音与画面。"
+      },
+      {
+        "title": "内容审核",
+        "text": "发布前审核，并给出可落地的改进建议。"
+      },
+      {
+        "title": "发布与数据",
+        "text": "管理长视频与 Shorts，追踪表现，掌握视频收入。"
+      }
+    ],
+    "processTitle": "从构思到发布",
+    "steps": [
+      "注册账户并连接频道",
+      "选择套餐、选题和语言",
+      "准备并确认内容",
+      "通过审核并发布",
+      "追踪你的成效"
+    ],
+    "shareTitle": "你的频道，你的收入。",
+    "creatorShare": "创作者分成",
+    "platformShare": "平台分成",
+    "shareScope": "30% 仅适用于在我们生态内创建并通过生态发布的视频收入。频道内其他视频的收入不计入。",
+    "shareDetails": "具体条款以你的协议为准。订阅费用另行计算。收入取决于视频表现和 YouTube 政策，收益不作保证。",
+    "faqTitle": "常见问题",
+    "faqs": [
+      {
+        "q": "频道还属于我吗？",
+        "a": "当然。频道始终由你掌控，你只是授予连接权限，并可随时撤销。"
+      },
+      {
+        "q": "是按整个频道收费吗？",
+        "a": "不是。平台 30% 分成仅适用于通过生态创建并发布的视频，其他视频不计入。"
+      },
+      {
+        "q": "可以自己选内容语言吗？",
+        "a": "设置中提供 30 种语言版本可选。配音能否生成取决于所连接的服务商。"
+      },
+      {
+        "q": "视频会不经审核就发布吗？",
+        "a": "所有内容都会先经过审核。需要修改的素材会退回完善。"
+      }
+    ],
+    "ctaTitle": "你的下一个灵感，从这里开始。",
+    "ctaText": "创建个人资料，体验各项工具，为你的频道搭建专属工作台。",
+    "footer": "创作与管理 YouTube 内容的一体化工作台。"
+  },
+  "planning": {
+    "title": "内容计划",
+    "explanation": "推荐内容基于在 YouTube 上检索到的视频。时间依据你的偏好设置，而非未经验证的受众活跃度数据。请在开始生成前确认并批准所选视频。",
+    "edit": "编辑",
+    "brief": "需求说明",
+    "localTime": "新时间（你当前的时区）",
+    "period": "周期",
+    "count": "视频数量",
+    "daily": "一天",
+    "weekly": "一周",
+    "monthly": "一个月",
+    "propose": "生成方案",
+    "approve": "批准所选视频",
+    "sources": "调研来源",
+    "failed": "无法生成计划。请检查服务商和频道配置。",
+    "status": {
+      "pending": "队列中",
+      "generating": "调研中",
+      "ready": "等待你的决定",
+      "approved": "已批准",
+      "failed": "失败",
+      "canceled": "已取消"
+    }
   }
 }

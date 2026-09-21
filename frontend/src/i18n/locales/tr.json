@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "YouTube kanalınız için yapay zekâ ile üretilen videolar"
+  },
   "common": {
     "loading": "Yükleniyor…",
     "retry": "Tekrar dene",
@@ -11,7 +15,34 @@
     "actions": "İşlemler",
     "status": "Durum",
     "date": "Tarih",
-    "unknown": "Bilinmiyor"
+    "unknown": "Bilinmiyor",
+    "comingSoon": "Bu bölüm çok yakında.",
+    "empty": {
+      "title": "Burada henüz bir şey yok",
+      "description": "Şu anda gösterilecek veri yok."
+    },
+    "error": {
+      "title": "Bir şeyler ters gitti",
+      "description": "Bu verileri yükleyemedik. Lütfen tekrar deneyin.",
+      "generic": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin."
+    },
+    "unauthorized": {
+      "title": "Oturum süresi doldu",
+      "description": "Devam etmek için lütfen tekrar giriş yapın."
+    },
+    "forbidden": {
+      "title": "Erişim reddedildi",
+      "description": "Bu sayfayı görüntüleme yetkiniz yok."
+    },
+    "offline": {
+      "title": "Çevrimdışısınız",
+      "description": "İnternet bağlantınızı kontrol edip tekrar deneyin."
+    },
+    "notFound": {
+      "title": "Sayfa bulunamadı",
+      "description": "Aradığınız sayfa mevcut değil.",
+      "backHome": "Kontrol paneline dön"
+    }
   },
   "nav": {
     "dashboard": "Kontrol paneli",
@@ -33,19 +64,103 @@
   "auth": {
     "login": {
       "title": "Giriş yap",
+      "subtitle": "Tekrar hoş geldiniz — içerik üretici hesabınıza giriş yapın",
       "email": "E-posta",
       "password": "Parola",
-      "submit": "Giriş yap"
+      "submit": "Giriş yap",
+      "submitting": "Giriş yapılıyor…",
+      "orGoogle": "Veya Google ile devam edin",
+      "googleButton": "Google ile giriş yap",
+      "forgotPassword": "Parolanızı mı unuttunuz?",
+      "noAccount": "Hesabınız yok mu?",
+      "registerLink": "Hesap oluşturun",
+      "error": "E-posta veya parola hatalı."
     },
     "register": {
       "title": "Hesap oluştur",
+      "subtitle": "Dakikalar içinde yapay zekâ ile video üretmeye başlayın",
       "fullName": "Ad ve soyadı",
       "email": "E-posta",
       "password": "Parola",
-      "submit": "Hesap oluştur"
+      "passwordHint": "En az 10 karakter.",
+      "marketingOptIn": "Ürün haberlerini ve ipuçlarını e-posta ile almak istiyorum",
+      "submit": "Hesap oluştur",
+      "submitting": "Hesap oluşturuluyor…",
+      "hasAccount": "Zaten hesabınız var mı?",
+      "loginLink": "Giriş yap",
+      "success": "Hesabınız oluşturuldu. Adresinizi doğrulamak için e-postanızı kontrol edin."
+    },
+    "verifyEmail": {
+      "title": "E-postanızı doğrulayın",
+      "pending": "E-posta adresiniz doğrulanıyor…",
+      "success": "E-postanız doğrulandı. Artık giriş yapabilirsiniz.",
+      "error": "Bu doğrulama bağlantısı geçersiz veya süresi dolmuş.",
+      "goToLogin": "Giriş sayfasına git"
+    },
+    "forgotPassword": {
+      "title": "Parolanızı sıfırlayın",
+      "subtitle": "Parolanızı sıfırlamanız için size bir bağlantı göndereceğiz",
+      "email": "E-posta",
+      "submit": "Sıfırlama bağlantısı gönder",
+      "submitting": "Gönderiliyor…",
+      "success": "Bu e-posta kayıtlıysa, sıfırlama bağlantısı yola çıktı.",
+      "backToLogin": "Girişe dön"
+    },
+    "validation": {
+      "emailRequired": "E-posta gerekli.",
+      "emailInvalid": "Geçerli bir e-posta adresi girin.",
+      "passwordRequired": "Parola gerekli.",
+      "passwordMinLength": "Parola en az 10 karakter olmalı.",
+      "fullNameRequired": "Ad ve soyadı gerekli."
+    },
+    "googleUnavailable": "Google ile giriş henüz yapılandırılmadı. Devam etmek için e-posta kullanın.",
+    "twoFactor": "İki adımlı doğrulama",
+    "setupAuthenticator": "Doğrulayıcıyı kur",
+    "authenticatorSecret": "Bu gizli anahtarı doğrulayıcı uygulamanıza ekleyin:",
+    "verificationCode": "Doğrulama kodu"
+  },
+  "dashboard": {
+    "title": "Kontrol paneli",
+    "welcome": "Tekrar hoş geldiniz, {{name}}",
+    "cards": {
+      "channelStatus": "Kanal durumu",
+      "videosThisMonth": "Bu ayki videolar",
+      "estimatedRevenue": "Tahmini gelir",
+      "pendingApprovals": "Onay bekleyenler"
+    },
+    "quotaUsed": "{{total}} hakkın {{used}} tanesi kullanıldı",
+    "connected": "Bağlı",
+    "disconnected": "Bağlı değil",
+    "connectChannel": "YouTube kanalını bağla",
+    "demoNotice": "Arayüz önizlemesi · örnek veriler gösteriliyor",
+    "analyticsTitle": "Gelir özeti",
+    "activityTitle": "Günlük izlenme",
+    "shareTitle": "Yeni sözleşme koşulları"
+  },
+  "channel": {
+    "title": "Kanal",
+    "connect": "YouTube'u bağla",
+    "disconnect": "Bağlantıyı kes",
+    "disconnectConfirm": "Bağlantıyı kesmek bu kanal için planlanan tüm videoları duraklatır. Devam edilsin mi?",
+    "subscribers": "Aboneler",
+    "videos": "Videolar",
+    "monetization": {
+      "unknown": "Para kazanma durumu doğrulanmadı",
+      "monetized": "Para kazanma açık",
+      "notMonetized": "Para kazanma kapalı"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "AdSense'i bağla",
+      "connected": "Bağlı — gelir AdSense onaylı olarak gösterilir",
+      "notConnected": "Bağlı değil — gelir YouTube Analytics tahmini olarak gösterilir"
     }
   },
   "preferences": {
+    "title": "Tercihler",
+    "niche": "Niş",
+    "customBrief": "Özel brief",
+    "brandVoice": "Marka tonu",
     "language": "İçerik dili",
     "videoDuration": "Video süresi (saniye)",
     "frequency": "Yayın sıklığı",
@@ -62,28 +177,254 @@
       "private": "Gizli"
     },
     "approvalMode": "Onay modu",
+    "approvalModeOptions": {
+      "review_required": "Yayından önce onay gerekli",
+      "auto": "Moderasyondan sonra otomatik yayınla"
+    },
+    "paused": "Takvim duraklatıldı",
+    "pause": "Takvimi duraklat",
+    "resume": "Takvimi sürdür",
     "save": "Tercihleri kaydet",
     "saved": "Tercihler kaydedildi.",
     "timezone": "Saat dilimi",
-    "publishDays": "Günler (hafta: 0–6; ay: 1–28)",
-    "title": "Tercihler"
-  },
-  "dashboard": {
-    "title": "Kontrol paneli"
-  },
-  "channel": {
-    "title": "Kanal"
+    "publishDays": "Günler (hafta: 0–6; ay: 1–28)"
   },
   "video": {
-    "title": "Videolar"
+    "title": "Videolar",
+    "generateNow": "Şimdi üret",
+    "table": {
+      "title": "Başlık",
+      "status": "Durum",
+      "scheduledFor": "Planlanan tarih",
+      "cost": "Maliyet",
+      "actions": "İşlemler"
+    },
+    "status": {
+      "draft": "Taslak",
+      "scheduled": "Planlandı",
+      "queued": "Sırada",
+      "generating_script": "Senaryo yazılıyor",
+      "script_ready": "Senaryo hazır",
+      "moderating_script": "Senaryo moderasyonda",
+      "generating_voice": "Seslendirme üretiliyor",
+      "voice_ready": "Seslendirme hazır",
+      "generating_visuals": "Görseller üretiliyor",
+      "visuals_ready": "Görseller hazır",
+      "assembling": "Video birleştiriliyor",
+      "assembled": "Birleştirildi",
+      "moderating_final": "Son moderasyon",
+      "moderation_review": "Moderasyon incelemesinde",
+      "moderation_rejected": "Moderasyon reddetti",
+      "awaiting_approval": "Onayınız bekleniyor",
+      "approved": "Onaylandı",
+      "changes_requested": "Değişiklik istendi",
+      "rejected": "Reddedildi",
+      "expired": "Süresi doldu",
+      "upload_queued": "Yükleme sırasında",
+      "uploading": "YouTube'a yükleniyor",
+      "uploaded": "Yüklendi",
+      "published": "Yayınlandı",
+      "youtube_rejected": "YouTube reddetti",
+      "retrying": "Yeniden deneniyor",
+      "failed": "Başarısız",
+      "canceled": "İptal edildi",
+      "deleted_on_youtube": "YouTube'da silindi"
+    },
+    "approval": {
+      "title": "Bu videoyu inceleyin",
+      "preview": "Önizleme",
+      "approve": "Onayla",
+      "requestChanges": "Değişiklik iste",
+      "reject": "Reddet",
+      "reasonLabel": "Gerekçe",
+      "regenerateFrom": "Şu adımdan yeniden üret",
+      "confirmApprove": "Onaylanıp yükleme sırasına alınsın mı?",
+      "confirmReject": "Bu video reddedilsin mi? Yayınlanmayacak."
+    },
+    "empty": {
+      "title": "Henüz video yok",
+      "description": "İlk işiniz planlandığında veya üretildiğinde videolar burada görünecek."
+    },
+    "previewPlaceholder": "Video önizleme alanı",
+    "steps": "Üretim adımları"
   },
   "revenue": {
-    "title": "Gelir"
+    "title": "Gelir",
+    "totalViews": "Toplam izlenme",
+    "views": "izlenme",
+    "estimated": "Tahmini (YouTube Analytics)",
+    "confirmed": "AdSense onaylı",
+    "notMonetized": "Bu kanal henüz para kazanmıyor, gelir $0.",
+    "topVideos": "En iyi videolar",
+    "statements": "Gelir paylaşımı raporları",
+    "dispute": "Rapora itiraz et",
+    "statementStatus": {
+      "draft": "Taslak",
+      "finalized": "Kesinleşti",
+      "invoiced": "Faturalandırıldı",
+      "paid": "Ödendi",
+      "disputed": "İtiraz edildi",
+      "written_off": "Silindi",
+      "carried_forward": "Sonraki döneme aktarıldı"
+    },
+    "disputeReason": "Farkı açıklayın",
+    "reviewUntil": "İnceleme süresi: {{date}}"
   },
   "billing": {
-    "title": "Faturalandırma"
+    "title": "Faturalandırma",
+    "currentPlan": "Mevcut plan",
+    "changePlan": "Planı değiştir",
+    "managePayment": "Ödeme yöntemini yönet",
+    "invoices": "Faturalar",
+    "status": {
+      "trialing": "Deneme süresi",
+      "active": "Aktif",
+      "past_due": "Gecikmiş",
+      "suspended": "Askıya alındı",
+      "canceled": "İptal edildi",
+      "expired": "Süresi doldu"
+    }
   },
   "contract": {
-    "title": "Sözleşme"
+    "title": "Sözleşme",
+    "currentVersion": "Mevcut sürüm",
+    "sign": "Sözleşmeyi imzala",
+    "consentRevenueShare": "Yalnızca ekosistem içinde oluşturulup ekosistem üzerinden yayınlanan videoların gelirinde {{platform}}% platform payını ve {{creator}}% üretici payını kabul ediyorum. Diğer videoların geliri kapsam dışıdır.",
+    "consentPublish": "Platformun kanalıma video yayınlamasına izin veriyorum",
+    "consentDataProcessing": "Verilerimin yapay zekâ içerik işleme için kullanılmasını kabul ediyorum",
+    "consentMarketing": "Pazarlama e-postaları almak istiyorum (isteğe bağlı)",
+    "paymentMethodRequired": "Sözleşmeyi imzalamak için kayıtlı bir ödeme yöntemi gerekir.",
+    "history": "İmza geçmişi",
+    "downloadPdf": "PDF indir"
+  },
+  "admin": {
+    "users": {
+      "title": "Kullanıcılar",
+      "search": "E-posta veya ada göre ara",
+      "suspend": "Askıya al",
+      "reactivate": "Yeniden etkinleştir"
+    },
+    "videos": {
+      "title": "Video işleri",
+      "retry": "Tekrar dene",
+      "cancel": "İptal et"
+    },
+    "moderation": {
+      "title": "Moderasyon kuyruğu",
+      "approve": "Onayla",
+      "reject": "Reddet",
+      "reasonRequired": "Gerekçe zorunludur."
+    },
+    "finance": {
+      "title": "Finans özeti",
+      "mrr": "MRR",
+      "activeSubscriptions": "Aktif abonelikler",
+      "revenueShareTotal": "Toplam gelir paylaşımı",
+      "uncollected": "Tahsil edilmemiş faturalar",
+      "export": "Dışa aktar",
+      "settlementTitle": "Video gelirini doğrula",
+      "settlementHelp": "Tek bir ekosistem videosunun doğrulanmış gelirini girin ve kaynak raporu belirtin. Kanal toplamları ve tahminler kullanılamaz. Doğrulanan kayıtlar değiştirilemez.",
+      "videoId": "Ekosistem video kimliği",
+      "month": "Gelir ayı",
+      "verifiedAmount": "Doğrulanmış gelir (USD)",
+      "evidence": "Kaynak rapor referansı",
+      "settlementSaved": "Doğrulanmış gelir kaydedildi."
+    },
+    "config": {
+      "title": "Yapılandırma",
+      "plans": "Planlar",
+      "providers": "Yapay zekâ sağlayıcıları"
+    }
+  },
+  "landing": {
+    "navigation": "Menü",
+    "navServices": "Özellikler",
+    "navProcess": "Süreç",
+    "navShare": "Koşullar",
+    "badge": "YouTube içerik üreticileri için ekosistem",
+    "heroAccent": "Fikirden videoya",
+    "heroEnd": "tek bir ekosistemde",
+    "description": "İçeriğinizi planlayın, yapay zekâ ile video üretin ve YouTube kanalınızı tek bir çalışma alanından yönetin.",
+    "start": "Hesap oluştur",
+    "discover": "Daha fazlasını keşfet",
+    "servicesTitle": "Üretim alanınız",
+    "servicesLead": "Yönü siz belirlersiniz. Ekosistem, fikirden yayına kadar içerik araçlarınızı bir araya getirir.",
+    "services": [
+      {
+        "title": "Fikirler ve içerik planı",
+        "text": "Kanal konuları, video fikirleri ve dilinize ile saat diliminize uygun yayın takvimi."
+      },
+      {
+        "title": "Video üretimi",
+        "text": "Profilinizdeki yapay zekâ araçlarıyla senaryo, seslendirme ve görseller hazırlayın."
+      },
+      {
+        "title": "İçerik denetimi",
+        "text": "Yayından önce moderasyon ve videonuzu güçlendirecek somut geri bildirim."
+      },
+      {
+        "title": "Yayın ve analiz",
+        "text": "Videoları ve Shorts'ları yönetin, performansı ölçün, video gelirinizi takip edin."
+      }
+    ],
+    "processTitle": "Fikirden yayına",
+    "steps": [
+      "Hesap oluşturun ve kanalınızı bağlayın",
+      "Plan, konu ve dil seçin",
+      "İçeriğinizi hazırlayın ve onaylayın",
+      "Moderasyondan geçirip yayınlayın",
+      "Sonuçlarınızı takip edin"
+    ],
+    "shareTitle": "Kanal sizin. Gelir sizin.",
+    "creatorShare": "Üretici payı",
+    "platformShare": "Platform payı",
+    "shareScope": "%30, yalnızca ekosistemimizde oluşturulup ekosistem üzerinden yayınlanan videoların gelirine uygulanır. Kanalınızdaki diğer videoların geliri kapsam dışıdır.",
+    "shareDetails": "Koşullar sözleşmenizde kayıt altına alınır. Abonelik ücretleri ayrıdır. Gelir, video performansına ve YouTube politikalarına bağlıdır; kazanç garanti edilmez.",
+    "faqTitle": "Sorular ve yanıtlar",
+    "faqs": [
+      {
+        "q": "Kanalım bende kalıyor mu?",
+        "a": "Evet. Kanalı siz yönetirsiniz ve bağlantı iznini siz verirsiniz. Bu izni istediğiniz zaman geri alabilirsiniz."
+      },
+      {
+        "q": "Komisyon tüm kanaldan mı alınıyor?",
+        "a": "Hayır. Platformun %30'luk payı yalnızca ekosistem içinde oluşturulup yayınlanan videolar için geçerlidir. Diğer videolar kapsam dışıdır."
+      },
+      {
+        "q": "İçerik dilimi seçebilir miyim?",
+        "a": "Ayarlarda 30 dil varyantından oluşan bir katalog bulunur. Ses üretimi, bağlı sağlayıcıya göre değişir."
+      },
+      {
+        "q": "Videolar denetlenmeden mi yayınlanıyor?",
+        "a": "İçerik yayından önce moderasyondan geçer. Düzeltme gereken materyal revizyona geri gönderilir."
+      }
+    ],
+    "ctaTitle": "Sıradaki fikriniz burada başlıyor.",
+    "ctaText": "Profil oluşturun, araçları keşfedin ve kanalınız için çalışma alanınızı kurun.",
+    "footer": "YouTube içeriği üretmek ve yönetmek için tek çalışma alanı."
+  },
+  "planning": {
+    "title": "İçerik planı",
+    "explanation": "Öneriler YouTube'da bulunan videolara dayanır. Saatler, doğrulanmamış izleyici aktivitesi iddialarına göre değil tercihlerinize göre belirlenir. Üretim başlamadan önce seçilen videoları inceleyip onaylayın.",
+    "edit": "Düzenle",
+    "brief": "Brief",
+    "localTime": "Yeni saat (mevcut saat diliminiz)",
+    "period": "Dönem",
+    "count": "Video sayısı",
+    "daily": "Günlük",
+    "weekly": "Haftalık",
+    "monthly": "Aylık",
+    "propose": "Plan öner",
+    "approve": "Seçilen videoları onayla",
+    "sources": "Araştırma kaynakları",
+    "failed": "Plan hazırlanamadı. Sağlayıcı ve kanal yapılandırmasını kontrol edin.",
+    "status": {
+      "pending": "Sırada",
+      "generating": "Araştırılıyor",
+      "ready": "Kararınız bekleniyor",
+      "approved": "Onaylandı",
+      "failed": "Başarısız",
+      "canceled": "İptal edildi"
+    }
   }
 }

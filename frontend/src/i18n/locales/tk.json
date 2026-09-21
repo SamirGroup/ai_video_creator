@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "AI YouTuber",
+    "tagline": "YouTube kanalyňyz üçin emeli aň bilen taýýarlanýan wideolar"
+  },
   "common": {
     "loading": "Ýüklenýär…",
     "retry": "Gaýtadan synanyş",
@@ -11,7 +15,34 @@
     "actions": "Hereketler",
     "status": "Ýagdaý",
     "date": "Sene",
-    "unknown": "Näbelli"
+    "unknown": "Näbelli",
+    "comingSoon": "Bu bölüm basym goşular.",
+    "empty": {
+      "title": "Bu ýerde entek hiç zat ýok",
+      "description": "Häzirlikçe görkeziljek maglumat ýok."
+    },
+    "error": {
+      "title": "Näsazlyk ýüze çykdy",
+      "description": "Bu maglumaty ýükläp bilmedik. Gaýtadan synanyşyň.",
+      "generic": "Garaşylmadyk ýalňyşlyk. Gaýtadan synanyşyň."
+    },
+    "unauthorized": {
+      "title": "Sessiýanyň möhleti gutardy",
+      "description": "Dowam etmek üçin gaýtadan giriň."
+    },
+    "forbidden": {
+      "title": "Girmek gadagan",
+      "description": "Bu sahypany görmäge rugsadyňyz ýok."
+    },
+    "offline": {
+      "title": "Ulgamdan üzňe",
+      "description": "Internet baglanyşygyňyzy barlap, gaýtadan synanyşyň."
+    },
+    "notFound": {
+      "title": "Sahypa tapylmady",
+      "description": "Siziň gözleýän sahypaňyz ýok.",
+      "backHome": "Dolandyryş paneline dolan"
+    }
   },
   "nav": {
     "dashboard": "Dolandyryş paneli",
@@ -33,19 +64,103 @@
   "auth": {
     "login": {
       "title": "Gir",
+      "subtitle": "Hoş geldiňiz — kreator hasabyňyza giriň",
       "email": "E-poçta",
       "password": "Açar söz",
-      "submit": "Gir"
+      "submit": "Gir",
+      "submitting": "Girilýär…",
+      "orGoogle": "Ýa-da Google bilen dowam ediň",
+      "googleButton": "Google bilen gir",
+      "forgotPassword": "Açar sözi unutdyňyzmy?",
+      "noAccount": "Hasabyňyz ýokmy?",
+      "registerLink": "Hasap dörediň",
+      "error": "E-poçta ýa-da açar söz nädogry."
     },
     "register": {
       "title": "Hasap döret",
+      "subtitle": "Birnäçe minutda emeli aň bilen wideo taýýarlap başlaň",
       "fullName": "Doly ady",
       "email": "E-poçta",
       "password": "Açar söz",
-      "submit": "Hasap döret"
+      "passwordHint": "Azyndan 10 belgi.",
+      "marketingOptIn": "Önüm täzeliklerini we maslahatlary e-poçta arkaly almak isleýärin",
+      "submit": "Hasap döret",
+      "submitting": "Hasap döredilýär…",
+      "hasAccount": "Eýýäm hasabyňyz barmy?",
+      "loginLink": "Gir",
+      "success": "Hasap döredildi. Salgyňyzy tassyklamak üçin e-poçtaňyzy barlaň."
+    },
+    "verifyEmail": {
+      "title": "E-poçtaňyzy tassyklaň",
+      "pending": "E-poçta salgyňyz tassyklanýar…",
+      "success": "E-poçtaňyz tassyklandy. Indi girip bilersiňiz.",
+      "error": "Bu tassyklaýyş salgysy nädogry ýa-da möhleti geçen.",
+      "goToLogin": "Giriş sahypasyna geç"
+    },
+    "forgotPassword": {
+      "title": "Açar sözi dikeldiň",
+      "subtitle": "Açar sözi dikeltmek üçin size salgy iberýäris",
+      "email": "E-poçta",
+      "submit": "Dikeldiş salgysyny iber",
+      "submitting": "Iberilýär…",
+      "success": "Eger şeýle e-poçta hasaba alnan bolsa, dikeldiş salgysy iberildi.",
+      "backToLogin": "Girişe dolan"
+    },
+    "validation": {
+      "emailRequired": "E-poçta hökmany.",
+      "emailInvalid": "Dogry e-poçta salgysyny giriziň.",
+      "passwordRequired": "Açar söz hökmany.",
+      "passwordMinLength": "Açar söz azyndan 10 belgiden ybarat bolmaly.",
+      "fullNameRequired": "Doly ady hökmany."
+    },
+    "googleUnavailable": "Google bilen giriş entek sazlanmady. Dowam etmek üçin e-poçtany ulanyň.",
+    "twoFactor": "Iki basgançakly tassyklama",
+    "setupAuthenticator": "Autentifikatory sazla",
+    "authenticatorSecret": "Şu gizlin açary autentifikator goşundyňyza goşuň:",
+    "verificationCode": "Tassyklaýyş kody"
+  },
+  "dashboard": {
+    "title": "Dolandyryş paneli",
+    "welcome": "Hoş geldiňiz, {{name}}",
+    "cards": {
+      "channelStatus": "Kanalyň ýagdaýy",
+      "videosThisMonth": "Şu aýyň wideolary",
+      "estimatedRevenue": "Çaklanýan girdeji",
+      "pendingApprovals": "Tassyklama garaşýar"
+    },
+    "quotaUsed": "{{total}} çäkden {{used}} ulanyldy",
+    "connected": "Birikdirilen",
+    "disconnected": "Birikdirilmedik",
+    "connectChannel": "YouTube kanalyny birikdir",
+    "demoNotice": "Interfeýs görnüşi · nusga maglumatlar görkezilýär",
+    "analyticsTitle": "Girdejä syn",
+    "activityTitle": "Gündelik görülmeler",
+    "shareTitle": "Täze şertnama şertleri"
+  },
+  "channel": {
+    "title": "Kanal",
+    "connect": "YouTube birikdir",
+    "disconnect": "Baglanyşygy kes",
+    "disconnectConfirm": "Baglanyşygy kesmek bu kanal üçin meýilleşdirilen ähli wideony saklar. Dowam edilsinmi?",
+    "subscribers": "Abunaçylar",
+    "videos": "Wideolar",
+    "monetization": {
+      "unknown": "Monetizasiýa ýagdaýy tassyklanmadyk",
+      "monetized": "Monetizasiýa açyk",
+      "notMonetized": "Monetizasiýa ýok"
+    },
+    "adsense": {
+      "title": "AdSense",
+      "connect": "AdSense birikdir",
+      "connected": "Birikdirilen — girdeji AdSense tassyklan görnüşinde görkezilýär",
+      "notConnected": "Birikdirilmedik — girdeji YouTube Analytics çaklamasy hökmünde görkezilýär"
     }
   },
   "preferences": {
+    "title": "Sazlamalar",
+    "niche": "Ugur (niş)",
+    "customBrief": "Goşmaça brif",
+    "brandVoice": "Brend äheňi",
     "language": "Mazmunyň dili",
     "videoDuration": "Wideonyň dowamlylygy (sekunt)",
     "frequency": "Neşir ýygylygy",
@@ -62,28 +177,254 @@
       "private": "Hususy"
     },
     "approvalMode": "Tassyklama tertibi",
+    "approvalModeOptions": {
+      "review_required": "Neşirden öň tassyklama gerek",
+      "auto": "Barlagdan soň awtomatik neşir et"
+    },
+    "paused": "Meýilnama saklandy",
+    "pause": "Meýilnamany sakla",
+    "resume": "Meýilnamany dowam etdir",
     "save": "Sazlamalary sakla",
     "saved": "Sazlamalar saklandy.",
     "timezone": "Sagat guşaklygy",
-    "publishDays": "Günler (hepde: 0–6; aý: 1–28)",
-    "title": "Sazlamalar"
-  },
-  "dashboard": {
-    "title": "Dolandyryş paneli"
-  },
-  "channel": {
-    "title": "Kanal"
+    "publishDays": "Günler (hepde: 0–6; aý: 1–28)"
   },
   "video": {
-    "title": "Wideolar"
+    "title": "Wideolar",
+    "generateNow": "Häzir döret",
+    "table": {
+      "title": "Ady",
+      "status": "Ýagdaý",
+      "scheduledFor": "Meýilleşdirilen wagt",
+      "cost": "Bahasy",
+      "actions": "Hereketler"
+    },
+    "status": {
+      "draft": "Taslama",
+      "scheduled": "Meýilleşdirilen",
+      "queued": "Nobatda",
+      "generating_script": "Ssenariý ýazylýar",
+      "script_ready": "Ssenariý taýýar",
+      "moderating_script": "Ssenariý barlagda",
+      "generating_voice": "Sesli beýan taýýarlanýar",
+      "voice_ready": "Sesli beýan taýýar",
+      "generating_visuals": "Şekiller taýýarlanýar",
+      "visuals_ready": "Şekiller taýýar",
+      "assembling": "Wideo birleşdirilýär",
+      "assembled": "Birleşdirildi",
+      "moderating_final": "Jemleýji barlag",
+      "moderation_review": "Barlag garaýşynda",
+      "moderation_rejected": "Barlag kabul etmedi",
+      "awaiting_approval": "Tassyklamaňyza garaşylýar",
+      "approved": "Tassyklandy",
+      "changes_requested": "Düzediş soraldy",
+      "rejected": "Kabul edilmedi",
+      "expired": "Möhleti geçdi",
+      "upload_queued": "Ýükleme nobatynda",
+      "uploading": "YouTube-a ýüklenýär",
+      "uploaded": "Ýüklendi",
+      "published": "Neşir edildi",
+      "youtube_rejected": "YouTube kabul etmedi",
+      "retrying": "Gaýtadan synanyşylýar",
+      "failed": "Şowsuz",
+      "canceled": "Ýatyryldy",
+      "deleted_on_youtube": "YouTube-da pozuldy"
+    },
+    "approval": {
+      "title": "Bu wideony gözden geçiriň",
+      "preview": "Deslapky görnüş",
+      "approve": "Tassykla",
+      "requestChanges": "Düzediş sora",
+      "reject": "Kabul etme",
+      "reasonLabel": "Sebäbi",
+      "regenerateFrom": "Haýsy tapgyrdan gaýtadan döretmeli",
+      "confirmApprove": "Tassyklanyp, ýükleme nobatyna goýulsynmy?",
+      "confirmReject": "Bu wideo kabul edilmesinmi? Ol neşir edilmez."
+    },
+    "empty": {
+      "title": "Entek wideo ýok",
+      "description": "Ilkinji işiňiz meýilleşdirilende ýa-da döredilende wideolar şu ýerde görüner."
+    },
+    "previewPlaceholder": "Wideo deslapky görnüş meýdany",
+    "steps": "Taýýarlyk tapgyrlary"
   },
   "revenue": {
-    "title": "Girdeji"
+    "title": "Girdeji",
+    "totalViews": "Jemi görülmeler",
+    "views": "görülme",
+    "estimated": "Çaklanýan (YouTube Analytics)",
+    "confirmed": "AdSense tassyklan",
+    "notMonetized": "Bu kanal entek monetizasiýa edilmedik, girdeji $0.",
+    "topVideos": "Iň gowy wideolar",
+    "statements": "Girdeji paýlaşma hasabatlary",
+    "dispute": "Hasabata nägilelik bildir",
+    "statementStatus": {
+      "draft": "Taslama",
+      "finalized": "Jemlenen",
+      "invoiced": "Hasap-faktura ýazyldy",
+      "paid": "Tölendi",
+      "disputed": "Nägilelik bildirilen",
+      "written_off": "Hasapdan öçürildi",
+      "carried_forward": "Indiki döwre geçirildi"
+    },
+    "disputeReason": "Tapawudy düşündiriň",
+    "reviewUntil": "Gözden geçirmek möhleti: {{date}}"
   },
   "billing": {
-    "title": "Tölegler"
+    "title": "Tölegler",
+    "currentPlan": "Häzirki tarif",
+    "changePlan": "Tarifi üýtget",
+    "managePayment": "Töleg usulyny dolandyr",
+    "invoices": "Hasap-fakturalar",
+    "status": {
+      "trialing": "Synag döwri",
+      "active": "Işjeň",
+      "past_due": "Möhleti geçen",
+      "suspended": "Saklanan",
+      "canceled": "Ýatyrylan",
+      "expired": "Möhleti gutaran"
+    }
   },
   "contract": {
-    "title": "Şertnama"
+    "title": "Şertnama",
+    "currentVersion": "Häzirki görnüş",
+    "sign": "Şertnama gol çek",
+    "consentRevenueShare": "Diňe ekoulgamyň içinde döredilip, şonuň üsti bilen neşir edilen wideolaryň girdejisinden platforma {{platform}}%, kreatora {{creator}}% paý berilmegine razy. Beýleki wideolaryň girdejisi hasaba alynmaýar.",
+    "consentPublish": "Platforma meniň kanalyma wideo neşir etmäge rugsat berýärin",
+    "consentDataProcessing": "Maglumatlarymyň emeli aň bilen mazmun işlemekde ulanylmagyna razy",
+    "consentMarketing": "Marketing hatlaryny almak isleýärin (islege bagly)",
+    "paymentMethodRequired": "Şertnama gol çekmek üçin saklanan töleg usuly gerek.",
+    "history": "Gol çekiş taryhy",
+    "downloadPdf": "PDF ýükle"
+  },
+  "admin": {
+    "users": {
+      "title": "Ulanyjylar",
+      "search": "E-poçta ýa-da at boýunça gözle",
+      "suspend": "Sakla",
+      "reactivate": "Gaýtadan işjeňleşdir"
+    },
+    "videos": {
+      "title": "Wideo işleri",
+      "retry": "Gaýtadan synanyş",
+      "cancel": "Ýatyr"
+    },
+    "moderation": {
+      "title": "Mazmun barlag nobaty",
+      "approve": "Tassykla",
+      "reject": "Kabul etme",
+      "reasonRequired": "Sebäbini görkezmek hökmany."
+    },
+    "finance": {
+      "title": "Maliýe synmy",
+      "mrr": "MRR",
+      "activeSubscriptions": "Işjeň abunalar",
+      "revenueShareTotal": "Girdeji paýlaşmanyň jemi",
+      "uncollected": "Tölenmedik hasap-fakturalar",
+      "export": "Eksport",
+      "settlementTitle": "Wideonyň girdejisini tassykla",
+      "settlementHelp": "Bir ekoulgam wideosynyň barlanan girdejisini giriziň we çeşme hasabatyny görkeziň. Kanal boýunça jemler we çaklamalar ulanylmaýar. Tassyklanan ýazgy üýtgedilmeýär.",
+      "videoId": "Ekoulgam wideosynyň ID-si",
+      "month": "Girdeji aýy",
+      "verifiedAmount": "Tassyklanan girdeji (USD)",
+      "evidence": "Çeşme hasabata salgylanma",
+      "settlementSaved": "Tassyklanan girdeji saklandy."
+    },
+    "config": {
+      "title": "Konfigurasiýa",
+      "plans": "Tarifler",
+      "providers": "Emeli aň üpjünçileri"
+    }
+  },
+  "landing": {
+    "navigation": "Nawigasiýa",
+    "navServices": "Mümkinçilikler",
+    "navProcess": "Tapgyrlar",
+    "navShare": "Şertler",
+    "badge": "YouTube kreatorlary üçin ekoulgam",
+    "heroAccent": "Pikirden wideo çenli",
+    "heroEnd": "bitewi ekoulgamda",
+    "description": "Mazmunyňyzy meýilleşdiriň, emeli aň bilen wideo dörediň we YouTube kanalyňyzy bitewi iş meýdanyndan dolandyryň.",
+    "start": "Hasap döret",
+    "discover": "Giňişleýin tanyş bol",
+    "servicesTitle": "Döredijiligiňiz üçin bitewi meýdan",
+    "servicesLead": "Ugry siz saýlaýarsyňyz. Ekoulgam mazmun gurallaryny pikirden neşire çenli bir ýere jemleýär.",
+    "services": [
+      {
+        "title": "Pikirler we mazmun meýilnamasy",
+        "text": "Kanal temalary, wideo pikirleri hem-de diliňize we sagat guşaklygyňyza laýyk neşir tertibi."
+      },
+      {
+        "title": "Wideo döretmek",
+        "text": "Profiliňizdäki emeli aň gurallary bilen ssenariý, sesli beýan we şekiller taýýarlaň."
+      },
+      {
+        "title": "Mazmun barlagy",
+        "text": "Neşirden öň barlag we wideoňyzy gowulandyrjak anyk bellikler."
+      },
+      {
+        "title": "Neşir we seljerme",
+        "text": "Wideolary we Shorts-lary dolandyryň, netijeleri ölçäň, wideo girdejiňizi yzarlaň."
+      }
+    ],
+    "processTitle": "Pikirden neşire çenli",
+    "steps": [
+      "Hasap dörediň we kanalyňyzy birikdiriň",
+      "Tarif, tema we dil saýlaň",
+      "Mazmunyňyzy taýýarlaň we tassyklaň",
+      "Barlagdan geçiriň we neşir ediň",
+      "Netijeleriňizi yzarlaň"
+    ],
+    "shareTitle": "Kanal siziňki. Girdeji siziňki.",
+    "creatorShare": "Kreatoryň paýy",
+    "platformShare": "Platformanyň paýy",
+    "shareScope": "30% diňe ekoulgamymyzda döredilip, şonuň üsti bilen neşir edilen wideolaryň girdejisine degişli. Kanalyňyzdaky beýleki wideolaryň girdejisi hasaba alynmaýar.",
+    "shareDetails": "Şertler şertnamaňyzda bellige alynýar. Abuna tölegi aýratyn hasaplanýar. Girdeji wideonyň netijelerine we YouTube düzgünlerine bagly; gazanç kepillendirilmeýär.",
+    "faqTitle": "Soraglar we jogaplar",
+    "faqs": [
+      {
+        "q": "Kanal özümde galýarmy?",
+        "a": "Hawa. Kanaly siz dolandyrýarsyňyz we birikme rugsadyny siz berýärsiňiz. Rugsady islän wagtyňyz yzyna alyp bilersiňiz."
+      },
+      {
+        "q": "Komissiýa ähli kanaldanmy?",
+        "a": "Ýok. Platformanyň 30% paýy diňe ekoulgamyň içinde döredilip neşir edilen wideolara degişli. Beýleki wideolar hasaba alynmaýar."
+      },
+      {
+        "q": "Mazmunyň dilini saýlap bilerinmi?",
+        "a": "Sazlamalarda 30 dil görnüşiniň katalogy bar. Ses döretmek mümkinçiligi birikdirilen üpjünçä bagly."
+      },
+      {
+        "q": "Wideolar barlagsyz neşir edilýärmi?",
+        "a": "Mazmun neşirden öň barlagdan geçýär. Düzediş talap edýän material gaýtadan işlemäge ugradylýar."
+      }
+    ],
+    "ctaTitle": "Indiki pikiriňiz şu ýerden başlaýar.",
+    "ctaText": "Profil dörediň, gurallar bilen tanşyň we kanalyňyz üçin iş meýdanyny sazlaň.",
+    "footer": "YouTube mazmunyny döretmek we dolandyrmak üçin bitewi iş meýdany."
+  },
+  "planning": {
+    "title": "Mazmun meýilnamasy",
+    "explanation": "Teklipler YouTube-da tapylan wideolara esaslanýar. Wagtlar tomaşaçy işjeňligi baradaky tassyklanmadyk maglumata däl-de, siziň sazlamalaryňyza esaslanýar. Döretmek başlamazdan öň saýlanan wideolary gözden geçiriň we tassyklaň.",
+    "edit": "Düzet",
+    "brief": "Brif",
+    "localTime": "Täze wagt (häzirki sagat guşaklygyňyz)",
+    "period": "Döwür",
+    "count": "Wideo sany",
+    "daily": "Gündelik",
+    "weekly": "Hepdelik",
+    "monthly": "Aýlyk",
+    "propose": "Meýilnama hödürle",
+    "approve": "Saýlanan wideolary tassykla",
+    "sources": "Barlag çeşmeleri",
+    "failed": "Meýilnama taýýarlanmady. Üpjünçini we kanal sazlamalaryny barlaň.",
+    "status": {
+      "pending": "Nobatda",
+      "generating": "Öwrenilýär",
+      "ready": "Kararyňyza garaşylýar",
+      "approved": "Tassyklanan",
+      "failed": "Şowsuz",
+      "canceled": "Ýatyrylan"
+    }
   }
 }
