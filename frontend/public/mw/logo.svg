@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Creator AI">
+  <title>Creator AI</title>
+  <defs>
+    <!-- The site's accent, warmed at the top so the mark reads on black. -->
+    <linearGradient id="ca-gold" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffe89a"/>
+      <stop offset="0.45" stop-color="#ffc700"/>
+      <stop offset="1" stop-color="#ff9d00"/>
+    </linearGradient>
+    <marker id="ca-arrow" viewBox="0 0 10 10" refX="5.5" refY="5"
+            markerWidth="3" markerHeight="3" orient="auto-start-reverse">
+      <path d="M0.8,0.8 L9.2,5 L0.8,9.2 Z" fill="url(#ca-gold)"/>
+    </marker>
+  </defs>
+
+  <!-- The production loop: plan, create, publish, round again. Two arcs of one
+       circle, each about 170 degrees, leaving the gaps the arrowheads sit in. -->
+  <g fill="none" stroke="url(#ca-gold)" stroke-width="3.2" stroke-linecap="butt">
+    <path d="M7.85,25.5 A25,25 0 0 1 54.5,22.2" marker-end="url(#ca-arrow)"/>
+    <path d="M56.15,38.5 A25,25 0 0 1 9.5,41.8" marker-end="url(#ca-arrow)"/>
+  </g>
+
+  <!-- Play: the video itself. -->
+  <path d="M28,21.2 L46.8,32 L28,42.8 Z"
+        fill="url(#ca-gold)" stroke="url(#ca-gold)"
+        stroke-width="3.4" stroke-linejoin="round"/>
+
+  <!-- Circuit traces feeding the play head — the AI side of the pipeline. -->
+  <g stroke="url(#ca-gold)" stroke-width="1.6" stroke-linecap="round"
+     stroke-linejoin="round" fill="none">
+    <path d="M17.2,26 h3.4 l2.6,2.6 h1.8"/>
+    <path d="M14.6,32 h9.4"/>
+    <path d="M17.2,38 h3.4 l2.6,-2.6 h1.8"/>
+  </g>
+  <g fill="url(#ca-gold)">
+    <circle cx="15.4" cy="26" r="1.9"/>
+    <circle cx="12.8" cy="32" r="1.9"/>
+    <circle cx="15.4" cy="38" r="1.9"/>
+  </g>
+</svg>
