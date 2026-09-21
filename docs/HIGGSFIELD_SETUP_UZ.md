@@ -23,3 +23,8 @@ $20/$50/$100/$200 bazaviy tariflar o‘zgarmaydi. 12% soliq alohida; sof to‘lo
 ## Sinov chegarasi
 
 API kaliti berilmagan. Haqiqiy Higgsfield generatsiyasi va Stripe to‘lovi end-to-end tekshirilmagan. HTTP mock bilan autentifikatsiya, polling, request ID qayta ishlatilishi, moderatsiya rad javobi, noma’lum holatlar va begona status URL bloklanishi sinovdan o‘tkazildi. Backend budjet, entitlement, idempotent katalog va mavjud kontent reja/to‘lov hisobi sinovlari ishlatiladi.
+
+## Superadmin nazorati
+
+Admin → Configuration → Commercial settings: tarif narxi/chegirmasi, oylik video limiti, video davomiyligi, har video uchun USD xarajat chegarasi va model checkboxlari.
+Provider prices: narx, tekshirilgan sana, izoh va faol holat. Higgsfield kalitisiz faollashtirish rad etiladi. Tarif o‘zgarishlari mavjud admin audit jurnaliga yoziladi. Mijoz tarif konfiguratsiyasini tahrirlay olmaydi.

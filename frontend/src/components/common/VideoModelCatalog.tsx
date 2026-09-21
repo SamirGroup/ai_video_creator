@@ -76,7 +76,7 @@ export function VideoModelCatalog() {
                   {row.available
                     ? t('modelCatalog.ready', 'Ready')
                     : t('modelCatalog.pending', 'Configuration pending')}
-                  <div className="text-xs text-muted-foreground">{row.provider === 'higgsfield' ? t('modelCatalog.launchOffer', 'Launch offer; verify before activation.') : row.note}</div>
+                  <div className="text-xs text-muted-foreground">{row.note === 'Launch offer; verify before activation.' ? t('modelCatalog.launchOffer', 'Launch offer; verify before activation.') : row.note}</div>
                 </td>
               </tr>
             ))}

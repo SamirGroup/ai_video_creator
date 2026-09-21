@@ -8,6 +8,12 @@ import type { Plan } from '@/types/billing'
 
 function PlanEditor({ plan }: { plan: Plan }) {
   const client = useQueryClient()
+  const providers = useQuery({
+    queryKey: ['admin-providers'],
+    queryFn: adminApi.listProviders,
+  })
+  const [videos, setVideos] = useState(String(plan.videos_per_period))
+  const [jobBudget, setJobBudget] = useState(String(plan.features?.job_budget_usd ?? '1'))
   const [name, setName] = useState(plan.name)
   const [duration, setDuration] = useState(String(plan.max_video_duration_sec))
   const [active, setActive] = useState(plan.is_active)
@@ -23,6 +29,7 @@ function PlanEditor({ plan }: { plan: Plan }) {
     mutationFn: () =>
       adminApi.updatePlan(plan.id, {
         name,
+        videos_per_period: Number(videos),
         max_video_duration_sec: Number(duration),
         is_active: active,
         price_amount: price,
@@ -32,13 +39,19 @@ function PlanEditor({ plan }: { plan: Plan }) {
         stars_amount: Number(stars),
         features: {
           ...plan.features,
+          job_budget_usd: jobBudget,
           video_models: models
             .split(',')
             .map((v) => v.trim())
             .filter(Boolean),
         },
       }),
-    onSuccess: () => client.invalidateQueries({ queryKey: ['admin-plans'] }),
+    onSuccess: () =>
+      Promise.all(
+        ['admin-plans', 'plans', 'video-models', 'planning-budget'].map((key) =>
+          client.invalidateQueries({ queryKey: [key] }),
+        ),
+      ),
   })
   return (
     <form
@@ -100,10 +113,58 @@ function PlanEditor({ plan }: { plan: Plan }) {
         onChange={(e) => setStars(e.target.value)}
       />
       <Input
-        label="Included video model IDs (comma separated)"
-        value={models}
-        onChange={(e) => setModels(e.target.value)}
+        label="Monthly video limit / Oylik video limiti"
+        type="number"
+        min="1"
+        required
+        value={videos}
+        onChange={(e) => setVideos(e.target.value)}
       />
+      <Input
+        label="Maximum AI spend per video (USD) / Video byudjeti"
+        type="number"
+        min="0.01"
+        step="0.01"
+        required
+        value={jobBudget}
+        onChange={(e) => setJobBudget(e.target.value)}
+      />
+      <fieldset className="space-y-2 rounded border border-border p-3 sm:col-span-2">
+        <legend>Included AI models / Tarifga kiruvchi modellar</legend>
+        {providers.isError && <p role="alert">Model catalog could not be loaded.</p>}
+        {providers.data
+          ?.filter((p) => p.service === 'video_gen')
+          .map((provider) => {
+            const id = provider.model_name || ''
+            const selected = models
+              .split(',')
+              .map((v) => v.trim())
+              .filter(Boolean)
+            return (
+              <label key={provider.id} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={selected.includes(id)}
+                  onChange={(e) =>
+                    setModels(
+                      (e.target.checked
+                        ? [...new Set([...selected, id])]
+                        : selected.filter((v) => v !== id)
+                      ).join(', '),
+                    )
+                  }
+                />
+                {provider.display_name} · ${provider.unit_cost_usd} / {provider.cost_unit}{' '}
+                · {provider.is_active ? 'Active' : 'Inactive'}
+              </label>
+            )
+          })}
+      </fieldset>
+      <p className="text-sm sm:col-span-2">
+        Oylik reja video limiti va bo‘sh AI balansidan hisoblanadi. Har video byudjeti
+        qancha katta bo‘lsa, reja sig‘imi shuncha kamayadi. Tarif/model o‘zgarishi kelgusi
+        generatsiyalarda yana tekshiriladi.
+      </p>
       <p className="text-sm sm:col-span-2">
         New prices apply to new purchases. Existing Stripe subscriptions retain their
         agreed recurring price.

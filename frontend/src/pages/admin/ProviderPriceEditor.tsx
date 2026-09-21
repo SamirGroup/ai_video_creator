@@ -12,7 +12,12 @@ export function ProviderPriceEditor() {
   const save = useMutation({
     mutationFn: ({ id, values }: { id: string; values: Partial<ProviderConfig> }) =>
       adminApi.updateProvider(id, values),
-    onSuccess: () => client.invalidateQueries({ queryKey: ['admin-providers'] }),
+    onSuccess: () =>
+      Promise.all(
+        ['admin-providers', 'video-models', 'planning-budget'].map((key) =>
+          client.invalidateQueries({ queryKey: [key] }),
+        ),
+      ),
   })
   return (
     <section className="space-y-3">
@@ -28,15 +33,18 @@ export function ProviderPriceEditor() {
               id: provider.id,
               values: {
                 unit_cost_usd: String(data.get('price')),
-                ...(provider.service === 'llm'
-                  ? {
-                      config: {
-                        ...provider.config,
+                is_active: data.get('active') === 'on',
+                config: {
+                  ...provider.config,
+                  pricing_verified_on: String(data.get('verified')),
+                  pricing_note: String(data.get('note')),
+                  ...(provider.service === 'llm'
+                    ? {
                         input_cost_per_1k_usd: String(data.get('input')),
                         output_cost_per_1k_usd: String(data.get('output')),
-                      },
-                    }
-                  : {}),
+                      }
+                    : {}),
+                },
               },
             })
           }}
@@ -72,9 +80,26 @@ export function ProviderPriceEditor() {
               />
             </>
           )}
+          <Input
+            name="verified"
+            label="Price verified on / Narx tekshirilgan sana"
+            type="date"
+            required
+            defaultValue={String(provider.config?.pricing_verified_on ?? '')}
+          />
+          <Input
+            name="note"
+            label="Pricing note / Izoh"
+            defaultValue={String(provider.config?.pricing_note ?? '')}
+          />
+          <label className="flex items-center gap-2">
+            <input name="active" type="checkbox" defaultChecked={provider.is_active} />
+            Active / Faol
+          </label>
           <Button isLoading={save.isPending}>Save price</Button>
         </form>
       ))}
+      {save.isSuccess && <p role="status">Saved / Saqlandi</p>}
       {save.isError && <p role="alert">{save.error.message}</p>}
     </section>
   )

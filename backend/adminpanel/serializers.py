@@ -88,9 +88,40 @@ class AdminVideoJobSerializer(serializers.ModelSerializer):
 
 
 class AdminPlanSerializer(serializers.ModelSerializer):
+    def validate_features(self, value):
+        from decimal import Decimal, InvalidOperation
+
+        if not isinstance(value, dict):
+            raise serializers.ValidationError("Features must be an object.")
+        models = value.get("video_models", [])
+        if not isinstance(models, list) or any(
+            not isinstance(m, str) or not m for m in models
+        ):
+            raise serializers.ValidationError("Choose valid video model IDs.")
+        known = set(
+            ApiCredentialConfig.objects.filter(
+                service="video_gen", deleted_at__isnull=True, model_name__in=models
+            ).values_list("model_name", flat=True)
+        )
+        if set(models) - known:
+            raise serializers.ValidationError("Unknown video model ID.")
+        if "job_budget_usd" in value:
+            try:
+                amount = Decimal(str(value["job_budget_usd"]))
+                if not amount.is_finite() or amount <= 0:
+                    raise InvalidOperation
+            except (InvalidOperation, ValueError, TypeError):
+                raise serializers.ValidationError(
+                    "Per-video budget must be a finite positive USD amount."
+                )
+        return value
+
     def validate(self, attrs):
         request = self.context.get("request")
-        if request and not (request.user.is_superuser and (request.user.is_totp_enabled or temporary_2fa_exemption(request.user))):
+        if request and not (
+            request.user.is_superuser
+            and (request.user.is_totp_enabled or temporary_2fa_exemption(request.user))
+        ):
             raise serializers.ValidationError(
                 "Only a superadmin with 2FA can edit commercial plans."
             )
@@ -150,6 +181,40 @@ class AdminProviderSerializer(serializers.ModelSerializer):
     """`secret_ref`'s resolved value is never exposed (C-5, FR-84) — only
     whether it currently resolves to something (`has_secret`).
     """
+
+    def validate(self, attrs):
+        price = attrs.get(
+            "unit_cost_usd", getattr(self.instance, "unit_cost_usd", None)
+        )
+        if price is not None and price < 0:
+            raise serializers.ValidationError(
+                {"unit_cost_usd": "Price must not be negative."}
+            )
+        if (
+            attrs.get("is_active")
+            and self.instance
+            and self.instance.provider == "higgsfield"
+        ):
+            from datetime import date
+
+            if not self.instance.has_secret():
+                raise serializers.ValidationError(
+                    "Configure HF_KEY on the server before activating Higgsfield."
+                )
+            if price is None or price <= 0:
+                raise serializers.ValidationError(
+                    "A positive price is required before activation."
+                )
+            config = attrs.get("config", self.instance.config)
+            try:
+                verified = date.fromisoformat(config.get("pricing_verified_on", ""))
+                if verified > date.today():
+                    raise ValueError
+            except (ValueError, TypeError, AttributeError):
+                raise serializers.ValidationError(
+                    "Enter a valid price verification date."
+                )
+        return attrs
 
     has_secret = serializers.SerializerMethodField()
 
