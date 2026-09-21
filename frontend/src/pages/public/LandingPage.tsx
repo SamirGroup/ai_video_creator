@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
+import Lenis from 'lenis'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
 import './landing.css'
 import { MyWebParticleBackground } from '@/components/ui/myweb-particle-background'
@@ -26,6 +27,68 @@ const EXPO_OUT = [0.16, 1, 0.3, 1] as const
 const SOFT_SPRING = { type: 'spring', stiffness: 150, damping: 22 } as const
 /** Press spring: snappy enough to feel mechanical. */
 const TAP_SPRING = { type: 'spring', stiffness: 500, damping: 10 } as const
+
+/**
+ * Inertial scrolling, which is most of what makes the original feel animated —
+ * it runs GSAP's ScrollSmoother, a paid plugin, so this uses Lenis (MIT) for
+ * the same effect. Torn down on unmount so it never leaks into the app shell,
+ * and skipped entirely when the visitor asked for less motion.
+ */
+function useSmoothScroll(enabled: boolean) {
+  useEffect(() => {
+    if (!enabled) return
+    const lenis = new Lenis({
+      duration: 1.1,
+      // Expo-out, the same curve the reveals use.
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    })
+    let raf = 0
+    const tick = (time: number) => {
+      lenis.raf(time)
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => {
+      cancelAnimationFrame(raf)
+      lenis.destroy()
+    }
+  }, [enabled])
+}
+
+/**
+ * Hero phrase that swaps every three seconds, as the original's does. It cycles
+ * the service titles rather than new copy, so the rotation is already
+ * translated everywhere.
+ */
+function RotatingPhrase({ phrases }: { phrases: string[] }) {
+  const reduceMotion = useReducedMotion()
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    if (reduceMotion || phrases.length < 2) return
+    const id = setInterval(() => setIndex((i) => (i + 1) % phrases.length), 3000)
+    return () => clearInterval(id)
+  }, [reduceMotion, phrases.length])
+
+  const current = phrases[index] ?? ''
+  return (
+    <span className="relative inline-flex h-7 items-center overflow-hidden sm:h-8">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={current}
+          initial={reduceMotion ? false : { y: '100%', opacity: 0 }}
+          animate={{ y: '0%', opacity: 1 }}
+          exit={reduceMotion ? undefined : { y: '-100%', opacity: 0 }}
+          transition={{ duration: 0.45, ease: EXPO_OUT }}
+          className="whitespace-nowrap font-geist text-[11px] uppercase tracking-[0.28em] sm:text-xs"
+          style={{ color: ACCENT }}
+        >
+          {current}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  )
+}
 
 /**
  * Scroll-triggered reveal. Fires once, a little before the element reaches the
@@ -176,6 +239,93 @@ function SplitFigure({ value, label, accent }: { value: number; label: string; a
   )
 }
 
+/**
+ * The process list, with the original's travelling highlight: a gold frame that
+ * walks from row to row on a 0.5s move / 1.5s dwell cycle, measured from the
+ * live rows so it stays correct across breakpoints and translations.
+ */
+function ProcessList({ steps }: { steps: string[] }) {
+  const reduceMotion = useReducedMotion()
+  const listRef = useRef<HTMLOListElement>(null)
+  const rowRefs = useRef<(HTMLLIElement | null)[]>([])
+  const inView = useInView(listRef, { margin: '-80px' })
+  const [active, setActive] = useState(0)
+  const [box, setBox] = useState<{ top: number; height: number } | null>(null)
+
+  // Only cycle while the list is actually on screen.
+  useEffect(() => {
+    if (reduceMotion || !inView || steps.length < 2) return
+    const id = setInterval(() => setActive((i) => (i + 1) % steps.length), 2000)
+    return () => clearInterval(id)
+  }, [reduceMotion, inView, steps.length])
+
+  // Measure the active row; re-measure on resize so the frame tracks reflow.
+  useEffect(() => {
+    if (reduceMotion) return
+    const measure = () => {
+      const row = rowRefs.current[active]
+      const list = listRef.current
+      if (!row || !list) return
+      setBox({ top: row.offsetTop, height: row.offsetHeight })
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [active, reduceMotion])
+
+  return (
+    <ol
+      ref={listRef}
+      className="relative mt-16 divide-y divide-black/5 border-y border-black/5 dark:divide-white/[0.08] dark:border-white/[0.08]"
+    >
+      {box && !reduceMotion && (
+        <motion.div
+          className="pointer-events-none absolute inset-x-0 z-0 rounded-2xl border"
+          style={{
+            borderColor: `${ACCENT}99`,
+            backgroundColor: `${ACCENT}0f`,
+            boxShadow: `0 0 24px ${ACCENT}4d`,
+          }}
+          initial={false}
+          animate={{ top: box.top, height: box.height, opacity: inView ? 1 : 0 }}
+          transition={{ duration: 0.5, ease: EXPO_OUT }}
+          aria-hidden="true"
+        />
+      )}
+
+      {steps.map((step, i) => (
+        <li
+          key={step}
+          ref={(el) => {
+            rowRefs.current[i] = el
+          }}
+          className="group relative z-10 flex items-center gap-6 py-7 transition-colors duration-500 sm:gap-10"
+        >
+          <span
+            className="font-sentient text-3xl font-black tabular-nums transition-colors duration-500 sm:text-5xl"
+            style={{
+              minWidth: '3rem',
+              color: !reduceMotion && i === active ? ACCENT : undefined,
+            }}
+          >
+            0{i + 1}
+          </span>
+          <h3 className="flex-1 font-sentient text-lg font-bold tracking-tight text-pretty sm:text-2xl">
+            {step}
+          </h3>
+          <span
+            className="text-lg transition-all duration-500"
+            style={{ color: ACCENT, opacity: !reduceMotion && i === active ? 1 : 0 }}
+            aria-hidden="true"
+          >
+            ↗
+          </span>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
 export function LandingPage() {
   const { t } = useTranslation()
   const theme = useUiStore((state) => state.theme)
@@ -186,6 +336,8 @@ export function LandingPage() {
   }[]
   const steps = t('landing.steps', { returnObjects: true }) as string[]
   const faqs = t('landing.faqs', { returnObjects: true }) as { q: string; a: string }[]
+
+  useSmoothScroll(!reduceMotion)
 
   const marquee = ['YouTube', 'AI Video', 'Shorts', 'Analytics', 'Creator Studio']
   const navLinks = [
@@ -267,8 +419,9 @@ export function LandingPage() {
           />
 
           <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center">
-            <motion.div {...heroStep(0)}>
+            <motion.div className="flex flex-col items-center" {...heroStep(0)}>
               <Eyebrow>{t('landing.badge')}</Eyebrow>
+              <RotatingPhrase phrases={services.map((s) => s.title)} />
             </motion.div>
 
             <motion.h1
@@ -402,30 +555,7 @@ export function LandingPage() {
               <Heading id="process-title">{t('landing.processTitle')}</Heading>
             </Reveal>
 
-            <ol className="mt-16 divide-y divide-black/5 border-y border-black/5 dark:divide-white/[0.08] dark:border-white/[0.08]">
-              {steps.map((step, i) => (
-                <Reveal key={step} delay={0.08 * i} y={16}>
-                  <li className="group flex items-center gap-6 py-7 transition-colors duration-500 hover:bg-black/[0.02] sm:gap-10 dark:hover:bg-white/[0.02]">
-                    <span
-                      className="font-sentient text-3xl font-black tabular-nums text-neutral-300 transition-colors duration-500 sm:text-5xl dark:text-neutral-700"
-                      style={{ minWidth: '3rem' }}
-                    >
-                      0{i + 1}
-                    </span>
-                    <h3 className="flex-1 font-sentient text-lg font-bold tracking-tight text-pretty sm:text-2xl">
-                      {step}
-                    </h3>
-                    <span
-                      className="text-lg opacity-0 transition-all duration-500 group-hover:translate-x-1 group-hover:opacity-100"
-                      style={{ color: ACCENT }}
-                      aria-hidden="true"
-                    >
-                      ↗
-                    </span>
-                  </li>
-                </Reveal>
-              ))}
-            </ol>
+            <ProcessList steps={steps} />
           </div>
         </section>
 
