@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -27,6 +27,76 @@ const EXPO_OUT = [0.16, 1, 0.3, 1] as const
 const SOFT_SPRING = { type: 'spring', stiffness: 150, damping: 22 } as const
 /** Press spring: snappy enough to feel mechanical. */
 const TAP_SPRING = { type: 'spring', stiffness: 500, damping: 10 } as const
+
+const MOTION_OVERRIDE_KEY = 'landing:motion'
+
+/**
+ * Whether motion is suppressed on this page.
+ *
+ * The OS "reduce motion" setting is honoured by default, but it silently
+ * disables every animation here, which is indistinguishable from the page
+ * being broken. So the visitor can override it, and the page says so when the
+ * setting is what is holding things still.
+ */
+const MotionContext = createContext(false)
+const useMotionOff = () => useContext(MotionContext)
+
+function useMotionPreference() {
+  const systemReduced = useReducedMotion()
+  // Read once during the first render: there is no server render to mismatch,
+  // and an effect would repaint the page in the other mode first.
+  const [override, setOverride] = useState<'on' | 'off' | null>(() => {
+    try {
+      const stored = localStorage.getItem(MOTION_OVERRIDE_KEY)
+      return stored === 'on' || stored === 'off' ? stored : null
+    } catch {
+      // Private mode or blocked storage: fall back to the system setting.
+      return null
+    }
+  })
+
+  const setPreference = (next: 'on' | 'off') => {
+    setOverride(next)
+    try {
+      localStorage.setItem(MOTION_OVERRIDE_KEY, next)
+    } catch {
+      // Not being able to remember the choice must not break the page.
+    }
+  }
+
+  const motionOff = override ? override === 'off' : Boolean(systemReduced)
+  return { motionOff, systemReduced: Boolean(systemReduced), setPreference }
+}
+
+/**
+ * Shown only when the OS asked for reduced motion, so a visitor who sees a
+ * still page knows why and can turn it on for this site.
+ */
+function MotionNotice({ onEnable }: { onEnable: () => void }) {
+  const [dismissed, setDismissed] = useState(false)
+  if (dismissed) return null
+  return (
+    <div className="fixed bottom-4 left-1/2 z-[60] flex -translate-x-1/2 items-center gap-3 rounded-full border border-black/10 bg-white/90 px-4 py-2 font-geist text-[10px] uppercase tracking-[0.2em] shadow-lg backdrop-blur-xl dark:border-white/15 dark:bg-neutral-900/90">
+      <span className="text-neutral-500 dark:text-neutral-400">Reduce Motion</span>
+      <button
+        type="button"
+        onClick={onEnable}
+        className="rounded-full px-3 py-1 font-bold text-neutral-950 dark:text-neutral-950"
+        style={{ backgroundColor: ACCENT }}
+      >
+        Enable animations
+      </button>
+      <button
+        type="button"
+        onClick={() => setDismissed(true)}
+        aria-label="Dismiss"
+        className="text-neutral-400 transition-colors hover:text-neutral-950 dark:hover:text-neutral-50"
+      >
+        ✕
+      </button>
+    </div>
+  )
+}
 
 /**
  * Inertial scrolling, which is most of what makes the original feel animated —
@@ -61,7 +131,7 @@ function useSmoothScroll(enabled: boolean) {
  * translated everywhere.
  */
 function RotatingPhrase({ phrases }: { phrases: string[] }) {
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useMotionOff()
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -105,7 +175,7 @@ function Reveal({
   y?: number
   className?: string
 }) {
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useMotionOff()
   if (reduceMotion) return <div className={className}>{children}</div>
   return (
     <motion.div
@@ -156,7 +226,7 @@ function Heading({ children, id }: { children: ReactNode; id?: string }) {
 
 /** Pill CTA: inverts with the theme, lifts on hover, compresses on press. */
 function PrimaryAction({ to, children }: { to: string; children: ReactNode }) {
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useMotionOff()
   return (
     <motion.div
       className="inline-block"
@@ -193,7 +263,7 @@ function PrimaryAction({ to, children }: { to: string; children: ReactNode }) {
 function SplitFigure({ value, label, accent }: { value: number; label: string; accent: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useMotionOff()
   const [counted, setCounted] = useState(0)
   // Reduced motion skips the count entirely and renders the final figure.
   const shown = reduceMotion ? value : counted
@@ -245,7 +315,7 @@ function SplitFigure({ value, label, accent }: { value: number; label: string; a
  * live rows so it stays correct across breakpoints and translations.
  */
 function ProcessList({ steps }: { steps: string[] }) {
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useMotionOff()
   const listRef = useRef<HTMLOListElement>(null)
   const rowRefs = useRef<(HTMLLIElement | null)[]>([])
   const inView = useInView(listRef, { margin: '-80px' })
@@ -326,10 +396,24 @@ function ProcessList({ steps }: { steps: string[] }) {
   )
 }
 
+/**
+ * Owns the motion decision for the whole page and publishes it, so every
+ * animated piece below agrees on it and the visitor can overrule the OS.
+ */
 export function LandingPage() {
+  const { motionOff, systemReduced, setPreference } = useMotionPreference()
+  return (
+    <MotionContext.Provider value={motionOff}>
+      <LandingPageInner />
+      {systemReduced && motionOff && <MotionNotice onEnable={() => setPreference('on')} />}
+    </MotionContext.Provider>
+  )
+}
+
+function LandingPageInner() {
   const { t } = useTranslation()
   const theme = useUiStore((state) => state.theme)
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useMotionOff()
   const services = t('landing.services', { returnObjects: true }) as {
     title: string
     text: string
@@ -358,7 +442,10 @@ export function LandingPage() {
         }
 
   return (
-    <div className="landing-root min-h-screen bg-white font-sans text-neutral-950 antialiased transition-colors duration-500 dark:bg-neutral-950 dark:text-neutral-50">
+    <div
+      className="landing-root min-h-screen bg-white font-sans text-neutral-950 antialiased transition-colors duration-500 dark:bg-neutral-950 dark:text-neutral-50"
+      data-motion={reduceMotion ? 'off' : 'on'}
+    >
       {/* ---------------------------------------------------------------- nav */}
       <motion.header
         className="sticky top-0 z-50 border-b border-black/5 bg-white/70 backdrop-blur-xl dark:border-white/[0.08] dark:bg-neutral-950/70"

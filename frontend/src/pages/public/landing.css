@@ -112,10 +112,12 @@
   content: '';
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .landing-marquee,
-  .landing-gradient-x,
-  .landing-shimmer {
-    animation: none;
-  }
+/* Motion is switched off through `data-motion` rather than a media query, so
+   that these follow the same decision the React components do — the OS
+   preference by default, but overridable by the visitor (see LandingPage.tsx).
+   A media query here would ignore that override and leave the page half still. */
+.landing-root[data-motion='off'] .landing-marquee,
+.landing-root[data-motion='off'] .landing-gradient-x,
+.landing-root[data-motion='off'] .landing-shimmer {
+  animation: none;
 }
