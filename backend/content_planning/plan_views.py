@@ -55,6 +55,7 @@ class PlanSerializer(serializers.ModelSerializer):
 
 
 class ProposalInput(serializers.Serializer):
+    video_model = serializers.CharField(required=False, allow_null=True, max_length=255)
     request_key = serializers.UUIDField()
     horizon = serializers.ChoiceField(choices=["daily", "weekly", "monthly"])
     count = serializers.IntegerField(min_value=1, max_value=30, default=1)
@@ -127,3 +128,11 @@ class ApprovePlanView(APIView):
         item_ids = serializer.run_validation(request.data.get("item_ids"))
         plan = approve_proposal(request.user, plan_id, item_ids)
         return Response(PlanSerializer(plan).data)
+
+
+class PlanningBudgetView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        from content_planning.budget import planning_budget
+        return Response(planning_budget(request.user, request.query_params.get('video_model')))

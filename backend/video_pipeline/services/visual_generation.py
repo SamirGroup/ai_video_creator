@@ -172,7 +172,7 @@ def generate_visuals_for_job(
             raise ProviderNotConfigured("Video model is not included in this plan.")
         config = ApiCredentialConfig.objects.filter(
             service=ServiceType.VIDEO_GEN,
-            provider="runway",
+            provider__in=["runway", "higgsfield"],
             model_name=selected,
             is_active=True,
         ).first()
@@ -180,7 +180,9 @@ def generate_visuals_for_job(
             raise ProviderNotConfigured("The selected plan model is not activated.")
     if config is None:
         config = get_primary_config(ServiceType.VIDEO_GEN)
-    client = client or RunwayClient(config)
+    from video_pipeline.services.higgsfield_client import HiggsfieldClient
+
+    client = client or (HiggsfieldClient(config) if config.provider == "higgsfield" else RunwayClient(config))
     aspect_ratio = (
         job_preferences(job).aspect_ratio if job_preferences(job) else ""
     ) or "16:9"
@@ -248,8 +250,14 @@ def generate_visuals_for_job(
                         unit_cost(config, 1, expected_unit="per_second")
                     ),
                 }
+                if isinstance(client, HiggsfieldClient):
+                    pending[key]["status_url"] = client.status_urls[task_id]
                 _save_pending_tasks(job, pending)
 
+            if isinstance(client, HiggsfieldClient) and isinstance(pending.get(key), dict):
+                status_url = pending[key].get("status_url")
+                if status_url:
+                    client.status_urls[task_id] = status_url
             try:
                 result = client.wait_for_task(task_id)
                 from video_pipeline.services.video_gen_client import pick_clip_duration

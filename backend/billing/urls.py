@@ -1,11 +1,13 @@
 from django.urls import path
 
 from billing import views
+from billing.model_catalog import ModelCatalogView
 from revenue.views import InvoiceListView, InvoicePdfView
 
 app_name = "billing"
 
 urlpatterns = [
+    path("video-models", ModelCatalogView.as_view()),
     path(
         "billing/payment-setup",
         views.PaymentSetupCheckoutView.as_view(),

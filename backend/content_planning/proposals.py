@@ -40,7 +40,7 @@ SNAPSHOT_FIELDS = (
 )
 
 
-def create_proposal(user, channel, *, request_key, horizon, count):
+def create_proposal(user, channel, *, request_key, horizon, count, video_model=None):
     with transaction.atomic():
         # Serialize requests from one channel before checking cost/rate guards.
         YouTubeChannel.objects.select_for_update().get(pk=channel.pk)
@@ -52,6 +52,7 @@ def create_proposal(user, channel, *, request_key, horizon, count):
                 existing.channel_id != channel.pk
                 or existing.horizon != horizon
                 or existing.item_count != count
+                or existing.preference_snapshot.get("requested_video_model") != video_model
             ):
                 raise ValidationError(
                     "This request key belongs to a different proposal."
@@ -78,7 +79,13 @@ def create_proposal(user, channel, *, request_key, horizon, count):
             raise ValidationError(
                 "Daily content-plan limit reached. Try again tomorrow."
             )
+        from content_planning.budget import assert_plan_budget
+
+        budget = assert_plan_budget(user, count, video_model)
         snapshot = {field: getattr(pref, field) for field in SNAPSHOT_FIELDS}
+        snapshot["requested_video_model"] = video_model
+        snapshot["video_model"] = budget["video_model"]
+        snapshot["budget"] = budget
         snapshot["publish_time_local"] = pref.publish_time_local.isoformat()
         plan = ContentPlan.objects.create(
             user=user,
@@ -312,6 +319,9 @@ def approve_proposal(user, plan_id, item_ids):
         raise ValidationError(
             "Selected publication times have passed. Update them before approval."
         )
+    from content_planning.budget import assert_plan_budget
+
+    assert_plan_budget(user, len(selected), plan.preference_snapshot.get("video_model"))
     for item in items:
         item.selected = str(item.pk) in selected
         if item.selected:
@@ -330,6 +340,7 @@ def approve_proposal(user, plan_id, item_ids):
                     "title": item.title,
                     "brief": item.brief,
                     "plan_id": str(plan.pk),
+                    "video_model": plan.preference_snapshot.get("video_model"),
                 },
             )
         item.save()

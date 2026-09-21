@@ -428,6 +428,7 @@ function LandingPageInner() {
     { href: '#services', label: t('landing.navServices') },
     { href: '#process', label: t('landing.navProcess') },
     { href: '#share', label: t('landing.navShare') },
+    { href: '/pricing', label: t('billing.plans', 'Plans') },
     { href: '#faq', label: 'FAQ' },
   ]
 

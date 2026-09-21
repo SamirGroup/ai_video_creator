@@ -1,3 +1,4 @@
+import { VideoModelCatalog } from '@/components/common/VideoModelCatalog'
 import { apiClient } from '@/api/client'
 import { isTelegram } from '@/components/common/TelegramBridge'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -96,6 +97,7 @@ export function BillingPage() {
 
   return (
     <div className="flex flex-col gap-6">
+      <VideoModelCatalog />
       {!telegram && (
         <Button onClick={() => paymentSetup.mutate()} isLoading={paymentSetup.isPending}>
           {t('billing.managePayment')}

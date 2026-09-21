@@ -29,12 +29,19 @@ export const planningApi = {
     apiClient
       .get<ContentPlan[]>(`/channels/${channel}/content-plans`)
       .then((r) => r.data),
-  propose: (channel: string, horizon: string, count: number, request_key: string) =>
+  propose: (
+    channel: string,
+    horizon: string,
+    count: number,
+    request_key: string,
+    video_model?: string,
+  ) =>
     apiClient
       .post<ContentPlan>(`/channels/${channel}/content-plans`, {
         horizon,
         count,
         request_key,
+        ...(video_model ? { video_model } : {}),
       })
       .then((r) => r.data),
   update: (plan: string, item: string, input: Partial<PlanItem>) =>

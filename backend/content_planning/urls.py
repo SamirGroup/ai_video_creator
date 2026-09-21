@@ -7,8 +7,10 @@ definition of those routes.
 from django.urls import path
 
 from content_planning import views, plan_views
+from content_planning.plan_views import PlanningBudgetView
 
 preference_urlpatterns = [
+    path("me/planning-budget", PlanningBudgetView.as_view()),
     path(
         "channels/<uuid:channel_id>/content-plans",
         plan_views.ChannelPlansView.as_view(),

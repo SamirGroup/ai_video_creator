@@ -1,3 +1,4 @@
+import { PricingPage } from '@/pages/public/PricingPage'
 import { TelegramBridge } from '@/components/common/TelegramBridge'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -95,6 +96,7 @@ function AppRoutes() {
       </Route>
 
       <Route path="/" element={<LandingPage />} />
+      <Route path="/pricing" element={<PricingPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

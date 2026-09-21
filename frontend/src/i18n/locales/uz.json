@@ -283,7 +283,12 @@
       "suspended": "To'xtatilgan",
       "canceled": "Bekor qilingan",
       "expired": "Muddati tugagan"
-    }
+    },
+    "plans": "Tariflar",
+    "tax": "Soliq",
+    "total": "Jami",
+    "credits": "kredit",
+    "choosePlan": "Tarifni tanlash"
   },
   "contract": {
     "title": "Shartnoma",
@@ -425,6 +430,24 @@
       "approved": "Tasdiqlangan",
       "failed": "Xato",
       "canceled": "Bekor qilingan"
-    }
+    },
+    "budgetCapacity": "Tarif bo‘yicha mavjud sig‘im",
+    "useMonthlyBudget": "Byudjetimga mos oylik reja",
+    "budgetEstimate": "Sig‘im har video uchun xarajat chegarasi asosida hisoblanadi. Haqiqiy sarf model, davomiylik va qayta yaratishga bog‘liq; generatsiyadan oldin kredit yana tekshiriladi."
+  },
+  "modelCatalog": {
+    "title": "AI modellar narxlari",
+    "note": "Video generatsiyasi soniya bo‘yicha hisoblanadi. Kredit — platformadagi balans, model tokeni emas. Ovoz, ssenariy va qayta yaratish ham kredit sarflaydi.",
+    "Model": "Model",
+    "USD / unit": "USD / birlik",
+    "Credits / unit": "Kredit / birlik",
+    "Plans": "Tariflar",
+    "Availability": "Holat",
+    "source": "Narx manbasi",
+    "ready": "Tayyor",
+    "pending": "Sozlash kutilmoqda",
+    "per_second": "har soniya",
+    "per_clip": "har klip",
+    "launchOffer": "Boshlang‘ich aksiya; faollashtirishdan oldin narxni tekshiring."
   }
 }

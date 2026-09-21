@@ -283,7 +283,12 @@
       "suspended": "Suspended",
       "canceled": "Canceled",
       "expired": "Expired"
-    }
+    },
+    "plans": "Plans",
+    "tax": "Tax",
+    "total": "Total",
+    "credits": "credits",
+    "choosePlan": "Choose plan"
   },
   "contract": {
     "title": "Contract",
@@ -425,6 +430,24 @@
       "approved": "Approved",
       "failed": "Failed",
       "canceled": "Canceled"
-    }
+    },
+    "budgetCapacity": "Available plan capacity",
+    "useMonthlyBudget": "Plan this month within my budget",
+    "budgetEstimate": "Capacity uses the per-video spending ceiling. Actual cost varies by model, duration and revisions; credit is checked again before generation."
+  },
+  "modelCatalog": {
+    "title": "AI model prices",
+    "note": "Video generation is billed per second. Credits are platform balance, not model tokens. Voice, scripts and revisions also consume credit.",
+    "Model": "Model",
+    "USD / unit": "USD / unit",
+    "Credits / unit": "Credits / unit",
+    "Plans": "Plans",
+    "Availability": "Availability",
+    "source": "Pricing source",
+    "ready": "Ready",
+    "pending": "Configuration pending",
+    "per_second": "per second",
+    "per_clip": "per clip",
+    "launchOffer": "Launch offer; verify before activation."
   }
 }
