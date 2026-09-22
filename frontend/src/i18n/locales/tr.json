@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "Kontrol paneli",
     "channel": "Kanal",
     "preferences": "Tercihler",

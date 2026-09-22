@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "控制面板",
     "channel": "频道",
     "preferences": "偏好设置",

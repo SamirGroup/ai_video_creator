@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual raqamlar",
     "dashboard": "Boshqaruv paneli",
     "channel": "Kanal",
     "preferences": "Kontent sozlamalari",

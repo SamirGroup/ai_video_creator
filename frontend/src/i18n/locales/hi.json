@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "डैशबोर्ड",
     "channel": "चैनल",
     "preferences": "प्राथमिकताएँ",

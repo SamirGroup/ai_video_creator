@@ -1,3 +1,5 @@
+import { VirtualNumbersPage } from '@/pages/creator/VirtualNumbersPage'
+import { AdminVirtualNumbersPage } from '@/pages/admin/AdminVirtualNumbersPage'
 import { PricingPage } from '@/pages/public/PricingPage'
 import { TelegramBridge } from '@/components/common/TelegramBridge'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -60,6 +62,7 @@ function AppRoutes() {
           <Route path="/dashboard" element={<HomeRedirect />} />
           <Route path="/creator/:id" element={<CreatorHomeRoute />} />
           <Route element={<RoleRoute allow={['creator']} />}>
+          <Route path="/virtual-numbers" element={<VirtualNumbersPage />} />
           <Route path="/channel" element={<ChannelPage />} />
           <Route path="/content-plan" element={<ContentPlanPage />} />
           <Route path="/preferences" element={<PreferencesPage />} />
@@ -90,6 +93,7 @@ function AppRoutes() {
             <Route path="/admin/finance" element={<AdminFinancePage />} />
           </Route>
           <Route element={<RoleRoute allow={['admin']} />}>
+            <Route path="/admin/virtual-numbers" element={<AdminVirtualNumbersPage />} />
             <Route path="/admin/config" element={<AdminConfigPage />} />
           </Route>
         </Route>

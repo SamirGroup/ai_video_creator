@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "Tableau de bord",
     "channel": "Chaîne",
     "preferences": "Préférences",

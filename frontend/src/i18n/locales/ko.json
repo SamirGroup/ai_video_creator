@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "대시보드",
     "channel": "채널",
     "preferences": "환경 설정",

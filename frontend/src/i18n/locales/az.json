@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "İdarəetmə paneli",
     "channel": "Kanal",
     "preferences": "Seçimlər",

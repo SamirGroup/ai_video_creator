@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "Dashboard",
     "channel": "Channel",
     "preferences": "Preferences",

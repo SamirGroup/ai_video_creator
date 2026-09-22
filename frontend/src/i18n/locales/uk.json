@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "Панель керування",
     "channel": "Канал",
     "preferences": "Налаштування",

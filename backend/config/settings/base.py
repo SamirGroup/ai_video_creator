@@ -480,3 +480,23 @@ MODERATION_REVISION_BUDGET_USD = env.str(
 
 INSTALLED_APPS += ["telegram_integration"]
 TELEGRAM_WEBHOOK_BASE_URL = env.str("TELEGRAM_WEBHOOK_BASE_URL", default="")
+
+# Dedicated SMS rentals are visible before launch; charging stays disabled until contracted.
+INSTALLED_APPS += ["virtual_numbers"]
+VIRTUAL_NUMBERS_ENABLED = env.bool("VIRTUAL_NUMBERS_ENABLED", default=False)
+VIRTUAL_NUMBERS_INGRESS_SECRET = env.str("VIRTUAL_NUMBERS_INGRESS_SECRET", default="")
+VIRTUAL_NUMBERS_STRIPE_WEBHOOK_SECRET = env.str("VIRTUAL_NUMBERS_STRIPE_WEBHOOK_SECRET", default="")
+
+# Number-rental payment gateways. Secrets stay in server environment only.
+NUMBER_PAYMENTS_STRIPE_ENABLED = env.bool("NUMBER_PAYMENTS_STRIPE_ENABLED", default=True)
+PAYPAL_ENABLED = env.bool("PAYPAL_ENABLED", default=False)
+PAYPAL_MODE = env.str("PAYPAL_MODE", default="sandbox")
+PAYPAL_CLIENT_ID = env.str("PAYPAL_CLIENT_ID", default="")
+PAYPAL_CLIENT_SECRET = env.str("PAYPAL_CLIENT_SECRET", default="")
+PAYPAL_MERCHANT_ID = env.str("PAYPAL_MERCHANT_ID", default="")
+PAYPAL_WEBHOOK_ID = env.str("PAYPAL_WEBHOOK_ID", default="")
+# allpay.net is intentionally not switchable until its contracted API/signature
+# specification is supplied and a provider-native adapter is tested.
+# Optional separate Stripe account/key for rentals; existing subscriptions keep
+# STRIPE_SECRET_KEY. Empty means use the existing Stripe account.
+VIRTUAL_NUMBERS_STRIPE_SECRET_KEY = env.str("VIRTUAL_NUMBERS_STRIPE_SECRET_KEY", default="")

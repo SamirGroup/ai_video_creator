@@ -14,6 +14,7 @@ export const creatorNavItems: NavItem[] = [
   { to: '/content-plan', labelKey: 'planning.title' },
   { to: '/videos', labelKey: 'nav.videos' },
   { to: '/revenue', labelKey: 'nav.revenue' },
+  { to: '/virtual-numbers', labelKey: 'nav.virtualNumbers' },
   { to: '/billing', labelKey: 'nav.billing' },
   { to: '/contract', labelKey: 'nav.contract' },
 ]
@@ -27,6 +28,7 @@ export const adminNavItems: NavItem[] = [
     roles: ['admin', 'moderator'],
   },
   { to: '/admin/finance', labelKey: 'nav.adminFinance', roles: ['admin', 'finance'] },
+  { to: '/admin/virtual-numbers', labelKey: 'nav.virtualNumbers', roles: ['admin'] },
   { to: '/admin/config', labelKey: 'nav.adminConfig', roles: ['admin'] },
 ]
 

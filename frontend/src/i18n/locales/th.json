@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "แดชบอร์ด",
     "channel": "ช่อง",
     "preferences": "การตั้งค่า",

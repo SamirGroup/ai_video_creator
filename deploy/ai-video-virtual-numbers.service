@@ -1,0 +1,8 @@
+[Unit]
+Description=Expire dedicated phone rentals and purge expired SMS
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker exec ai_youtuber_backend python manage.py maintain_virtual_numbers

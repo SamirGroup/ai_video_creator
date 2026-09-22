@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "Pannello",
     "channel": "Canale",
     "preferences": "Preferenze",

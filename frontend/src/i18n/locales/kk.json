@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "virtualNumbers": "Virtual numbers",
     "dashboard": "Басқару тақтасы",
     "channel": "Арна",
     "preferences": "Баптаулар",
