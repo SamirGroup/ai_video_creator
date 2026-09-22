@@ -60,7 +60,8 @@
     "adminConfig": "კონფიგურაცია",
     "logout": "გასვლა",
     "language": "ენა",
-    "theme": "თემა"
+    "theme": "თემა",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

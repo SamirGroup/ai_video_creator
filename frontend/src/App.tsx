@@ -1,3 +1,4 @@
+import { AssistantPage } from '@/pages/assistant/AssistantPage'
 import { VirtualNumbersPage } from '@/pages/creator/VirtualNumbersPage'
 import { AdminVirtualNumbersPage } from '@/pages/admin/AdminVirtualNumbersPage'
 import { PricingPage } from '@/pages/public/PricingPage'
@@ -63,6 +64,7 @@ function AppRoutes() {
           <Route path="/creator/:id" element={<CreatorHomeRoute />} />
           <Route element={<RoleRoute allow={['creator']} />}>
           <Route path="/virtual-numbers" element={<VirtualNumbersPage />} />
+          <Route path="/assistant" element={<AssistantPage />} />
           <Route path="/channel" element={<ChannelPage />} />
           <Route path="/content-plan" element={<ContentPlanPage />} />
           <Route path="/preferences" element={<PreferencesPage />} />

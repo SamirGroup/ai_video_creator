@@ -60,7 +60,8 @@
     "adminConfig": "Cấu hình",
     "logout": "Đăng xuất",
     "language": "Ngôn ngữ",
-    "theme": "Giao diện"
+    "theme": "Giao diện",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

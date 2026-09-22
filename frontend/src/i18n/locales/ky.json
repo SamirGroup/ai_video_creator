@@ -60,7 +60,8 @@
     "adminConfig": "Конфигурация",
     "logout": "Чыгуу",
     "language": "Тил",
-    "theme": "Тема"
+    "theme": "Тема",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

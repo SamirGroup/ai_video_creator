@@ -60,7 +60,8 @@
     "adminConfig": "Saituna",
     "logout": "Fita",
     "language": "Harshe",
-    "theme": "Jigo"
+    "theme": "Jigo",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

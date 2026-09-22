@@ -8,6 +8,7 @@ export interface NavItem {
 }
 
 export const creatorNavItems: NavItem[] = [
+  { to: '/assistant', labelKey: 'nav.assistant' },
   { to: '/dashboard', labelKey: 'nav.dashboard' },
   { to: '/channel', labelKey: 'nav.channel' },
   { to: '/preferences', labelKey: 'nav.preferences' },

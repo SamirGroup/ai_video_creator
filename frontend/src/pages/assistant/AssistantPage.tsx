@@ -1,0 +1,367 @@
+import { LANGUAGES } from '@/i18n/registry'
+import { useState } from 'react'
+import { planningApi } from '@/api/planning'
+import { Link } from 'react-router-dom'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { assistantApi, type Profile } from '@/api/assistant'
+import { Button } from '@/components/ui/Button'
+import { Input } from '@/components/ui/Input'
+import { ErrorState } from '@/components/common/StateViews'
+
+const steps = [
+  {
+    title: 'Kanalni ulash',
+    detail: 'YouTube hisobingizga xavfsiz ulaning',
+    to: '/channel',
+  },
+  {
+    title: 'Kontent yo‘nalishi',
+    detail: 'Til, mavzu, format va nashr vaqtini tanlang',
+    to: '/preferences',
+  },
+  {
+    title: 'Rejani tasdiqlash',
+    detail: 'AI takliflarini ko‘rib chiqing va tasdiqlang',
+    to: '/content-plan',
+  },
+  {
+    title: 'Video va moderatsiya',
+    detail: 'Jarayonni kuzating, tayyor videoni tekshiring',
+    to: '/videos',
+  },
+  {
+    title: 'Natijalar tahlili',
+    detail: 'Kanal ma’lumotlari asosida keyingi qadam',
+    to: '/revenue',
+  },
+]
+function ProfileForm({ profile }: { profile: Profile }) {
+  const [form, setForm] = useState(profile)
+  const cache = useQueryClient()
+  const save = useMutation({
+    mutationFn: () => assistantApi.profile({ ...form, onboarding_completed: true }),
+    onSuccess: () => cache.invalidateQueries({ queryKey: ['assistant'] }),
+  })
+  return (
+    <form
+      className="space-y-4"
+      onSubmit={(e) => {
+        e.preventDefault()
+        save.mutate()
+      }}
+    >
+      <div>
+        <h2 className="font-semibold">Sizning maqsadingiz</h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Yordamchi tavsiyalarni profilingizga moslashtiradi.
+        </p>
+      </div>
+      <label className="block text-xs">
+        Kanal maqsadi
+        <textarea
+          required
+          maxLength={1000}
+          className="mt-2 min-h-24 w-full rounded-lg border border-border bg-background p-3 text-sm"
+          value={form.goal}
+          onChange={(e) => setForm({ ...form, goal: e.target.value })}
+          placeholder="Masalan, o‘zbek tilida texnologiya haqida Shorts yaratish"
+        />
+      </label>
+      <label className="block text-xs">
+        Auditoriya hududi
+        <Input
+          className="mt-2"
+          maxLength={100}
+          value={form.audience_region}
+          onChange={(e) => setForm({ ...form, audience_region: e.target.value })}
+          placeholder="O‘zbekiston"
+        />
+      </label>
+      <div className="grid grid-cols-2 gap-3">
+        <label className="text-xs">
+          Suhbat tili
+          <select
+            className="mt-2 w-full rounded-lg border border-border bg-background p-2.5"
+            value={form.language}
+            onChange={(e) => setForm({ ...form, language: e.target.value })}
+          >
+            {LANGUAGES.map((language) => (
+              <option key={language.code} value={language.code}>
+                {language.native_name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="text-xs">
+          Vaqt zonasi
+          <Input
+            className="mt-2"
+            required
+            value={form.timezone}
+            onChange={(e) => setForm({ ...form, timezone: e.target.value })}
+          />
+        </label>
+      </div>
+      <Button disabled={save.isPending} type="submit" className="w-full">
+        {save.isPending ? 'Saqlanmoqda…' : 'Profilni saqlash'}
+      </Button>
+      {save.isSuccess && (
+        <p role="status" className="text-xs text-emerald-500">
+          Profil saqlandi.
+        </p>
+      )}
+      {save.isError && (
+        <p role="alert" className="text-xs text-red-400">
+          {save.error.message}
+        </p>
+      )}
+    </form>
+  )
+}
+function PlanStarter({ channel, ready }: { channel?: string; ready: boolean }) {
+  const [count, setCount] = useState(3)
+  const [key, setKey] = useState(() => crypto.randomUUID())
+  const create = useMutation({
+    mutationFn: () => planningApi.propose(channel!, 'weekly', count, key),
+    onSuccess: () => setKey(crypto.randomUUID()),
+  })
+  return (
+    <section className="workspace-card">
+      <h2 className="font-semibold">Haftalik reja tayyorlash</h2>
+      <p className="mt-2 text-xs leading-5 text-muted-foreground">
+        Tanlangan kontent sozlamalari, hudud va budjet asosida. Tayyor reja siz
+        tasdiqlamaguningizcha nashrga yuborilmaydi.
+      </p>
+      <form
+        className="mt-4 space-y-3"
+        onSubmit={(e) => {
+          e.preventDefault()
+          create.mutate()
+        }}
+      >
+        <label className="block text-xs">
+          Video soni
+          <input
+            type="number"
+            min={1}
+            max={7}
+            required
+            value={count}
+            onChange={(e) => {
+              setCount(Number(e.target.value))
+              setKey(crypto.randomUUID())
+            }}
+            className="mt-2 w-full rounded-lg border border-border bg-background p-2.5"
+          />
+        </label>
+        <Button
+          className="w-full"
+          disabled={!channel || !ready || create.isPending || create.isSuccess}
+          type="submit"
+        >
+          {create.isPending ? 'Tayyorlanmoqda…' : 'AI reja taklif qilsin'}
+        </Button>
+      </form>
+      {create.isError && (
+        <p role="alert" className="mt-3 text-xs text-red-400">
+          {create.error.message}
+        </p>
+      )}
+      {create.isSuccess && (
+        <Link className="mt-3 block text-sm text-orange-400 underline" to="/content-plan">
+          Taklifni ko‘rish va tasdiqlash ↗
+        </Link>
+      )}
+      {!channel && (
+        <Link className="mt-3 block text-xs underline" to="/channel">
+          Avval kanalni ulang
+        </Link>
+      )}
+    </section>
+  )
+}
+export function AssistantPage() {
+  const cache = useQueryClient()
+  const query = useQuery({
+    queryKey: ['assistant'],
+    queryFn: assistantApi.state,
+    refetchInterval: (q) =>
+      q.state.data?.turns.some((t) => ['pending', 'running'].includes(t.status))
+        ? 3000
+        : false,
+  })
+  const [message, setMessage] = useState('')
+  const [requestKey, setRequestKey] = useState(() => crypto.randomUUID())
+  const send = useMutation({
+    mutationFn: ({ text, key }: { text: string; key: string }) =>
+      assistantApi.send(text, key),
+    onSuccess: () => {
+      setMessage('')
+      setRequestKey(crypto.randomUUID())
+      void cache.invalidateQueries({ queryKey: ['assistant'] })
+    },
+  })
+  if (query.isError) return <ErrorState onRetry={() => query.refetch()} />
+  if (!query.data)
+    return (
+      <div className="animate-pulse p-8 text-muted-foreground">
+        Yordamchi tayyorlanmoqda…
+      </div>
+    )
+  const data = query.data
+  const busy =
+    send.isPending || data.turns.some((t) => ['pending', 'running'].includes(t.status))
+  const completed = [
+    data.channels.some((c) => c.status === 'connected'),
+    data.preferences.length > 0,
+    data.plans.some((p) => p.status === 'approved'),
+    data.jobs.some((j) => j.status === 'published' && j.count > 0),
+  ]
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="workspace-eyebrow">CREATOR WORKSPACE</p>
+          <h1 className="mt-1 text-2xl font-semibold">Shaxsiy AI yordamchi</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            G‘oyadan nashrgacha — har bir bosqich nazoratingizda.
+          </p>
+        </div>
+        <span
+          className={`rounded-full border px-3 py-1.5 text-xs ${data.available ? 'text-emerald-500 border-emerald-500/30' : 'text-amber-500 border-amber-500/30'}`}
+        >
+          {data.available ? 'AI ulangan' : 'AI ulanishi kutilmoqda'}
+        </span>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-3">
+        {[
+          [
+            'Kanal',
+            data.channels.some((c) => c.status === 'connected') ? 'Ulangan' : 'Ulanmagan',
+          ],
+          ['Kontent rejalar', String(data.plans.length)],
+          ['Suhbat limiti', `${data.daily_message_limit} / kun`],
+        ].map(([label, value]) => (
+          <div key={label} className="workspace-card">
+            <p className="workspace-eyebrow">{label}</p>
+            <p className="mt-3 text-xl font-semibold">{value}</p>
+          </div>
+        ))}
+      </div>
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_320px]">
+        <section className="workspace-card flex min-h-[510px] flex-col !p-0">
+          <div className="flex items-center gap-3 border-b border-border p-5">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/15 font-semibold text-orange-400">
+              AI
+            </span>
+            <div>
+              <h2 className="font-semibold">Creator maslahatchisi</h2>
+              <p className="text-xs text-muted-foreground">
+                Profilingiz va kanal holatiga asoslangan yordam
+              </p>
+            </div>
+          </div>
+          <div
+            className="max-h-[540px] flex-1 space-y-5 overflow-y-auto p-5"
+            aria-live="polite"
+          >
+            <div className="rounded-xl border border-border bg-muted/50 p-4 text-sm leading-7">
+              Xush kelibsiz! Kanalni ulashdan boshlang, so‘ng kontent tilini, yo‘nalishini
+              va jadvalini belgilang. AI kontent reja taklif qiladi. Siz tasdiqlagan reja
+              bo‘yicha videolar tayyorlanadi, moderatsiyadan o‘tadi va nashrga yuboriladi.
+              Profilingizni to‘ldiring — maqsadingizga mos maslahat beraman.
+            </div>
+            {[...data.turns].reverse().map((turn) => (
+              <div key={turn.id} className="space-y-3">
+                <div className="ml-8 rounded-xl border border-orange-500/20 bg-orange-500/10 p-4 text-sm whitespace-pre-wrap">
+                  {turn.question}
+                </div>
+                <div className="mr-4 rounded-xl bg-muted/60 p-4 text-sm leading-7 whitespace-pre-wrap">
+                  {turn.status === 'completed'
+                    ? turn.answer
+                    : turn.status === 'failed'
+                      ? 'Javob tayyorlanmadi. AI ulanishi yoki balansni tekshirib, qayta urinib ko‘ring.'
+                      : 'AI javob tayyorlamoqda…'}
+                </div>
+                {turn.status === 'completed' && (
+                  <p className="text-xs text-muted-foreground">
+                    AI sarfi: ${turn.cost_usd}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+          <form
+            className="border-t border-border p-4"
+            onSubmit={(e) => {
+              e.preventDefault()
+              if (message.trim()) send.mutate({ text: message, key: requestKey })
+            }}
+          >
+            <label htmlFor="assistant-message" className="sr-only">
+              Savolingiz
+            </label>
+            <textarea
+              id="assistant-message"
+              maxLength={3000}
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value)
+                setRequestKey(crypto.randomUUID())
+              }}
+              disabled={!data.available || busy}
+              placeholder={
+                data.available
+                  ? 'Kontent reja, auditoriya yoki keyingi qadam haqida so‘rang…'
+                  : 'Admin AI xizmatini ulaganidan keyin suhbat ochiladi.'
+              }
+              className="min-h-20 w-full resize-y rounded-lg border border-border bg-background p-3 text-sm disabled:opacity-60"
+            />
+            <div className="mt-3 flex items-center justify-between gap-3">
+              <p className="text-xs text-muted-foreground">
+                AI tavsiya beradi. Reja va nashr tasdiqlash qoidalariga bo‘ysunadi.
+              </p>
+              <Button type="submit" disabled={!data.available || busy || !message.trim()}>
+                Yuborish ↗
+              </Button>
+            </div>
+            {send.isError && (
+              <p role="alert" className="mt-2 text-xs text-red-400">
+                {send.error.message}
+              </p>
+            )}
+          </form>
+        </section>
+        <aside className="space-y-5">
+          <PlanStarter
+            channel={data.channels.find((c) => c.status === 'connected')?.id}
+            ready={data.available && data.preferences.length > 0}
+          />
+          <section className="workspace-card">
+            <ProfileForm profile={data.profile} />
+          </section>
+          <section className="workspace-card">
+            <h2 className="mb-4 font-semibold">Ishga tushirish bosqichlari</h2>
+            {steps.map((step, i) => (
+              <Link
+                key={step.to}
+                to={step.to}
+                className="flex gap-3 border-b border-border py-3 last:border-0"
+              >
+                <span
+                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs ${completed[i] ? 'bg-emerald-500/15 text-emerald-500' : 'bg-muted text-muted-foreground'}`}
+                >
+                  {completed[i] ? '✓' : i + 1}
+                </span>
+                <div>
+                  <p className="text-sm font-medium">{step.title} ↗</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{step.detail}</p>
+                </div>
+              </Link>
+            ))}
+          </section>
+        </aside>
+      </div>
+    </div>
+  )
+}

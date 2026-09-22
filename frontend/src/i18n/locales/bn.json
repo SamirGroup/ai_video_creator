@@ -60,7 +60,8 @@
     "adminConfig": "কনফিগারেশন",
     "logout": "লগ আউট",
     "language": "ভাষা",
-    "theme": "থিম"
+    "theme": "থিম",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

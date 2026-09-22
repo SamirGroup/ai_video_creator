@@ -60,7 +60,8 @@
     "adminConfig": "Konfiqurasiya",
     "logout": "Çıxış",
     "language": "Dil",
-    "theme": "Mövzu"
+    "theme": "Mövzu",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

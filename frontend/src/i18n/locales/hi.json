@@ -60,7 +60,8 @@
     "adminConfig": "विन्यास",
     "logout": "लॉग आउट",
     "language": "भाषा",
-    "theme": "थीम"
+    "theme": "थीम",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

@@ -58,6 +58,7 @@ export function DashboardPage() {
         </p>
       </div>
 
+      <Link to="/assistant" className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-orange-400/25 bg-orange-400/5 p-5"><div><p className="font-semibold">AI yordamchingiz bilan boshlang</p><p className="mt-1 text-sm text-muted-foreground">Kanalni ulash, kontent reja va nashr jarayoni bo‘yicha shaxsiy yo‘riqnoma.</p></div><span className="rounded-lg bg-orange-400 px-4 py-2 text-sm font-semibold text-black">Yordamchini ochish ↗</span></Link>
       {isLoading && <CardSkeletonGrid />}
       {isError && <ErrorState onRetry={() => refetch()} />}
 

@@ -291,3 +291,6 @@ def prepare_content_plan(plan_id):
     from content_planning.proposals import prepare_proposal
 
     return prepare_proposal(plan_id)
+
+# Register the durable assistant task with Celery autodiscovery.
+from content_planning.assistant import respond  # noqa: E402,F401

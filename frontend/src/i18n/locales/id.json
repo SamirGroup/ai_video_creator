@@ -60,7 +60,8 @@
     "adminConfig": "Konfigurasi",
     "logout": "Keluar",
     "language": "Bahasa",
-    "theme": "Tema"
+    "theme": "Tema",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

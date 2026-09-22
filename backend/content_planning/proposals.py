@@ -83,6 +83,11 @@ def create_proposal(user, channel, *, request_key, horizon, count, video_model=N
 
         budget = assert_plan_budget(user, count, video_model)
         snapshot = {field: getattr(pref, field) for field in SNAPSHOT_FIELDS}
+        from content_planning.assistant_models import AssistantProfile
+        profile = AssistantProfile.objects.filter(user=user).first()
+        if profile:
+            snapshot["creator_goal"] = profile.goal
+            snapshot["audience_region"] = profile.audience_region
         snapshot["requested_video_model"] = video_model
         snapshot["video_model"] = budget["video_model"]
         snapshot["budget"] = budget

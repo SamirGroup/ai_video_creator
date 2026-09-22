@@ -60,7 +60,8 @@
     "adminConfig": "Konfiguratsiya",
     "logout": "Chiqish",
     "language": "Til",
-    "theme": "Mavzu"
+    "theme": "Mavzu",
+    "assistant": "AI yordamchi"
   },
   "auth": {
     "login": {

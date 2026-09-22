@@ -60,7 +60,8 @@
     "adminConfig": "Konfigurasiýa",
     "logout": "Çyk",
     "language": "Dil",
-    "theme": "Tema"
+    "theme": "Tema",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

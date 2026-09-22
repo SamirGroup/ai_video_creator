@@ -60,7 +60,8 @@
     "adminConfig": "การกำหนดค่า",
     "logout": "ออกจากระบบ",
     "language": "ภาษา",
-    "theme": "ธีม"
+    "theme": "ธีม",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

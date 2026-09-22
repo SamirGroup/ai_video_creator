@@ -60,7 +60,8 @@
     "adminConfig": "پیکربندی",
     "logout": "خروج",
     "language": "زبان",
-    "theme": "پوسته"
+    "theme": "پوسته",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

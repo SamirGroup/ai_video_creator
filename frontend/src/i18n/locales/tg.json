@@ -60,7 +60,8 @@
     "adminConfig": "Конфигуратсия",
     "logout": "Баромадан",
     "language": "Забон",
-    "theme": "Мавзӯъ"
+    "theme": "Мавзӯъ",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

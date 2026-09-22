@@ -60,7 +60,8 @@
     "adminConfig": "構成",
     "logout": "ログアウト",
     "language": "言語",
-    "theme": "テーマ"
+    "theme": "テーマ",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

@@ -60,7 +60,8 @@
     "adminConfig": "구성",
     "logout": "로그아웃",
     "language": "언어",
-    "theme": "테마"
+    "theme": "테마",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

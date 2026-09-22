@@ -60,7 +60,8 @@
     "adminConfig": "Konfiguration",
     "logout": "Abmelden",
     "language": "Sprache",
-    "theme": "Design"
+    "theme": "Design",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {

@@ -154,3 +154,6 @@ class ContentPlanItem(TimestampedModel):
                 fields=["plan", "position"], name="unique_plan_position"
             )
         ]
+
+# Registered in this existing app; isolated from generation and publication models.
+from .assistant_models import AssistantProfile, AssistantPolicy, AssistantTurn  # noqa: E402,F401

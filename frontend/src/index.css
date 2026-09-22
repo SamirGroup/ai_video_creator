@@ -140,33 +140,44 @@
   }
 }
 
-/* Dashboard palette sampled from the supplied reference. Public styles are scoped separately. */
+/* Workspace palette: charcoal surfaces and warm orange actions. */
 .dashboard-shell {
-  --color-background: #f4f5fc;
-  --color-surface: #fff;
-  --color-foreground: #182044;
-  --color-muted: #eeedf8;
-  --color-muted-foreground: #626984;
-  --color-border: #e4e5f0;
-  --color-primary-50: #f3edff;
-  --color-primary-200: #d8c4ff;
-  --color-primary-500: #8951ff;
-  --color-primary-600: #7935e8;
-  --color-primary-700: #6930cd;
-  --color-primary-900: #30205e;
-  --color-ring: #8951ff;
+  --color-background: #f4f5f5;
+  --color-surface: #ffffff;
+  --color-foreground: #202627;
+  --color-muted: #edf0f0;
+  --color-muted-foreground: #647172;
+  --color-border: #dce1e1;
+  --color-primary-50: #fff3e5;
+  --color-primary-200: #ffd3a3;
+  --color-primary-500: #f59b45;
+  --color-primary-600: #bd5c12;
+  --color-primary-700: #a64b09;
+  --color-primary-900: #57311d;
+  --color-ring: #e6974c;
 }
 .dark .dashboard-shell {
-  --color-background: #080e25;
-  --color-surface: #101936;
-  --color-foreground: #eef0ff;
-  --color-muted: #172243;
-  --color-muted-foreground: #a0a8c4;
-  --color-border: #202a4a;
-  --color-primary-500: #b752ff;
-  --color-primary-600: #8d35f0;
-  --color-primary-700: #ba78ff;
-  --color-ring: #b752ff;
+  --color-background: #131718;
+  --color-surface: #202628;
+  --color-foreground: #e9eded;
+  --color-muted: #292f32;
+  --color-muted-foreground: #9ba5a8;
+  --color-border: #303739;
+  --color-primary-600: #ad5313;
+  --color-primary-700: #f5b575;
+}
+.workspace-card {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  padding: 20px;
+}
+.workspace-eyebrow {
+  color: var(--color-muted-foreground);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 .dashboard-sidebar {
   width: 230px;
@@ -199,7 +210,7 @@
   padding: 32px;
 }
 .dashboard-shell button[class*='bg-primary-600'] {
-  background: linear-gradient(110deg, #c92cff, #7a27f5);
+  background: linear-gradient(110deg, #b75c19, #a3490f);
 }
 .dashboard-page h1 {
   font-size: 23px;
@@ -237,7 +248,7 @@
 }
 .dashboard-bars span {
   width: 40%;
-  background: #c437fa;
+  background: #e6974c;
   border-radius: 2px 2px 0 0;
 }
 .dashboard-bars span + span {
@@ -303,7 +314,9 @@
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  background: radial-gradient(ellipse at 90% 0%, #8951ff18, transparent 50%), radial-gradient(ellipse at 0% 95%, #21c3fc12, transparent 50%);
+  background:
+    radial-gradient(ellipse at 90% 0%, #8951ff18, transparent 50%),
+    radial-gradient(ellipse at 0% 95%, #21c3fc12, transparent 50%);
 }
 .auth-grid-card {
   background: var(--color-surface);
@@ -320,8 +333,14 @@
   color: #fff;
   box-shadow: 0 0 0 3px #8951ff19;
 }
-.auth-grid-card input:not([type='checkbox']) { min-height: 46px; border-radius: 8px; }
-.auth-grid-card h1 { font-size: 1.5rem; line-height: 1.35; }
+.auth-grid-card input:not([type='checkbox']) {
+  min-height: 46px;
+  border-radius: 8px;
+}
+.auth-grid-card h1 {
+  font-size: 1.5rem;
+  line-height: 1.35;
+}
 .dark .auth-grid-shell {
   --color-background: #080e25;
   --color-surface: #0d1635;
@@ -333,14 +352,32 @@
   --color-ring: #21c3fc;
 }
 .dark .auth-grid-shell::before {
-  background: radial-gradient(ellipse at 95% 0%, #0e43fb33, transparent 50%), radial-gradient(ellipse at 0% 90%, #8951ff22, transparent 45%);
+  background:
+    radial-gradient(ellipse at 95% 0%, #0e43fb33, transparent 50%),
+    radial-gradient(ellipse at 0% 90%, #8951ff22, transparent 45%);
 }
-.dark .auth-grid-card { box-shadow: 0 24px 100px #0005; }
+.dark .auth-grid-card {
+  box-shadow: 0 24px 100px #0005;
+}
 .dark .auth-brand-mark,
-.dark .auth-grid-card button[type='submit'] { background: linear-gradient(110deg, #c92cff, #8951ff 65%, #0e43fb); }
-.dark .auth-grid-card input:not([type='checkbox']) { background: #101a3b; }
-.auth-divider { display: flex; align-items: center; gap: 12px; }
-.auth-divider::before, .auth-divider::after { content: ''; height: 1px; flex: 1; background: var(--color-border); }
+.dark .auth-grid-card button[type='submit'] {
+  background: linear-gradient(110deg, #c92cff, #8951ff 65%, #0e43fb);
+}
+.dark .auth-grid-card input:not([type='checkbox']) {
+  background: #101a3b;
+}
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--color-border);
+}
 
 .auth-orbit-background {
   position: absolute;
@@ -349,7 +386,10 @@
   pointer-events: none;
   z-index: -1;
 }
-.auth-orbit-stage { position: absolute; inset: 0; }
+.auth-orbit-stage {
+  position: absolute;
+  inset: 0;
+}
 .auth-ripple-ring {
   position: absolute;
   top: 50%;
@@ -382,33 +422,89 @@
   background: #ffffffd9;
   box-shadow: 0 8px 28px #8951ff10;
 }
-.dark .auth-orbit-icon { color: #21c3fc; background: #101936e6; border-color: #8951ff66; box-shadow: 0 0 26px #8951ff18; }
-.dark .auth-ripple-ring { border-color: #8951ff; }
-.auth-grid-shell header { position: relative; z-index: 2; }
-.auth-grid-card { backdrop-filter: blur(16px); background: color-mix(in srgb, var(--color-surface) 96%, transparent); }
+.dark .auth-orbit-icon {
+  color: #21c3fc;
+  background: #101936e6;
+  border-color: #8951ff66;
+  box-shadow: 0 0 26px #8951ff18;
+}
+.dark .auth-ripple-ring {
+  border-color: #8951ff;
+}
+.auth-grid-shell header {
+  position: relative;
+  z-index: 2;
+}
+.auth-grid-card {
+  backdrop-filter: blur(16px);
+  background: color-mix(in srgb, var(--color-surface) 96%, transparent);
+}
 @keyframes auth-ripple {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(0.96); }
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.96);
+  }
 }
 @keyframes auth-orbit {
-  from { transform: rotate(0deg) translateY(var(--orbit-radius)) rotate(0deg); }
-  to { transform: rotate(360deg) translateY(var(--orbit-radius)) rotate(-360deg); }
+  from {
+    transform: rotate(0deg) translateY(var(--orbit-radius)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateY(var(--orbit-radius)) rotate(-360deg);
+  }
 }
 @media (max-width: 640px) {
-  .auth-orbit-stage { transform: scale(0.7); }
-  .auth-orbit-icon { opacity: 0.55; }
+  .auth-orbit-stage {
+    transform: scale(0.7);
+  }
+  .auth-orbit-icon {
+    opacity: 0.55;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .auth-ripple-ring, .auth-orbit-track { animation: none; }
-  .auth-orbit-track { transform: rotate(35deg) translateY(var(--orbit-radius)) rotate(-35deg); }
+  .auth-ripple-ring,
+  .auth-orbit-track {
+    animation: none;
+  }
+  .auth-orbit-track {
+    transform: rotate(35deg) translateY(var(--orbit-radius)) rotate(-35deg);
+  }
 }
 
-.auth-orbit-background { z-index: 0; }
-.auth-orbit-link { pointer-events: auto; cursor: pointer; transition: box-shadow 150ms; }
-.auth-orbit-link:hover, .auth-orbit-link:focus-visible { outline: 2px solid #21c3fc; outline-offset: 4px; box-shadow: 0 0 25px #8951ff55; }
+.auth-orbit-background {
+  z-index: 0;
+}
+.auth-orbit-link {
+  pointer-events: auto;
+  cursor: pointer;
+  transition: box-shadow 150ms;
+}
+.auth-orbit-link:hover,
+.auth-orbit-link:focus-visible {
+  outline: 2px solid #21c3fc;
+  outline-offset: 4px;
+  box-shadow: 0 0 25px #8951ff55;
+}
 .auth-orbit-background:has(.auth-orbit-link:hover) .auth-orbit-track,
-.auth-orbit-background:focus-within .auth-orbit-track { animation-play-state: paused; }
-.auth-grid-shell main { position: relative; pointer-events: none; }
-.auth-grid-shell .auth-grid-card { pointer-events: auto; }
+.auth-orbit-background:focus-within .auth-orbit-track {
+  animation-play-state: paused;
+}
+.auth-grid-shell main {
+  position: relative;
+  pointer-events: none;
+}
+.auth-grid-shell .auth-grid-card {
+  pointer-events: auto;
+}
 
-.myweb-auth-particles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+.myweb-auth-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}

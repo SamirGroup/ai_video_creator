@@ -60,7 +60,8 @@
     "adminConfig": "الإعدادات",
     "logout": "تسجيل الخروج",
     "language": "اللغة",
-    "theme": "المظهر"
+    "theme": "المظهر",
+    "assistant": "AI assistant"
   },
   "auth": {
     "login": {
