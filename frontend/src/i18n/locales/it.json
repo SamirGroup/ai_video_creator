@@ -42,10 +42,12 @@
       "title": "Pagina non trovata",
       "description": "La pagina che cerchi non esiste.",
       "backHome": "Torna al pannello"
-    }
+    },
+    "reload": "Ricarica",
+    "crashDescription": "Si è verificato un errore imprevisto. Di solito basta ricaricare la pagina."
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "Numeri virtuali",
     "dashboard": "Pannello",
     "channel": "Canale",
     "preferences": "Preferenze",
@@ -61,7 +63,12 @@
     "logout": "Esci",
     "language": "Lingua",
     "theme": "Tema",
-    "assistant": "AI assistant"
+    "assistant": "Assistente IA",
+    "partners": "Partner",
+    "adminSection": "Amministrazione",
+    "adminDashboard": "Pannello di amministrazione",
+    "primary": "Navigazione principale",
+    "toggle": "Apri o chiudi la navigazione"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "Motivo",
       "regenerateFrom": "Rigenera da",
       "confirmApprove": "Approvare e mettere in coda per il caricamento?",
-      "confirmReject": "Rifiutare questo video? Non verrà pubblicato."
+      "confirmReject": "Rifiutare questo video? Non verrà pubblicato.",
+      "stages": {
+        "script": "Script",
+        "voice": "Voice-over",
+        "visuals": "Visual"
+      }
     },
     "empty": {
       "title": "Ancora nessun video",
       "description": "I video compariranno qui non appena programmi o generi la tua prima attività."
     },
     "previewPlaceholder": "Spazio per l'anteprima del video",
-    "steps": "Fasi del processo"
+    "steps": "Fasi del processo",
+    "restoring": "Ripristino del video dall'archivio Telegram…",
+    "modelLabel": "Modello IA video"
   },
   "revenue": {
     "title": "Ricavi",
@@ -285,7 +299,24 @@
       "suspended": "Sospeso",
       "canceled": "Annullato",
       "expired": "Terminato"
-    }
+    },
+    "plans": "Piani",
+    "tax": "Imposte",
+    "total": "Totale",
+    "credits": "crediti",
+    "choosePlan": "Scegli il piano",
+    "connectTelegram": "Collega bot Telegram / Mini App",
+    "linkTelegram": "Collega questo account Telegram",
+    "telegramLinked": "Telegram collegato",
+    "aiBalance": "Saldo IA: ${{available}} · Riservato: ${{reserved}}",
+    "taxTotal": "Imposte: ${{tax}} · Totale: ${{total}}",
+    "aiCredits": "IA: ${{budget}} ({{credits}} crediti)",
+    "platform": "Piattaforma: ${{amount}}",
+    "usageNote": "Il consumo dipende dal modello, dai secondi, dai token di testo e dall'audio. 1 credito = $0.0001.",
+    "starsNotConfigured": "Non configurato",
+    "stars": "{{amount}} Stars",
+    "perMonth": "mese",
+    "perSixMonths": "6 mesi"
   },
   "contract": {
     "title": "Contratto",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "La tua prossima idea parte da qui.",
     "ctaText": "Crea un profilo, esplora gli strumenti e allestisci uno spazio di lavoro per il tuo canale.",
-    "footer": "Un unico spazio per creare e gestire i contenuti YouTube."
+    "footer": "Un unico spazio per creare e gestire i contenuti YouTube.",
+    "reduceMotion": "Riduci le animazioni",
+    "enableAnimations": "Attiva le animazioni",
+    "dismiss": "Chiudi",
+    "partnersLabel": "Partner e integrazioni"
   },
   "planning": {
     "title": "Piano editoriale",
@@ -427,6 +462,185 @@
       "approved": "Approvato",
       "failed": "Non riuscito",
       "canceled": "Annullato"
+    },
+    "budgetCapacity": "Capacità disponibile nel tuo piano",
+    "useMonthlyBudget": "Pianifica questo mese entro il mio budget",
+    "budgetEstimate": "La capacità si basa sul tetto di spesa per video. Il costo effettivo varia in base al modello, alla durata e alle rigenerazioni; il credito viene verificato di nuovo prima della generazione.",
+    "videoModelLabel": "Modello video"
+  },
+  "studio": {
+    "adminLabel": "Centro operativo",
+    "creatorLabel": "Il tuo studio creativo",
+    "adminTitle": "Tutto il tuo ecosistema, in un colpo d'occhio.",
+    "creatorTitle": "Trasforma la tua prossima idea in un video.",
+    "adminDescription": "Gestisci servizi IA, clienti e il tuo flusso di contenuti in un unico posto.",
+    "creatorDescription": "Pianifica con il tuo assistente IA personale, prepara i contenuti e fai crescere il tuo canale.",
+    "configure": "Gestisci le integrazioni",
+    "openAssistant": "Apri l'assistente IA",
+    "planDetail": "Dall'idea al calendario di pubblicazione",
+    "videoDetail": "Video e approvazione dei contenuti",
+    "channelDetail": "Gestisci il tuo canale YouTube"
+  },
+  "modelCatalog": {
+    "title": "Prezzi dei modelli IA",
+    "note": "La generazione video è fatturata al secondo. I crediti sono il saldo della piattaforma, non token del modello. Anche voce, script e rigenerazioni consumano credito.",
+    "Model": "Modello",
+    "USD / unit": "USD / unità",
+    "Credits / unit": "Crediti / unità",
+    "Plans": "Piani",
+    "Availability": "Disponibilità",
+    "source": "Fonte del prezzo",
+    "ready": "Pronto",
+    "pending": "Configurazione in sospeso",
+    "per_second": "al secondo",
+    "per_clip": "a clip",
+    "launchOffer": "Offerta di lancio; verifica prima di attivare."
+  },
+  "assistant": {
+    "eyebrow": "Spazio creator",
+    "title": "Il tuo assistente IA personale",
+    "subtitle": "Dall'idea alla pubblicazione: ogni passaggio resta sotto il tuo controllo.",
+    "connected": "IA collegata",
+    "awaitingConnection": "In attesa del collegamento dell'IA",
+    "loading": "Preparazione del tuo assistente…",
+    "stats": {
+      "channel": "Canale",
+      "channelConnected": "Collegato",
+      "channelDisconnected": "Non collegato",
+      "plans": "Piani editoriali",
+      "limit": "Limite di messaggi",
+      "limitValue": "{{limit}} / giorno"
+    },
+    "chat": {
+      "title": "Consulente per i creator",
+      "subtitle": "Un aiuto basato sul tuo profilo e sullo stato del canale",
+      "welcome": "Benvenuto! Inizia collegando il canale, poi imposta lingua, direzione e calendario dei contenuti. L'IA propone un piano editoriale. I video vengono prodotti dal piano che approvi, passano la moderazione e vanno in pubblicazione. Compila il profilo e adatterò i consigli al tuo obiettivo.",
+      "failed": "Non è stato possibile preparare la risposta. Controlla il collegamento dell'IA o il tuo saldo e riprova.",
+      "working": "L'IA sta preparando una risposta…",
+      "cost": "Spesa IA: ${{amount}}",
+      "inputLabel": "La tua domanda",
+      "placeholder": "Chiedi del tuo piano editoriale, del pubblico o del prossimo passo…",
+      "disabledPlaceholder": "La chat si apre quando un amministratore collega il servizio IA.",
+      "disclaimer": "L'IA dà consigli. Piani e pubblicazione restano soggetti alle regole di approvazione.",
+      "send": "Invia ↗"
+    },
+    "profile": {
+      "title": "Il tuo obiettivo",
+      "subtitle": "L'assistente adatta i consigli al tuo profilo.",
+      "goal": "Obiettivo del canale",
+      "goalPlaceholder": "Per esempio, fare Shorts sulla tecnologia in uzbeko",
+      "region": "Area del pubblico",
+      "regionPlaceholder": "Uzbekistan",
+      "language": "Lingua della chat",
+      "timezone": "Fuso orario",
+      "saving": "Salvataggio…",
+      "save": "Salva profilo",
+      "saved": "Profilo salvato."
+    },
+    "planner": {
+      "title": "Prepara un piano settimanale",
+      "description": "In base alle tue impostazioni dei contenuti, all'area e al budget. Un piano pronto non va in pubblicazione finché non lo approvi.",
+      "count": "Numero di video",
+      "working": "Preparazione…",
+      "submit": "Lascia che l'IA proponga un piano",
+      "review": "Esamina e approva la proposta ↗",
+      "connectFirst": "Collega prima il canale"
+    },
+    "steps": {
+      "title": "Primi passi",
+      "channel": {
+        "title": "Collega il canale",
+        "detail": "Collega il tuo account YouTube in sicurezza"
+      },
+      "preferences": {
+        "title": "Direzione dei contenuti",
+        "detail": "Scegli lingua, tema, formato e ora di pubblicazione"
+      },
+      "plan": {
+        "title": "Approva il piano",
+        "detail": "Esamina le proposte dell'IA e approvale"
+      },
+      "videos": {
+        "title": "Video e moderazione",
+        "detail": "Segui il processo e controlla il video finito"
+      },
+      "revenue": {
+        "title": "Analisi dei risultati",
+        "detail": "Il prossimo passo, in base ai dati del canale"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Numeri virtuali",
+    "subtitle": "Noleggio di un numero privato e messaggi, in un unico account.",
+    "terms": {
+      "title": "Condizioni del servizio",
+      "p1": "Il numero è assegnato solo a te per un periodo prestabilito. Il codice lo inserisci tu stesso nell'app interessata. La consegna del messaggio e l'accettazione del numero da parte della piattaforma non sono garantite. La monetizzazione YouTube dipende da requisiti separati.",
+      "p2": "Il noleggio non si rinnova automaticamente. Prima della scadenza sposta il tuo account su un numero che controlli direttamente. I messaggi vengono conservati per un massimo di 24 ore. In caso di problemi, invia una richiesta di rimborso dall'ordine.",
+      "consent": "Userò il servizio solo per account di mia proprietà e accetto le condizioni di noleggio."
+    },
+    "salesPending": "Il servizio è ancora in preparazione. Le vendite apriranno al termine del contratto con il provider e del collegamento dei messaggi. Al momento non viene addebitato alcun pagamento.",
+    "payment": {
+      "title": "Metodo di pagamento",
+      "unavailable": " — collegamento in attesa",
+      "sandbox": " — modalità di prova",
+      "note": "Il pagamento si completa sulla pagina sicura del provider scelto.",
+      "selectFirst": "Seleziona un metodo di pagamento."
+    },
+    "filter": {
+      "service": "Servizio",
+      "country": "Paese",
+      "all": "Tutti",
+      "otherService": "Altro"
+    },
+    "catalog": {
+      "loading": "Caricamento del catalogo…",
+      "failed": "Non è stato possibile caricare il catalogo."
+    },
+    "offer": {
+      "days": "/ {{days}} giorni",
+      "mobile": "Numero mobile",
+      "voip": "Numero VoIP",
+      "unavailable": "Non disponibile al momento",
+      "available": "{{available}} disponibili",
+      "rent": "Noleggia",
+      "none": "Per questa selezione non ci sono ancora offerte. I piani approvati compariranno qui."
+    },
+    "orders": {
+      "title": "I miei numeri e messaggi",
+      "loading": "Caricamento degli ordini…",
+      "failed": "Non è stato possibile caricare gli ordini.",
+      "empty": "Non hai ancora noleggiato un numero."
+    },
+    "rental": {
+      "checkPayPal": "Verifica il pagamento PayPal",
+      "paypalPending": "Il pagamento PayPal non è ancora completato. Confermalo sulla pagina PayPal o controlla più tardi.",
+      "expiresAt": "Fine del noleggio: {{date}}",
+      "continuePayment": "Continua il pagamento",
+      "closeInbox": "Chiudi il pannello dei messaggi",
+      "openInbox": "Vedi i messaggi",
+      "inboxLoading": "Caricamento dei messaggi…",
+      "inboxFailed": "Non è stato possibile caricare i messaggi.",
+      "inboxEmpty": "Non è ancora arrivato nessun messaggio. Il pannello si aggiorna ogni 10 secondi.",
+      "refundLabel": "In caso di problemi, il motivo della tua richiesta di rimborso",
+      "refundSubmit": "Invia per la revisione"
+    },
+    "status": {
+      "pending": "In attesa di pagamento",
+      "active": "Attivo",
+      "expired": "Scaduto",
+      "canceled": "Annullato",
+      "refund_requested": "Richiesta di rimborso in esame",
+      "refunded": "Rimborsato"
+    },
+    "price": {
+      "base": "Prezzo del provider",
+      "margin": "Margine della piattaforma ({{pct}}%)",
+      "tax": "Imposta ({{pct}}%)",
+      "total": "Totale da pagare",
+      "basisBase": "prezzo del provider",
+      "basisWithMargin": "prezzo del provider + margine della piattaforma",
+      "note": "Base imponibile: {{basis}}. I prezzi sono in USD."
     }
   }
 }

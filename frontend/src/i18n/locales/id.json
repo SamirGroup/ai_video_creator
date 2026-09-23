@@ -42,10 +42,12 @@
       "title": "Halaman tidak ditemukan",
       "description": "Halaman yang Anda cari tidak ada.",
       "backHome": "Kembali ke dasbor"
-    }
+    },
+    "reload": "Muat ulang",
+    "crashDescription": "Terjadi kesalahan tak terduga. Memuat ulang halaman biasanya mengatasinya."
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "Nomor virtual",
     "dashboard": "Dasbor",
     "channel": "Saluran",
     "preferences": "Preferensi",
@@ -61,7 +63,12 @@
     "logout": "Keluar",
     "language": "Bahasa",
     "theme": "Tema",
-    "assistant": "AI assistant"
+    "assistant": "Asisten AI",
+    "partners": "Mitra",
+    "adminSection": "Admin",
+    "adminDashboard": "Dasbor admin",
+    "primary": "Navigasi utama",
+    "toggle": "Buka atau tutup menu"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "Alasan",
       "regenerateFrom": "Buat ulang dari",
       "confirmApprove": "Setujui dan masukkan ke antrean unggah?",
-      "confirmReject": "Tolak video ini? Video tidak akan dipublikasikan."
+      "confirmReject": "Tolak video ini? Video tidak akan dipublikasikan.",
+      "stages": {
+        "script": "Naskah",
+        "voice": "Suara",
+        "visuals": "Visual"
+      }
     },
     "empty": {
       "title": "Belum ada video",
       "description": "Video akan muncul di sini setelah tugas pertama Anda dijadwalkan atau dibuat."
     },
     "previewPlaceholder": "Placeholder pratinjau video",
-    "steps": "Tahapan pipeline"
+    "steps": "Tahapan pipeline",
+    "restoring": "Memulihkan video Anda dari arsip Telegram…",
+    "modelLabel": "Model AI video"
   },
   "revenue": {
     "title": "Pendapatan",
@@ -285,7 +299,24 @@
       "suspended": "Ditangguhkan",
       "canceled": "Dibatalkan",
       "expired": "Kedaluwarsa"
-    }
+    },
+    "plans": "Paket",
+    "tax": "Pajak",
+    "total": "Total",
+    "credits": "kredit",
+    "choosePlan": "Pilih paket",
+    "connectTelegram": "Hubungkan bot Telegram / Mini App",
+    "linkTelegram": "Tautkan akun Telegram ini",
+    "telegramLinked": "Telegram tertaut",
+    "aiBalance": "Saldo AI: ${{available}} · Dicadangkan: ${{reserved}}",
+    "taxTotal": "Pajak: ${{tax}} · Total: ${{total}}",
+    "aiCredits": "AI: ${{budget}} ({{credits}} kredit)",
+    "platform": "Platform: ${{amount}}",
+    "usageNote": "Pemakaian bergantung pada model, detik, token teks, dan audio. 1 kredit = $0.0001.",
+    "starsNotConfigured": "Belum dikonfigurasi",
+    "stars": "{{amount}} Stars",
+    "perMonth": "bln",
+    "perSixMonths": "6 bln"
   },
   "contract": {
     "title": "Kontrak",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "Ide Anda berikutnya dimulai di sini.",
     "ctaText": "Buat profil, jelajahi alatnya, dan siapkan ruang kerja untuk channel Anda.",
-    "footer": "Satu ruang kerja untuk membuat dan mengelola konten YouTube."
+    "footer": "Satu ruang kerja untuk membuat dan mengelola konten YouTube.",
+    "reduceMotion": "Kurangi animasi",
+    "enableAnimations": "Aktifkan animasi",
+    "dismiss": "Tutup",
+    "partnersLabel": "Mitra dan integrasi"
   },
   "planning": {
     "title": "Rencana konten",
@@ -427,6 +462,185 @@
       "approved": "Disetujui",
       "failed": "Gagal",
       "canceled": "Dibatalkan"
+    },
+    "budgetCapacity": "Kapasitas yang tersedia di paket",
+    "useMonthlyBudget": "Rencanakan bulan ini sesuai anggaran saya",
+    "budgetEstimate": "Kapasitas dihitung dari batas pengeluaran per video. Biaya sebenarnya bergantung pada model, durasi, dan pembuatan ulang; kredit diperiksa lagi sebelum pembuatan.",
+    "videoModelLabel": "Model video"
+  },
+  "studio": {
+    "adminLabel": "Pusat operasional",
+    "creatorLabel": "Studio kreatif Anda",
+    "adminTitle": "Seluruh ekosistem Anda dalam satu layar.",
+    "creatorTitle": "Ubah ide Anda berikutnya menjadi video.",
+    "adminDescription": "Kelola layanan AI, pelanggan, dan alur kerja konten Anda di satu tempat.",
+    "creatorDescription": "Rencanakan bersama asisten AI pribadi Anda, siapkan konten, dan kembangkan channel Anda.",
+    "configure": "Kelola integrasi",
+    "openAssistant": "Buka asisten AI",
+    "planDetail": "Dari ide sampai jadwal terbit",
+    "videoDetail": "Video dan persetujuan konten",
+    "channelDetail": "Kelola channel YouTube Anda"
+  },
+  "modelCatalog": {
+    "title": "Harga model AI",
+    "note": "Pembuatan video ditagih per detik. Kredit adalah saldo platform, bukan token model. Suara, naskah, dan pembuatan ulang juga memakai kredit.",
+    "Model": "Model",
+    "USD / unit": "USD / unit",
+    "Credits / unit": "Kredit / unit",
+    "Plans": "Paket",
+    "Availability": "Ketersediaan",
+    "source": "Sumber harga",
+    "ready": "Siap",
+    "pending": "Menunggu konfigurasi",
+    "per_second": "per detik",
+    "per_clip": "per klip",
+    "launchOffer": "Penawaran peluncuran; periksa sebelum diaktifkan."
+  },
+  "assistant": {
+    "eyebrow": "Ruang kerja kreator",
+    "title": "Asisten AI pribadi Anda",
+    "subtitle": "Dari ide sampai terbit — setiap langkah tetap Anda kendalikan.",
+    "connected": "AI terhubung",
+    "awaitingConnection": "Menunggu koneksi AI",
+    "loading": "Menyiapkan asisten Anda…",
+    "stats": {
+      "channel": "Saluran",
+      "channelConnected": "Terhubung",
+      "channelDisconnected": "Belum terhubung",
+      "plans": "Rencana konten",
+      "limit": "Batas obrolan",
+      "limitValue": "{{limit}} / hari"
+    },
+    "chat": {
+      "title": "Penasihat kreator",
+      "subtitle": "Bantuan berdasarkan profil dan status saluran Anda",
+      "welcome": "Selamat datang! Mulailah dengan menghubungkan saluran Anda, lalu tentukan bahasa, arah, dan jadwal konten. AI akan mengusulkan rencana konten. Video diproduksi dari rencana yang Anda setujui, melewati moderasi, lalu dikirim untuk dipublikasikan. Lengkapi profil Anda dan saya akan menyesuaikan saran dengan tujuan Anda.",
+      "failed": "Jawaban tidak dapat disiapkan. Periksa koneksi AI atau saldo Anda, lalu coba lagi.",
+      "working": "AI sedang menyiapkan jawaban…",
+      "cost": "Pengeluaran AI: ${{amount}}",
+      "inputLabel": "Pertanyaan Anda",
+      "placeholder": "Tanyakan soal rencana konten, audiens, atau langkah berikutnya…",
+      "disabledPlaceholder": "Obrolan terbuka setelah administrator menghubungkan layanan AI.",
+      "disclaimer": "AI memberi saran. Rencana dan publikasi tetap mengikuti aturan persetujuan.",
+      "send": "Kirim ↗"
+    },
+    "profile": {
+      "title": "Tujuan Anda",
+      "subtitle": "Asisten menyesuaikan sarannya dengan profil Anda.",
+      "goal": "Tujuan saluran",
+      "goalPlaceholder": "Misalnya, membuat Shorts tentang teknologi dalam bahasa Uzbek",
+      "region": "Wilayah audiens",
+      "regionPlaceholder": "Uzbekistan",
+      "language": "Bahasa obrolan",
+      "timezone": "Zona waktu",
+      "saving": "Menyimpan…",
+      "save": "Simpan profil",
+      "saved": "Profil disimpan."
+    },
+    "planner": {
+      "title": "Siapkan rencana mingguan",
+      "description": "Berdasarkan pengaturan konten, wilayah, dan anggaran Anda. Rencana yang sudah jadi tidak dikirim untuk dipublikasikan sampai Anda menyetujuinya.",
+      "count": "Jumlah video",
+      "working": "Menyiapkan…",
+      "submit": "Biarkan AI mengusulkan rencana",
+      "review": "Tinjau dan setujui usulannya ↗",
+      "connectFirst": "Hubungkan saluran Anda dulu"
+    },
+    "steps": {
+      "title": "Langkah awal",
+      "channel": {
+        "title": "Hubungkan saluran Anda",
+        "detail": "Hubungkan akun YouTube Anda dengan aman"
+      },
+      "preferences": {
+        "title": "Arah konten",
+        "detail": "Pilih bahasa, topik, format, dan waktu publikasi"
+      },
+      "plan": {
+        "title": "Setujui rencananya",
+        "detail": "Tinjau usulan AI lalu setujui"
+      },
+      "videos": {
+        "title": "Video dan moderasi",
+        "detail": "Ikuti prosesnya dan periksa video yang sudah jadi"
+      },
+      "revenue": {
+        "title": "Analisis hasil",
+        "detail": "Langkah Anda berikutnya, berdasarkan data saluran"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Nomor virtual",
+    "subtitle": "Sewa nomor pribadi dan pesannya — dalam satu akun.",
+    "terms": {
+      "title": "Ketentuan layanan",
+      "p1": "Nomor ini ditetapkan hanya untuk Anda selama periode tertentu. Anda sendiri yang memasukkan kodenya di aplikasi terkait. Sampainya pesan, dan diterimanya nomor oleh platform tujuan, tidak dijamin. Monetisasi YouTube bergantung pada persyaratan tersendiri.",
+      "p2": "Sewa tidak diperpanjang otomatis. Pindahkan akun Anda ke nomor yang Anda kendalikan sendiri sebelum periodenya berakhir. Pesan disimpan paling lama 24 jam. Jika ada masalah, kirim permintaan pengembalian dana dari pesanan.",
+      "consent": "Saya hanya akan menggunakannya untuk akun milik saya sendiri, dan saya menerima ketentuan sewa."
+    },
+    "salesPending": "Layanan ini masih disiapkan. Penjualan dibuka setelah kontrak penyedia dan koneksi pesan selesai. Saat ini tidak ada pembayaran yang ditarik.",
+    "payment": {
+      "title": "Metode pembayaran",
+      "unavailable": " — menunggu koneksi",
+      "sandbox": " — mode uji",
+      "note": "Anda menyelesaikan pembayaran di halaman aman penyedia yang dipilih.",
+      "selectFirst": "Pilih metode pembayaran."
+    },
+    "filter": {
+      "service": "Layanan",
+      "country": "Negara",
+      "all": "Semua",
+      "otherService": "Lainnya"
+    },
+    "catalog": {
+      "loading": "Memuat katalog…",
+      "failed": "Katalog tidak dapat dimuat."
+    },
+    "offer": {
+      "days": "/ {{days}} hari",
+      "mobile": "Nomor seluler",
+      "voip": "Nomor VoIP",
+      "unavailable": "Tidak tersedia saat ini",
+      "available": "{{available}} tersedia",
+      "rent": "Sewa",
+      "none": "Belum ada penawaran untuk pilihan ini. Paket yang disetujui akan muncul di sini."
+    },
+    "orders": {
+      "title": "Nomor dan pesan saya",
+      "loading": "Memuat pesanan…",
+      "failed": "Pesanan tidak dapat dimuat.",
+      "empty": "Anda belum menyewa nomor."
+    },
+    "rental": {
+      "checkPayPal": "Periksa pembayaran PayPal",
+      "paypalPending": "Pembayaran PayPal belum selesai. Konfirmasikan di halaman PayPal atau periksa lagi nanti.",
+      "expiresAt": "Sewa berakhir: {{date}}",
+      "continuePayment": "Lanjutkan pembayaran",
+      "closeInbox": "Tutup panel pesan",
+      "openInbox": "Lihat pesan",
+      "inboxLoading": "Memuat pesan…",
+      "inboxFailed": "Pesan tidak dapat dimuat.",
+      "inboxEmpty": "Belum ada pesan yang masuk. Panel ini disegarkan setiap 10 detik.",
+      "refundLabel": "Jika ada masalah, alasan permintaan pengembalian dana Anda",
+      "refundSubmit": "Kirim untuk ditinjau"
+    },
+    "status": {
+      "pending": "Menunggu pembayaran",
+      "active": "Aktif",
+      "expired": "Kedaluwarsa",
+      "canceled": "Dibatalkan",
+      "refund_requested": "Permintaan pengembalian dana sedang ditinjau",
+      "refunded": "Dana dikembalikan"
+    },
+    "price": {
+      "base": "Harga penyedia",
+      "margin": "Margin platform ({{pct}}%)",
+      "tax": "Pajak ({{pct}}%)",
+      "total": "Total tagihan",
+      "basisBase": "harga penyedia",
+      "basisWithMargin": "harga penyedia + margin platform",
+      "note": "Dasar pajak: {{basis}}. Harga dalam USD."
     }
   }
 }

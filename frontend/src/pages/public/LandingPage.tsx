@@ -74,23 +74,26 @@ function useMotionPreference() {
  * still page knows why and can turn it on for this site.
  */
 function MotionNotice({ onEnable }: { onEnable: () => void }) {
+  const { t } = useTranslation()
   const [dismissed, setDismissed] = useState(false)
   if (dismissed) return null
   return (
     <div className="fixed bottom-4 left-1/2 z-[60] flex -translate-x-1/2 items-center gap-3 rounded-full border border-black/10 bg-white/90 px-4 py-2 font-geist text-[10px] uppercase tracking-[0.2em] shadow-lg backdrop-blur-xl dark:border-white/15 dark:bg-neutral-900/90">
-      <span className="text-neutral-500 dark:text-neutral-400">Reduce Motion</span>
+      <span className="text-neutral-500 dark:text-neutral-400">
+        {t('landing.reduceMotion')}
+      </span>
       <button
         type="button"
         onClick={onEnable}
         className="rounded-full px-3 py-1 font-bold text-neutral-950 dark:text-neutral-950"
         style={{ backgroundColor: ACCENT }}
       >
-        Enable animations
+        {t('landing.enableAnimations')}
       </button>
       <button
         type="button"
         onClick={() => setDismissed(true)}
-        aria-label="Dismiss"
+        aria-label={t('landing.dismiss')}
         className="text-neutral-400 transition-colors hover:text-neutral-950 dark:hover:text-neutral-50"
       >
         ✕
@@ -633,7 +636,7 @@ function LandingPageInner() {
         </section>
 
         {/* --------------------------------------------------------- process */}
-        <section id="integrations" aria-label="Hamkorlar va integratsiyalar">
+        <section id="integrations" aria-label={t('landing.partnersLabel')}>
           <PartnersBanner />
         </section>
 

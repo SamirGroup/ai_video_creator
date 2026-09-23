@@ -1,9 +1,11 @@
+import { Users, Radio, Clapperboard, Wallet, RefreshCw } from 'lucide-react'
+import { WorkspaceHero, ProviderMark } from '@/components/dashboard/WorkspaceVisuals'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { assistantApi, type Policy } from '@/api/assistant'
-import { adminNavItems } from '@/components/layout/navConfig'
+import { adminNavItems, NavIcon } from '@/components/layout/navConfig'
 import { useAuth } from '@/hooks/useAuth'
 import { ErrorState } from '@/components/common/StateViews'
 import { Button } from '@/components/ui/Button'
@@ -84,7 +86,7 @@ export function AdminDashboardPage() {
   const total = data?.jobs.reduce((sum, j) => sum + j.count, 0) || 0
   const missing = data?.integrations.filter((p) => p.active && !p.configured).length || 0
   return (
-    <div className="space-y-5">
+    <div className="dashboard-page space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="workspace-eyebrow">ADMIN / OPERATIONS</p>
@@ -98,9 +100,15 @@ export function AdminDashboardPage() {
           onClick={() => query.refetch()}
           disabled={query.isFetching}
         >
-          ↻ Yangilash
+          <RefreshCw
+            size={15}
+            className={query.isFetching ? 'animate-spin' : ''}
+            aria-hidden="true"
+          />{' '}
+          Yangilash
         </Button>
       </div>
+      <WorkspaceHero admin />
       {missing > 0 && (
         <div
           role="status"
@@ -124,8 +132,20 @@ export function AdminDashboardPage() {
             'AI sarfi · 30 kun',
             data ? '$' + Number(data.ai_cost_30d).toFixed(2) : undefined,
           ],
-        ].map(([label, value]) => (
-          <div className="workspace-card" key={label}>
+        ].map(([label, value], index) => (
+          <div className="workspace-card studio-metric" key={label}>
+            <span
+              className={`studio-icon mb-4 ${['studio-mint', 'studio-blue', 'studio-violet', 'studio-amber'][index]}`}
+            >
+              {
+                [
+                  <Users size={20} key="users" />,
+                  <Radio size={20} key="channels" />,
+                  <Clapperboard size={20} key="videos" />,
+                  <Wallet size={20} key="cost" />,
+                ][index]
+              }
+            </span>
             <p className="workspace-eyebrow">{label}</p>
             <p className="mt-3 text-2xl font-semibold">{value ?? '—'}</p>
             <div className="mt-4 h-0.5 w-12 rounded bg-orange-400/60" />
@@ -154,7 +174,10 @@ export function AdminDashboardPage() {
                   <tr className="border-t border-border" key={i}>
                     <td className="px-5 py-4">{p.service}</td>
                     <td className="px-5 py-4">
-                      <p>{p.provider}</p>
+                      <div className="flex items-center gap-3">
+                        <ProviderMark service={p.service} />
+                        <p className="font-semibold">{p.provider}</p>
+                      </div>
                       <p
                         className="mt-1 max-w-72 truncate text-xs text-muted-foreground"
                         title={p.model}
@@ -229,12 +252,11 @@ export function AdminDashboardPage() {
             {adminNavItems
               .filter((item) => !item.roles || hasAnyRole(item.roles))
               .map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  className="rounded-lg border border-border p-4 text-sm transition-colors hover:border-orange-400/40 hover:bg-muted"
-                >
-                  {t(item.labelKey)}{' '}
+                <Link key={item.to} to={item.to} className="studio-shortcut text-sm">
+                  <span className="studio-icon studio-amber">
+                    <NavIcon to={item.to} />
+                  </span>
+                  <span className="flex-1">{t(item.labelKey)}</span>
                   <span className="float-right text-orange-400">↗</span>
                 </Link>
               ))}

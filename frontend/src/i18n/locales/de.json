@@ -42,10 +42,12 @@
       "title": "Seite nicht gefunden",
       "description": "Die gesuchte Seite existiert nicht.",
       "backHome": "Zurück zur Übersicht"
-    }
+    },
+    "reload": "Neu laden",
+    "crashDescription": "Ein unerwarteter Fehler ist aufgetreten. Meist hilft es, die Seite neu zu laden."
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "Virtuelle Nummern",
     "dashboard": "Übersicht",
     "channel": "Kanal",
     "preferences": "Einstellungen",
@@ -61,7 +63,12 @@
     "logout": "Abmelden",
     "language": "Sprache",
     "theme": "Design",
-    "assistant": "AI assistant"
+    "assistant": "KI-Assistent",
+    "partners": "Partner",
+    "adminSection": "Administration",
+    "adminDashboard": "Admin-Übersicht",
+    "primary": "Hauptnavigation",
+    "toggle": "Navigation ein- oder ausblenden"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "Grund",
       "regenerateFrom": "Neu erstellen ab",
       "confirmApprove": "Freigeben und für den Upload einplanen?",
-      "confirmReject": "Dieses Video ablehnen? Es wird nicht veröffentlicht."
+      "confirmReject": "Dieses Video ablehnen? Es wird nicht veröffentlicht.",
+      "stages": {
+        "script": "Skript",
+        "voice": "Voice-over",
+        "visuals": "Visuals"
+      }
     },
     "empty": {
       "title": "Noch keine Videos",
       "description": "Videos erscheinen hier, sobald dein erster Auftrag geplant oder erstellt wurde."
     },
     "previewPlaceholder": "Platzhalter für die Videovorschau",
-    "steps": "Schritte im Ablauf"
+    "steps": "Schritte im Ablauf",
+    "restoring": "Dein Video wird aus dem Telegram-Archiv wiederhergestellt…",
+    "modelLabel": "Video-KI-Modell"
   },
   "revenue": {
     "title": "Einnahmen",
@@ -285,7 +299,24 @@
       "suspended": "Gesperrt",
       "canceled": "Gekündigt",
       "expired": "Abgelaufen"
-    }
+    },
+    "plans": "Tarife",
+    "tax": "Steuer",
+    "total": "Gesamt",
+    "credits": "Credits",
+    "choosePlan": "Tarif wählen",
+    "connectTelegram": "Telegram-Bot / Mini App verbinden",
+    "linkTelegram": "Dieses Telegram-Konto verknüpfen",
+    "telegramLinked": "Telegram verknüpft",
+    "aiBalance": "KI-Guthaben: ${{available}} · Reserviert: ${{reserved}}",
+    "taxTotal": "Steuer: ${{tax}} · Gesamt: ${{total}}",
+    "aiCredits": "KI: ${{budget}} ({{credits}} Credits)",
+    "platform": "Plattform: ${{amount}}",
+    "usageNote": "Der Verbrauch hängt von Modell, Sekunden, Text-Tokens und Audio ab. 1 Credit = $0,0001.",
+    "starsNotConfigured": "Nicht konfiguriert",
+    "stars": "{{amount}} Stars",
+    "perMonth": "Mon.",
+    "perSixMonths": "6 Mon."
   },
   "contract": {
     "title": "Vertrag",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "Deine nächste Idee beginnt hier.",
     "ctaText": "Erstelle ein Profil, entdecke die Tools und richte einen Arbeitsplatz für deinen Kanal ein.",
-    "footer": "Ein Arbeitsplatz für die Erstellung und Verwaltung von YouTube-Inhalten."
+    "footer": "Ein Arbeitsplatz für die Erstellung und Verwaltung von YouTube-Inhalten.",
+    "reduceMotion": "Bewegung reduzieren",
+    "enableAnimations": "Animationen aktivieren",
+    "dismiss": "Schließen",
+    "partnersLabel": "Partner und Integrationen"
   },
   "planning": {
     "title": "Contentplan",
@@ -427,6 +462,185 @@
       "approved": "Freigegeben",
       "failed": "Fehlgeschlagen",
       "canceled": "Abgebrochen"
+    },
+    "budgetCapacity": "Verfügbares Kontingent im Tarif",
+    "useMonthlyBudget": "Diesen Monat im Rahmen meines Budgets planen",
+    "budgetEstimate": "Das Kontingent beruht auf der Ausgabenobergrenze pro Video. Die tatsächlichen Kosten hängen von Modell, Länge und Neuversuchen ab; das Guthaben wird vor der Generierung erneut geprüft.",
+    "videoModelLabel": "Videomodell"
+  },
+  "studio": {
+    "adminLabel": "Steuerzentrale",
+    "creatorLabel": "Dein Kreativstudio",
+    "adminTitle": "Dein gesamtes Ökosystem auf einen Blick.",
+    "creatorTitle": "Mach aus deiner nächsten Idee ein Video.",
+    "adminDescription": "Verwalte KI-Dienste, Kunden und deinen Content-Workflow an einem Ort.",
+    "creatorDescription": "Plane mit deinem persönlichen KI-Assistenten, bereite Inhalte vor und lass deinen Kanal wachsen.",
+    "configure": "Integrationen verwalten",
+    "openAssistant": "KI-Assistenten öffnen",
+    "planDetail": "Von der Idee bis zum Veröffentlichungsplan",
+    "videoDetail": "Videos und Freigabe von Inhalten",
+    "channelDetail": "YouTube-Kanal verwalten"
+  },
+  "modelCatalog": {
+    "title": "Preise der KI-Modelle",
+    "note": "Die Videogenerierung wird pro Sekunde abgerechnet. Credits sind das Guthaben der Plattform, keine Modell-Tokens. Auch Stimme, Skripte und Neuversuche verbrauchen Guthaben.",
+    "Model": "Modell",
+    "USD / unit": "USD / Einheit",
+    "Credits / unit": "Credits / Einheit",
+    "Plans": "Tarife",
+    "Availability": "Verfügbarkeit",
+    "source": "Preisquelle",
+    "ready": "Bereit",
+    "pending": "Konfiguration ausstehend",
+    "per_second": "pro Sekunde",
+    "per_clip": "pro Clip",
+    "launchOffer": "Einführungsangebot; vor der Aktivierung prüfen."
+  },
+  "assistant": {
+    "eyebrow": "Creator-Arbeitsplatz",
+    "title": "Dein persönlicher KI-Assistent",
+    "subtitle": "Von der Idee bis zur Veröffentlichung — jeder Schritt bleibt unter deiner Kontrolle.",
+    "connected": "KI verbunden",
+    "awaitingConnection": "Warten auf die KI-Verbindung",
+    "loading": "Dein Assistent wird vorbereitet…",
+    "stats": {
+      "channel": "Kanal",
+      "channelConnected": "Verbunden",
+      "channelDisconnected": "Nicht verbunden",
+      "plans": "Contentpläne",
+      "limit": "Chat-Limit",
+      "limitValue": "{{limit}} / Tag"
+    },
+    "chat": {
+      "title": "Creator-Berater",
+      "subtitle": "Hilfe auf Basis deines Profils und deines Kanalstatus",
+      "welcome": "Willkommen! Verbinde zuerst deinen Kanal und lege dann Inhaltssprache, Richtung und Zeitplan fest. Die KI schlägt dir einen Contentplan vor. Aus dem Plan, den du freigibst, entstehen Videos, die durch die Moderation gehen und anschließend veröffentlicht werden. Fülle dein Profil aus, dann richte ich meine Tipps auf dein Ziel aus.",
+      "failed": "Die Antwort konnte nicht erstellt werden. Prüfe die KI-Verbindung oder dein Guthaben und versuche es erneut.",
+      "working": "Die KI bereitet eine Antwort vor…",
+      "cost": "KI-Ausgaben: ${{amount}}",
+      "inputLabel": "Deine Frage",
+      "placeholder": "Frag nach deinem Contentplan, deiner Zielgruppe oder dem nächsten Schritt…",
+      "disabledPlaceholder": "Der Chat öffnet sich, sobald ein Administrator den KI-Dienst verbindet.",
+      "disclaimer": "Die KI gibt Empfehlungen. Für Pläne und Veröffentlichungen gelten weiterhin die Freigaberegeln.",
+      "send": "Senden ↗"
+    },
+    "profile": {
+      "title": "Dein Ziel",
+      "subtitle": "Der Assistent richtet seine Tipps auf dein Profil aus.",
+      "goal": "Kanalziel",
+      "goalPlaceholder": "Zum Beispiel Shorts über Technik auf Usbekisch",
+      "region": "Zielgruppenregion",
+      "regionPlaceholder": "Usbekistan",
+      "language": "Chatsprache",
+      "timezone": "Zeitzone",
+      "saving": "Wird gespeichert…",
+      "save": "Profil speichern",
+      "saved": "Profil gespeichert."
+    },
+    "planner": {
+      "title": "Wochenplan vorbereiten",
+      "description": "Auf Basis deiner Inhaltseinstellungen, deiner Region und deines Budgets. Ein fertiger Plan geht erst zur Veröffentlichung, wenn du ihn freigibst.",
+      "count": "Anzahl Videos",
+      "working": "Wird vorbereitet…",
+      "submit": "Die KI einen Plan vorschlagen lassen",
+      "review": "Vorschlag prüfen und freigeben ↗",
+      "connectFirst": "Verbinde zuerst deinen Kanal"
+    },
+    "steps": {
+      "title": "Erste Schritte",
+      "channel": {
+        "title": "Kanal verbinden",
+        "detail": "Verbinde dein YouTube-Konto sicher"
+      },
+      "preferences": {
+        "title": "Content-Richtung",
+        "detail": "Sprache, Thema, Format und Veröffentlichungszeit wählen"
+      },
+      "plan": {
+        "title": "Plan freigeben",
+        "detail": "Die KI-Vorschläge prüfen und freigeben"
+      },
+      "videos": {
+        "title": "Video und Moderation",
+        "detail": "Den Ablauf verfolgen und das fertige Video prüfen"
+      },
+      "revenue": {
+        "title": "Ergebnisanalyse",
+        "detail": "Dein nächster Schritt, basierend auf den Kanaldaten"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Virtuelle Nummern",
+    "subtitle": "Private Nummernmiete und Nachrichten — in einem einzigen Konto.",
+    "terms": {
+      "title": "Servicebedingungen",
+      "p1": "Die Nummer wird für einen festen Zeitraum ausschließlich dir zugewiesen. Den Code gibst du selbst in der jeweiligen App ein. Die Zustellung der Nachricht und die Annahme der Nummer durch die Plattform sind nicht garantiert. Die YouTube-Monetarisierung hängt von separaten Anforderungen ab.",
+      "p2": "Die Miete verlängert sich nicht automatisch. Übertrage dein Konto vor Ablauf des Zeitraums auf eine Nummer, die du selbst kontrollierst. Nachrichten werden höchstens 24 Stunden aufbewahrt. Bei einem Problem sende aus der Bestellung heraus eine Rückerstattungsanfrage.",
+      "consent": "Ich nutze das ausschließlich für Konten, die mir gehören, und akzeptiere die Mietbedingungen."
+    },
+    "salesPending": "Der Dienst wird noch vorbereitet. Der Verkauf startet, sobald der Anbietervertrag und die Nachrichtenanbindung abgeschlossen sind. Aktuell wird keine Zahlung eingezogen.",
+    "payment": {
+      "title": "Zahlungsmethode",
+      "unavailable": " — Anbindung ausstehend",
+      "sandbox": " — Testmodus",
+      "note": "Die Zahlung schließt du auf der sicheren Seite des gewählten Anbieters ab.",
+      "selectFirst": "Wähle eine Zahlungsmethode."
+    },
+    "filter": {
+      "service": "Dienst",
+      "country": "Land",
+      "all": "Alle",
+      "otherService": "Andere"
+    },
+    "catalog": {
+      "loading": "Katalog wird geladen…",
+      "failed": "Der Katalog konnte nicht geladen werden."
+    },
+    "offer": {
+      "days": "/ {{days}} Tage",
+      "mobile": "Mobilnummer",
+      "voip": "VoIP-Nummer",
+      "unavailable": "Aktuell nicht verfügbar",
+      "available": "{{available}} verfügbar",
+      "rent": "Mieten",
+      "none": "Für diese Auswahl gibt es noch kein Angebot. Freigegebene Tarife erscheinen hier."
+    },
+    "orders": {
+      "title": "Meine Nummern und Nachrichten",
+      "loading": "Bestellungen werden geladen…",
+      "failed": "Die Bestellungen konnten nicht geladen werden.",
+      "empty": "Du hast noch keine Nummer gemietet."
+    },
+    "rental": {
+      "checkPayPal": "PayPal-Zahlung prüfen",
+      "paypalPending": "Die PayPal-Zahlung ist noch nicht abgeschlossen. Bestätige sie auf der PayPal-Seite oder prüfe es später erneut.",
+      "expiresAt": "Miete endet: {{date}}",
+      "continuePayment": "Zahlung fortsetzen",
+      "closeInbox": "Nachrichtenfenster schließen",
+      "openInbox": "Nachrichten anzeigen",
+      "inboxLoading": "Nachrichten werden geladen…",
+      "inboxFailed": "Die Nachrichten konnten nicht geladen werden.",
+      "inboxEmpty": "Es ist noch keine Nachricht eingegangen. Das Fenster aktualisiert sich alle 10 Sekunden.",
+      "refundLabel": "Bei einem Problem: der Grund für deine Rückerstattungsanfrage",
+      "refundSubmit": "Zur Prüfung senden"
+    },
+    "status": {
+      "pending": "Wartet auf Zahlung",
+      "active": "Aktiv",
+      "expired": "Abgelaufen",
+      "canceled": "Storniert",
+      "refund_requested": "Rückerstattungsanfrage in Prüfung",
+      "refunded": "Erstattet"
+    },
+    "price": {
+      "base": "Anbieterpreis",
+      "margin": "Plattformaufschlag ({{pct}} %)",
+      "tax": "Steuer ({{pct}} %)",
+      "total": "Gesamtbetrag",
+      "basisBase": "Anbieterpreis",
+      "basisWithMargin": "Anbieterpreis + Plattformaufschlag",
+      "note": "Steuerbasis: {{basis}}. Preise in USD."
     }
   }
 }

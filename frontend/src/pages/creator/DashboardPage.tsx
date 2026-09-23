@@ -1,3 +1,5 @@
+import { Radio, Clapperboard, Wallet, ShieldCheck } from 'lucide-react'
+import { WorkspaceHero, CreatorShortcuts } from '@/components/dashboard/WorkspaceVisuals'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -13,8 +15,7 @@ import { revenueApi } from '@/api/revenue'
 import { apiClient } from '@/api/client'
 import { useAuth } from '@/hooks/useAuth'
 
-// TODO: real API — replace with GET /me/subscription + /videos + /revenue/summary
-// once the backend is live (see src/api/billing.ts, videos.ts, revenue.ts).
+// Summary values come from the authenticated creator APIs.
 function useDashboardSummary() {
   return useQuery({
     queryKey: ['dashboard-summary'],
@@ -58,14 +59,18 @@ export function DashboardPage() {
         </p>
       </div>
 
-      <Link to="/assistant" className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-orange-400/25 bg-orange-400/5 p-5"><div><p className="font-semibold">AI yordamchingiz bilan boshlang</p><p className="mt-1 text-sm text-muted-foreground">Kanalni ulash, kontent reja va nashr jarayoni bo‘yicha shaxsiy yo‘riqnoma.</p></div><span className="rounded-lg bg-orange-400 px-4 py-2 text-sm font-semibold text-black">Yordamchini ochish ↗</span></Link>
+      <WorkspaceHero />
+      <CreatorShortcuts />
       {isLoading && <CardSkeletonGrid />}
       {isError && <ErrorState onRetry={() => refetch()} />}
 
       {data && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card>
+          <Card className="studio-metric">
             <CardHeader>
+              <span className="studio-icon studio-mint mb-2">
+                <Radio size={20} aria-hidden="true" />
+              </span>
               <CardTitle>{t('dashboard.cards.channelStatus')}</CardTitle>
             </CardHeader>
             <CardContent>
@@ -77,8 +82,11 @@ export function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="studio-metric">
             <CardHeader>
+              <span className="studio-icon studio-violet mb-2">
+                <Clapperboard size={20} aria-hidden="true" />
+              </span>
               <CardTitle>{t('dashboard.cards.videosThisMonth')}</CardTitle>
             </CardHeader>
             <CardContent>
@@ -98,8 +106,11 @@ export function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="studio-metric">
             <CardHeader>
+              <span className="studio-icon studio-amber mb-2">
+                <Wallet size={20} aria-hidden="true" />
+              </span>
               <CardTitle>{t('dashboard.cards.estimatedRevenue')}</CardTitle>
             </CardHeader>
             <CardContent>
@@ -112,8 +123,11 @@ export function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="studio-metric">
             <CardHeader>
+              <span className="studio-icon studio-blue mb-2">
+                <ShieldCheck size={20} aria-hidden="true" />
+              </span>
               <CardTitle>{t('dashboard.cards.pendingApprovals')}</CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-between">

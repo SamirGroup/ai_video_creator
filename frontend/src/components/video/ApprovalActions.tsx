@@ -18,11 +18,7 @@ export interface ApprovalActionsProps {
   disabled?: boolean
 }
 
-const STAGE_OPTIONS: { value: RegenerationStage; label: string }[] = [
-  { value: 'script', label: 'Script' },
-  { value: 'voice', label: 'Voice' },
-  { value: 'visuals', label: 'Visuals' },
-]
+const STAGES: RegenerationStage[] = ['script', 'voice', 'visuals']
 
 /** Approve / Request changes / Reject flow for an `awaiting_approval` video job (FR-38..FR-41). */
 export function ApprovalActions({
@@ -83,7 +79,10 @@ export function ApprovalActions({
             label={t('video.approval.regenerateFrom')}
             value={regenerateFrom}
             onChange={(e) => setRegenerateFrom(e.target.value as RegenerationStage)}
-            options={STAGE_OPTIONS}
+            options={STAGES.map((stage) => ({
+              value: stage,
+              label: t(`video.approval.stages.${stage}`),
+            }))}
           />
         )}
         <div className="flex justify-end gap-2">

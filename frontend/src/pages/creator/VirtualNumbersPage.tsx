@@ -1,6 +1,6 @@
 import { NumberPriceBreakdown } from '@/components/common/NumberPriceBreakdown'
-import { numberStatus } from '@/api/virtualNumbers'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { MessageSquare, Phone, ShieldCheck } from 'lucide-react'
 import { virtualNumbersApi as api, type NumberOrder } from '@/api/virtualNumbers'
@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/Input'
 const card = 'rounded-xl border border-border bg-surface p-5'
 
 function Rental({ order }: { order: NumberOrder }) {
+  const { t } = useTranslation()
   const client = useQueryClient()
   const [opened, setOpened] = useState(false)
   const [reason, setReason] = useState('')
@@ -58,7 +59,7 @@ function Rental({ order }: { order: NumberOrder }) {
           <h3 className="font-semibold">{order.offer_name}</h3>
           <p className="text-sm text-muted-foreground">
             {order.service} · ${order.price_usd} ·{' '}
-            {numberStatus[order.status] ?? order.status}
+            {t(`numbers.status.${order.status}`, order.status)}
           </p>
         </div>
         {order.number && (
@@ -73,20 +74,19 @@ function Rental({ order }: { order: NumberOrder }) {
             isLoading={capture.isPending}
             onClick={() => capture.mutate()}
           >
-            PayPal to‘lovini tekshirish
+            {t('numbers.rental.checkPayPal')}
           </Button>
           {capture.isError && <p role="alert">{capture.error.message}</p>}
           {capture.isSuccess && capture.data.status === 'pending' && (
-            <p>
-              PayPal to‘lovi hali yakunlanmagan. PayPal sahifasida tasdiqlang yoki
-              keyinroq tekshiring.
-            </p>
+            <p>{t('numbers.rental.paypalPending')}</p>
           )}
         </div>
       )}
       {order.expires_at && (
         <p className="mt-2 text-sm">
-          Ijara tugashi: {new Date(order.expires_at).toLocaleString()}
+          {t('numbers.rental.expiresAt', {
+            date: new Date(order.expires_at).toLocaleString(),
+          })}
         </p>
       )}
       {order.checkout_url && (
@@ -94,29 +94,29 @@ function Rental({ order }: { order: NumberOrder }) {
           className="mt-3 inline-block text-primary-600 underline"
           href={order.checkout_url}
         >
-          To‘lovni davom ettirish
+          {t('numbers.rental.continuePayment')}
         </a>
       )}
       {active && (
         <Button className="mt-4" variant="outline" onClick={() => setOpened(!opened)}>
           <MessageSquare size={16} />
-          {opened ? 'SMS oynasini yopish' : 'SMSlarni ko‘rish'}
+          {opened ? t('numbers.rental.closeInbox') : t('numbers.rental.openInbox')}
         </Button>
       )}
       {opened && active && (
         <div className="mt-4 space-y-3" aria-live="polite">
-          {inbox.isPending && <p>SMSlar yuklanmoqda…</p>}
+          {inbox.isPending && <p>{t('numbers.rental.inboxLoading')}</p>}
           {inbox.isError && (
             <p role="alert">
-              SMSlarni yuklab bo‘lmadi.{' '}
+              {t('numbers.rental.inboxFailed')}{' '}
               <button onClick={() => void inbox.refetch()} className="underline">
-                Qayta urinish
+                {t('common.retry')}
               </button>
             </p>
           )}
           {inbox.data?.length === 0 && (
             <p className="text-sm text-muted-foreground">
-              Hozircha SMS kelmagan. Oyna har 10 soniyada yangilanadi.
+              {t('numbers.rental.inboxEmpty')}
             </p>
           )}
           {inbox.data?.map((sms) => (
@@ -138,7 +138,7 @@ function Rental({ order }: { order: NumberOrder }) {
           }}
         >
           <Input
-            label="Muammo bo‘lsa, qaytarish so‘rovi sababi"
+            label={t('numbers.rental.refundLabel')}
             minLength={5}
             maxLength={500}
             required
@@ -146,7 +146,7 @@ function Rental({ order }: { order: NumberOrder }) {
             onChange={(e) => setReason(e.target.value)}
           />
           <Button variant="outline" type="submit" isLoading={refund.isPending}>
-            Ko‘rib chiqishga yuborish
+            {t('numbers.rental.refundSubmit')}
           </Button>
           {refund.isError && <p role="alert">{refund.error.message}</p>}
         </form>
@@ -156,6 +156,7 @@ function Rental({ order }: { order: NumberOrder }) {
 }
 
 export function VirtualNumbersPage() {
+  const { t } = useTranslation()
   const catalog = useQuery({ queryKey: ['number-catalog'], queryFn: api.catalog })
   const orders = useQuery({
     queryKey: ['number-orders'],
@@ -173,7 +174,7 @@ export function VirtualNumbersPage() {
   const purchase = useMutation({
     mutationFn: (id: string) => {
       const offer = catalog.data?.offers.find((o) => o.id === id)
-      if (!offer || !selectedGateway) throw new Error('To‘lov usulini tanlang.')
+      if (!offer || !selectedGateway) throw new Error(t('numbers.payment.selectFirst'))
       const key = `${id}:${selectedGateway}`
       keys.current[key] ??= crypto.randomUUID()
       return api.purchase(id, keys.current[key], selectedGateway, offer.price_usd)
@@ -193,47 +194,35 @@ export function VirtualNumbersPage() {
       <header>
         <div className="mb-2 flex items-center gap-3">
           <Phone className="text-primary-600" />
-          <h1 className="text-2xl font-semibold">Virtual raqamlar</h1>
+          <h1 className="text-2xl font-semibold">{t('numbers.title')}</h1>
         </div>
-        <p className="text-muted-foreground">
-          Shaxsiy raqam ijarasi va SMSlar — bitta kabinetda.
-        </p>
+        <p className="text-muted-foreground">{t('numbers.subtitle')}</p>
       </header>
       <section className={card}>
         <div className="flex items-start gap-3">
           <ShieldCheck className="shrink-0 text-primary-600" />
           <div>
-            <h2 className="font-semibold">Xizmat shartlari</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Raqam belgilangan muddatga faqat sizga ajratiladi. Kodni tegishli ilovaga
-              o‘zingiz kiritasiz. SMS kelishi va platformaning raqamni qabul qilishi
-              kafolatlanmaydi. YouTube monetizatsiyasi alohida talablarga bog‘liq.
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Ijara avtomatik uzaymaydi. Muddat tugashidan oldin hisobingizni o‘zingiz
-              boshqaradigan raqamga ko‘chiring. SMSlar ko‘pi bilan 24 soat saqlanadi.
-              Muammo bo‘lsa, buyurtmadan pul qaytarish so‘rovini yuboring.
-            </p>
+            <h2 className="font-semibold">{t('numbers.terms.title')}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{t('numbers.terms.p1')}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{t('numbers.terms.p2')}</p>
             <label className="mt-4 flex items-start gap-2 text-sm">
               <input
                 type="checkbox"
                 checked={accepted}
                 onChange={(e) => setAccepted(e.target.checked)}
               />
-              Faqat o‘zimga tegishli hisoblar uchun foydalanaman va ijara shartlariga
-              roziman.
+              {t('numbers.terms.consent')}
             </label>
           </div>
         </div>
       </section>
       {catalog.data && !catalog.data.sales_ready && (
         <p className="rounded-xl border border-border bg-muted p-4">
-          Xizmat tayyorlanmoqda. Provayder bilan shartnoma va SMS ulanishi yakunlangach
-          sotuv ochiladi. Hozir to‘lov olinmaydi.
+          {t('numbers.salesPending')}
         </p>
       )}
       <section className={card}>
-        <h2 className="font-semibold">To‘lov usuli</h2>
+        <h2 className="font-semibold">{t('numbers.payment.title')}</h2>
         <div className="mt-3 flex flex-wrap gap-4">
           {methods.map((method) => (
             <label key={method.code} className="flex items-center gap-2 text-sm">
@@ -247,41 +236,41 @@ export function VirtualNumbersPage() {
               />
               {method.label}
               {!method.available
-                ? ' — ulanish kutilmoqda'
+                ? t('numbers.payment.unavailable')
                 : method.mode !== 'live'
-                  ? ' — sinov rejimi'
+                  ? t('numbers.payment.sandbox')
                   : ''}
             </label>
           ))}
         </div>
-        <p className="mt-3 text-xs text-muted-foreground">
-          To‘lovni tanlangan provayderning himoyalangan sahifasida bajarasiz.
-        </p>
+        <p className="mt-3 text-xs text-muted-foreground">{t('numbers.payment.note')}</p>
       </section>
       <div className="flex flex-wrap gap-3">
         <label>
-          Xizmat{' '}
+          {t('numbers.filter.service')}{' '}
           <select
             className="rounded border border-border bg-surface p-2"
             value={service}
             onChange={(e) => setService(e.target.value)}
           >
-            <option value="all">Barchasi</option>
+            <option value="all">{t('numbers.filter.all')}</option>
             {['youtube', 'telegram', 'whatsapp', 'other'].map((s) => (
               <option key={s} value={s}>
-                {s === 'other' ? 'Boshqa' : s.charAt(0).toUpperCase() + s.slice(1)}
+                {s === 'other'
+                  ? t('numbers.filter.otherService')
+                  : s.charAt(0).toUpperCase() + s.slice(1)}
               </option>
             ))}
           </select>
         </label>
         <label>
-          Davlat{' '}
+          {t('numbers.filter.country')}{' '}
           <select
             className="rounded border border-border bg-surface p-2"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
           >
-            <option value="all">Barchasi</option>
+            <option value="all">{t('numbers.filter.all')}</option>
             {countries.map(([code, name]) => (
               <option key={code} value={code}>
                 {name}
@@ -290,12 +279,12 @@ export function VirtualNumbersPage() {
           </select>
         </label>
       </div>
-      {catalog.isPending && <p>Katalog yuklanmoqda…</p>}
+      {catalog.isPending && <p>{t('numbers.catalog.loading')}</p>}
       {catalog.isError && (
         <p role="alert">
-          Katalogni yuklab bo‘lmadi.{' '}
+          {t('numbers.catalog.failed')}{' '}
           <button className="underline" onClick={() => void catalog.refetch()}>
-            Qayta urinish
+            {t('common.retry')}
           </button>
         </p>
       )}
@@ -318,15 +307,18 @@ export function VirtualNumbersPage() {
                 ${o.price_usd}
                 <span className="text-sm font-normal text-muted-foreground">
                   {' '}
-                  / {o.rental_days} kun
+                  {t('numbers.offer.days', { days: o.rental_days })}
                 </span>
               </p>
               <NumberPriceBreakdown price={o.price_breakdown} />
               <p className="my-3 text-sm">
-                {o.number_type === 'mobile' ? 'Mobil raqam' : 'VoIP raqam'} ·{' '}
+                {o.number_type === 'mobile'
+                  ? t('numbers.offer.mobile')
+                  : t('numbers.offer.voip')}{' '}
+                ·{' '}
                 {o.unavailable_reason
-                  ? 'Hozircha mavjud emas'
-                  : `${o.available_count} ta mavjud`}
+                  ? t('numbers.offer.unavailable')
+                  : t('numbers.offer.available', { available: o.available_count })}
               </p>
               <Button
                 disabled={
@@ -337,7 +329,7 @@ export function VirtualNumbersPage() {
                 isLoading={purchase.isPending}
                 onClick={() => purchase.mutate(o.id)}
               >
-                Ijaraga olish
+                {t('numbers.offer.rent')}
               </Button>
             </article>
           ))}
@@ -347,18 +339,13 @@ export function VirtualNumbersPage() {
           (o) =>
             (service === 'all' || o.service === service) &&
             (country === 'all' || country === o.country_code),
-        ) && (
-          <div className={card}>
-            Bu tanlov uchun hozircha taklif yo‘q. Tasdiqlangan tariflar shu yerda paydo
-            bo‘ladi.
-          </div>
-        )}
+        ) && <div className={card}>{t('numbers.offer.none')}</div>}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Mening raqamlarim va SMSlarim</h2>
-        {orders.isPending && <p>Buyurtmalar yuklanmoqda…</p>}
-        {orders.isError && <p role="alert">Buyurtmalarni yuklab bo‘lmadi.</p>}
+        <h2 className="text-xl font-semibold">{t('numbers.orders.title')}</h2>
+        {orders.isPending && <p>{t('numbers.orders.loading')}</p>}
+        {orders.isError && <p role="alert">{t('numbers.orders.failed')}</p>}
         {orders.data?.length === 0 && (
-          <p className="text-muted-foreground">Hali raqam ijaraga olinmagan.</p>
+          <p className="text-muted-foreground">{t('numbers.orders.empty')}</p>
         )}
         {orders.data?.map((o) => (
           <Rental key={o.id} order={o} />

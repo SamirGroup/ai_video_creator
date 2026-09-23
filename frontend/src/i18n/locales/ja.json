@@ -42,10 +42,12 @@
       "title": "ページが見つかりません",
       "description": "お探しのページは存在しません。",
       "backHome": "ダッシュボードに戻る"
-    }
+    },
+    "reload": "再読み込み",
+    "crashDescription": "予期しないエラーが発生しました。ページを再読み込みすると解決することがほとんどです。"
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "バーチャル番号",
     "dashboard": "ダッシュボード",
     "channel": "チャンネル",
     "preferences": "設定",
@@ -61,7 +63,12 @@
     "logout": "ログアウト",
     "language": "言語",
     "theme": "テーマ",
-    "assistant": "AI assistant"
+    "assistant": "AIアシスタント",
+    "partners": "パートナー",
+    "adminSection": "管理",
+    "adminDashboard": "管理ダッシュボード",
+    "primary": "メインナビゲーション",
+    "toggle": "ナビゲーションの開閉"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "理由",
       "regenerateFrom": "再生成の開始地点",
       "confirmApprove": "承認してアップロード待ちに追加しますか？",
-      "confirmReject": "この動画を却下しますか？公開されません。"
+      "confirmReject": "この動画を却下しますか？公開されません。",
+      "stages": {
+        "script": "台本",
+        "voice": "ナレーション",
+        "visuals": "映像"
+      }
     },
     "empty": {
       "title": "まだ動画はありません",
       "description": "最初のジョブを予約または生成すると、ここに動画が表示されます。"
     },
     "previewPlaceholder": "動画プレビューのプレースホルダー",
-    "steps": "処理ステップ"
+    "steps": "処理ステップ",
+    "restoring": "Telegramのアーカイブから動画を復元しています…",
+    "modelLabel": "動画AIモデル"
   },
   "revenue": {
     "title": "収益",
@@ -285,7 +299,24 @@
       "suspended": "停止中",
       "canceled": "解約済み",
       "expired": "期限切れ"
-    }
+    },
+    "plans": "プラン",
+    "tax": "税",
+    "total": "合計",
+    "credits": "クレジット",
+    "choosePlan": "プランを選択",
+    "connectTelegram": "Telegramボット / Mini Appを接続",
+    "linkTelegram": "このTelegramアカウントを連携",
+    "telegramLinked": "Telegram連携済み",
+    "aiBalance": "AI残高: ${{available}} · 予約済み: ${{reserved}}",
+    "taxTotal": "税: ${{tax}} · 合計: ${{total}}",
+    "aiCredits": "AI: ${{budget}}（{{credits}} クレジット）",
+    "platform": "プラットフォーム: ${{amount}}",
+    "usageNote": "使用量はモデル・秒数・テキストトークン・音声によって変わります。1クレジット = $0.0001。",
+    "starsNotConfigured": "未設定",
+    "stars": "{{amount}} Stars",
+    "perMonth": "月",
+    "perSixMonths": "6か月"
   },
   "contract": {
     "title": "契約",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "次のアイデアは、ここから。",
     "ctaText": "プロフィールを作成してツールを試し、チャンネルのためのワークスペースを整えましょう。",
-    "footer": "YouTubeコンテンツの制作と運営をひとつにするワークスペース。"
+    "footer": "YouTubeコンテンツの制作と運営をひとつにするワークスペース。",
+    "reduceMotion": "動きを減らす",
+    "enableAnimations": "アニメーションを有効にする",
+    "dismiss": "閉じる",
+    "partnersLabel": "パートナーと連携"
   },
   "planning": {
     "title": "コンテンツ計画",
@@ -427,6 +462,185 @@
       "approved": "承認済み",
       "failed": "失敗",
       "canceled": "キャンセル済み"
+    },
+    "budgetCapacity": "プランで利用できる本数",
+    "useMonthlyBudget": "今月を予算の範囲内で計画する",
+    "budgetEstimate": "本数は動画1本あたりの上限額から算出しています。実際の費用はモデル・長さ・作り直しによって変わり、生成前にクレジットを再確認します。",
+    "videoModelLabel": "動画モデル"
+  },
+  "studio": {
+    "adminLabel": "運用センター",
+    "creatorLabel": "あなたのクリエイティブスタジオ",
+    "adminTitle": "エコシステム全体をひと目で。",
+    "creatorTitle": "次のアイデアを動画にしましょう。",
+    "adminDescription": "AIサービス、顧客、コンテンツの流れをひとつの場所で管理できます。",
+    "creatorDescription": "専属のAIアシスタントと計画し、コンテンツを準備して、チャンネルを伸ばしましょう。",
+    "configure": "連携を管理",
+    "openAssistant": "AIアシスタントを開く",
+    "planDetail": "アイデアから公開スケジュールまで",
+    "videoDetail": "動画とコンテンツの承認",
+    "channelDetail": "YouTubeチャンネルを管理"
+  },
+  "modelCatalog": {
+    "title": "AIモデルの料金",
+    "note": "動画生成は秒単位で課金されます。クレジットはプラットフォームの残高であり、モデルのトークンではありません。音声、台本、作り直しでもクレジットを消費します。",
+    "Model": "モデル",
+    "USD / unit": "USD / 単位",
+    "Credits / unit": "クレジット / 単位",
+    "Plans": "プラン",
+    "Availability": "提供状況",
+    "source": "料金の出典",
+    "ready": "利用可能",
+    "pending": "設定待ち",
+    "per_second": "1秒あたり",
+    "per_clip": "1クリップあたり",
+    "launchOffer": "ローンチ特価です。有効化する前にご確認ください。"
+  },
+  "assistant": {
+    "eyebrow": "クリエイターワークスペース",
+    "title": "あなた専用のAIアシスタント",
+    "subtitle": "アイデアから公開まで — すべての工程をあなたが管理できます。",
+    "connected": "AI接続済み",
+    "awaitingConnection": "AIの接続を待っています",
+    "loading": "アシスタントを準備しています…",
+    "stats": {
+      "channel": "チャンネル",
+      "channelConnected": "接続済み",
+      "channelDisconnected": "未接続",
+      "plans": "コンテンツ計画",
+      "limit": "チャットの上限",
+      "limitValue": "1日 {{limit}} 件"
+    },
+    "chat": {
+      "title": "クリエイターアドバイザー",
+      "subtitle": "プロフィールとチャンネルの状況に基づくサポート",
+      "welcome": "ようこそ！まずチャンネルを接続し、コンテンツの言語・方向性・スケジュールを設定してください。AIがコンテンツ計画を提案します。承認いただいた計画をもとに動画を制作し、モデレーションを経て公開に進みます。プロフィールをご入力いただければ、目標に合わせたアドバイスをお届けします。",
+      "failed": "回答を準備できませんでした。AIの接続または残高を確認して、もう一度お試しください。",
+      "working": "AIが回答を準備しています…",
+      "cost": "AI利用額: ${{amount}}",
+      "inputLabel": "ご質問",
+      "placeholder": "コンテンツ計画や視聴者、次の一手について聞いてみましょう…",
+      "disabledPlaceholder": "管理者がAIサービスを接続するとチャットを利用できます。",
+      "disclaimer": "AIはアドバイスを行います。計画と公開は承認ルールに従います。",
+      "send": "送信 ↗"
+    },
+    "profile": {
+      "title": "あなたの目標",
+      "subtitle": "アシスタントがプロフィールに合わせてアドバイスを調整します。",
+      "goal": "チャンネルの目標",
+      "goalPlaceholder": "例：ウズベク語でテクノロジーのShortsを作る",
+      "region": "視聴者の地域",
+      "regionPlaceholder": "ウズベキスタン",
+      "language": "チャットの言語",
+      "timezone": "タイムゾーン",
+      "saving": "保存しています…",
+      "save": "プロフィールを保存",
+      "saved": "プロフィールを保存しました。"
+    },
+    "planner": {
+      "title": "1週間の計画を作成",
+      "description": "コンテンツ設定・地域・予算に基づいて作成します。できあがった計画は、承認するまで公開には進みません。",
+      "count": "動画の本数",
+      "working": "作成しています…",
+      "submit": "AIに計画を提案してもらう",
+      "review": "提案を確認して承認 ↗",
+      "connectFirst": "先にチャンネルを接続してください"
+    },
+    "steps": {
+      "title": "はじめる手順",
+      "channel": {
+        "title": "チャンネルを接続",
+        "detail": "YouTubeアカウントを安全に接続します"
+      },
+      "preferences": {
+        "title": "コンテンツの方向性",
+        "detail": "言語・テーマ・形式・公開時刻を選びます"
+      },
+      "plan": {
+        "title": "計画を承認",
+        "detail": "AIの提案を確認して承認します"
+      },
+      "videos": {
+        "title": "動画とモデレーション",
+        "detail": "進行を追い、完成した動画を確認します"
+      },
+      "revenue": {
+        "title": "成果の分析",
+        "detail": "チャンネルのデータに基づく次の一手"
+      }
+    }
+  },
+  "numbers": {
+    "title": "バーチャル番号",
+    "subtitle": "専用番号のレンタルとSMSを、ひとつのアカウントで。",
+    "terms": {
+      "title": "サービス利用条件",
+      "p1": "番号は定められた期間、あなただけに割り当てられます。コードはご自身で該当アプリに入力してください。SMSの到達や、プラットフォーム側が番号を受け入れることは保証されません。YouTubeの収益化は別途定められた要件に左右されます。",
+      "p2": "レンタルは自動更新されません。期間が終わる前に、ご自身で管理する番号へアカウントを移行してください。SMSの保存期間は最長24時間です。問題が起きた場合は、注文から返金をご依頼ください。",
+      "consent": "自分名義のアカウントにのみ利用し、レンタル条件に同意します。"
+    },
+    "salesPending": "本サービスは準備中です。プロバイダーとの契約とSMS接続が完了しだい販売を開始します。現時点で料金は発生しません。",
+    "payment": {
+      "title": "お支払い方法",
+      "unavailable": " — 接続準備中",
+      "sandbox": " — テストモード",
+      "note": "お支払いは、選択したプロバイダーの安全なページで完了します。",
+      "selectFirst": "お支払い方法を選択してください。"
+    },
+    "filter": {
+      "service": "サービス",
+      "country": "国",
+      "all": "すべて",
+      "otherService": "その他"
+    },
+    "catalog": {
+      "loading": "カタログを読み込んでいます…",
+      "failed": "カタログを読み込めませんでした。"
+    },
+    "offer": {
+      "days": "/ {{days}}日間",
+      "mobile": "モバイル番号",
+      "voip": "VoIP番号",
+      "unavailable": "現在ご利用いただけません",
+      "available": "残り {{available}} 件",
+      "rent": "レンタル",
+      "none": "この条件に合う提供はまだありません。承認された料金プランがここに表示されます。"
+    },
+    "orders": {
+      "title": "自分の番号とSMS",
+      "loading": "注文を読み込んでいます…",
+      "failed": "注文を読み込めませんでした。",
+      "empty": "まだ番号をレンタルしていません。"
+    },
+    "rental": {
+      "checkPayPal": "PayPalの支払いを確認",
+      "paypalPending": "PayPalの支払いがまだ完了していません。PayPalのページで確定するか、しばらくしてからもう一度ご確認ください。",
+      "expiresAt": "レンタル終了: {{date}}",
+      "continuePayment": "支払いを続ける",
+      "closeInbox": "SMSパネルを閉じる",
+      "openInbox": "SMSを表示",
+      "inboxLoading": "SMSを読み込んでいます…",
+      "inboxFailed": "SMSを読み込めませんでした。",
+      "inboxEmpty": "まだSMSは届いていません。パネルは10秒ごとに更新されます。",
+      "refundLabel": "問題が起きた場合の、返金依頼の理由",
+      "refundSubmit": "審査に送る"
+    },
+    "status": {
+      "pending": "支払い待ち",
+      "active": "有効",
+      "expired": "期限切れ",
+      "canceled": "キャンセル済み",
+      "refund_requested": "返金依頼を審査中",
+      "refunded": "返金済み"
+    },
+    "price": {
+      "base": "プロバイダー価格",
+      "margin": "プラットフォーム手数料（{{pct}}%）",
+      "tax": "税（{{pct}}%）",
+      "total": "お支払い合計",
+      "basisBase": "プロバイダー価格",
+      "basisWithMargin": "プロバイダー価格 + プラットフォーム手数料",
+      "note": "課税基準: {{basis}}。価格はUSD表示です。"
     }
   }
 }

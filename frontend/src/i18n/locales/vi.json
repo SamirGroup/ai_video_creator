@@ -42,10 +42,12 @@
       "title": "Không tìm thấy trang",
       "description": "Trang bạn tìm không tồn tại.",
       "backHome": "Về bảng điều khiển"
-    }
+    },
+    "reload": "Tải lại",
+    "crashDescription": "Đã xảy ra lỗi ngoài dự kiến. Tải lại trang thường sẽ khắc phục được."
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "Số ảo",
     "dashboard": "Bảng điều khiển",
     "channel": "Kênh",
     "preferences": "Tùy chọn",
@@ -61,7 +63,12 @@
     "logout": "Đăng xuất",
     "language": "Ngôn ngữ",
     "theme": "Giao diện",
-    "assistant": "AI assistant"
+    "assistant": "Trợ lý AI",
+    "partners": "Đối tác",
+    "adminSection": "Quản trị",
+    "adminDashboard": "Bảng quản trị",
+    "primary": "Điều hướng chính",
+    "toggle": "Mở hoặc đóng menu"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "Lý do",
       "regenerateFrom": "Tạo lại từ",
       "confirmApprove": "Phê duyệt và đưa vào hàng đợi tải lên?",
-      "confirmReject": "Từ chối video này? Video sẽ không được đăng."
+      "confirmReject": "Từ chối video này? Video sẽ không được đăng.",
+      "stages": {
+        "script": "Kịch bản",
+        "voice": "Lời thuyết minh",
+        "visuals": "Hình ảnh"
+      }
     },
     "empty": {
       "title": "Chưa có video nào",
       "description": "Video sẽ xuất hiện ở đây khi tác vụ đầu tiên được lên lịch hoặc tạo xong."
     },
     "previewPlaceholder": "Chỗ hiển thị bản xem trước video",
-    "steps": "Các bước trong quy trình"
+    "steps": "Các bước trong quy trình",
+    "restoring": "Đang khôi phục video của bạn từ kho lưu trữ Telegram…",
+    "modelLabel": "Mô hình AI tạo video"
   },
   "revenue": {
     "title": "Doanh thu",
@@ -285,7 +299,24 @@
       "suspended": "Tạm ngưng",
       "canceled": "Đã hủy",
       "expired": "Đã hết hạn"
-    }
+    },
+    "plans": "Các gói",
+    "tax": "Thuế",
+    "total": "Tổng cộng",
+    "credits": "tín dụng",
+    "choosePlan": "Chọn gói",
+    "connectTelegram": "Kết nối bot Telegram / Mini App",
+    "linkTelegram": "Liên kết tài khoản Telegram này",
+    "telegramLinked": "Đã liên kết Telegram",
+    "aiBalance": "Số dư AI: ${{available}} · Đã giữ: ${{reserved}}",
+    "taxTotal": "Thuế: ${{tax}} · Tổng cộng: ${{total}}",
+    "aiCredits": "AI: ${{budget}} ({{credits}} tín dụng)",
+    "platform": "Nền tảng: ${{amount}}",
+    "usageNote": "Mức tiêu thụ phụ thuộc vào mô hình, số giây, token văn bản và âm thanh. 1 tín dụng = $0.0001.",
+    "starsNotConfigured": "Chưa thiết lập",
+    "stars": "{{amount}} Stars",
+    "perMonth": "tháng",
+    "perSixMonths": "6 tháng"
   },
   "contract": {
     "title": "Hợp đồng",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "Ý tưởng tiếp theo của bạn bắt đầu từ đây.",
     "ctaText": "Tạo hồ sơ, khám phá bộ công cụ và thiết lập không gian làm việc cho kênh của bạn.",
-    "footer": "Một không gian làm việc để tạo và quản lý nội dung YouTube."
+    "footer": "Một không gian làm việc để tạo và quản lý nội dung YouTube.",
+    "reduceMotion": "Giảm chuyển động",
+    "enableAnimations": "Bật hiệu ứng động",
+    "dismiss": "Đóng",
+    "partnersLabel": "Đối tác và tích hợp"
   },
   "planning": {
     "title": "Kế hoạch nội dung",
@@ -427,6 +462,185 @@
       "approved": "Đã duyệt",
       "failed": "Thất bại",
       "canceled": "Đã hủy"
+    },
+    "budgetCapacity": "Dung lượng khả dụng theo gói",
+    "useMonthlyBudget": "Lên kế hoạch tháng này trong ngân sách của tôi",
+    "budgetEstimate": "Dung lượng tính theo mức chi tối đa cho mỗi video. Chi phí thực tế thay đổi tùy mô hình, thời lượng và số lần tạo lại; số dư được kiểm tra lại trước khi tạo.",
+    "videoModelLabel": "Mô hình video"
+  },
+  "studio": {
+    "adminLabel": "Trung tâm vận hành",
+    "creatorLabel": "Xưởng sáng tạo của bạn",
+    "adminTitle": "Toàn bộ hệ sinh thái trong một màn hình.",
+    "creatorTitle": "Biến ý tưởng tiếp theo thành video.",
+    "adminDescription": "Quản lý dịch vụ AI, khách hàng và quy trình nội dung ở cùng một nơi.",
+    "creatorDescription": "Lên kế hoạch cùng trợ lý AI riêng, chuẩn bị nội dung và phát triển kênh của bạn.",
+    "configure": "Quản lý tích hợp",
+    "openAssistant": "Mở trợ lý AI",
+    "planDetail": "Từ ý tưởng đến lịch đăng",
+    "videoDetail": "Video và duyệt nội dung",
+    "channelDetail": "Quản lý kênh YouTube của bạn"
+  },
+  "modelCatalog": {
+    "title": "Giá các mô hình AI",
+    "note": "Việc tạo video được tính theo giây. Tín dụng là số dư trên nền tảng, không phải token của mô hình. Giọng đọc, kịch bản và tạo lại cũng tiêu tốn tín dụng.",
+    "Model": "Mô hình",
+    "USD / unit": "USD / đơn vị",
+    "Credits / unit": "Tín dụng / đơn vị",
+    "Plans": "Các gói",
+    "Availability": "Tình trạng",
+    "source": "Nguồn giá",
+    "ready": "Sẵn sàng",
+    "pending": "Chờ cấu hình",
+    "per_second": "mỗi giây",
+    "per_clip": "mỗi clip",
+    "launchOffer": "Ưu đãi ra mắt; hãy kiểm tra trước khi kích hoạt."
+  },
+  "assistant": {
+    "eyebrow": "Không gian nhà sáng tạo",
+    "title": "Trợ lý AI cá nhân của bạn",
+    "subtitle": "Từ ý tưởng đến lúc đăng tải — mọi bước đều nằm trong tầm kiểm soát của bạn.",
+    "connected": "Đã kết nối AI",
+    "awaitingConnection": "Đang chờ kết nối AI",
+    "loading": "Đang chuẩn bị trợ lý…",
+    "stats": {
+      "channel": "Kênh",
+      "channelConnected": "Đã kết nối",
+      "channelDisconnected": "Chưa kết nối",
+      "plans": "Kế hoạch nội dung",
+      "limit": "Giới hạn trò chuyện",
+      "limitValue": "{{limit}} / ngày"
+    },
+    "chat": {
+      "title": "Cố vấn nhà sáng tạo",
+      "subtitle": "Hỗ trợ dựa trên hồ sơ và trạng thái kênh của bạn",
+      "welcome": "Chào mừng bạn! Hãy bắt đầu bằng việc kết nối kênh, sau đó chọn ngôn ngữ nội dung, hướng đi và lịch đăng. AI sẽ đề xuất kế hoạch nội dung. Video được sản xuất theo kế hoạch bạn phê duyệt, qua kiểm duyệt rồi chuyển sang đăng tải. Hãy điền hồ sơ để tôi đưa ra lời khuyên phù hợp với mục tiêu của bạn.",
+      "failed": "Không chuẩn bị được câu trả lời. Hãy kiểm tra kết nối AI hoặc số dư rồi thử lại.",
+      "working": "AI đang soạn câu trả lời…",
+      "cost": "Chi phí AI: ${{amount}}",
+      "inputLabel": "Câu hỏi của bạn",
+      "placeholder": "Hỏi về kế hoạch nội dung, khán giả hoặc bước tiếp theo…",
+      "disabledPlaceholder": "Phần trò chuyện sẽ mở sau khi quản trị viên kết nối dịch vụ AI.",
+      "disclaimer": "AI chỉ đưa ra tư vấn. Kế hoạch và việc đăng tải vẫn tuân theo quy tắc phê duyệt.",
+      "send": "Gửi ↗"
+    },
+    "profile": {
+      "title": "Mục tiêu của bạn",
+      "subtitle": "Trợ lý điều chỉnh lời khuyên theo hồ sơ của bạn.",
+      "goal": "Mục tiêu của kênh",
+      "goalPlaceholder": "Ví dụ: làm Shorts về công nghệ bằng tiếng Uzbek",
+      "region": "Khu vực khán giả",
+      "regionPlaceholder": "Uzbekistan",
+      "language": "Ngôn ngữ trò chuyện",
+      "timezone": "Múi giờ",
+      "saving": "Đang lưu…",
+      "save": "Lưu hồ sơ",
+      "saved": "Đã lưu hồ sơ."
+    },
+    "planner": {
+      "title": "Lập kế hoạch cho tuần",
+      "description": "Dựa trên tùy chọn nội dung, khu vực và ngân sách của bạn. Kế hoạch hoàn chỉnh sẽ không được gửi đi đăng cho đến khi bạn phê duyệt.",
+      "count": "Số lượng video",
+      "working": "Đang chuẩn bị…",
+      "submit": "Để AI đề xuất kế hoạch",
+      "review": "Xem và phê duyệt đề xuất ↗",
+      "connectFirst": "Hãy kết nối kênh trước"
+    },
+    "steps": {
+      "title": "Các bước bắt đầu",
+      "channel": {
+        "title": "Kết nối kênh của bạn",
+        "detail": "Kết nối tài khoản YouTube một cách an toàn"
+      },
+      "preferences": {
+        "title": "Hướng nội dung",
+        "detail": "Chọn ngôn ngữ, chủ đề, định dạng và giờ đăng"
+      },
+      "plan": {
+        "title": "Phê duyệt kế hoạch",
+        "detail": "Xem các đề xuất của AI và phê duyệt"
+      },
+      "videos": {
+        "title": "Video và kiểm duyệt",
+        "detail": "Theo dõi quy trình và kiểm tra video hoàn chỉnh"
+      },
+      "revenue": {
+        "title": "Phân tích kết quả",
+        "detail": "Bước tiếp theo của bạn, dựa trên dữ liệu kênh"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Số ảo",
+    "subtitle": "Thuê số riêng và nhận tin nhắn — trong cùng một tài khoản.",
+    "terms": {
+      "title": "Điều khoản dịch vụ",
+      "p1": "Số được cấp riêng cho bạn trong một khoảng thời gian cố định. Bạn tự nhập mã vào ứng dụng tương ứng. Việc tin nhắn được gửi đến và việc nền tảng chấp nhận số đều không được bảo đảm. Kiếm tiền trên YouTube phụ thuộc vào những yêu cầu riêng.",
+      "p2": "Lượt thuê không tự động gia hạn. Hãy chuyển tài khoản sang số do bạn tự quản lý trước khi hết hạn. Tin nhắn được lưu tối đa 24 giờ. Nếu có sự cố, hãy gửi yêu cầu hoàn tiền từ đơn hàng.",
+      "consent": "Tôi chỉ dùng số này cho những tài khoản thuộc về mình và chấp nhận điều khoản thuê."
+    },
+    "salesPending": "Dịch vụ vẫn đang được chuẩn bị. Việc bán sẽ mở khi hợp đồng với nhà cung cấp và kết nối tin nhắn hoàn tất. Hiện chưa thu bất kỳ khoản thanh toán nào.",
+    "payment": {
+      "title": "Phương thức thanh toán",
+      "unavailable": " — đang chờ kết nối",
+      "sandbox": " — chế độ thử nghiệm",
+      "note": "Bạn hoàn tất thanh toán trên trang bảo mật của nhà cung cấp đã chọn.",
+      "selectFirst": "Hãy chọn phương thức thanh toán."
+    },
+    "filter": {
+      "service": "Dịch vụ",
+      "country": "Quốc gia",
+      "all": "Tất cả",
+      "otherService": "Khác"
+    },
+    "catalog": {
+      "loading": "Đang tải danh mục…",
+      "failed": "Không tải được danh mục."
+    },
+    "offer": {
+      "days": "/ {{days}} ngày",
+      "mobile": "Số di động",
+      "voip": "Số VoIP",
+      "unavailable": "Hiện không khả dụng",
+      "available": "Còn {{available}}",
+      "rent": "Thuê",
+      "none": "Chưa có ưu đãi nào cho lựa chọn này. Các gói đã duyệt sẽ xuất hiện ở đây."
+    },
+    "orders": {
+      "title": "Số và tin nhắn của tôi",
+      "loading": "Đang tải đơn hàng…",
+      "failed": "Không tải được đơn hàng.",
+      "empty": "Bạn chưa thuê số nào."
+    },
+    "rental": {
+      "checkPayPal": "Kiểm tra thanh toán PayPal",
+      "paypalPending": "Thanh toán PayPal chưa hoàn tất. Hãy xác nhận trên trang PayPal hoặc kiểm tra lại sau.",
+      "expiresAt": "Kết thúc thuê: {{date}}",
+      "continuePayment": "Tiếp tục thanh toán",
+      "closeInbox": "Đóng bảng tin nhắn",
+      "openInbox": "Xem tin nhắn",
+      "inboxLoading": "Đang tải tin nhắn…",
+      "inboxFailed": "Không tải được tin nhắn.",
+      "inboxEmpty": "Chưa có tin nhắn nào. Bảng tự làm mới mỗi 10 giây.",
+      "refundLabel": "Nếu có sự cố, hãy nêu lý do yêu cầu hoàn tiền",
+      "refundSubmit": "Gửi để xem xét"
+    },
+    "status": {
+      "pending": "Chờ thanh toán",
+      "active": "Đang hoạt động",
+      "expired": "Đã hết hạn",
+      "canceled": "Đã hủy",
+      "refund_requested": "Đang xét yêu cầu hoàn tiền",
+      "refunded": "Đã hoàn tiền"
+    },
+    "price": {
+      "base": "Giá nhà cung cấp",
+      "margin": "Phí nền tảng ({{pct}}%)",
+      "tax": "Thuế ({{pct}}%)",
+      "total": "Tổng phải trả",
+      "basisBase": "giá nhà cung cấp",
+      "basisWithMargin": "giá nhà cung cấp + phí nền tảng",
+      "note": "Cơ sở tính thuế: {{basis}}. Giá tính bằng USD."
     }
   }
 }

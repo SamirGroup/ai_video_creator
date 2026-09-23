@@ -42,10 +42,12 @@
       "title": "Ba a sami shafin ba",
       "description": "Shafin da kake nema babu shi.",
       "backHome": "Koma allon sarrafawa"
-    }
+    },
+    "reload": "Sake lodawa",
+    "crashDescription": "An samu kuskuren da ba a zata ba. Yawanci sake loda shafin yana gyara wannan."
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "Lambobin kama-da-wane",
     "dashboard": "Allon sarrafawa",
     "channel": "Tasha",
     "preferences": "Zaɓuɓɓuka",
@@ -61,7 +63,12 @@
     "logout": "Fita",
     "language": "Harshe",
     "theme": "Jigo",
-    "assistant": "AI assistant"
+    "assistant": "Mataimakin AI",
+    "partners": "Abokan haɗin gwiwa",
+    "adminSection": "Gudanarwa",
+    "adminDashboard": "Allon gudanarwa",
+    "primary": "Babban kewayawa",
+    "toggle": "Buɗe ko rufe kewayawa"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "Dalili",
       "regenerateFrom": "Sake ƙirƙira daga",
       "confirmApprove": "A amince a kuma sa shi jerin jiran ɗorawa?",
-      "confirmReject": "A ƙi wannan bidiyon? Ba za a wallafa shi ba."
+      "confirmReject": "A ƙi wannan bidiyon? Ba za a wallafa shi ba.",
+      "stages": {
+        "script": "Rubutu",
+        "voice": "Murya",
+        "visuals": "Hotuna"
+      }
     },
     "empty": {
       "title": "Babu bidiyo tukuna",
       "description": "Bidiyoyi za su bayyana a nan da zarar an tsara ko an ƙirƙiri aiki na farko."
     },
     "previewPlaceholder": "Wurin samfurin bidiyo",
-    "steps": "Matakan aiki"
+    "steps": "Matakan aiki",
+    "restoring": "Ana dawo da bidiyonka daga ma'ajiyar Telegram…",
+    "modelLabel": "Samfurin AI na bidiyo"
   },
   "revenue": {
     "title": "Kuɗin shiga",
@@ -285,7 +299,24 @@
       "suspended": "An dakatar",
       "canceled": "An soke",
       "expired": "Ya ƙare"
-    }
+    },
+    "plans": "Shirye-shirye",
+    "tax": "Haraji",
+    "total": "Jimla",
+    "credits": "kiredit",
+    "choosePlan": "Zaɓi shiri",
+    "connectTelegram": "Haɗa bot ɗin Telegram / Mini App",
+    "linkTelegram": "Haɗa wannan asusun Telegram",
+    "telegramLinked": "An haɗa Telegram",
+    "aiBalance": "Ma'aunin AI: ${{available}} · An ajiye: ${{reserved}}",
+    "taxTotal": "Haraji: ${{tax}} · Jimla: ${{total}}",
+    "aiCredits": "AI: ${{budget}} (kiredit {{credits}})",
+    "platform": "Dandali: ${{amount}}",
+    "usageNote": "Yawan amfani ya dogara da samfuri, daƙiƙu, tokenan rubutu da sauti. kiredit 1 = $0.0001.",
+    "starsNotConfigured": "Ba a saita ba",
+    "stars": "{{amount}} Stars",
+    "perMonth": "wata",
+    "perSixMonths": "wata 6"
   },
   "contract": {
     "title": "Yarjejeniyar",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "Tunaninka na gaba yana farawa daga nan.",
     "ctaText": "Ƙirƙiri bayananka, gwada kayan aiki, ka kuma shirya wurin aiki don tashar ka.",
-    "footer": "Wuri guda don ƙirƙira da sarrafa abun cikin YouTube."
+    "footer": "Wuri guda don ƙirƙira da sarrafa abun cikin YouTube.",
+    "reduceMotion": "Rage motsi",
+    "enableAnimations": "Kunna motsin hoto",
+    "dismiss": "Rufe",
+    "partnersLabel": "Abokan haɗin gwiwa da haɗin fasaha"
   },
   "planning": {
     "title": "Tsarin abun ciki",
@@ -427,6 +462,185 @@
       "approved": "An amince",
       "failed": "Ya gaza",
       "canceled": "An soke"
+    },
+    "budgetCapacity": "Ƙarfin da ke akwai a shirinka",
+    "useMonthlyBudget": "Tsara wannan wata cikin kasafin kuɗina",
+    "budgetEstimate": "Ana ƙidaya ƙarfin bisa iyakar kashe kuɗi kan kowane bidiyo. Ainihin kuɗin ya dogara da samfuri, tsawon lokaci da sake gwadawa; ana sake duba kiredit kafin ƙirƙira.",
+    "videoModelLabel": "Samfurin bidiyo"
+  },
+  "studio": {
+    "adminLabel": "Cibiyar gudanarwa",
+    "creatorLabel": "Ɗakin ƙirƙirarka",
+    "adminTitle": "Dukan tsarinka a gani ɗaya.",
+    "creatorTitle": "Mayar da sabon tunaninka ya zama bidiyo.",
+    "adminDescription": "Sarrafa ayyukan AI, abokan ciniki da tafiyar abun cikinka a wuri ɗaya.",
+    "creatorDescription": "Yi shiri tare da mataimakin AI naka, shirya abun ciki kuma ka haɓaka tashar ka.",
+    "configure": "Sarrafa haɗe-haɗe",
+    "openAssistant": "Buɗe mataimakin AI",
+    "planDetail": "Daga tunani zuwa jadawalin wallafawa",
+    "videoDetail": "Bidiyoyi da amincewa da abun ciki",
+    "channelDetail": "Sarrafa tashar YouTube ɗinka"
+  },
+  "modelCatalog": {
+    "title": "Farashin samfuran AI",
+    "note": "Ana lissafin ƙirƙirar bidiyo a kowane daƙiƙa. Kiredit shi ne ma'aunin dandali, ba tokan samfuri ba. Murya, rubutu da sake gwadawa suma suna cin kiredit.",
+    "Model": "Samfuri",
+    "USD / unit": "USD / raka'a",
+    "Credits / unit": "Kiredit / raka'a",
+    "Plans": "Shirye-shirye",
+    "Availability": "Samuwa",
+    "source": "Tushen farashi",
+    "ready": "A shirye",
+    "pending": "Ana jiran saitawa",
+    "per_second": "kowane daƙiƙa",
+    "per_clip": "kowane yanki",
+    "launchOffer": "Tayin ƙaddamarwa; a tabbatar kafin kunnawa."
+  },
+  "assistant": {
+    "eyebrow": "Wurin aikin mahalicci",
+    "title": "Mataimakin AI naka na kashin kai",
+    "subtitle": "Daga tunani zuwa wallafawa — kowane mataki yana ƙarƙashin ikonka.",
+    "connected": "An haɗa AI",
+    "awaitingConnection": "Ana jiran haɗin AI",
+    "loading": "Ana shirya mataimakinka…",
+    "stats": {
+      "channel": "Tasha",
+      "channelConnected": "An haɗa",
+      "channelDisconnected": "Ba a haɗa ba",
+      "plans": "Tsare-tsaren abun ciki",
+      "limit": "Iyakar hira",
+      "limitValue": "{{limit}} / kullum"
+    },
+    "chat": {
+      "title": "Mashawarcin mahalicci",
+      "subtitle": "Taimako bisa bayananka da matsayin tashar ka",
+      "welcome": "Barka da zuwa! Fara da haɗa tashar ka, sannan ka zaɓi harshen abun ciki, hanyar da za ka bi da kuma jadawalin wallafawa. AI zai ba da shawarar tsarin abun ciki. Ana samar da bidiyo bisa tsarin da ka amince da shi, su wuce bincike sannan a tura su don wallafawa. Cika bayananka, ni kuma zan daidaita shawarwarina da burinka.",
+      "failed": "Ba a iya shirya amsar ba. Duba haɗin AI ko ma'aunin kuɗinka sannan ka sake gwadawa.",
+      "working": "AI yana shirya amsa…",
+      "cost": "Kuɗin AI: ${{amount}}",
+      "inputLabel": "Tambayarka",
+      "placeholder": "Yi tambaya kan tsarin abun cikinka, masu kallo ko mataki na gaba…",
+      "disabledPlaceholder": "Hira za ta buɗe da zarar mai kula ya haɗa hidimar AI.",
+      "disclaimer": "AI yana ba da shawara. Tsari da wallafawa kuwa suna cigaba da bin ƙa'idojin amincewa.",
+      "send": "Aika ↗"
+    },
+    "profile": {
+      "title": "Burinka",
+      "subtitle": "Mataimakin yana daidaita shawarwarinsa da bayananka.",
+      "goal": "Burin tasha",
+      "goalPlaceholder": "Misali, yin Shorts kan fasaha da harshen Uzbek",
+      "region": "Yankin masu kallo",
+      "regionPlaceholder": "Uzbekistan",
+      "language": "Harshen hira",
+      "timezone": "Yankin lokaci",
+      "saving": "Ana ajiyewa…",
+      "save": "Ajiye bayananka",
+      "saved": "An ajiye bayananka."
+    },
+    "planner": {
+      "title": "Shirya tsarin mako",
+      "description": "Bisa saitunan abun cikinka, yanki da kasafin kuɗi. Ba a tura tsarin da aka shirya don wallafawa sai ka amince da shi.",
+      "count": "Yawan bidiyo",
+      "working": "Ana shiryawa…",
+      "submit": "Bari AI ya ba da shawarar tsari",
+      "review": "Duba shawarar ka amince ↗",
+      "connectFirst": "Fara haɗa tashar ka"
+    },
+    "steps": {
+      "title": "Matakan farawa",
+      "channel": {
+        "title": "Haɗa tashar ka",
+        "detail": "Haɗa asusun YouTube ɗinka cikin aminci"
+      },
+      "preferences": {
+        "title": "Hanyar abun ciki",
+        "detail": "Zaɓi harshe, batu, salo da lokacin wallafawa"
+      },
+      "plan": {
+        "title": "Amince da tsarin",
+        "detail": "Duba shawarwarin AI ka amince da su"
+      },
+      "videos": {
+        "title": "Bidiyo da bincike",
+        "detail": "Bi diddigin aikin ka kuma duba bidiyon da aka gama"
+      },
+      "revenue": {
+        "title": "Nazarin sakamako",
+        "detail": "Mataki na gaba, bisa bayanan tashar ka"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Lambobin kama-da-wane",
+    "subtitle": "Hayar lambar sirri da saƙonni — a asusu guda.",
+    "terms": {
+      "title": "Sharuɗɗan hidima",
+      "p1": "Ana ba ka lambar kai kaɗai na ƙayyadadden lokaci. Kai da kanka ke shigar da lambar tabbatarwa a manhajar da ya dace. Ba a tabbatar da isar saƙon ba, haka ma karɓar lambar daga dandalin. Samun kuɗi ta YouTube ya dogara da wasu sharuɗɗa daban.",
+      "p2": "Hayar ba ta sabunta kanta ba. Kafin lokacin ya ƙare, ka mayar da asusunka zuwa lamba da kai kanka ke sarrafawa. Ana ajiye saƙonni har zuwa awa 24 kaɗai. In an samu matsala, ka aika buƙatar mayar da kuɗi daga odar.",
+      "consent": "Zan yi amfani da wannan kan asusuna kaɗai, kuma na amince da sharuɗɗan haya."
+    },
+    "salesPending": "Ana ci gaba da shirya hidimar. Sayarwa za ta buɗe bayan an kammala yarjejeniya da mai samarwa da kuma haɗin saƙonni. Ba a karɓar kuɗi a yanzu.",
+    "payment": {
+      "title": "Hanyar biya",
+      "unavailable": " — ana jiran haɗi",
+      "sandbox": " — yanayin gwaji",
+      "note": "Kana kammala biyan kuɗi a shafin tsaro na mai samarwa da ka zaɓa.",
+      "selectFirst": "Zaɓi hanyar biya."
+    },
+    "filter": {
+      "service": "Hidima",
+      "country": "Ƙasa",
+      "all": "Duka",
+      "otherService": "Wasu"
+    },
+    "catalog": {
+      "loading": "Ana loda katalogi…",
+      "failed": "Ba a iya loda katalogin ba."
+    },
+    "offer": {
+      "days": "/ kwanaki {{days}}",
+      "mobile": "Lambar wayar hannu",
+      "voip": "Lambar VoIP",
+      "unavailable": "Babu shi a yanzu",
+      "available": "Akwai {{available}}",
+      "rent": "Yi haya",
+      "none": "Babu tayi ga wannan zaɓin tukuna. Shirye-shiryen da aka amince da su za su bayyana a nan."
+    },
+    "orders": {
+      "title": "Lambobina da saƙonnina",
+      "loading": "Ana loda odoji…",
+      "failed": "Ba a iya loda odoji ba.",
+      "empty": "Ba ka yi hayar lamba ba tukuna."
+    },
+    "rental": {
+      "checkPayPal": "Duba biyan PayPal",
+      "paypalPending": "Biyan PayPal bai kammala ba tukuna. Ka tabbatar da shi a shafin PayPal ko ka sake dubawa daga baya.",
+      "expiresAt": "Hayar za ta ƙare: {{date}}",
+      "continuePayment": "Ci gaba da biya",
+      "closeInbox": "Rufe allon saƙonni",
+      "openInbox": "Duba saƙonni",
+      "inboxLoading": "Ana loda saƙonni…",
+      "inboxFailed": "Ba a iya loda saƙonni ba.",
+      "inboxEmpty": "Babu saƙon da ya iso tukuna. Allon yana sabuntawa kowane daƙiƙa 10.",
+      "refundLabel": "In an samu matsala, dalilin buƙatar mayar da kuɗi",
+      "refundSubmit": "Aika don dubawa"
+    },
+    "status": {
+      "pending": "Ana jiran biya",
+      "active": "Yana aiki",
+      "expired": "Ya ƙare",
+      "canceled": "An soke",
+      "refund_requested": "Ana duba buƙatar mayar da kuɗi",
+      "refunded": "An mayar da kuɗi"
+    },
+    "price": {
+      "base": "Farashin mai samarwa",
+      "margin": "Ribar dandali ({{pct}}%)",
+      "tax": "Haraji ({{pct}}%)",
+      "total": "Jimlar da za a biya",
+      "basisBase": "farashin mai samarwa",
+      "basisWithMargin": "farashin mai samarwa + ribar dandali",
+      "note": "Tushen haraji: {{basis}}. Farashi yana cikin USD."
     }
   }
 }

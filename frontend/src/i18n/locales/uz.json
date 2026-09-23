@@ -1,4 +1,17 @@
 {
+  "studio": {
+    "adminLabel": "Boshqaruv markazi",
+    "creatorLabel": "Sizning ijodiy studiyangiz",
+    "adminTitle": "Butun ekotizim — bir nigohda.",
+    "creatorTitle": "Keyingi g‘oyangizni videoga aylantiring.",
+    "adminDescription": "AI xizmatlari, mijozlar va kontent jarayonini bir joydan boshqaring.",
+    "creatorDescription": "Shaxsiy AI yordamchingiz bilan reja tuzing, kontent tayyorlang va kanalingizni rivojlantiring.",
+    "configure": "Integratsiyalarni boshqarish",
+    "openAssistant": "AI yordamchini ochish",
+    "planDetail": "G‘oyadan nashr jadvaligacha",
+    "videoDetail": "Videolar va tasdiqlash jarayoni",
+    "channelDetail": "YouTube kanalini boshqarish"
+  },
   "app": {
     "name": "AI YouTuber",
     "tagline": "YouTube kanalingiz uchun AI orqali tayyorlangan videolar"
@@ -42,7 +55,9 @@
       "title": "Sahifa topilmadi",
       "description": "Siz qidirayotgan sahifa mavjud emas.",
       "backHome": "Boshqaruv paneliga qaytish"
-    }
+    },
+    "reload": "Qayta yuklash",
+    "crashDescription": "Kutilmagan xatolik yuz berdi. Odatda sahifani qayta yuklash yordam beradi."
   },
   "nav": {
     "partners": "Hamkorlar",
@@ -62,7 +77,11 @@
     "logout": "Chiqish",
     "language": "Til",
     "theme": "Mavzu",
-    "assistant": "AI yordamchi"
+    "assistant": "AI yordamchi",
+    "adminSection": "Administratsiya",
+    "adminDashboard": "Admin paneli",
+    "primary": "Asosiy navigatsiya",
+    "toggle": "Menyuni ochish yoki yopish"
   },
   "auth": {
     "login": {
@@ -242,14 +261,21 @@
       "reasonLabel": "Sabab",
       "regenerateFrom": "Qaysi bosqichdan qayta boshlash",
       "confirmApprove": "Tasdiqlab, yuklash navbatiga qo'yilsinmi?",
-      "confirmReject": "Bu video rad etilsinmi? U nashr qilinmaydi."
+      "confirmReject": "Bu video rad etilsinmi? U nashr qilinmaydi.",
+      "stages": {
+        "script": "Ssenariy",
+        "voice": "Ovoz",
+        "visuals": "Vizual"
+      }
     },
     "empty": {
       "title": "Hozircha video yo'q",
       "description": "Birinchi video job rejalashtirilgan yoki generatsiya qilingach, videolar shu yerda ko'rinadi."
     },
     "previewPlaceholder": "Video preview zaxira matni",
-    "steps": "Pipeline bosqichlari"
+    "steps": "Pipeline bosqichlari",
+    "restoring": "Video Telegram arxividan tiklanmoqda…",
+    "modelLabel": "Video AI modeli"
   },
   "revenue": {
     "title": "Daromad",
@@ -291,7 +317,19 @@
     "tax": "Soliq",
     "total": "Jami",
     "credits": "kredit",
-    "choosePlan": "Tarifni tanlash"
+    "choosePlan": "Tarifni tanlash",
+    "connectTelegram": "Telegram bot / Mini App ulash",
+    "linkTelegram": "Shu Telegram hisobini bog‘lash",
+    "telegramLinked": "Telegram bog‘landi",
+    "aiBalance": "AI balansi: ${{available}} · Zaxirada: ${{reserved}}",
+    "taxTotal": "Soliq: ${{tax}} · Jami: ${{total}}",
+    "aiCredits": "AI: ${{budget}} ({{credits}} kredit)",
+    "platform": "Platforma: ${{amount}}",
+    "usageNote": "Sarf model, soniya, matn tokenlari va audioga bog‘liq. 1 kredit = $0.0001.",
+    "starsNotConfigured": "Sozlanmagan",
+    "stars": "{{amount}} Stars",
+    "perMonth": "oy",
+    "perSixMonths": "6 oy"
   },
   "contract": {
     "title": "Shartnoma",
@@ -409,7 +447,11 @@
     ],
     "ctaTitle": "Keyingi g‘oyangiz shu yerdan boshlanadi.",
     "ctaText": "Profil yarating, vositalar bilan tanishing va kanalingiz uchun ish joyini sozlang.",
-    "footer": "YouTube kontentini yaratish va boshqarish uchun yagona makon."
+    "footer": "YouTube kontentini yaratish va boshqarish uchun yagona makon.",
+    "reduceMotion": "Animatsiya kamaytirilgan",
+    "enableAnimations": "Animatsiyalarni yoqish",
+    "dismiss": "Yopish",
+    "partnersLabel": "Hamkorlar va integratsiyalar"
   },
   "planning": {
     "title": "Kontent reja",
@@ -436,7 +478,8 @@
     },
     "budgetCapacity": "Tarif bo‘yicha mavjud sig‘im",
     "useMonthlyBudget": "Byudjetimga mos oylik reja",
-    "budgetEstimate": "Sig‘im har video uchun xarajat chegarasi asosida hisoblanadi. Haqiqiy sarf model, davomiylik va qayta yaratishga bog‘liq; generatsiyadan oldin kredit yana tekshiriladi."
+    "budgetEstimate": "Sig‘im har video uchun xarajat chegarasi asosida hisoblanadi. Haqiqiy sarf model, davomiylik va qayta yaratishga bog‘liq; generatsiyadan oldin kredit yana tekshiriladi.",
+    "videoModelLabel": "Video modeli"
   },
   "modelCatalog": {
     "title": "AI modellar narxlari",
@@ -452,5 +495,152 @@
     "per_second": "har soniya",
     "per_clip": "har klip",
     "launchOffer": "Boshlang‘ich aksiya; faollashtirishdan oldin narxni tekshiring."
+  },
+  "assistant": {
+    "eyebrow": "Ijodkor makoni",
+    "title": "Shaxsiy AI yordamchi",
+    "subtitle": "G‘oyadan nashrgacha — har bir bosqich nazoratingizda.",
+    "connected": "AI ulangan",
+    "awaitingConnection": "AI ulanishi kutilmoqda",
+    "loading": "Yordamchi tayyorlanmoqda…",
+    "stats": {
+      "channel": "Kanal",
+      "channelConnected": "Ulangan",
+      "channelDisconnected": "Ulanmagan",
+      "plans": "Kontent rejalar",
+      "limit": "Suhbat limiti",
+      "limitValue": "{{limit}} / kun"
+    },
+    "chat": {
+      "title": "Creator maslahatchisi",
+      "subtitle": "Profilingiz va kanal holatiga asoslangan yordam",
+      "welcome": "Xush kelibsiz! Kanalni ulashdan boshlang, so‘ng kontent tilini, yo‘nalishini va jadvalini belgilang. AI kontent reja taklif qiladi. Siz tasdiqlagan reja bo‘yicha videolar tayyorlanadi, moderatsiyadan o‘tadi va nashrga yuboriladi. Profilingizni to‘ldiring — maqsadingizga mos maslahat beraman.",
+      "failed": "Javob tayyorlanmadi. AI ulanishi yoki balansni tekshirib, qayta urinib ko‘ring.",
+      "working": "AI javob tayyorlamoqda…",
+      "cost": "AI sarfi: ${{amount}}",
+      "inputLabel": "Savolingiz",
+      "placeholder": "Kontent reja, auditoriya yoki keyingi qadam haqida so‘rang…",
+      "disabledPlaceholder": "Admin AI xizmatini ulaganidan keyin suhbat ochiladi.",
+      "disclaimer": "AI tavsiya beradi. Reja va nashr tasdiqlash qoidalariga bo‘ysunadi.",
+      "send": "Yuborish ↗"
+    },
+    "profile": {
+      "title": "Sizning maqsadingiz",
+      "subtitle": "Yordamchi tavsiyalarni profilingizga moslashtiradi.",
+      "goal": "Kanal maqsadi",
+      "goalPlaceholder": "Masalan, o‘zbek tilida texnologiya haqida Shorts yaratish",
+      "region": "Auditoriya hududi",
+      "regionPlaceholder": "O‘zbekiston",
+      "language": "Suhbat tili",
+      "timezone": "Vaqt zonasi",
+      "saving": "Saqlanmoqda…",
+      "save": "Profilni saqlash",
+      "saved": "Profil saqlandi."
+    },
+    "planner": {
+      "title": "Haftalik reja tayyorlash",
+      "description": "Tanlangan kontent sozlamalari, hudud va budjet asosida. Tayyor reja siz tasdiqlamaguningizcha nashrga yuborilmaydi.",
+      "count": "Video soni",
+      "working": "Tayyorlanmoqda…",
+      "submit": "AI reja taklif qilsin",
+      "review": "Taklifni ko‘rish va tasdiqlash ↗",
+      "connectFirst": "Avval kanalni ulang"
+    },
+    "steps": {
+      "title": "Ishga tushirish bosqichlari",
+      "channel": {
+        "title": "Kanalni ulash",
+        "detail": "YouTube hisobingizga xavfsiz ulaning"
+      },
+      "preferences": {
+        "title": "Kontent yo‘nalishi",
+        "detail": "Til, mavzu, format va nashr vaqtini tanlang"
+      },
+      "plan": {
+        "title": "Rejani tasdiqlash",
+        "detail": "AI takliflarini ko‘rib chiqing va tasdiqlang"
+      },
+      "videos": {
+        "title": "Video va moderatsiya",
+        "detail": "Jarayonni kuzating, tayyor videoni tekshiring"
+      },
+      "revenue": {
+        "title": "Natijalar tahlili",
+        "detail": "Kanal ma’lumotlari asosida keyingi qadam"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Virtual raqamlar",
+    "subtitle": "Shaxsiy raqam ijarasi va SMSlar — bitta kabinetda.",
+    "terms": {
+      "title": "Xizmat shartlari",
+      "p1": "Raqam belgilangan muddatga faqat sizga ajratiladi. Kodni tegishli ilovaga o‘zingiz kiritasiz. SMS kelishi va platformaning raqamni qabul qilishi kafolatlanmaydi. YouTube monetizatsiyasi alohida talablarga bog‘liq.",
+      "p2": "Ijara avtomatik uzaymaydi. Muddat tugashidan oldin hisobingizni o‘zingiz boshqaradigan raqamga ko‘chiring. SMSlar ko‘pi bilan 24 soat saqlanadi. Muammo bo‘lsa, buyurtmadan pul qaytarish so‘rovini yuboring.",
+      "consent": "Faqat o‘zimga tegishli hisoblar uchun foydalanaman va ijara shartlariga roziman."
+    },
+    "salesPending": "Xizmat tayyorlanmoqda. Provayder bilan shartnoma va SMS ulanishi yakunlangach sotuv ochiladi. Hozir to‘lov olinmaydi.",
+    "payment": {
+      "title": "To‘lov usuli",
+      "unavailable": " — ulanish kutilmoqda",
+      "sandbox": " — sinov rejimi",
+      "note": "To‘lovni tanlangan provayderning himoyalangan sahifasida bajarasiz.",
+      "selectFirst": "To‘lov usulini tanlang."
+    },
+    "filter": {
+      "service": "Xizmat",
+      "country": "Davlat",
+      "all": "Barchasi",
+      "otherService": "Boshqa"
+    },
+    "catalog": {
+      "loading": "Katalog yuklanmoqda…",
+      "failed": "Katalogni yuklab bo‘lmadi."
+    },
+    "offer": {
+      "days": "/ {{days}} kun",
+      "mobile": "Mobil raqam",
+      "voip": "VoIP raqam",
+      "unavailable": "Hozircha mavjud emas",
+      "available": "{{available}} ta mavjud",
+      "rent": "Ijaraga olish",
+      "none": "Bu tanlov uchun hozircha taklif yo‘q. Tasdiqlangan tariflar shu yerda paydo bo‘ladi."
+    },
+    "orders": {
+      "title": "Mening raqamlarim va SMSlarim",
+      "loading": "Buyurtmalar yuklanmoqda…",
+      "failed": "Buyurtmalarni yuklab bo‘lmadi.",
+      "empty": "Hali raqam ijaraga olinmagan."
+    },
+    "rental": {
+      "checkPayPal": "PayPal to‘lovini tekshirish",
+      "paypalPending": "PayPal to‘lovi hali yakunlanmagan. PayPal sahifasida tasdiqlang yoki keyinroq tekshiring.",
+      "expiresAt": "Ijara tugashi: {{date}}",
+      "continuePayment": "To‘lovni davom ettirish",
+      "closeInbox": "SMS oynasini yopish",
+      "openInbox": "SMSlarni ko‘rish",
+      "inboxLoading": "SMSlar yuklanmoqda…",
+      "inboxFailed": "SMSlarni yuklab bo‘lmadi.",
+      "inboxEmpty": "Hozircha SMS kelmagan. Oyna har 10 soniyada yangilanadi.",
+      "refundLabel": "Muammo bo‘lsa, qaytarish so‘rovi sababi",
+      "refundSubmit": "Ko‘rib chiqishga yuborish"
+    },
+    "status": {
+      "pending": "To‘lov kutilmoqda",
+      "active": "Faol",
+      "expired": "Muddati tugagan",
+      "canceled": "Bekor qilingan",
+      "refund_requested": "Qaytarish so‘rovi ko‘rilmoqda",
+      "refunded": "Pul qaytarilgan"
+    },
+    "price": {
+      "base": "Provayder narxi",
+      "margin": "Platforma ustamasi ({{pct}}%)",
+      "tax": "Soliq ({{pct}}%)",
+      "total": "Jami to‘lov",
+      "basisBase": "provayder narxi",
+      "basisWithMargin": "provayder narxi + platforma ustamasi",
+      "note": "Soliq bazasi: {{basis}}. Narx USD’da."
+    }
   }
 }

@@ -105,19 +105,22 @@ export function BillingPage() {
       )}
       {!telegram && (
         <Button onClick={() => linkCode.mutate()} isLoading={linkCode.isPending}>
-          Connect Telegram bot / Mini App
+          {t('billing.connectTelegram')}
         </Button>
       )}
       {telegram && (
         <Button onClick={() => link.mutate()} isLoading={link.isPending}>
-          Link this Telegram account
+          {t('billing.linkTelegram')}
         </Button>
       )}
       {(link.isError || stars.isError || linkCode.isError) && <ErrorState />}
-      {link.isSuccess && <p role="status">Telegram linked</p>}
+      {link.isSuccess && <p role="status">{t('billing.telegramLinked')}</p>}
       {wallet.data && (
         <p>
-          AI balance: ${wallet.data.available_usd} · Reserved: ${wallet.data.reserved_usd}
+          {t('billing.aiBalance', {
+            available: wallet.data.available_usd,
+            reserved: wallet.data.reserved_usd,
+          })}
         </p>
       )}
       <h1 className="text-xl font-semibold text-foreground">{t('billing.title')}</h1>
@@ -140,7 +143,9 @@ export function BillingPage() {
           <CardContent className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-muted-foreground">
               {currencyFmt(subscriptionQuery.data.plan.price_amount)} /{' '}
-              {subscriptionQuery.data.plan.billing_interval === 'month' ? 'mo' : '6mo'}
+              {subscriptionQuery.data.plan.billing_interval === 'month'
+                ? t('billing.perMonth')
+                : t('billing.perSixMonths')}
             </p>
             <div className="flex gap-2">
               <Button
@@ -186,19 +191,28 @@ export function BillingPage() {
                       : ''}
                   </p>
                   <p>
-                    Tax: ${plan.quote.tax} · Total: ${plan.quote.total}
+                    {t('billing.taxTotal', {
+                      tax: plan.quote.tax,
+                      total: plan.quote.total,
+                    })}
                   </p>
                   <p>
-                    AI: ${plan.quote.ai_budget_usd} (
-                    {plan.quote.ai_credits.toLocaleString()} credits)
+                    {t('billing.aiCredits', {
+                      budget: plan.quote.ai_budget_usd,
+                      credits: plan.quote.ai_credits.toLocaleString(),
+                    })}
                   </p>
-                  <p>Platform: ${plan.quote.platform_usd}</p>
+                  <p>{t('billing.platform', { amount: plan.quote.platform_usd })}</p>
                   <p>{((plan.features?.video_models as string[]) ?? []).join(', ')}</p>
-                  <p>
-                    Usage depends on model, seconds, text tokens and audio. 1 credit =
-                    $0.0001.
-                  </p>
-                  {telegram && <p>{plan.stars_amount || 'Not configured'} Stars</p>}
+                  <p>{t('billing.usageNote')}</p>
+                  {telegram && (
+                    <p>
+                      {t('billing.stars', {
+                        amount:
+                          plan.stars_amount || t('billing.starsNotConfigured'),
+                      })}
+                    </p>
+                  )}
                 </div>
               )}
               <Button

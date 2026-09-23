@@ -42,10 +42,12 @@
       "title": "Sahypa tapylmady",
       "description": "Siziň gözleýän sahypaňyz ýok.",
       "backHome": "Dolandyryş paneline dolan"
-    }
+    },
+    "reload": "Gaýtadan ýükle",
+    "crashDescription": "Garaşylmadyk ýalňyşlyk ýüze çykdy. Adatça sahypany gaýtadan ýüklemek kömek edýär."
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "Wirtual belgiler",
     "dashboard": "Dolandyryş paneli",
     "channel": "Kanal",
     "preferences": "Sazlamalar",
@@ -61,7 +63,12 @@
     "logout": "Çyk",
     "language": "Dil",
     "theme": "Tema",
-    "assistant": "AI assistant"
+    "assistant": "Emeli aň kömekçisi",
+    "partners": "Hyzmatdaşlar",
+    "adminSection": "Administrasiýa",
+    "adminDashboard": "Admin paneli",
+    "primary": "Esasy nawigasiýa",
+    "toggle": "Menýuny aç ýa-da ýap"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "Sebäbi",
       "regenerateFrom": "Haýsy tapgyrdan gaýtadan döretmeli",
       "confirmApprove": "Tassyklanyp, ýükleme nobatyna goýulsynmy?",
-      "confirmReject": "Bu wideo kabul edilmesinmi? Ol neşir edilmez."
+      "confirmReject": "Bu wideo kabul edilmesinmi? Ol neşir edilmez.",
+      "stages": {
+        "script": "Ssenariý",
+        "voice": "Sesli beýan",
+        "visuals": "Şekiller"
+      }
     },
     "empty": {
       "title": "Entek wideo ýok",
       "description": "Ilkinji işiňiz meýilleşdirilende ýa-da döredilende wideolar şu ýerde görüner."
     },
     "previewPlaceholder": "Wideo deslapky görnüş meýdany",
-    "steps": "Taýýarlyk tapgyrlary"
+    "steps": "Taýýarlyk tapgyrlary",
+    "restoring": "Wideoňyz Telegram arhiwinden dikeldilýär…",
+    "modelLabel": "Wideonyň emeli aň modeli"
   },
   "revenue": {
     "title": "Girdeji",
@@ -285,7 +299,24 @@
       "suspended": "Saklanan",
       "canceled": "Ýatyrylan",
       "expired": "Möhleti gutaran"
-    }
+    },
+    "plans": "Tarifler",
+    "tax": "Salgyt",
+    "total": "Jemi",
+    "credits": "kredit",
+    "choosePlan": "Tarifi saýla",
+    "connectTelegram": "Telegram bot / Mini App birikdir",
+    "linkTelegram": "Şu Telegram hasabyny bagla",
+    "telegramLinked": "Telegram baglandy",
+    "aiBalance": "Emeli aň balansy: ${{available}} · Ätiýaçda: ${{reserved}}",
+    "taxTotal": "Salgyt: ${{tax}} · Jemi: ${{total}}",
+    "aiCredits": "Emeli aň: ${{budget}} ({{credits}} kredit)",
+    "platform": "Platforma: ${{amount}}",
+    "usageNote": "Sarp ediliş modele, sekuntlara, tekst tokenlerine we sese bagly. 1 kredit = $0.0001.",
+    "starsNotConfigured": "Sazlanmadyk",
+    "stars": "{{amount}} Stars",
+    "perMonth": "aý",
+    "perSixMonths": "6 aý"
   },
   "contract": {
     "title": "Şertnama",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "Indiki pikiriňiz şu ýerden başlaýar.",
     "ctaText": "Profil dörediň, gurallar bilen tanşyň we kanalyňyz üçin iş meýdanyny sazlaň.",
-    "footer": "YouTube mazmunyny döretmek we dolandyrmak üçin bitewi iş meýdany."
+    "footer": "YouTube mazmunyny döretmek we dolandyrmak üçin bitewi iş meýdany.",
+    "reduceMotion": "Hereketi azalt",
+    "enableAnimations": "Animasiýalary işjeňleşdir",
+    "dismiss": "Ýap",
+    "partnersLabel": "Hyzmatdaşlar we integrasiýalar"
   },
   "planning": {
     "title": "Mazmun meýilnamasy",
@@ -427,6 +462,185 @@
       "approved": "Tassyklanan",
       "failed": "Şowsuz",
       "canceled": "Ýatyrylan"
+    },
+    "budgetCapacity": "Tarif boýunça elýeterli mukdar",
+    "useMonthlyBudget": "Bu aýy býujetime görä meýilleşdir",
+    "budgetEstimate": "Mukdar her wideo üçin çykdajy çägi boýunça hasaplanýar. Hakyky çykdajy modele, dowamlylyga we gaýtadan synanyşyklara bagly; generasiýadan öň kredit ýene barlanýar.",
+    "videoModelLabel": "Wideo modeli"
+  },
+  "studio": {
+    "adminLabel": "Dolandyryş merkezi",
+    "creatorLabel": "Siziň döredijilik studiýaňyz",
+    "adminTitle": "Tutuş ekoulgamyňyz bir seredişde.",
+    "creatorTitle": "Indiki pikiriňizi wideo öwüriň.",
+    "adminDescription": "Emeli aň hyzmatlaryny, müşderileri we mazmun akymyňyzy bir ýerden dolandyryň.",
+    "creatorDescription": "Şahsy emeli aň kömekçiňiz bilen meýilleşdiriň, mazmun taýýarlaň we kanalyňyzy ösdüriň.",
+    "configure": "Integrasiýalary dolandyr",
+    "openAssistant": "Emeli aň kömekçisini aç",
+    "planDetail": "Pikirden çap tertibine çenli",
+    "videoDetail": "Wideolar we mazmuny tassyklamak",
+    "channelDetail": "YouTube kanalyňyzy dolandyryň"
+  },
+  "modelCatalog": {
+    "title": "Emeli aň modelleriniň bahalary",
+    "note": "Wideo generasiýasy sekunt boýunça hasaplanýar. Kredit — platformadaky balans, modeliň tokeni däl. Ses, ssenariý we gaýtadan synanyşyklar hem kredit sarp edýär.",
+    "Model": "Model",
+    "USD / unit": "USD / birlik",
+    "Credits / unit": "Kredit / birlik",
+    "Plans": "Tarifler",
+    "Availability": "Elýeterlilik",
+    "source": "Baha çeşmesi",
+    "ready": "Taýýar",
+    "pending": "Sazlamaga garaşylýar",
+    "per_second": "sekuntda",
+    "per_clip": "klipde",
+    "launchOffer": "Başlangyç teklip; işjeňleşdirmezden öň barlaň."
+  },
+  "assistant": {
+    "eyebrow": "Kreator iş meýdany",
+    "title": "Şahsy emeli aň kömekçiňiz",
+    "subtitle": "Pikirden neşire çenli — her ädim siziň gözegçiligiňizde.",
+    "connected": "Emeli aň birikdirilen",
+    "awaitingConnection": "Emeli aň baglanyşygyna garaşylýar",
+    "loading": "Kömekçiňiz taýýarlanýar…",
+    "stats": {
+      "channel": "Kanal",
+      "channelConnected": "Birikdirilen",
+      "channelDisconnected": "Birikdirilmedik",
+      "plans": "Mazmun meýilnamalary",
+      "limit": "Söhbet çägi",
+      "limitValue": "{{limit}} / gün"
+    },
+    "chat": {
+      "title": "Kreator maslahatçysy",
+      "subtitle": "Profiliňize we kanalyň ýagdaýyna esaslanýan kömek",
+      "welcome": "Hoş geldiňiz! Ilki kanalyňyzy birikdiriň, soňra mazmunyň dilini, ugruny we tertibini belläň. Emeli aň mazmun meýilnamasyny hödürleýär. Siz tassyklan meýilnama boýunça wideolar taýýarlanýar, barlagdan geçýär we neşire ugradylýar. Profiliňizi dolduryň — maslahatlarymy maksadyňyza laýyklaşdyraýyn.",
+      "failed": "Jogap taýýarlanmady. Emeli aň baglanyşygyny ýa-da balansyňyzy barlap, gaýtadan synanyşyň.",
+      "working": "Emeli aň jogap taýýarlaýar…",
+      "cost": "Emeli aň çykdajysy: ${{amount}}",
+      "inputLabel": "Soragyňyz",
+      "placeholder": "Mazmun meýilnamasy, tomaşaçylar ýa-da indiki ädim barada soraň…",
+      "disabledPlaceholder": "Söhbet administrator emeli aň hyzmatyny birikdirenden soň açylýar.",
+      "disclaimer": "Emeli aň maslahat berýär. Meýilnama we neşir tassyklama düzgünlerine tabyn bolýar.",
+      "send": "Iber ↗"
+    },
+    "profile": {
+      "title": "Siziň maksadyňyz",
+      "subtitle": "Kömekçi maslahatlary profiliňize laýyklaşdyrýar.",
+      "goal": "Kanalyň maksady",
+      "goalPlaceholder": "Mysal üçin, özbek dilinde tehnologiýa barada Shorts döretmek",
+      "region": "Tomaşaçylaryň sebiti",
+      "regionPlaceholder": "Özbegistan",
+      "language": "Söhbetdeşlik dili",
+      "timezone": "Sagat guşaklygy",
+      "saving": "Saklanýar…",
+      "save": "Profili sakla",
+      "saved": "Profil saklandy."
+    },
+    "planner": {
+      "title": "Hepdelik meýilnama taýýarla",
+      "description": "Mazmun sazlamalaryňyza, sebite we býujete esaslanýar. Taýýar meýilnama siz tassyklamasaňyz neşire ugradylmaýar.",
+      "count": "Wideo sany",
+      "working": "Taýýarlanýar…",
+      "submit": "Emeli aň meýilnama hödürlesin",
+      "review": "Teklibi gözden geçir we tassykla ↗",
+      "connectFirst": "Ilki kanaly birikdiriň"
+    },
+    "steps": {
+      "title": "Başlangyç ädimler",
+      "channel": {
+        "title": "Kanalyňyzy birikdiriň",
+        "detail": "YouTube hasabyňyzy howpsuz birikdiriň"
+      },
+      "preferences": {
+        "title": "Mazmunyň ugry",
+        "detail": "Dil, tema, format we neşir wagtyny saýlaň"
+      },
+      "plan": {
+        "title": "Meýilnamany tassyklaň",
+        "detail": "Emeli aňyň tekliplerini gözden geçiriň we tassyklaň"
+      },
+      "videos": {
+        "title": "Wideo we mazmun barlagy",
+        "detail": "Işiň barşyny yzarlaň, taýýar wideony barlaň"
+      },
+      "revenue": {
+        "title": "Netijeleriň seljermesi",
+        "detail": "Kanal maglumatlaryna esaslanýan indiki ädimiňiz"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Wirtual belgiler",
+    "subtitle": "Şahsy belgi kärendesi we SMS-ler — bir kabinetde.",
+    "terms": {
+      "title": "Hyzmat şertleri",
+      "p1": "Belgi bellenen möhlete diňe size berilýär. Kody degişli goşundyda özüňiz girizýärsiňiz. SMS-iň gelmegi we belginiň platforma tarapyndan kabul edilmegi kepillendirilmeýär. YouTube monetizasiýasy aýratyn talaplara bagly.",
+      "p2": "Kärende awtomatik uzaldylmaýar. Möhlet gutarmazdan öň hasabyňyzy özüňiz dolandyrýan belgä geçiriň. SMS-ler iň köp 24 sagat saklanýar. Kynçylyk ýüze çyksa, sargytdan pul yzyna gaýtarmak talabyny iberiň.",
+      "consent": "Muny diňe özüme degişli hasaplar üçin ulanaryn we kärende şertlerine razy."
+    },
+    "salesPending": "Hyzmat entek taýýarlanýar. Satuw üpjünçi bilen şertnama we SMS baglanyşygy tamamlanandan soň açylýar. Häzir töleg alynmaýar.",
+    "payment": {
+      "title": "Töleg usuly",
+      "unavailable": " — baglanyşyga garaşylýar",
+      "sandbox": " — synag tertibi",
+      "note": "Tölegi saýlanan üpjünçiniň goragly sahypasynda tamamlaýarsyňyz.",
+      "selectFirst": "Töleg usulyny saýlaň."
+    },
+    "filter": {
+      "service": "Hyzmat",
+      "country": "Ýurt",
+      "all": "Ählisi",
+      "otherService": "Başga"
+    },
+    "catalog": {
+      "loading": "Katalog ýüklenýär…",
+      "failed": "Katalogy ýükläp bolmady."
+    },
+    "offer": {
+      "days": "/ {{days}} gün",
+      "mobile": "Mobil belgi",
+      "voip": "VoIP belgi",
+      "unavailable": "Häzirlikçe elýeterli däl",
+      "available": "{{available}} sany elýeterli",
+      "rent": "Kärendesine al",
+      "none": "Bu saýlaw üçin entek teklip ýok. Tassyklanan tarifler şu ýerde görüner."
+    },
+    "orders": {
+      "title": "Meniň belgilerim we SMS-lerim",
+      "loading": "Sargytlar ýüklenýär…",
+      "failed": "Sargytlary ýükläp bolmady.",
+      "empty": "Siz entek belgi kärendesine almadyňyz."
+    },
+    "rental": {
+      "checkPayPal": "PayPal tölegini barla",
+      "paypalPending": "PayPal tölegi entek tamamlanmady. Ony PayPal sahypasynda tassyklaň ýa-da soňrak gaýtadan barlaň.",
+      "expiresAt": "Kärendäniň gutarýan wagty: {{date}}",
+      "continuePayment": "Tölegi dowam etdir",
+      "closeInbox": "SMS panelini ýap",
+      "openInbox": "SMS-lere seret",
+      "inboxLoading": "SMS-ler ýüklenýär…",
+      "inboxFailed": "SMS-leri ýükläp bolmady.",
+      "inboxEmpty": "Entek SMS gelmedi. Panel her 10 sekuntdan täzelenýär.",
+      "refundLabel": "Kynçylyk ýüze çykan bolsa, pul yzyna gaýtarmak talabyňyzyň sebäbi",
+      "refundSubmit": "Gözden geçirmäge iber"
+    },
+    "status": {
+      "pending": "Tölege garaşylýar",
+      "active": "Işjeň",
+      "expired": "Möhleti gutaran",
+      "canceled": "Ýatyrylan",
+      "refund_requested": "Pul gaýtarmak talaby seredilýär",
+      "refunded": "Pul yzyna gaýtaryldy"
+    },
+    "price": {
+      "base": "Üpjünçiniň bahasy",
+      "margin": "Platformanyň goşmaçasy ({{pct}}%)",
+      "tax": "Salgyt ({{pct}}%)",
+      "total": "Jemi tölemeli",
+      "basisBase": "üpjünçiniň bahasy",
+      "basisWithMargin": "üpjünçiniň bahasy + platformanyň goşmaçasy",
+      "note": "Salgyt esasy: {{basis}}. Bahalar USD-de."
     }
   }
 }

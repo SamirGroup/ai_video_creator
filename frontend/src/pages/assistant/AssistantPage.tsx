@@ -1,5 +1,6 @@
 import { LANGUAGES } from '@/i18n/registry'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { planningApi } from '@/api/planning'
 import { Link } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -9,33 +10,14 @@ import { Input } from '@/components/ui/Input'
 import { ErrorState } from '@/components/common/StateViews'
 
 const steps = [
-  {
-    title: 'Kanalni ulash',
-    detail: 'YouTube hisobingizga xavfsiz ulaning',
-    to: '/channel',
-  },
-  {
-    title: 'Kontent yo‘nalishi',
-    detail: 'Til, mavzu, format va nashr vaqtini tanlang',
-    to: '/preferences',
-  },
-  {
-    title: 'Rejani tasdiqlash',
-    detail: 'AI takliflarini ko‘rib chiqing va tasdiqlang',
-    to: '/content-plan',
-  },
-  {
-    title: 'Video va moderatsiya',
-    detail: 'Jarayonni kuzating, tayyor videoni tekshiring',
-    to: '/videos',
-  },
-  {
-    title: 'Natijalar tahlili',
-    detail: 'Kanal ma’lumotlari asosida keyingi qadam',
-    to: '/revenue',
-  },
+  { key: 'channel', to: '/channel' },
+  { key: 'preferences', to: '/preferences' },
+  { key: 'plan', to: '/content-plan' },
+  { key: 'videos', to: '/videos' },
+  { key: 'revenue', to: '/revenue' },
 ]
 function ProfileForm({ profile }: { profile: Profile }) {
+  const { t } = useTranslation()
   const [form, setForm] = useState(profile)
   const cache = useQueryClient()
   const save = useMutation({
@@ -51,35 +33,35 @@ function ProfileForm({ profile }: { profile: Profile }) {
       }}
     >
       <div>
-        <h2 className="font-semibold">Sizning maqsadingiz</h2>
+        <h2 className="font-semibold">{t('assistant.profile.title')}</h2>
         <p className="mt-1 text-xs text-muted-foreground">
-          Yordamchi tavsiyalarni profilingizga moslashtiradi.
+          {t('assistant.profile.subtitle')}
         </p>
       </div>
       <label className="block text-xs">
-        Kanal maqsadi
+        {t('assistant.profile.goal')}
         <textarea
           required
           maxLength={1000}
           className="mt-2 min-h-24 w-full rounded-lg border border-border bg-background p-3 text-sm"
           value={form.goal}
           onChange={(e) => setForm({ ...form, goal: e.target.value })}
-          placeholder="Masalan, o‘zbek tilida texnologiya haqida Shorts yaratish"
+          placeholder={t('assistant.profile.goalPlaceholder')}
         />
       </label>
       <label className="block text-xs">
-        Auditoriya hududi
+        {t('assistant.profile.region')}
         <Input
           className="mt-2"
           maxLength={100}
           value={form.audience_region}
           onChange={(e) => setForm({ ...form, audience_region: e.target.value })}
-          placeholder="O‘zbekiston"
+          placeholder={t('assistant.profile.regionPlaceholder')}
         />
       </label>
       <div className="grid grid-cols-2 gap-3">
         <label className="text-xs">
-          Suhbat tili
+          {t('assistant.profile.language')}
           <select
             className="mt-2 w-full rounded-lg border border-border bg-background p-2.5"
             value={form.language}
@@ -93,7 +75,7 @@ function ProfileForm({ profile }: { profile: Profile }) {
           </select>
         </label>
         <label className="text-xs">
-          Vaqt zonasi
+          {t('assistant.profile.timezone')}
           <Input
             className="mt-2"
             required
@@ -103,11 +85,11 @@ function ProfileForm({ profile }: { profile: Profile }) {
         </label>
       </div>
       <Button disabled={save.isPending} type="submit" className="w-full">
-        {save.isPending ? 'Saqlanmoqda…' : 'Profilni saqlash'}
+        {save.isPending ? t('assistant.profile.saving') : t('assistant.profile.save')}
       </Button>
       {save.isSuccess && (
         <p role="status" className="text-xs text-emerald-500">
-          Profil saqlandi.
+          {t('assistant.profile.saved')}
         </p>
       )}
       {save.isError && (
@@ -119,6 +101,7 @@ function ProfileForm({ profile }: { profile: Profile }) {
   )
 }
 function PlanStarter({ channel, ready }: { channel?: string; ready: boolean }) {
+  const { t } = useTranslation()
   const [count, setCount] = useState(3)
   const [key, setKey] = useState(() => crypto.randomUUID())
   const create = useMutation({
@@ -127,10 +110,9 @@ function PlanStarter({ channel, ready }: { channel?: string; ready: boolean }) {
   })
   return (
     <section className="workspace-card">
-      <h2 className="font-semibold">Haftalik reja tayyorlash</h2>
+      <h2 className="font-semibold">{t('assistant.planner.title')}</h2>
       <p className="mt-2 text-xs leading-5 text-muted-foreground">
-        Tanlangan kontent sozlamalari, hudud va budjet asosida. Tayyor reja siz
-        tasdiqlamaguningizcha nashrga yuborilmaydi.
+        {t('assistant.planner.description')}
       </p>
       <form
         className="mt-4 space-y-3"
@@ -140,7 +122,7 @@ function PlanStarter({ channel, ready }: { channel?: string; ready: boolean }) {
         }}
       >
         <label className="block text-xs">
-          Video soni
+          {t('assistant.planner.count')}
           <input
             type="number"
             min={1}
@@ -159,7 +141,9 @@ function PlanStarter({ channel, ready }: { channel?: string; ready: boolean }) {
           disabled={!channel || !ready || create.isPending || create.isSuccess}
           type="submit"
         >
-          {create.isPending ? 'Tayyorlanmoqda…' : 'AI reja taklif qilsin'}
+          {create.isPending
+            ? t('assistant.planner.working')
+            : t('assistant.planner.submit')}
         </Button>
       </form>
       {create.isError && (
@@ -169,18 +153,19 @@ function PlanStarter({ channel, ready }: { channel?: string; ready: boolean }) {
       )}
       {create.isSuccess && (
         <Link className="mt-3 block text-sm text-orange-400 underline" to="/content-plan">
-          Taklifni ko‘rish va tasdiqlash ↗
+          {t('assistant.planner.review')}
         </Link>
       )}
       {!channel && (
         <Link className="mt-3 block text-xs underline" to="/channel">
-          Avval kanalni ulang
+          {t('assistant.planner.connectFirst')}
         </Link>
       )}
     </section>
   )
 }
 export function AssistantPage() {
+  const { t } = useTranslation()
   const cache = useQueryClient()
   const query = useQuery({
     queryKey: ['assistant'],
@@ -205,7 +190,7 @@ export function AssistantPage() {
   if (!query.data)
     return (
       <div className="animate-pulse p-8 text-muted-foreground">
-        Yordamchi tayyorlanmoqda…
+        {t('assistant.loading')}
       </div>
     )
   const data = query.data
@@ -217,31 +202,35 @@ export function AssistantPage() {
     data.plans.some((p) => p.status === 'approved'),
     data.jobs.some((j) => j.status === 'published' && j.count > 0),
   ]
+  const stats: [string, string][] = [
+    [
+      t('assistant.stats.channel'),
+      data.channels.some((c) => c.status === 'connected')
+        ? t('assistant.stats.channelConnected')
+        : t('assistant.stats.channelDisconnected'),
+    ],
+    [t('assistant.stats.plans'), String(data.plans.length)],
+    [
+      t('assistant.stats.limit'),
+      t('assistant.stats.limitValue', { limit: data.daily_message_limit }),
+    ],
+  ]
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="workspace-eyebrow">CREATOR WORKSPACE</p>
-          <h1 className="mt-1 text-2xl font-semibold">Shaxsiy AI yordamchi</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            G‘oyadan nashrgacha — har bir bosqich nazoratingizda.
-          </p>
+          <p className="workspace-eyebrow">{t('assistant.eyebrow')}</p>
+          <h1 className="mt-1 text-2xl font-semibold">{t('assistant.title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('assistant.subtitle')}</p>
         </div>
         <span
           className={`rounded-full border px-3 py-1.5 text-xs ${data.available ? 'text-emerald-500 border-emerald-500/30' : 'text-amber-500 border-amber-500/30'}`}
         >
-          {data.available ? 'AI ulangan' : 'AI ulanishi kutilmoqda'}
+          {data.available ? t('assistant.connected') : t('assistant.awaitingConnection')}
         </span>
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
-        {[
-          [
-            'Kanal',
-            data.channels.some((c) => c.status === 'connected') ? 'Ulangan' : 'Ulanmagan',
-          ],
-          ['Kontent rejalar', String(data.plans.length)],
-          ['Suhbat limiti', `${data.daily_message_limit} / kun`],
-        ].map(([label, value]) => (
+        {stats.map(([label, value]) => (
           <div key={label} className="workspace-card">
             <p className="workspace-eyebrow">{label}</p>
             <p className="mt-3 text-xl font-semibold">{value}</p>
@@ -255,9 +244,9 @@ export function AssistantPage() {
               AI
             </span>
             <div>
-              <h2 className="font-semibold">Creator maslahatchisi</h2>
+              <h2 className="font-semibold">{t('assistant.chat.title')}</h2>
               <p className="text-xs text-muted-foreground">
-                Profilingiz va kanal holatiga asoslangan yordam
+                {t('assistant.chat.subtitle')}
               </p>
             </div>
           </div>
@@ -266,10 +255,7 @@ export function AssistantPage() {
             aria-live="polite"
           >
             <div className="rounded-xl border border-border bg-muted/50 p-4 text-sm leading-7">
-              Xush kelibsiz! Kanalni ulashdan boshlang, so‘ng kontent tilini, yo‘nalishini
-              va jadvalini belgilang. AI kontent reja taklif qiladi. Siz tasdiqlagan reja
-              bo‘yicha videolar tayyorlanadi, moderatsiyadan o‘tadi va nashrga yuboriladi.
-              Profilingizni to‘ldiring — maqsadingizga mos maslahat beraman.
+              {t('assistant.chat.welcome')}
             </div>
             {[...data.turns].reverse().map((turn) => (
               <div key={turn.id} className="space-y-3">
@@ -280,12 +266,12 @@ export function AssistantPage() {
                   {turn.status === 'completed'
                     ? turn.answer
                     : turn.status === 'failed'
-                      ? 'Javob tayyorlanmadi. AI ulanishi yoki balansni tekshirib, qayta urinib ko‘ring.'
-                      : 'AI javob tayyorlamoqda…'}
+                      ? t('assistant.chat.failed')
+                      : t('assistant.chat.working')}
                 </div>
                 {turn.status === 'completed' && (
                   <p className="text-xs text-muted-foreground">
-                    AI sarfi: ${turn.cost_usd}
+                    {t('assistant.chat.cost', { amount: turn.cost_usd })}
                   </p>
                 )}
               </div>
@@ -299,7 +285,7 @@ export function AssistantPage() {
             }}
           >
             <label htmlFor="assistant-message" className="sr-only">
-              Savolingiz
+              {t('assistant.chat.inputLabel')}
             </label>
             <textarea
               id="assistant-message"
@@ -312,17 +298,17 @@ export function AssistantPage() {
               disabled={!data.available || busy}
               placeholder={
                 data.available
-                  ? 'Kontent reja, auditoriya yoki keyingi qadam haqida so‘rang…'
-                  : 'Admin AI xizmatini ulaganidan keyin suhbat ochiladi.'
+                  ? t('assistant.chat.placeholder')
+                  : t('assistant.chat.disabledPlaceholder')
               }
               className="min-h-20 w-full resize-y rounded-lg border border-border bg-background p-3 text-sm disabled:opacity-60"
             />
             <div className="mt-3 flex items-center justify-between gap-3">
               <p className="text-xs text-muted-foreground">
-                AI tavsiya beradi. Reja va nashr tasdiqlash qoidalariga bo‘ysunadi.
+                {t('assistant.chat.disclaimer')}
               </p>
               <Button type="submit" disabled={!data.available || busy || !message.trim()}>
-                Yuborish ↗
+                {t('assistant.chat.send')}
               </Button>
             </div>
             {send.isError && (
@@ -341,7 +327,7 @@ export function AssistantPage() {
             <ProfileForm profile={data.profile} />
           </section>
           <section className="workspace-card">
-            <h2 className="mb-4 font-semibold">Ishga tushirish bosqichlari</h2>
+            <h2 className="mb-4 font-semibold">{t('assistant.steps.title')}</h2>
             {steps.map((step, i) => (
               <Link
                 key={step.to}
@@ -354,8 +340,12 @@ export function AssistantPage() {
                   {completed[i] ? '✓' : i + 1}
                 </span>
                 <div>
-                  <p className="text-sm font-medium">{step.title} ↗</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{step.detail}</p>
+                  <p className="text-sm font-medium">
+                    {t(`assistant.steps.${step.key}.title`)} ↗
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {t(`assistant.steps.${step.key}.detail`)}
+                  </p>
                 </div>
               </Link>
             ))}

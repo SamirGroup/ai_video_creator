@@ -1,4 +1,17 @@
 {
+  "studio": {
+    "adminLabel": "Operations center",
+    "creatorLabel": "Your creative studio",
+    "adminTitle": "Your ecosystem, at a glance.",
+    "creatorTitle": "Turn your next idea into a video.",
+    "adminDescription": "Manage AI services, customers and your content workflow in one place.",
+    "creatorDescription": "Plan with your personal AI assistant, prepare content and grow your channel.",
+    "configure": "Manage integrations",
+    "openAssistant": "Open AI assistant",
+    "planDetail": "From ideas to a publishing schedule",
+    "videoDetail": "Videos and content approvals",
+    "channelDetail": "Manage your YouTube channel"
+  },
   "app": {
     "name": "AI YouTuber",
     "tagline": "AI-produced videos for your YouTube channel"
@@ -42,7 +55,9 @@
       "title": "Page not found",
       "description": "The page you are looking for does not exist.",
       "backHome": "Back to dashboard"
-    }
+    },
+    "reload": "Reload",
+    "crashDescription": "An unexpected error occurred. Reloading the page usually fixes this."
   },
   "nav": {
     "partners": "Partners",
@@ -62,7 +77,11 @@
     "logout": "Log out",
     "language": "Language",
     "theme": "Theme",
-    "assistant": "AI assistant"
+    "assistant": "AI assistant",
+    "adminSection": "Admin",
+    "adminDashboard": "Admin dashboard",
+    "primary": "Primary",
+    "toggle": "Toggle navigation"
   },
   "auth": {
     "login": {
@@ -242,14 +261,21 @@
       "reasonLabel": "Reason",
       "regenerateFrom": "Regenerate from",
       "confirmApprove": "Approve and queue for upload?",
-      "confirmReject": "Reject this video? It will not be published."
+      "confirmReject": "Reject this video? It will not be published.",
+      "stages": {
+        "script": "Script",
+        "voice": "Voice",
+        "visuals": "Visuals"
+      }
     },
     "empty": {
       "title": "No videos yet",
       "description": "Videos will appear here once your first job is scheduled or generated."
     },
     "previewPlaceholder": "Video preview placeholder",
-    "steps": "Pipeline steps"
+    "steps": "Pipeline steps",
+    "restoring": "Restoring your video from the Telegram archive…",
+    "modelLabel": "Video AI model"
   },
   "revenue": {
     "title": "Revenue",
@@ -291,7 +317,19 @@
     "tax": "Tax",
     "total": "Total",
     "credits": "credits",
-    "choosePlan": "Choose plan"
+    "choosePlan": "Choose plan",
+    "connectTelegram": "Connect Telegram bot / Mini App",
+    "linkTelegram": "Link this Telegram account",
+    "telegramLinked": "Telegram linked",
+    "aiBalance": "AI balance: ${{available}} · Reserved: ${{reserved}}",
+    "taxTotal": "Tax: ${{tax}} · Total: ${{total}}",
+    "aiCredits": "AI: ${{budget}} ({{credits}} credits)",
+    "platform": "Platform: ${{amount}}",
+    "usageNote": "Usage depends on model, seconds, text tokens and audio. 1 credit = $0.0001.",
+    "starsNotConfigured": "Not configured",
+    "stars": "{{amount}} Stars",
+    "perMonth": "mo",
+    "perSixMonths": "6mo"
   },
   "contract": {
     "title": "Contract",
@@ -409,7 +447,11 @@
     ],
     "ctaTitle": "Your next idea starts here.",
     "ctaText": "Create a profile, explore the tools and set up a workspace for your channel.",
-    "footer": "One workspace for creating and managing YouTube content."
+    "footer": "One workspace for creating and managing YouTube content.",
+    "reduceMotion": "Reduce motion",
+    "enableAnimations": "Enable animations",
+    "dismiss": "Dismiss",
+    "partnersLabel": "Partners and integrations"
   },
   "planning": {
     "title": "Content plan",
@@ -436,7 +478,8 @@
     },
     "budgetCapacity": "Available plan capacity",
     "useMonthlyBudget": "Plan this month within my budget",
-    "budgetEstimate": "Capacity uses the per-video spending ceiling. Actual cost varies by model, duration and revisions; credit is checked again before generation."
+    "budgetEstimate": "Capacity uses the per-video spending ceiling. Actual cost varies by model, duration and revisions; credit is checked again before generation.",
+    "videoModelLabel": "Video model"
   },
   "modelCatalog": {
     "title": "AI model prices",
@@ -452,5 +495,152 @@
     "per_second": "per second",
     "per_clip": "per clip",
     "launchOffer": "Launch offer; verify before activation."
+  },
+  "assistant": {
+    "eyebrow": "Creator workspace",
+    "title": "Your personal AI assistant",
+    "subtitle": "From idea to publication — every step stays under your control.",
+    "connected": "AI connected",
+    "awaitingConnection": "Waiting for the AI connection",
+    "loading": "Preparing your assistant…",
+    "stats": {
+      "channel": "Channel",
+      "channelConnected": "Connected",
+      "channelDisconnected": "Not connected",
+      "plans": "Content plans",
+      "limit": "Chat limit",
+      "limitValue": "{{limit}} / day"
+    },
+    "chat": {
+      "title": "Creator advisor",
+      "subtitle": "Help based on your profile and channel status",
+      "welcome": "Welcome! Start by connecting your channel, then set your content language, direction and schedule. The AI proposes a content plan. Videos are produced from the plan you approve, pass moderation and go out for publishing. Fill in your profile and I will tailor my advice to your goal.",
+      "failed": "The answer could not be prepared. Check the AI connection or your balance and try again.",
+      "working": "The AI is preparing an answer…",
+      "cost": "AI spend: ${{amount}}",
+      "inputLabel": "Your question",
+      "placeholder": "Ask about your content plan, audience or next step…",
+      "disabledPlaceholder": "The chat opens once an administrator connects the AI service.",
+      "disclaimer": "The AI gives advice. Plans and publishing still follow the approval rules.",
+      "send": "Send ↗"
+    },
+    "profile": {
+      "title": "Your goal",
+      "subtitle": "The assistant tailors its advice to your profile.",
+      "goal": "Channel goal",
+      "goalPlaceholder": "For example, making Shorts about technology in Uzbek",
+      "region": "Audience region",
+      "regionPlaceholder": "Uzbekistan",
+      "language": "Chat language",
+      "timezone": "Time zone",
+      "saving": "Saving…",
+      "save": "Save profile",
+      "saved": "Profile saved."
+    },
+    "planner": {
+      "title": "Prepare a weekly plan",
+      "description": "Based on your content settings, region and budget. A finished plan is not sent for publishing until you approve it.",
+      "count": "Video count",
+      "working": "Preparing…",
+      "submit": "Let the AI propose a plan",
+      "review": "Review and approve the proposal ↗",
+      "connectFirst": "Connect your channel first"
+    },
+    "steps": {
+      "title": "Getting started",
+      "channel": {
+        "title": "Connect your channel",
+        "detail": "Connect your YouTube account securely"
+      },
+      "preferences": {
+        "title": "Content direction",
+        "detail": "Choose language, topic, format and publishing time"
+      },
+      "plan": {
+        "title": "Approve the plan",
+        "detail": "Review the AI proposals and approve them"
+      },
+      "videos": {
+        "title": "Video and moderation",
+        "detail": "Follow the process and check the finished video"
+      },
+      "revenue": {
+        "title": "Results analysis",
+        "detail": "Your next step, based on channel data"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Virtual numbers",
+    "subtitle": "Private number rental and messages — in a single account.",
+    "terms": {
+      "title": "Service terms",
+      "p1": "The number is assigned to you alone for a fixed period. You enter the code in the relevant app yourself. Delivery of the message, and acceptance of the number by the platform, are not guaranteed. YouTube monetisation depends on separate requirements.",
+      "p2": "The rental does not renew automatically. Move your account to a number you control yourself before the period ends. Messages are kept for 24 hours at most. If there is a problem, send a refund request from the order.",
+      "consent": "I will use this only for accounts that belong to me, and I accept the rental terms."
+    },
+    "salesPending": "The service is still being prepared. Sales open once the provider contract and the message connection are complete. No payment is taken right now.",
+    "payment": {
+      "title": "Payment method",
+      "unavailable": " — connection pending",
+      "sandbox": " — test mode",
+      "note": "You complete the payment on the selected provider's secure page.",
+      "selectFirst": "Select a payment method."
+    },
+    "filter": {
+      "service": "Service",
+      "country": "Country",
+      "all": "All",
+      "otherService": "Other"
+    },
+    "catalog": {
+      "loading": "Loading the catalogue…",
+      "failed": "The catalogue could not be loaded."
+    },
+    "offer": {
+      "days": "/ {{days}} days",
+      "mobile": "Mobile number",
+      "voip": "VoIP number",
+      "unavailable": "Not available right now",
+      "available": "{{available}} available",
+      "rent": "Rent",
+      "none": "There is no offer for this selection yet. Approved plans appear here."
+    },
+    "orders": {
+      "title": "My numbers and messages",
+      "loading": "Loading orders…",
+      "failed": "Orders could not be loaded.",
+      "empty": "You have not rented a number yet."
+    },
+    "rental": {
+      "checkPayPal": "Check the PayPal payment",
+      "paypalPending": "The PayPal payment is not complete yet. Confirm it on the PayPal page or check again later.",
+      "expiresAt": "Rental ends: {{date}}",
+      "continuePayment": "Continue the payment",
+      "closeInbox": "Close the message panel",
+      "openInbox": "View messages",
+      "inboxLoading": "Loading messages…",
+      "inboxFailed": "Messages could not be loaded.",
+      "inboxEmpty": "No message has arrived yet. The panel refreshes every 10 seconds.",
+      "refundLabel": "If there is a problem, the reason for your refund request",
+      "refundSubmit": "Send for review"
+    },
+    "status": {
+      "pending": "Awaiting payment",
+      "active": "Active",
+      "expired": "Expired",
+      "canceled": "Canceled",
+      "refund_requested": "Refund request under review",
+      "refunded": "Refunded"
+    },
+    "price": {
+      "base": "Provider price",
+      "margin": "Platform margin ({{pct}}%)",
+      "tax": "Tax ({{pct}}%)",
+      "total": "Total due",
+      "basisBase": "provider price",
+      "basisWithMargin": "provider price + platform margin",
+      "note": "Tax base: {{basis}}. Prices are in USD."
+    }
   }
 }

@@ -69,7 +69,7 @@ export function VideoDetailPage() {
       </div>
 
       {preview.data?.status === 'restoring' && (
-        <p role="status">Restoring your video from the Telegram archive…</p>
+        <p role="status">{t('video.restoring')}</p>
       )}
       {preview.data?.preview_url && (
         <Card>

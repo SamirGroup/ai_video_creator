@@ -185,7 +185,7 @@ export function ContentPlanPage() {
       <div className="flex flex-wrap items-end gap-3">
         {!!budget.data?.models.length && (
           <select
-            aria-label="Video model"
+            aria-label={t('planning.videoModelLabel')}
             className="rounded border bg-surface p-2"
             value={model || budget.data.models[0]}
             onChange={(e) => setModel(e.target.value)}

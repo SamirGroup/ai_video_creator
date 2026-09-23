@@ -42,10 +42,12 @@
       "title": "페이지를 찾을 수 없습니다",
       "description": "찾으시는 페이지가 존재하지 않습니다.",
       "backHome": "대시보드로 이동"
-    }
+    },
+    "reload": "새로고침",
+    "crashDescription": "예기치 못한 오류가 발생했습니다. 페이지를 새로고침하면 대부분 해결됩니다."
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "가상 번호",
     "dashboard": "대시보드",
     "channel": "채널",
     "preferences": "환경 설정",
@@ -61,7 +63,12 @@
     "logout": "로그아웃",
     "language": "언어",
     "theme": "테마",
-    "assistant": "AI assistant"
+    "assistant": "AI 어시스턴트",
+    "partners": "파트너",
+    "adminSection": "관리",
+    "adminDashboard": "관리자 대시보드",
+    "primary": "기본 탐색",
+    "toggle": "메뉴 열기/닫기"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "사유",
       "regenerateFrom": "재생성 시작 단계",
       "confirmApprove": "승인하고 업로드 대기열에 추가할까요?",
-      "confirmReject": "이 동영상을 거부할까요? 게시되지 않습니다."
+      "confirmReject": "이 동영상을 거부할까요? 게시되지 않습니다.",
+      "stages": {
+        "script": "대본",
+        "voice": "음성",
+        "visuals": "영상 소스"
+      }
     },
     "empty": {
       "title": "아직 동영상이 없습니다",
       "description": "첫 작업이 예약되거나 생성되면 여기에 표시됩니다."
     },
     "previewPlaceholder": "동영상 미리보기 자리",
-    "steps": "파이프라인 단계"
+    "steps": "파이프라인 단계",
+    "restoring": "Telegram 보관함에서 동영상을 복원하는 중…",
+    "modelLabel": "동영상 AI 모델"
   },
   "revenue": {
     "title": "수익",
@@ -285,7 +299,24 @@
       "suspended": "정지됨",
       "canceled": "해지됨",
       "expired": "만료됨"
-    }
+    },
+    "plans": "요금제",
+    "tax": "세금",
+    "total": "합계",
+    "credits": "크레딧",
+    "choosePlan": "요금제 선택",
+    "connectTelegram": "Telegram 봇 / Mini App 연결",
+    "linkTelegram": "이 Telegram 계정 연결",
+    "telegramLinked": "Telegram 연결됨",
+    "aiBalance": "AI 잔액: ${{available}} · 예약됨: ${{reserved}}",
+    "taxTotal": "세금: ${{tax}} · 합계: ${{total}}",
+    "aiCredits": "AI: ${{budget}}({{credits}} 크레딧)",
+    "platform": "플랫폼: ${{amount}}",
+    "usageNote": "사용량은 모델, 초, 텍스트 토큰, 오디오에 따라 달라집니다. 1크레딧 = $0.0001.",
+    "starsNotConfigured": "설정되지 않음",
+    "stars": "{{amount}} Stars",
+    "perMonth": "월",
+    "perSixMonths": "6개월"
   },
   "contract": {
     "title": "계약",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "다음 아이디어는 여기서 시작됩니다.",
     "ctaText": "프로필을 만들고 도구를 살펴보며 채널을 위한 작업 공간을 꾸며 보세요.",
-    "footer": "YouTube 콘텐츠 제작과 운영을 한곳에서."
+    "footer": "YouTube 콘텐츠 제작과 운영을 한곳에서.",
+    "reduceMotion": "모션 줄이기",
+    "enableAnimations": "애니메이션 켜기",
+    "dismiss": "닫기",
+    "partnersLabel": "파트너 및 연동"
   },
   "planning": {
     "title": "콘텐츠 기획",
@@ -427,6 +462,185 @@
       "approved": "승인됨",
       "failed": "실패",
       "canceled": "취소됨"
+    },
+    "budgetCapacity": "요금제에서 사용할 수 있는 수량",
+    "useMonthlyBudget": "이번 달을 내 예산 안에서 기획하기",
+    "budgetEstimate": "수량은 영상 한 편당 지출 상한을 기준으로 계산합니다. 실제 비용은 모델, 길이, 재생성 횟수에 따라 달라지며 생성 직전에 크레딧을 다시 확인합니다.",
+    "videoModelLabel": "동영상 모델"
+  },
+  "studio": {
+    "adminLabel": "운영 센터",
+    "creatorLabel": "나만의 크리에이티브 스튜디오",
+    "adminTitle": "전체 생태계를 한눈에.",
+    "creatorTitle": "다음 아이디어를 영상으로 만들어 보세요.",
+    "adminDescription": "AI 서비스, 고객, 콘텐츠 워크플로를 한곳에서 관리하세요.",
+    "creatorDescription": "개인 AI 어시스턴트와 함께 기획하고, 콘텐츠를 준비하고, 채널을 키우세요.",
+    "configure": "연동 관리",
+    "openAssistant": "AI 어시스턴트 열기",
+    "planDetail": "아이디어에서 발행 일정까지",
+    "videoDetail": "영상 및 콘텐츠 승인",
+    "channelDetail": "YouTube 채널 관리"
+  },
+  "modelCatalog": {
+    "title": "AI 모델 가격",
+    "note": "영상 생성은 초 단위로 과금됩니다. 크레딧은 플랫폼 잔액이며 모델 토큰이 아닙니다. 음성, 대본, 재생성에도 크레딧이 사용됩니다.",
+    "Model": "모델",
+    "USD / unit": "USD / 단위",
+    "Credits / unit": "크레딧 / 단위",
+    "Plans": "요금제",
+    "Availability": "제공 여부",
+    "source": "가격 출처",
+    "ready": "사용 가능",
+    "pending": "설정 대기 중",
+    "per_second": "초당",
+    "per_clip": "클립당",
+    "launchOffer": "출시 기념가입니다. 활성화 전에 확인하세요."
+  },
+  "assistant": {
+    "eyebrow": "크리에이터 작업 공간",
+    "title": "나만의 AI 어시스턴트",
+    "subtitle": "아이디어에서 게시까지 — 모든 단계를 직접 관리합니다.",
+    "connected": "AI 연결됨",
+    "awaitingConnection": "AI 연결을 기다리는 중",
+    "loading": "어시스턴트를 준비하는 중…",
+    "stats": {
+      "channel": "채널",
+      "channelConnected": "연결됨",
+      "channelDisconnected": "연결되지 않음",
+      "plans": "콘텐츠 기획안",
+      "limit": "채팅 한도",
+      "limitValue": "하루 {{limit}}회"
+    },
+    "chat": {
+      "title": "크리에이터 어드바이저",
+      "subtitle": "프로필과 채널 상태를 바탕으로 한 도움말",
+      "welcome": "환영합니다! 먼저 채널을 연결한 뒤 콘텐츠 언어와 방향, 일정을 설정하세요. AI가 콘텐츠 기획안을 제안합니다. 승인하신 기획안에 따라 동영상이 제작되고, 검토를 거쳐 게시로 넘어갑니다. 프로필을 채워 주시면 목표에 맞춰 조언해 드릴게요.",
+      "failed": "답변을 준비하지 못했습니다. AI 연결이나 잔액을 확인한 뒤 다시 시도해 주세요.",
+      "working": "AI가 답변을 준비하는 중…",
+      "cost": "AI 사용액: ${{amount}}",
+      "inputLabel": "질문 내용",
+      "placeholder": "콘텐츠 기획안, 시청자, 다음 단계에 대해 물어보세요…",
+      "disabledPlaceholder": "관리자가 AI 서비스를 연결하면 채팅을 이용할 수 있습니다.",
+      "disclaimer": "AI는 조언을 제공합니다. 기획안과 게시는 승인 규칙을 따릅니다.",
+      "send": "보내기 ↗"
+    },
+    "profile": {
+      "title": "나의 목표",
+      "subtitle": "어시스턴트가 프로필에 맞춰 조언을 조정합니다.",
+      "goal": "채널 목표",
+      "goalPlaceholder": "예: 우즈베크어로 테크 Shorts 만들기",
+      "region": "시청자 지역",
+      "regionPlaceholder": "우즈베키스탄",
+      "language": "채팅 언어",
+      "timezone": "시간대",
+      "saving": "저장 중…",
+      "save": "프로필 저장",
+      "saved": "프로필이 저장되었습니다."
+    },
+    "planner": {
+      "title": "한 주 기획안 만들기",
+      "description": "콘텐츠 설정과 지역, 예산을 바탕으로 만듭니다. 완성된 기획안은 승인하기 전까지 게시로 넘어가지 않습니다.",
+      "count": "동영상 수",
+      "working": "만드는 중…",
+      "submit": "AI에게 기획안 받기",
+      "review": "제안 검토하고 승인하기 ↗",
+      "connectFirst": "채널을 먼저 연결하세요"
+    },
+    "steps": {
+      "title": "시작하기",
+      "channel": {
+        "title": "채널 연결",
+        "detail": "YouTube 계정을 안전하게 연결하세요"
+      },
+      "preferences": {
+        "title": "콘텐츠 방향",
+        "detail": "언어, 주제, 형식, 게시 시간을 선택하세요"
+      },
+      "plan": {
+        "title": "기획안 승인",
+        "detail": "AI 제안을 검토하고 승인하세요"
+      },
+      "videos": {
+        "title": "동영상과 검토",
+        "detail": "진행 상황을 확인하고 완성된 동영상을 점검하세요"
+      },
+      "revenue": {
+        "title": "성과 분석",
+        "detail": "채널 데이터를 바탕으로 한 다음 단계"
+      }
+    }
+  },
+  "numbers": {
+    "title": "가상 번호",
+    "subtitle": "전용 번호 대여와 문자를 하나의 계정에서.",
+    "terms": {
+      "title": "서비스 이용 조건",
+      "p1": "번호는 정해진 기간 동안 본인에게만 배정됩니다. 인증 코드는 해당 앱에 직접 입력하셔야 합니다. 문자의 수신과 플랫폼의 번호 수락은 보장되지 않습니다. YouTube 수익 창출은 별도의 요건에 따릅니다.",
+      "p2": "대여는 자동으로 연장되지 않습니다. 기간이 끝나기 전에 직접 관리하는 번호로 계정을 옮기세요. 문자는 최대 24시간 동안 보관됩니다. 문제가 있으면 주문에서 환불 요청을 보내 주세요.",
+      "consent": "본인 소유의 계정에만 사용하며 대여 조건에 동의합니다."
+    },
+    "salesPending": "서비스를 준비하고 있습니다. 제공업체 계약과 문자 연동이 완료되면 판매가 시작됩니다. 지금은 결제가 이루어지지 않습니다.",
+    "payment": {
+      "title": "결제 수단",
+      "unavailable": " — 연동 대기 중",
+      "sandbox": " — 테스트 모드",
+      "note": "결제는 선택한 제공업체의 보안 페이지에서 완료합니다.",
+      "selectFirst": "결제 수단을 선택해 주세요."
+    },
+    "filter": {
+      "service": "서비스",
+      "country": "국가",
+      "all": "전체",
+      "otherService": "기타"
+    },
+    "catalog": {
+      "loading": "카탈로그를 불러오는 중…",
+      "failed": "카탈로그를 불러오지 못했습니다."
+    },
+    "offer": {
+      "days": "/ {{days}}일",
+      "mobile": "휴대폰 번호",
+      "voip": "VoIP 번호",
+      "unavailable": "지금은 이용할 수 없음",
+      "available": "{{available}}개 이용 가능",
+      "rent": "대여",
+      "none": "이 조건에 해당하는 상품이 아직 없습니다. 승인된 요금제가 여기에 표시됩니다."
+    },
+    "orders": {
+      "title": "내 번호와 문자",
+      "loading": "주문을 불러오는 중…",
+      "failed": "주문을 불러오지 못했습니다.",
+      "empty": "아직 대여한 번호가 없습니다."
+    },
+    "rental": {
+      "checkPayPal": "PayPal 결제 확인",
+      "paypalPending": "PayPal 결제가 아직 완료되지 않았습니다. PayPal 페이지에서 승인하거나 잠시 후 다시 확인해 주세요.",
+      "expiresAt": "대여 종료: {{date}}",
+      "continuePayment": "결제 계속하기",
+      "closeInbox": "문자 패널 닫기",
+      "openInbox": "문자 보기",
+      "inboxLoading": "문자를 불러오는 중…",
+      "inboxFailed": "문자를 불러오지 못했습니다.",
+      "inboxEmpty": "아직 도착한 문자가 없습니다. 패널은 10초마다 새로고침됩니다.",
+      "refundLabel": "문제가 있다면 환불을 요청하는 사유",
+      "refundSubmit": "검토 요청 보내기"
+    },
+    "status": {
+      "pending": "결제 대기 중",
+      "active": "사용 중",
+      "expired": "만료됨",
+      "canceled": "취소됨",
+      "refund_requested": "환불 요청 검토 중",
+      "refunded": "환불 완료"
+    },
+    "price": {
+      "base": "제공업체 가격",
+      "margin": "플랫폼 마진({{pct}}%)",
+      "tax": "세금({{pct}}%)",
+      "total": "결제 총액",
+      "basisBase": "제공업체 가격",
+      "basisWithMargin": "제공업체 가격 + 플랫폼 마진",
+      "note": "과세 기준: {{basis}}. 가격은 USD 기준입니다."
     }
   }
 }

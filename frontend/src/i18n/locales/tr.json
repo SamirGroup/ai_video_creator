@@ -42,10 +42,12 @@
       "title": "Sayfa bulunamadı",
       "description": "Aradığınız sayfa mevcut değil.",
       "backHome": "Kontrol paneline dön"
-    }
+    },
+    "reload": "Yeniden yükle",
+    "crashDescription": "Beklenmeyen bir hata oluştu. Sayfayı yeniden yüklemek genellikle bu sorunu giderir."
   },
   "nav": {
-    "virtualNumbers": "Virtual numbers",
+    "virtualNumbers": "Sanal numaralar",
     "dashboard": "Kontrol paneli",
     "channel": "Kanal",
     "preferences": "Tercihler",
@@ -61,7 +63,12 @@
     "logout": "Çıkış yap",
     "language": "Dil",
     "theme": "Tema",
-    "assistant": "AI assistant"
+    "assistant": "Yapay zekâ asistanı",
+    "partners": "İş ortakları",
+    "adminSection": "Yönetim",
+    "adminDashboard": "Yönetici paneli",
+    "primary": "Ana menü",
+    "toggle": "Menüyü aç veya kapat"
   },
   "auth": {
     "login": {
@@ -241,14 +248,21 @@
       "reasonLabel": "Gerekçe",
       "regenerateFrom": "Şu adımdan yeniden üret",
       "confirmApprove": "Onaylanıp yükleme sırasına alınsın mı?",
-      "confirmReject": "Bu video reddedilsin mi? Yayınlanmayacak."
+      "confirmReject": "Bu video reddedilsin mi? Yayınlanmayacak.",
+      "stages": {
+        "script": "Senaryo",
+        "voice": "Seslendirme",
+        "visuals": "Görseller"
+      }
     },
     "empty": {
       "title": "Henüz video yok",
       "description": "İlk işiniz planlandığında veya üretildiğinde videolar burada görünecek."
     },
     "previewPlaceholder": "Video önizleme alanı",
-    "steps": "Üretim adımları"
+    "steps": "Üretim adımları",
+    "restoring": "Videonuz Telegram arşivinden geri yükleniyor…",
+    "modelLabel": "Video yapay zekâ modeli"
   },
   "revenue": {
     "title": "Gelir",
@@ -285,7 +299,24 @@
       "suspended": "Askıya alındı",
       "canceled": "İptal edildi",
       "expired": "Süresi doldu"
-    }
+    },
+    "plans": "Planlar",
+    "tax": "Vergi",
+    "total": "Toplam",
+    "credits": "kredi",
+    "choosePlan": "Planı seç",
+    "connectTelegram": "Telegram botu / Mini App bağla",
+    "linkTelegram": "Bu Telegram hesabını bağla",
+    "telegramLinked": "Telegram bağlandı",
+    "aiBalance": "Yapay zekâ bakiyesi: ${{available}} · Rezerve: ${{reserved}}",
+    "taxTotal": "Vergi: ${{tax}} · Toplam: ${{total}}",
+    "aiCredits": "Yapay zekâ: ${{budget}} ({{credits}} kredi)",
+    "platform": "Platform: ${{amount}}",
+    "usageNote": "Kullanım; modele, saniyeye, metin token'larına ve sese bağlıdır. 1 kredi = $0.0001.",
+    "starsNotConfigured": "Yapılandırılmadı",
+    "stars": "{{amount}} Stars",
+    "perMonth": "ay",
+    "perSixMonths": "6 ay"
   },
   "contract": {
     "title": "Sözleşme",
@@ -403,7 +434,11 @@
     ],
     "ctaTitle": "Sıradaki fikriniz burada başlıyor.",
     "ctaText": "Profil oluşturun, araçları keşfedin ve kanalınız için çalışma alanınızı kurun.",
-    "footer": "YouTube içeriği üretmek ve yönetmek için tek çalışma alanı."
+    "footer": "YouTube içeriği üretmek ve yönetmek için tek çalışma alanı.",
+    "reduceMotion": "Hareketi azalt",
+    "enableAnimations": "Animasyonları etkinleştir",
+    "dismiss": "Kapat",
+    "partnersLabel": "İş ortakları ve entegrasyonlar"
   },
   "planning": {
     "title": "İçerik planı",
@@ -427,6 +462,185 @@
       "approved": "Onaylandı",
       "failed": "Başarısız",
       "canceled": "İptal edildi"
+    },
+    "budgetCapacity": "Planınızdaki kullanılabilir kapasite",
+    "useMonthlyBudget": "Bu ayı bütçeme göre planla",
+    "budgetEstimate": "Kapasite, video başına harcama üst sınırına göre hesaplanır. Gerçek maliyet modele, süreye ve yeniden denemelere göre değişir; üretimden önce kredi yeniden kontrol edilir.",
+    "videoModelLabel": "Video modeli"
+  },
+  "studio": {
+    "adminLabel": "Operasyon merkezi",
+    "creatorLabel": "Yaratıcı stüdyonuz",
+    "adminTitle": "Tüm ekosisteminiz tek bakışta.",
+    "creatorTitle": "Bir sonraki fikrinizi videoya dönüştürün.",
+    "adminDescription": "Yapay zekâ servislerini, müşterileri ve içerik akışınızı tek yerden yönetin.",
+    "creatorDescription": "Kişisel yapay zekâ asistanınızla planlayın, içerik hazırlayın ve kanalınızı büyütün.",
+    "configure": "Entegrasyonları yönet",
+    "openAssistant": "Yapay zekâ asistanını aç",
+    "planDetail": "Fikirden yayın takvimine",
+    "videoDetail": "Videolar ve içerik onayları",
+    "channelDetail": "YouTube kanalınızı yönetin"
+  },
+  "modelCatalog": {
+    "title": "Yapay zekâ modeli fiyatları",
+    "note": "Video üretimi saniye başına ücretlendirilir. Kredi, platform bakiyesidir; model token'ı değildir. Seslendirme, senaryo ve yeniden denemeler de kredi harcar.",
+    "Model": "Model",
+    "USD / unit": "USD / birim",
+    "Credits / unit": "Kredi / birim",
+    "Plans": "Planlar",
+    "Availability": "Kullanılabilirlik",
+    "source": "Fiyat kaynağı",
+    "ready": "Hazır",
+    "pending": "Yapılandırma bekleniyor",
+    "per_second": "saniye başına",
+    "per_clip": "klip başına",
+    "launchOffer": "Lansman teklifi; etkinleştirmeden önce doğrulayın."
+  },
+  "assistant": {
+    "eyebrow": "Üretici çalışma alanı",
+    "title": "Kişisel yapay zekâ asistanınız",
+    "subtitle": "Fikirden yayına — her adım sizin kontrolünüzde.",
+    "connected": "Yapay zekâ bağlı",
+    "awaitingConnection": "Yapay zekâ bağlantısı bekleniyor",
+    "loading": "Asistanınız hazırlanıyor…",
+    "stats": {
+      "channel": "Kanal",
+      "channelConnected": "Bağlı",
+      "channelDisconnected": "Bağlı değil",
+      "plans": "İçerik planları",
+      "limit": "Sohbet limiti",
+      "limitValue": "{{limit}} / gün"
+    },
+    "chat": {
+      "title": "Üretici danışmanı",
+      "subtitle": "Profilinize ve kanal durumunuza dayalı yardım",
+      "welcome": "Hoş geldiniz! Önce kanalınızı bağlayın, ardından içerik dilinizi, yönünüzü ve yayın takviminizi belirleyin. Yapay zekâ bir içerik planı önerir. Onayladığınız plana göre videolar üretilir, moderasyondan geçer ve yayına gönderilir. Profilinizi doldurun; tavsiyelerimi hedefinize göre uyarlayayım.",
+      "failed": "Yanıt hazırlanamadı. Yapay zekâ bağlantınızı veya bakiyenizi kontrol edip tekrar deneyin.",
+      "working": "Yapay zekâ yanıt hazırlıyor…",
+      "cost": "Yapay zekâ harcaması: ${{amount}}",
+      "inputLabel": "Sorunuz",
+      "placeholder": "İçerik planınız, kitleniz veya sonraki adım hakkında sorun…",
+      "disabledPlaceholder": "Sohbet, bir yönetici yapay zekâ servisini bağladığında açılır.",
+      "disclaimer": "Yapay zekâ tavsiye verir. Plan ve yayın yine onay kurallarına tabidir.",
+      "send": "Gönder ↗"
+    },
+    "profile": {
+      "title": "Hedefiniz",
+      "subtitle": "Asistan, tavsiyelerini profilinize göre uyarlar.",
+      "goal": "Kanal hedefi",
+      "goalPlaceholder": "Örneğin, Özbekçe teknoloji Shorts'ları üretmek",
+      "region": "Kitle bölgesi",
+      "regionPlaceholder": "Özbekistan",
+      "language": "Sohbet dili",
+      "timezone": "Saat dilimi",
+      "saving": "Kaydediliyor…",
+      "save": "Profili kaydet",
+      "saved": "Profil kaydedildi."
+    },
+    "planner": {
+      "title": "Haftalık plan hazırla",
+      "description": "İçerik ayarlarınıza, bölgenize ve bütçenize göre. Hazır plan, siz onaylamadan yayına gönderilmez.",
+      "count": "Video sayısı",
+      "working": "Hazırlanıyor…",
+      "submit": "Yapay zekâ plan önersin",
+      "review": "Öneriyi inceleyip onayla ↗",
+      "connectFirst": "Önce kanalınızı bağlayın"
+    },
+    "steps": {
+      "title": "Başlangıç adımları",
+      "channel": {
+        "title": "Kanalınızı bağlayın",
+        "detail": "YouTube hesabınızı güvenle bağlayın"
+      },
+      "preferences": {
+        "title": "İçerik yönü",
+        "detail": "Dil, konu, format ve yayın saatini seçin"
+      },
+      "plan": {
+        "title": "Planı onaylayın",
+        "detail": "Yapay zekâ önerilerini inceleyip onaylayın"
+      },
+      "videos": {
+        "title": "Video ve moderasyon",
+        "detail": "Süreci takip edin, hazır videoyu kontrol edin"
+      },
+      "revenue": {
+        "title": "Sonuç analizi",
+        "detail": "Kanal verilerinize dayalı bir sonraki adımınız"
+      }
+    }
+  },
+  "numbers": {
+    "title": "Sanal numaralar",
+    "subtitle": "Özel numara kiralama ve SMS'ler — tek bir hesapta.",
+    "terms": {
+      "title": "Hizmet koşulları",
+      "p1": "Numara, belirli bir süre boyunca yalnızca size tahsis edilir. Kodu ilgili uygulamaya kendiniz girersiniz. SMS'in ulaşması ve numaranın platform tarafından kabul edilmesi garanti edilmez. YouTube'da para kazanma ayrı koşullara bağlıdır.",
+      "p2": "Kiralama otomatik olarak yenilenmez. Süre dolmadan önce hesabınızı kendi kontrolünüzdeki bir numaraya taşıyın. SMS'ler en fazla 24 saat saklanır. Sorun yaşarsanız siparişten iade talebi gönderin.",
+      "consent": "Bunu yalnızca bana ait hesaplar için kullanacağım ve kiralama koşullarını kabul ediyorum."
+    },
+    "salesPending": "Hizmet hâlâ hazırlanıyor. Satışlar, sağlayıcı sözleşmesi ve SMS bağlantısı tamamlandığında açılacak. Şu anda hiçbir ödeme alınmıyor.",
+    "payment": {
+      "title": "Ödeme yöntemi",
+      "unavailable": " — bağlantı bekleniyor",
+      "sandbox": " — test modu",
+      "note": "Ödemeyi, seçtiğiniz sağlayıcının güvenli sayfasında tamamlarsınız.",
+      "selectFirst": "Bir ödeme yöntemi seçin."
+    },
+    "filter": {
+      "service": "Hizmet",
+      "country": "Ülke",
+      "all": "Tümü",
+      "otherService": "Diğer"
+    },
+    "catalog": {
+      "loading": "Katalog yükleniyor…",
+      "failed": "Katalog yüklenemedi."
+    },
+    "offer": {
+      "days": "/ {{days}} gün",
+      "mobile": "Mobil numara",
+      "voip": "VoIP numara",
+      "unavailable": "Şu anda kullanılamıyor",
+      "available": "{{available}} adet mevcut",
+      "rent": "Kirala",
+      "none": "Bu seçim için henüz teklif yok. Onaylanan planlar burada görünecek."
+    },
+    "orders": {
+      "title": "Numaralarım ve SMS'lerim",
+      "loading": "Siparişler yükleniyor…",
+      "failed": "Siparişler yüklenemedi.",
+      "empty": "Henüz numara kiralamadınız."
+    },
+    "rental": {
+      "checkPayPal": "PayPal ödemesini kontrol et",
+      "paypalPending": "PayPal ödemesi henüz tamamlanmadı. PayPal sayfasında onaylayın veya daha sonra tekrar kontrol edin.",
+      "expiresAt": "Kiralama bitişi: {{date}}",
+      "continuePayment": "Ödemeye devam et",
+      "closeInbox": "SMS panelini kapat",
+      "openInbox": "SMS'leri görüntüle",
+      "inboxLoading": "SMS'ler yükleniyor…",
+      "inboxFailed": "SMS'ler yüklenemedi.",
+      "inboxEmpty": "Henüz SMS gelmedi. Panel her 10 saniyede bir yenilenir.",
+      "refundLabel": "Sorun yaşadıysanız, iade talebinizin gerekçesi",
+      "refundSubmit": "İncelemeye gönder"
+    },
+    "status": {
+      "pending": "Ödeme bekleniyor",
+      "active": "Aktif",
+      "expired": "Süresi doldu",
+      "canceled": "İptal edildi",
+      "refund_requested": "İade talebi inceleniyor",
+      "refunded": "İade edildi"
+    },
+    "price": {
+      "base": "Sağlayıcı fiyatı",
+      "margin": "Platform marjı ({{pct}}%)",
+      "tax": "Vergi ({{pct}}%)",
+      "total": "Ödenecek toplam",
+      "basisBase": "sağlayıcı fiyatı",
+      "basisWithMargin": "sağlayıcı fiyatı + platform marjı",
+      "note": "Vergi matrahı: {{basis}}. Fiyatlar USD cinsindendir."
     }
   }
 }

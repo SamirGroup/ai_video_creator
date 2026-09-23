@@ -48,7 +48,7 @@ export function VideosPage() {
           </select>
           {models.length > 0 && (
             <select
-              aria-label="Video AI model"
+              aria-label={t('video.modelLabel')}
               className="rounded border border-border bg-surface p-2"
               value={model || models[0]}
               onChange={(e) => setModel(e.target.value)}

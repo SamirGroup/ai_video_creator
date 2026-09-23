@@ -1,3 +1,22 @@
+import { createElement } from 'react'
+import {
+  Bot,
+  LayoutDashboard,
+  Radio,
+  SlidersHorizontal,
+  CalendarDays,
+  Clapperboard,
+  ChartNoAxesCombined,
+  Phone,
+  CreditCard,
+  FileCheck2,
+  Handshake,
+  Users,
+  ShieldCheck,
+  Wallet,
+  Settings2,
+  type LucideIcon,
+} from 'lucide-react'
 import type { RoleCode } from '@/types/common'
 
 export interface NavItem {
@@ -35,3 +54,28 @@ export const adminNavItems: NavItem[] = [
 ]
 
 export const STAFF_ROLES: RoleCode[] = ['admin', 'moderator', 'support', 'finance']
+
+const navIcons: Record<string, LucideIcon> = {
+  '/assistant': Bot,
+  '/dashboard': LayoutDashboard,
+  '/admin-dashboard': LayoutDashboard,
+  '/channel': Radio,
+  '/preferences': SlidersHorizontal,
+  '/content-plan': CalendarDays,
+  '/videos': Clapperboard,
+  '/revenue': ChartNoAxesCombined,
+  '/virtual-numbers': Phone,
+  '/billing': CreditCard,
+  '/contract': FileCheck2,
+  '/admin/partners': Handshake,
+  '/admin/users': Users,
+  '/admin/videos': Clapperboard,
+  '/admin/moderation': ShieldCheck,
+  '/admin/finance': Wallet,
+  '/admin/virtual-numbers': Phone,
+  '/admin/config': Settings2,
+}
+export function NavIcon({ to }: { to: string }) {
+  const Icon = navIcons[to] ?? LayoutDashboard
+  return createElement(Icon, { size: 18, strokeWidth: 1.7, 'aria-hidden': true })
+}
