@@ -7,6 +7,7 @@ from decimal import Decimal
 from billing.wallet import hold_operation, release_operation
 from celery import shared_task
 from channels.models import YouTubeChannel
+from django.conf import settings
 from django.db.models import Count, Max, Sum
 from django.utils import timezone
 from providers.models import ApiCredentialConfig, ServiceType
@@ -14,10 +15,10 @@ from providers.services import (
     compute_token_cost,
     get_primary_config,
     record_api_usage,
-    resolve_api_key,
+    ensure_provider_ready,
 )
 from video_pipeline.models import VideoJob
-from video_pipeline.services.llm_client import OpenRouterClient
+from video_pipeline.services.llm_client import get_llm_client
 
 from content_planning.assistant_models import (
     AssistantPolicy,
@@ -34,7 +35,7 @@ def integrations():
             provider=p.provider,
             model=p.model_name,
             active=p.is_active,
-            configured=p.has_secret(),
+            configured=(bool(settings.OLLAMA_BASE_URL) if p.provider == "ollama" else p.has_secret()),
         )
         for p in ApiCredentialConfig.objects.filter(deleted_at__isnull=True)
     ]
@@ -111,7 +112,7 @@ def respond(turn_id):
         if not policy.enabled:
             raise ValueError("ASSISTANT_PAUSED")
         config = get_primary_config(ServiceType.LLM)
-        resolve_api_key(config)
+        ensure_provider_ready(config)
         context = creator_context(turn.user)
         history = list(
             AssistantTurn.objects.filter(user=turn.user, status="completed")
@@ -156,7 +157,7 @@ def respond(turn_id):
                 config, prompt_tokens=input_bound, completion_tokens=1200
             ),
         )
-        result = OpenRouterClient(config).chat_completion(
+        result = get_llm_client(config).chat_completion(
             messages=messages, max_tokens=1200, json_mode=False
         )
         cost = compute_token_cost(

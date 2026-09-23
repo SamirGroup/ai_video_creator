@@ -500,3 +500,7 @@ PAYPAL_WEBHOOK_ID = env.str("PAYPAL_WEBHOOK_ID", default="")
 # Optional separate Stripe account/key for rentals; existing subscriptions keep
 # STRIPE_SECRET_KEY. Empty means use the existing Stripe account.
 VIRTUAL_NUMBERS_STRIPE_SECRET_KEY = env.str("VIRTUAL_NUMBERS_STRIPE_SECRET_KEY", default="")
+
+# Private self-hosted LLM. Empty keeps local inference disabled.
+OLLAMA_BASE_URL = env.str("OLLAMA_BASE_URL", default="")
+OLLAMA_API_KEY = env.str("OLLAMA_API_KEY", default="")

@@ -30,7 +30,7 @@ Bir foydalanuvchidan bir vaqtning o‘zida bitta suhbat ishlaydi. Xato javobda m
 
 Tekshiruv paytida serverda AI provayder kalitlari yo‘q edi. Shuning uchun pullik AI ishlashi hali tasdiqlanmagan; UI bu holatni ochiq ko‘rsatadi.
 
-1. Admin konfiguratsiyasida faol birlamchi LLM va narxlarini tekshiring. Hozirgi klient OpenRouter API shaklidan foydalanadi; Claude tanlovi konfiguratsiyada. `OPENROUTER_API_KEY` xavfsiz server muhitiga kiritiladi.
+1. Admin konfiguratsiyasida faol birlamchi LLM va narxlarini tekshiring. Claude uchun bevosita Anthropic API qo‘llanadi: `/admin/config` → Claude · Anthropic Direct → saqlash → API sinovi → asosiy AI sifatida yoqish. [To‘liq yo‘riqnoma](ANTHROPIC_DIRECT_UZ.md). OpenRouter ham alohida provayder sifatida saqlangan.
 2. Moderatsiya provayderi kaliti, ovoz provayderi kaliti va tanlangan video provayderi kaliti/balansi kerak. Higgsfield katalogi uchun `python manage.py seed_higgsfield` faqat o‘chirilgan modellarni qo‘shadi. Aksiya narxlarini faollashtirishdan oldin qayta tekshiring.
 3. Higgsfield API parametrlari va har bir model imkoniyatini haqiqiy testda tekshiring; kalit borligi xizmat ishlashining dalili emas.
 4. Google OAuth, kanal ruxsatlari, YouTube quota va Analytics ulanishini tekshiring.

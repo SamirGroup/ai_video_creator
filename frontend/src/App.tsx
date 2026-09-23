@@ -1,3 +1,4 @@
+import { PartnersPage } from '@/pages/admin/PartnersPage'
 import { AssistantPage } from '@/pages/assistant/AssistantPage'
 import { VirtualNumbersPage } from '@/pages/creator/VirtualNumbersPage'
 import { AdminVirtualNumbersPage } from '@/pages/admin/AdminVirtualNumbersPage'
@@ -97,6 +98,7 @@ function AppRoutes() {
           <Route element={<RoleRoute allow={['admin']} />}>
             <Route path="/admin/virtual-numbers" element={<AdminVirtualNumbersPage />} />
             <Route path="/admin/config" element={<AdminConfigPage />} />
+            <Route path="/admin/partners" element={<PartnersPage />} />
           </Route>
         </Route>
       </Route>

@@ -183,6 +183,9 @@ class AdminProviderSerializer(serializers.ModelSerializer):
     """
 
     def validate(self, attrs):
+        if self.instance and self.instance.provider in {"anthropic", "ollama"} and attrs != {"is_active": False}:
+            raise serializers.ValidationError("Use the dedicated AI provider form to change or activate this provider.")
+
         price = attrs.get(
             "unit_cost_usd", getattr(self.instance, "unit_cost_usd", None)
         )

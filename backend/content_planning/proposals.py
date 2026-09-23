@@ -19,7 +19,7 @@ from content_planning.services import (
 from contracts.gates import assert_generation_allowed
 from providers.models import ServiceType
 from providers.services import get_primary_config, record_api_usage, compute_token_cost
-from video_pipeline.services.llm_client import OpenRouterClient
+from video_pipeline.services.llm_client import get_llm_client
 from video_pipeline.services.script_generation import extract_json_object
 
 SNAPSHOT_FIELDS = (
@@ -192,7 +192,7 @@ def prepare_proposal(plan_id, *, research=None, client=None):
             f"content-plan:{plan.pk}",
             compute_token_cost(config, prompt_tokens=100000, completion_tokens=12000),
         )
-        client = client or OpenRouterClient(config)
+        client = client or get_llm_client(config)
         response = client.chat_completion(
             messages=[
                 {

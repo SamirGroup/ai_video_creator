@@ -1,3 +1,4 @@
+import { PartnersBanner } from '@/components/common/PartnersBanner'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
@@ -632,6 +633,10 @@ function LandingPageInner() {
         </section>
 
         {/* --------------------------------------------------------- process */}
+        <section id="integrations" aria-label="Hamkorlar va integratsiyalar">
+          <PartnersBanner />
+        </section>
+
         <section
           id="process"
           aria-labelledby="process-title"

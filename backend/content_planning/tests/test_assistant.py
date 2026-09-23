@@ -86,7 +86,7 @@ def test_idempotent_submission_and_daily_limit():
     key = str(uuid.uuid4())
     with (
         patch("content_planning.assistant_views.get_primary_config"),
-        patch("content_planning.assistant_views.resolve_api_key"),
+        patch("content_planning.assistant_views.ensure_provider_ready"),
         patch("content_planning.assistant_views.respond.apply_async") as dispatch,
     ):
         first = client.post(
@@ -128,8 +128,8 @@ def test_response_uses_only_owner_context_and_records_cost():
         patch(
             "content_planning.assistant.get_primary_config", return_value=llm_config()
         ),
-        patch("content_planning.assistant.resolve_api_key"),
-        patch("content_planning.assistant.OpenRouterClient") as client,
+        patch("content_planning.assistant.ensure_provider_ready"),
+        patch("content_planning.assistant.get_llm_client") as client,
         patch(
             "content_planning.assistant.record_api_usage", return_value=object()
         ) as usage,
@@ -169,12 +169,12 @@ def test_budget_failure_never_calls_model():
         patch(
             "content_planning.assistant.get_primary_config", return_value=llm_config()
         ),
-        patch("content_planning.assistant.resolve_api_key"),
+        patch("content_planning.assistant.ensure_provider_ready"),
         patch(
             "content_planning.assistant.hold_operation",
             side_effect=PermissionDenied("balance"),
         ),
-        patch("content_planning.assistant.OpenRouterClient") as client,
+        patch("content_planning.assistant.get_llm_client") as client,
     ):
         respond(str(turn.pk))
     assert not client.called

@@ -1,4 +1,7 @@
+from adminpanel.partners import AdminPartners, AdminPartnerDetail, AdminPartnerBanner, PublicPartners
+from adminpanel.local_llm import LocalLLMView
 from django.urls import path
+from adminpanel.anthropic_config import AnthropicConfigView
 
 from adminpanel import views
 from adminpanel.auth_logos import PublicAuthLogos, AdminAuthLogos, AdminAuthLogoDetail
@@ -6,6 +9,12 @@ from adminpanel.auth_logos import PublicAuthLogos, AdminAuthLogos, AdminAuthLogo
 app_name = "adminpanel"
 
 urlpatterns = [
+    path("public/partners", PublicPartners.as_view()),
+    path("admin/partners", AdminPartners.as_view()),
+    path("admin/partners/banner", AdminPartnerBanner.as_view()),
+    path("admin/partners/<int:pk>", AdminPartnerDetail.as_view()),
+    path("admin/local-llm", LocalLLMView.as_view()),
+    path("admin/anthropic", AnthropicConfigView.as_view()),
     path("public/auth-logos", PublicAuthLogos.as_view()),
     path("admin/auth-logos", AdminAuthLogos.as_view()),
     path("admin/auth-logos/<int:pk>", AdminAuthLogoDetail.as_view()),

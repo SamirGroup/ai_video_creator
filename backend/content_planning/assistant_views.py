@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.utils import timezone
 from providers.exceptions import ProviderNotConfigured
-from providers.services import get_primary_config, resolve_api_key
+from providers.services import get_primary_config, ensure_provider_ready
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
@@ -84,7 +84,7 @@ class AssistantView(APIView):
         policy, _ = AssistantPolicy.objects.get_or_create(pk=1)
         context = creator_context(request.user)
         try:
-            resolve_api_key(get_primary_config("llm"))
+            ensure_provider_ready(get_primary_config("llm"))
             ready = True
         except ProviderNotConfigured:
             ready = False
@@ -138,7 +138,7 @@ class AssistantView(APIView):
             try:
                 if not policy.enabled:
                     raise ValueError()
-                resolve_api_key(get_primary_config("llm"))
+                ensure_provider_ready(get_primary_config("llm"))
             except (ProviderNotConfigured, ValueError):
                 return Response(
                     {

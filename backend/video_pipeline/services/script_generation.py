@@ -45,7 +45,7 @@ from video_pipeline.services.exceptions import (
     ScriptParseError,
     ScriptValidationError,
 )
-from video_pipeline.services.llm_client import LLMResponse, OpenRouterClient
+from video_pipeline.services.llm_client import LLMResponse, get_llm_client
 
 logger = logging.getLogger("video_pipeline.script")
 
@@ -438,7 +438,7 @@ def generate_script_for_job(job, *, attempt: int = 1, client=None) -> GeneratedS
 
     preference = _preference_of(job)
     config = get_primary_config(ServiceType.LLM)
-    client = client or OpenRouterClient(config)
+    client = client or get_llm_client(config)
 
     duration_sec = int(preference.video_duration_sec or 180)
     language = job.language or preference.language or "en"

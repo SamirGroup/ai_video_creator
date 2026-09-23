@@ -2,9 +2,10 @@
 
 Design rules baked into these tables:
 
-* **No secret ever lands in the database.** `ApiCredentialConfig.secret_ref` holds
+* **No plaintext secret ever lands in the database.** `ApiCredentialConfig.secret_ref` holds
   the *name* of a Django setting / environment variable (e.g. `OPENROUTER_API_KEY`),
-  never the key material itself (C-5, NFR-3, FR-84). `resolve_secret()` is the only
+  never the key material itself. Direct Anthropic keys entered by a superadmin
+  use the separately encrypted ProviderSecret vault. `resolve_secret()` is the only
   place that dereferences it.
 * **No model name is hardcoded in application code.** Which LLM/TTS/video provider
   and which model is used is a row in this table, editable from the admin panel
@@ -20,11 +21,10 @@ from __future__ import annotations
 
 import os
 
+from core.models import TimestampedModel
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
-
-from core.models import TimestampedModel
 
 
 class ServiceType(models.TextChoices):
@@ -116,8 +116,12 @@ class ApiCredentialConfig(TimestampedModel):
         """Dereference `secret_ref` from Django settings, then the process env.
 
         Returns "" when unset; callers decide whether that is fatal. The value is
-        returned but never logged, never serialized and never stored (NFR-3).
+        returned but never logged or included in API serializers.
         """
+        if self.provider == "anthropic" and self.pk:
+            stored = ProviderSecret.objects.filter(provider_config_id=self.pk).first()
+            if stored:
+                return stored.value_enc or ""
         if not self.secret_ref:
             return ""
         _missing = object()
@@ -200,3 +204,20 @@ class ApiUsageLog(models.Model):
 
     def __str__(self) -> str:
         return f"{self.provider}:{self.operation}:{self.cost_usd}"
+
+
+class ProviderSecret(models.Model):
+    """Superadmin-managed credentials, encrypted with the deployment field key.
+
+    Deliberately excluded from admin registration and Django data serialization.
+    """
+
+    from core.fields import EncryptedTextField
+
+    provider_config = models.OneToOneField(
+        ApiCredentialConfig, on_delete=models.CASCADE
+    )
+    value_enc = EncryptedTextField(serialize=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    tested_at = models.DateTimeField(null=True, blank=True)
+    tested_config_version = models.DateTimeField(null=True, blank=True)

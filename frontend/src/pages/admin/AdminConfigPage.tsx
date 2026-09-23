@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom'
+import { LocalAISettings } from './LocalAISettings'
+import { AnthropicSettings } from './AnthropicSettings'
 import { AuthLogoSettings } from './AuthLogoSettings'
 import { ProviderPriceEditor } from './ProviderPriceEditor'
 import { CommercialSettings } from './CommercialSettings'
@@ -33,8 +36,11 @@ export function AdminConfigPage() {
     <div className="flex flex-col gap-6">
       <h1 className="text-xl font-semibold text-foreground">{t('admin.config.title')}</h1>
 
+      <Link to="/admin/partners" className="rounded-xl border border-border bg-card p-4 text-sm font-medium text-primary">Hamkorlar banneri va referral havolalarini boshqarish →</Link>
       <AuthLogoSettings />
       <CommercialSettings />
+      <AnthropicSettings />
+      <LocalAISettings />
       <ProviderPriceEditor />
       {update.isError && <ErrorState />}
       <Card>
@@ -94,7 +100,10 @@ export function AdminConfigPage() {
                           type="checkbox"
                           aria-label={provider.display_name}
                           checked={provider.is_active}
-                          disabled={update.isPending}
+                          disabled={
+                            update.isPending ||
+                            ['anthropic', 'ollama'].includes(provider.provider)
+                          }
                           onChange={(e) =>
                             update.mutate({ id: provider.id, active: e.target.checked })
                           }

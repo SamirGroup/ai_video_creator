@@ -45,6 +45,7 @@
     }
   },
   "nav": {
+    "partners": "Partners",
     "virtualNumbers": "Virtual numbers",
     "dashboard": "Dashboard",
     "channel": "Channel",

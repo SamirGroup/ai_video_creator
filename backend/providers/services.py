@@ -62,6 +62,15 @@ def resolve_api_key(config: ApiCredentialConfig) -> str:
     return key
 
 
+def ensure_provider_ready(config):
+    """Local inference needs a configured private endpoint, not a paid API key."""
+    if config.provider == "ollama":
+        from video_pipeline.services.ollama_client import endpoint
+        endpoint()
+        return
+    resolve_api_key(config)
+
+
 def compute_token_cost(
     config: ApiCredentialConfig,
     *,

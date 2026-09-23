@@ -214,3 +214,16 @@ class OpenRouterClient:
             http_status=response.status_code,
             finish_reason=finish_reason,
         )
+
+
+def get_llm_client(config, **kwargs):
+    """Explicit routing: a direct Anthropic key is never sent to an intermediary."""
+    if config.provider == "ollama":
+        from video_pipeline.services.ollama_client import OllamaClient
+        return OllamaClient(config, **kwargs)
+    if config.provider == "anthropic":
+        from video_pipeline.services.anthropic_client import AnthropicClient
+        return AnthropicClient(config, **kwargs)
+    if config.provider == "openrouter":
+        return OpenRouterClient(config, **kwargs)
+    raise ProviderPermanentError("Unsupported LLM provider.")
