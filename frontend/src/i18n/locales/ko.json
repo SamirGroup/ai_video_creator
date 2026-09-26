@@ -68,7 +68,9 @@
     "adminSection": "관리",
     "adminDashboard": "관리자 대시보드",
     "primary": "기본 탐색",
-    "toggle": "메뉴 열기/닫기"
+    "toggle": "메뉴 열기/닫기",
+    "webServices": "웹사이트 제작",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "제공업체 가격",
       "basisWithMargin": "제공업체 가격 + 플랫폼 마진",
       "note": "과세 기준: {{basis}}. 가격은 USD 기준입니다."
+    }
+  },
+  "webServices": {
+    "title": "웹사이트 제작 서비스",
+    "subtitle": "저희 팀에 웹사이트를 주문하세요. 패키지를 고르고, 온라인으로 계약서에 서명한 뒤 Payoneer로 안전하게 결제하면 됩니다.",
+    "choose": "패키지 선택",
+    "selected": "선택됨",
+    "salesClosed": "곧 주문 접수를 시작합니다. 지금 정보를 입력하고 패키지 계약서를 미리 읽어 볼 수 있습니다.",
+    "catalogFailed": "패키지를 불러오지 못했습니다.",
+    "secure": "카드 결제는 Payoneer의 보안 페이지에서 진행됩니다. 저희는 카드 정보를 보거나 저장하지 않습니다.",
+    "metric": {
+      "delivery": "기간",
+      "days": "영업일 {{n}}일",
+      "revisions": "수정 횟수",
+      "pages": "페이지",
+      "bySpec": "기획서 기준",
+      "support": "사후 지원",
+      "months": "{{n}}개월"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "랜딩 페이지",
+        "features": [
+          "최대 6개 섹션의 원페이지 사이트",
+          "브랜드에 맞춘 맞춤 디자인",
+          "휴대폰·태블릿·PC 대응",
+          "문의 양식을 Telegram과 이메일로 전송",
+          "기본 SEO 설정",
+          "도메인·호스팅·SSL 연결 지원"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "기업 홈페이지",
+        "features": [
+          "메인과 하위 페이지로 구성된 기업 홈페이지",
+          "페이지 유형별 맞춤 디자인",
+          "콘텐츠 관리용 관리자 페이지",
+          "뉴스 또는 블로그 섹션",
+          "Google Analytics와 Yandex Metrica",
+          "모든 페이지 SEO 설정",
+          "문의 양식과 지도"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "온라인 쇼핑몰",
+        "features": [
+          "카테고리와 필터가 있는 상품 목록",
+          "장바구니, 주문, 온라인 결제",
+          "상품·주문 관리자 페이지",
+          "속도 최적화",
+          "주문 알림 Telegram·이메일 전송",
+          "고급 SEO와 분석"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "웹 플랫폼",
+        "features": [
+          "기획서에 따른 맞춤 플랫폼",
+          "사용자 계정, 역할, 권한 관리",
+          "최대 3개 연동: CRM, 1C, 결제, 봇",
+          "보안 강화 및 부하 테스트",
+          "문서화와 팀 교육",
+          "우선 지원"
+        ]
+      }
+    },
+    "form": {
+      "type": "계약 당사자는 누구인가요?",
+      "resident": "우즈베키스탄 거주자",
+      "residentHint": "우즈베키스탄에 거주하는 개인. 계약서는 우즈베크어입니다.",
+      "non_resident": "외국 국적자",
+      "non_residentHint": "우즈베키스탄 비거주 개인. 계약서는 영어입니다.",
+      "personal": "개인 정보",
+      "fullName": "성명",
+      "dateOfBirth": "생년월일",
+      "citizenship": "국적",
+      "country": "거주 국가",
+      "passportNumber": "여권 번호",
+      "passportHint": "라틴 대문자와 숫자, 예: AA1234567",
+      "passportIssuedBy": "발급 기관",
+      "passportIssuedAt": "발급일",
+      "pinfl": "PINFL (14자리)",
+      "taxId": "납세자 번호 (선택)",
+      "address": "주소",
+      "city": "도시",
+      "phone": "전화번호",
+      "phoneHint": "국제 형식, 예: +82 10 1234 5678",
+      "email": "이메일",
+      "project": "프로젝트 정보",
+      "projectName": "프로젝트 이름",
+      "projectDescription": "프로젝트 설명",
+      "projectDescriptionHint": "사이트의 목적, 필요한 메뉴, 마음에 드는 사이트 등을 적어 주세요.",
+      "referenceUrl": "현재 사이트 (선택)",
+      "review": "계약서 보기"
+    },
+    "contract": {
+      "title": "계약서",
+      "reviewHint": "계약서를 꼼꼼히 읽어 주세요. 패키지, 가격, 모든 조건이 담겨 있습니다. 양식을 바꾸면 다시 확인해 주세요.",
+      "stale": "정보가 변경되었습니다. 계약서를 다시 확인해 주세요.",
+      "accept": "계약서를 읽었으며 조건에 동의하고 입력한 정보가 정확함을 확인합니다.",
+      "pay": "동의하고 {{price}} 결제",
+      "open": "계약서",
+      "back": "뒤로",
+      "print": "인쇄 / PDF로 저장",
+      "loading": "계약서를 불러오는 중…",
+      "failed": "계약서를 불러오지 못했습니다."
+    },
+    "orders": {
+      "title": "내 주문",
+      "empty": "아직 주문이 없습니다.",
+      "pay": "결제",
+      "check": "결제 확인"
+    },
+    "status": {
+      "pending_payment": "결제 대기",
+      "paid": "결제 완료",
+      "in_progress": "진행 중",
+      "delivered": "납품 완료",
+      "canceled": "취소됨",
+      "refund_pending": "환불 진행 중",
+      "refunded": "환불 완료"
+    },
+    "payment": {
+      "returned": "결제를 확인하고 있습니다…",
+      "confirmed": "결제가 완료되었습니다. 작업 시작을 위해 연락드리겠습니다.",
+      "pending": "아직 결제가 확인되지 않았습니다. 결제하셨다면 몇 분 정도 걸릴 수 있습니다.",
+      "canceled": "결제가 취소되었습니다. «내 주문»에서 다시 결제할 수 있습니다."
     }
   }
 }

@@ -30,7 +30,7 @@ const FLAG = {
 }
 
 const FALLBACK = 'en'
-const BLOCKS = ['ab', 'fH', 'hH', 'AH', 'VH', 'WH', 'KH', 'integr']
+const BLOCKS = ['ab', 'fH', 'hH', 'AH', 'VH', 'WH', 'KH', 'integr', 'svc']
 
 const available = new Set(
   readdirSync(contentDir).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5)),

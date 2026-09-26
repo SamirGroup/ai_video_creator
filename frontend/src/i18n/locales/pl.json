@@ -68,7 +68,9 @@
     "adminSection": "Administracja",
     "adminDashboard": "Panel administratora",
     "primary": "Nawigacja główna",
-    "toggle": "Otwórz lub zamknij menu"
+    "toggle": "Otwórz lub zamknij menu",
+    "webServices": "Tworzenie stron",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "cena dostawcy",
       "basisWithMargin": "cena dostawcy + marża platformy",
       "note": "Podstawa podatku: {{basis}}. Ceny w USD."
+    }
+  },
+  "webServices": {
+    "title": "Tworzenie stron internetowych",
+    "subtitle": "Zamów stronę u naszego zespołu: wybierz pakiet, podpisz umowę online i zapłać bezpiecznie przez Payoneer.",
+    "choose": "Wybierz pakiet",
+    "selected": "Wybrano",
+    "salesClosed": "Zamówienia wkrótce ruszą. Już teraz możesz podać swoje dane i przeczytać umowę dla swojego pakietu.",
+    "catalogFailed": "Nie udało się wczytać pakietów.",
+    "secure": "Płacisz kartą na bezpiecznej stronie Payoneer. Nie widzimy ani nie przechowujemy danych karty.",
+    "metric": {
+      "delivery": "Termin",
+      "days": "{{n}} dni roboczych",
+      "revisions": "Rundy poprawek",
+      "pages": "Strony",
+      "bySpec": "Według specyfikacji",
+      "support": "Wsparcie",
+      "months": "{{n}} mies."
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Landing page",
+        "features": [
+          "Strona jednostronicowa do 6 sekcji",
+          "Indywidualny projekt pod Twoją markę",
+          "Dopasowana do telefonów, tabletów i komputerów",
+          "Formularz kontaktowy do Telegrama i e-mail",
+          "Podstawowa konfiguracja SEO",
+          "Pomoc z domeną, hostingiem i SSL"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Strona firmowa",
+        "features": [
+          "Strona firmowa ze stroną główną i podstronami",
+          "Indywidualny projekt każdego typu strony",
+          "Panel administracyjny do treści",
+          "Sekcja aktualności lub blog",
+          "Google Analytics i Yandex Metrica",
+          "Konfiguracja SEO każdej strony",
+          "Formularze kontaktowe i mapa"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Sklep internetowy",
+        "features": [
+          "Katalog z kategoriami i filtrami",
+          "Koszyk, zamówienie i płatności online",
+          "Panel do produktów i zamówień",
+          "Optymalizacja szybkości",
+          "Powiadomienia o zamówieniach w Telegramie i e-mail",
+          "Rozszerzone SEO i analityka"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Platforma internetowa",
+        "features": [
+          "Platforma na miarę według Twojej specyfikacji",
+          "Konta użytkowników, role i uprawnienia",
+          "Do 3 integracji: CRM, 1C, płatności, boty",
+          "Wzmocnione bezpieczeństwo i testy obciążeniowe",
+          "Dokumentacja i szkolenie zespołu",
+          "Priorytetowe wsparcie"
+        ]
+      }
+    },
+    "form": {
+      "type": "Kto zawiera umowę?",
+      "resident": "Rezydent Uzbekistanu",
+      "residentHint": "Osoba fizyczna mieszkająca w Uzbekistanie. Umowa w języku uzbeckim.",
+      "non_resident": "Obywatel innego państwa",
+      "non_residentHint": "Osoba fizyczna niebędąca rezydentem Uzbekistanu. Umowa w języku angielskim.",
+      "personal": "Dane osobowe",
+      "fullName": "Imię i nazwisko",
+      "dateOfBirth": "Data urodzenia",
+      "citizenship": "Obywatelstwo",
+      "country": "Kraj zamieszkania",
+      "passportNumber": "Numer paszportu",
+      "passportHint": "Wielkie litery łacińskie i cyfry, np. AA1234567",
+      "passportIssuedBy": "Wydany przez",
+      "passportIssuedAt": "Data wydania",
+      "pinfl": "PINFL (14 cyfr)",
+      "taxId": "Numer podatkowy (opcjonalnie)",
+      "address": "Adres",
+      "city": "Miasto",
+      "phone": "Telefon",
+      "phoneHint": "Format międzynarodowy, np. +48 512 345 678",
+      "email": "E-mail",
+      "project": "O projekcie",
+      "projectName": "Nazwa projektu",
+      "projectDescription": "Opisz projekt",
+      "projectDescriptionHint": "Do czego służy strona, jakich sekcji potrzebujesz i jakie strony Ci się podobają.",
+      "referenceUrl": "Obecna strona (opcjonalnie)",
+      "review": "Zobacz umowę"
+    },
+    "contract": {
+      "title": "Twoja umowa",
+      "reviewHint": "Przeczytaj umowę uważnie: zawiera pakiet, cenę i wszystkie warunki. Jeśli zmienisz formularz, przejrzyj ją ponownie.",
+      "stale": "Dane się zmieniły. Przejrzyj umowę ponownie.",
+      "accept": "Przeczytałem(-am) umowę, akceptuję jej warunki i potwierdzam poprawność moich danych.",
+      "pay": "Akceptuj i zapłać {{price}}",
+      "open": "Umowa",
+      "back": "Wstecz",
+      "print": "Drukuj / zapisz jako PDF",
+      "loading": "Wczytywanie umowy…",
+      "failed": "Nie udało się wczytać umowy."
+    },
+    "orders": {
+      "title": "Moje zamówienia",
+      "empty": "Nie masz jeszcze zamówień.",
+      "pay": "Zapłać",
+      "check": "Sprawdź płatność"
+    },
+    "status": {
+      "pending_payment": "Oczekuje na płatność",
+      "paid": "Opłacone",
+      "in_progress": "W realizacji",
+      "delivered": "Przekazane",
+      "canceled": "Anulowane",
+      "refund_pending": "Zwrot w toku",
+      "refunded": "Zwrócone"
+    },
+    "payment": {
+      "returned": "Sprawdzamy Twoją płatność…",
+      "confirmed": "Płatność otrzymana. Skontaktujemy się, aby rozpocząć pracę.",
+      "pending": "Płatność nie jest jeszcze potwierdzona. Jeśli już zapłaciłeś(-aś), może to potrwać kilka minut.",
+      "canceled": "Płatność anulowano. Możesz zapłacić ponownie w „Moich zamówieniach”."
     }
   }
 }

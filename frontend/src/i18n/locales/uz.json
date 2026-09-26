@@ -81,7 +81,9 @@
     "adminSection": "Administratsiya",
     "adminDashboard": "Admin paneli",
     "primary": "Asosiy navigatsiya",
-    "toggle": "Menyuni ochish yoki yopish"
+    "toggle": "Menyuni ochish yoki yopish",
+    "webServices": "Sayt yaratish",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "provayder narxi",
       "basisWithMargin": "provayder narxi + platforma ustamasi",
       "note": "Soliq bazasi: {{basis}}. Narx USD’da."
+    }
+  },
+  "webServices": {
+    "title": "Sayt yaratish xizmatlari",
+    "subtitle": "Jamoamizdan sayt buyurtma qiling: paketni tanlang, shartnomani onlayn imzolang va Payoneer orqali xavfsiz to‘lang.",
+    "choose": "Paketni tanlash",
+    "selected": "Tanlandi",
+    "salesClosed": "Buyurtmalar tez orada ochiladi. Hozirdanoq ma’lumotlaringizni kiritib, paketingiz shartnomasini o‘qishingiz mumkin.",
+    "catalogFailed": "Paketlarni yuklab bo‘lmadi.",
+    "secure": "Karta orqali to‘lov Payoneer’ning himoyalangan sahifasida amalga oshiriladi. Karta ma’lumotlari bizga ko‘rinmaydi va saqlanmaydi.",
+    "metric": {
+      "delivery": "Muddat",
+      "days": "{{n}} ish kuni",
+      "revisions": "Tuzatishlar",
+      "pages": "Sahifalar",
+      "bySpec": "TT bo‘yicha",
+      "support": "Qo‘llab-quvvatlash",
+      "months": "{{n}} oy"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Landing sahifa",
+        "features": [
+          "6 tagacha blokli bir sahifali sayt",
+          "Brendingiz asosida individual dizayn",
+          "Telefon, planshet va kompyuterga moslashgan",
+          "Arizalar Telegram va e-mailga yuboriladi",
+          "Asosiy SEO sozlamalari",
+          "Domen, hosting va SSL ulashda yordam"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Korporativ sayt",
+        "features": [
+          "Asosiy va ichki sahifalardan iborat korporativ sayt",
+          "Har bir sahifa turi uchun individual dizayn",
+          "Kontentni boshqarish uchun admin panel",
+          "Yangiliklar yoki blog bo‘limi",
+          "Google Analytics va Yandex Metrica",
+          "Har bir sahifa uchun SEO sozlamalari",
+          "Aloqa shakllari va xarita"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Internet-do‘kon",
+        "features": [
+          "Kategoriya va filtrli katalog",
+          "Savat, buyurtma va onlayn to‘lov",
+          "Mahsulot va buyurtmalar uchun admin panel",
+          "Tezlikni optimallashtirish",
+          "Buyurtmalar haqida Telegram va e-mail xabarlari",
+          "Kengaytirilgan SEO va analitika"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Veb-platforma",
+        "features": [
+          "Texnik topshiriq asosida individual platforma",
+          "Foydalanuvchi kabinetlari, rollar va huquqlar",
+          "3 tagacha integratsiya: CRM, 1C, to‘lovlar, botlar",
+          "Xavfsizlikni kuchaytirish va yuklama testi",
+          "Hujjatlar va jamoangizni o‘qitish",
+          "Ustuvor qo‘llab-quvvatlash"
+        ]
+      }
+    },
+    "form": {
+      "type": "Shartnomani kim tuzadi?",
+      "resident": "O‘zbekiston rezidenti",
+      "residentHint": "O‘zbekistonda yashovchi jismoniy shaxs. Shartnoma o‘zbek tilida.",
+      "non_resident": "Chet el fuqarosi",
+      "non_residentHint": "O‘zbekiston rezidenti bo‘lmagan jismoniy shaxs. Shartnoma ingliz tilida.",
+      "personal": "Shaxsiy ma’lumotlar",
+      "fullName": "F.I.Sh.",
+      "dateOfBirth": "Tug‘ilgan sana",
+      "citizenship": "Fuqaroligi",
+      "country": "Yashash mamlakati",
+      "passportNumber": "Pasport raqami",
+      "passportHint": "Lotin bosh harflari va raqamlar, masalan AA1234567",
+      "passportIssuedBy": "Kim tomonidan berilgan",
+      "passportIssuedAt": "Berilgan sana",
+      "pinfl": "JShShIR (14 raqam)",
+      "taxId": "Soliq raqami (ixtiyoriy)",
+      "address": "Manzil",
+      "city": "Shahar",
+      "phone": "Telefon",
+      "phoneHint": "Xalqaro formatda, masalan +998 90 123 45 67",
+      "email": "E-mail",
+      "project": "Loyiha haqida",
+      "projectName": "Loyiha nomi",
+      "projectDescription": "Loyihani tasvirlab bering",
+      "projectDescriptionHint": "Sayt nima uchun kerak, qaysi bo‘limlar bo‘lishi kerak va sizga qaysi saytlar yoqadi.",
+      "referenceUrl": "Hozirgi sayt (ixtiyoriy)",
+      "review": "Shartnomani ko‘rish"
+    },
+    "contract": {
+      "title": "Shartnomangiz",
+      "reviewHint": "Shartnomani diqqat bilan o‘qing: unda paket, narx va barcha shartlar bor. Shaklni o‘zgartirsangiz, uni qayta ko‘ring.",
+      "stale": "Ma’lumotlar o‘zgardi. Shartnomani qayta ko‘ring.",
+      "accept": "Shartnomani o‘qidim, uning shartlarini qabul qilaman va ma’lumotlarim to‘g‘riligini tasdiqlayman.",
+      "pay": "Qabul qilish va {{price}} to‘lash",
+      "open": "Shartnoma",
+      "back": "Orqaga",
+      "print": "Chop etish / PDF saqlash",
+      "loading": "Shartnoma yuklanmoqda…",
+      "failed": "Shartnomani yuklab bo‘lmadi."
+    },
+    "orders": {
+      "title": "Buyurtmalarim",
+      "empty": "Hali buyurtmalaringiz yo‘q.",
+      "pay": "To‘lash",
+      "check": "To‘lovni tekshirish"
+    },
+    "status": {
+      "pending_payment": "To‘lov kutilmoqda",
+      "paid": "To‘langan",
+      "in_progress": "Ishlanmoqda",
+      "delivered": "Topshirildi",
+      "canceled": "Bekor qilingan",
+      "refund_pending": "Pul qaytarilmoqda",
+      "refunded": "Pul qaytarilgan"
+    },
+    "payment": {
+      "returned": "To‘lovingiz tekshirilmoqda…",
+      "confirmed": "To‘lov qabul qilindi. Ishni boshlash uchun siz bilan bog‘lanamiz.",
+      "pending": "To‘lov hali tasdiqlanmadi. Agar to‘lagan bo‘lsangiz, bu bir necha daqiqa olishi mumkin.",
+      "canceled": "To‘lov bekor qilindi. «Buyurtmalarim» bo‘limidan qayta to‘lashingiz mumkin."
     }
   }
 }

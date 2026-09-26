@@ -4,6 +4,8 @@ from django.urls import include, path
 
 urlpatterns = [
     path("", include("virtual_numbers.urls")),
+    path("", include("payoneer.urls")),
+    path("", include("web_services.urls")),
     path("", include("telegram_integration.urls")),
     path("", include("accounts.urls")),
     path("", include("channels.urls")),

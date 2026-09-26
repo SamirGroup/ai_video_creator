@@ -279,5 +279,74 @@
    "with"
   ],
   "label": "Integrations and stack"
+ },
+ "svc": {
+  "label": "Services",
+  "title": "Website development",
+  "lead": "Landing pages, corporate sites, online stores and web platforms, built by our team under an official contract.",
+  "cta": "Order",
+  "popular": "Popular",
+  "contract": "Official contract for residents of Uzbekistan and foreign citizens",
+  "payment": "Secure payment through Payoneer",
+  "metric": {
+   "delivery": "Delivery",
+   "days": "{{n}} business days",
+   "revisions": "Revision rounds",
+   "pages": "Pages",
+   "bySpec": "Per specification",
+   "support": "Support",
+   "months": "{{n}} mo."
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Landing page",
+    "features": [
+     "One-page site with up to 6 sections",
+     "Custom design based on your brand",
+     "Works on phones, tablets and desktops",
+     "Contact form sent to Telegram and e-mail",
+     "Basic SEO setup",
+     "Help with domain, hosting and SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Corporate website",
+    "features": [
+     "Corporate site with home and inner pages",
+     "Custom design for every page type",
+     "Admin panel to manage content",
+     "News or blog section",
+     "Google Analytics and Yandex Metrica",
+     "SEO setup for every page",
+     "Contact forms and a map"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Online store",
+    "features": [
+     "Catalogue with categories and filters",
+     "Cart, checkout and online payments",
+     "Admin panel for products and orders",
+     "Speed optimisation",
+     "Order alerts to Telegram and e-mail",
+     "Extended SEO and analytics"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Web platform",
+    "features": [
+     "Custom platform built to your specification",
+     "User accounts, roles and permissions",
+     "Up to 3 integrations: CRM, 1C, payments, bots",
+     "Security hardening and load testing",
+     "Documentation and team training",
+     "Priority support"
+    ]
+   }
+  }
  }
 }

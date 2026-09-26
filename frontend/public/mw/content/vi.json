@@ -279,5 +279,74 @@
    "với"
   ],
   "label": "Tích hợp và công nghệ"
+ },
+ "svc": {
+  "label": "Dịch vụ",
+  "title": "Thiết kế website",
+  "lead": "Trang đích, website doanh nghiệp, cửa hàng trực tuyến và nền tảng web — do đội ngũ chúng tôi thực hiện theo hợp đồng chính thức.",
+  "cta": "Đặt hàng",
+  "popular": "Phổ biến",
+  "contract": "Hợp đồng chính thức cho cư dân Uzbekistan và công dân nước ngoài",
+  "payment": "Thanh toán an toàn qua Payoneer",
+  "metric": {
+   "delivery": "Thời gian",
+   "days": "{{n}} ngày làm việc",
+   "revisions": "Vòng chỉnh sửa",
+   "pages": "Trang",
+   "bySpec": "Theo đặc tả",
+   "support": "Hỗ trợ",
+   "months": "{{n}} tháng"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Trang đích",
+    "features": [
+     "Website một trang, tối đa 6 phần",
+     "Thiết kế riêng theo thương hiệu",
+     "Hiển thị tốt trên điện thoại, máy tính bảng và máy tính",
+     "Biểu mẫu liên hệ gửi về Telegram và email",
+     "Thiết lập SEO cơ bản",
+     "Hỗ trợ tên miền, hosting và SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Website doanh nghiệp",
+    "features": [
+     "Website doanh nghiệp có trang chủ và trang con",
+     "Thiết kế riêng cho từng loại trang",
+     "Trang quản trị nội dung",
+     "Mục tin tức hoặc blog",
+     "Google Analytics và Yandex Metrica",
+     "Thiết lập SEO cho từng trang",
+     "Biểu mẫu liên hệ và bản đồ"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Cửa hàng trực tuyến",
+    "features": [
+     "Danh mục có phân loại và bộ lọc",
+     "Giỏ hàng, thanh toán và trả tiền trực tuyến",
+     "Trang quản trị sản phẩm và đơn hàng",
+     "Tối ưu tốc độ",
+     "Thông báo đơn hàng qua Telegram và email",
+     "SEO và phân tích nâng cao"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Nền tảng web",
+    "features": [
+     "Nền tảng riêng theo đặc tả của bạn",
+     "Tài khoản người dùng, vai trò và phân quyền",
+     "Tối đa 3 tích hợp: CRM, 1C, thanh toán, bot",
+     "Tăng cường bảo mật và kiểm thử tải",
+     "Tài liệu và đào tạo đội ngũ",
+     "Hỗ trợ ưu tiên"
+    ]
+   }
+  }
  }
 }

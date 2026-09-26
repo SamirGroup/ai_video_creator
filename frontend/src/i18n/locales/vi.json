@@ -68,7 +68,9 @@
     "adminSection": "Quản trị",
     "adminDashboard": "Bảng quản trị",
     "primary": "Điều hướng chính",
-    "toggle": "Mở hoặc đóng menu"
+    "toggle": "Mở hoặc đóng menu",
+    "webServices": "Thiết kế website",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "giá nhà cung cấp",
       "basisWithMargin": "giá nhà cung cấp + phí nền tảng",
       "note": "Cơ sở tính thuế: {{basis}}. Giá tính bằng USD."
+    }
+  },
+  "webServices": {
+    "title": "Dịch vụ thiết kế website",
+    "subtitle": "Đặt website từ đội ngũ của chúng tôi: chọn gói, ký hợp đồng trực tuyến và thanh toán an toàn qua Payoneer.",
+    "choose": "Chọn gói",
+    "selected": "Đã chọn",
+    "salesClosed": "Sắp mở nhận đơn. Bạn đã có thể điền thông tin và đọc hợp đồng của gói mình chọn.",
+    "catalogFailed": "Không tải được các gói.",
+    "secure": "Bạn thanh toán bằng thẻ trên trang bảo mật của Payoneer. Chúng tôi không xem và không lưu thông tin thẻ.",
+    "metric": {
+      "delivery": "Thời gian",
+      "days": "{{n}} ngày làm việc",
+      "revisions": "Vòng chỉnh sửa",
+      "pages": "Trang",
+      "bySpec": "Theo đặc tả",
+      "support": "Hỗ trợ",
+      "months": "{{n}} tháng"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Trang đích",
+        "features": [
+          "Website một trang, tối đa 6 phần",
+          "Thiết kế riêng theo thương hiệu",
+          "Hiển thị tốt trên điện thoại, máy tính bảng và máy tính",
+          "Biểu mẫu liên hệ gửi về Telegram và email",
+          "Thiết lập SEO cơ bản",
+          "Hỗ trợ tên miền, hosting và SSL"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Website doanh nghiệp",
+        "features": [
+          "Website doanh nghiệp có trang chủ và trang con",
+          "Thiết kế riêng cho từng loại trang",
+          "Trang quản trị nội dung",
+          "Mục tin tức hoặc blog",
+          "Google Analytics và Yandex Metrica",
+          "Thiết lập SEO cho từng trang",
+          "Biểu mẫu liên hệ và bản đồ"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Cửa hàng trực tuyến",
+        "features": [
+          "Danh mục có phân loại và bộ lọc",
+          "Giỏ hàng, thanh toán và trả tiền trực tuyến",
+          "Trang quản trị sản phẩm và đơn hàng",
+          "Tối ưu tốc độ",
+          "Thông báo đơn hàng qua Telegram và email",
+          "SEO và phân tích nâng cao"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Nền tảng web",
+        "features": [
+          "Nền tảng riêng theo đặc tả của bạn",
+          "Tài khoản người dùng, vai trò và phân quyền",
+          "Tối đa 3 tích hợp: CRM, 1C, thanh toán, bot",
+          "Tăng cường bảo mật và kiểm thử tải",
+          "Tài liệu và đào tạo đội ngũ",
+          "Hỗ trợ ưu tiên"
+        ]
+      }
+    },
+    "form": {
+      "type": "Ai ký hợp đồng?",
+      "resident": "Cư dân Uzbekistan",
+      "residentHint": "Cá nhân sinh sống tại Uzbekistan. Hợp đồng bằng tiếng Uzbek.",
+      "non_resident": "Công dân nước ngoài",
+      "non_residentHint": "Cá nhân không cư trú tại Uzbekistan. Hợp đồng bằng tiếng Anh.",
+      "personal": "Thông tin cá nhân",
+      "fullName": "Họ và tên",
+      "dateOfBirth": "Ngày sinh",
+      "citizenship": "Quốc tịch",
+      "country": "Quốc gia cư trú",
+      "passportNumber": "Số hộ chiếu",
+      "passportHint": "Chữ Latin in hoa và chữ số, ví dụ AA1234567",
+      "passportIssuedBy": "Nơi cấp",
+      "passportIssuedAt": "Ngày cấp",
+      "pinfl": "PINFL (14 chữ số)",
+      "taxId": "Mã số thuế (không bắt buộc)",
+      "address": "Địa chỉ",
+      "city": "Thành phố",
+      "phone": "Điện thoại",
+      "phoneHint": "Định dạng quốc tế, ví dụ +84 912 345 678",
+      "email": "Email",
+      "project": "Về dự án",
+      "projectName": "Tên dự án",
+      "projectDescription": "Mô tả dự án",
+      "projectDescriptionHint": "Website dùng để làm gì, cần những mục nào và bạn thích những website nào.",
+      "referenceUrl": "Website hiện tại (không bắt buộc)",
+      "review": "Xem hợp đồng"
+    },
+    "contract": {
+      "title": "Hợp đồng của bạn",
+      "reviewHint": "Hãy đọc kỹ hợp đồng: có gói dịch vụ, giá và mọi điều khoản. Nếu bạn sửa biểu mẫu, hãy xem lại.",
+      "stale": "Thông tin đã thay đổi. Hãy xem lại hợp đồng.",
+      "accept": "Tôi đã đọc hợp đồng, đồng ý với các điều khoản và xác nhận thông tin của mình là chính xác.",
+      "pay": "Đồng ý và thanh toán {{price}}",
+      "open": "Hợp đồng",
+      "back": "Quay lại",
+      "print": "In / lưu PDF",
+      "loading": "Đang tải hợp đồng…",
+      "failed": "Không tải được hợp đồng."
+    },
+    "orders": {
+      "title": "Đơn hàng của tôi",
+      "empty": "Bạn chưa có đơn hàng nào.",
+      "pay": "Thanh toán",
+      "check": "Kiểm tra thanh toán"
+    },
+    "status": {
+      "pending_payment": "Chờ thanh toán",
+      "paid": "Đã thanh toán",
+      "in_progress": "Đang thực hiện",
+      "delivered": "Đã bàn giao",
+      "canceled": "Đã hủy",
+      "refund_pending": "Đang hoàn tiền",
+      "refunded": "Đã hoàn tiền"
+    },
+    "payment": {
+      "returned": "Đang kiểm tra thanh toán…",
+      "confirmed": "Đã nhận thanh toán. Chúng tôi sẽ liên hệ để bắt đầu công việc.",
+      "pending": "Thanh toán chưa được xác nhận. Nếu bạn đã trả, có thể mất vài phút.",
+      "canceled": "Thanh toán đã bị hủy. Bạn có thể thanh toán lại trong «Đơn hàng của tôi»."
     }
   }
 }

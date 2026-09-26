@@ -8,6 +8,8 @@ import {
   Clapperboard,
   ChartNoAxesCombined,
   Phone,
+  Globe2,
+  Landmark,
   CreditCard,
   FileCheck2,
   Handshake,
@@ -35,6 +37,7 @@ export const creatorNavItems: NavItem[] = [
   { to: '/videos', labelKey: 'nav.videos' },
   { to: '/revenue', labelKey: 'nav.revenue' },
   { to: '/virtual-numbers', labelKey: 'nav.virtualNumbers' },
+  { to: '/web-services', labelKey: 'nav.webServices' },
   { to: '/billing', labelKey: 'nav.billing' },
   { to: '/contract', labelKey: 'nav.contract' },
 ]
@@ -50,6 +53,8 @@ export const adminNavItems: NavItem[] = [
   },
   { to: '/admin/finance', labelKey: 'nav.adminFinance', roles: ['admin', 'finance'] },
   { to: '/admin/virtual-numbers', labelKey: 'nav.virtualNumbers', roles: ['admin'] },
+  { to: '/admin/web-services', labelKey: 'nav.webServices', roles: ['admin'] },
+  { to: '/admin/payoneer', labelKey: 'nav.payoneer', roles: ['admin'] },
   { to: '/admin/config', labelKey: 'nav.adminConfig', roles: ['admin'] },
 ]
 
@@ -65,6 +70,7 @@ const navIcons: Record<string, LucideIcon> = {
   '/videos': Clapperboard,
   '/revenue': ChartNoAxesCombined,
   '/virtual-numbers': Phone,
+  '/web-services': Globe2,
   '/billing': CreditCard,
   '/contract': FileCheck2,
   '/admin/partners': Handshake,
@@ -73,6 +79,8 @@ const navIcons: Record<string, LucideIcon> = {
   '/admin/moderation': ShieldCheck,
   '/admin/finance': Wallet,
   '/admin/virtual-numbers': Phone,
+  '/admin/web-services': Globe2,
+  '/admin/payoneer': Landmark,
   '/admin/config': Settings2,
 }
 export function NavIcon({ to }: { to: string }) {

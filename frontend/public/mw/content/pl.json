@@ -279,5 +279,74 @@
    "działa"
   ],
   "label": "Integracje i technologie"
+ },
+ "svc": {
+  "label": "Usługi",
+  "title": "Tworzenie stron internetowych",
+  "lead": "Landing page, strony firmowe, sklepy internetowe i platformy — tworzone przez nasz zespół na podstawie oficjalnej umowy.",
+  "cta": "Zamów",
+  "popular": "Popularny",
+  "contract": "Oficjalna umowa dla rezydentów Uzbekistanu i obcokrajowców",
+  "payment": "Bezpieczna płatność przez Payoneer",
+  "metric": {
+   "delivery": "Termin",
+   "days": "{{n}} dni roboczych",
+   "revisions": "Rundy poprawek",
+   "pages": "Strony",
+   "bySpec": "Według specyfikacji",
+   "support": "Wsparcie",
+   "months": "{{n}} mies."
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Landing page",
+    "features": [
+     "Strona jednostronicowa do 6 sekcji",
+     "Indywidualny projekt pod Twoją markę",
+     "Dopasowana do telefonów, tabletów i komputerów",
+     "Formularz kontaktowy do Telegrama i e-mail",
+     "Podstawowa konfiguracja SEO",
+     "Pomoc z domeną, hostingiem i SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Strona firmowa",
+    "features": [
+     "Strona firmowa ze stroną główną i podstronami",
+     "Indywidualny projekt każdego typu strony",
+     "Panel administracyjny do treści",
+     "Sekcja aktualności lub blog",
+     "Google Analytics i Yandex Metrica",
+     "Konfiguracja SEO każdej strony",
+     "Formularze kontaktowe i mapa"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Sklep internetowy",
+    "features": [
+     "Katalog z kategoriami i filtrami",
+     "Koszyk, zamówienie i płatności online",
+     "Panel do produktów i zamówień",
+     "Optymalizacja szybkości",
+     "Powiadomienia o zamówieniach w Telegramie i e-mail",
+     "Rozszerzone SEO i analityka"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Platforma internetowa",
+    "features": [
+     "Platforma na miarę według Twojej specyfikacji",
+     "Konta użytkowników, role i uprawnienia",
+     "Do 3 integracji: CRM, 1C, płatności, boty",
+     "Wzmocnione bezpieczeństwo i testy obciążeniowe",
+     "Dokumentacja i szkolenie zespołu",
+     "Priorytetowe wsparcie"
+    ]
+   }
+  }
  }
 }

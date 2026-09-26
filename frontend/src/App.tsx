@@ -2,6 +2,10 @@ import { PartnersPage } from '@/pages/admin/PartnersPage'
 import { AssistantPage } from '@/pages/assistant/AssistantPage'
 import { VirtualNumbersPage } from '@/pages/creator/VirtualNumbersPage'
 import { AdminVirtualNumbersPage } from '@/pages/admin/AdminVirtualNumbersPage'
+import { WebServicesPage } from '@/pages/creator/WebServicesPage'
+import { ServiceContractPage } from '@/pages/creator/ServiceContractPage'
+import { AdminWebServicesPage } from '@/pages/admin/AdminWebServicesPage'
+import { AdminPayoneerPage } from '@/pages/admin/AdminPayoneerPage'
 import { PricingPage } from '@/pages/public/PricingPage'
 import { TelegramBridge } from '@/components/common/TelegramBridge'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -60,22 +64,34 @@ function AppRoutes() {
       {/* Creator + admin (auth-guarded, SPEC 6) */}
       <Route element={<ProtectedRoute />}>
         <Route path="/oauth/:kind/callback" element={<OAuthCallbackPage />} />
+        {/* Contracts render outside the app shell so they print as clean A4. */}
+        <Route
+          path="/web-services/orders/:id/contract"
+          element={<ServiceContractPage />}
+        />
+        <Route element={<RoleRoute allow={['admin']} />}>
+          <Route
+            path="/admin/web-services/orders/:id/contract"
+            element={<ServiceContractPage admin />}
+          />
+        </Route>
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<HomeRedirect />} />
           <Route path="/creator/:id" element={<CreatorHomeRoute />} />
           <Route element={<RoleRoute allow={['creator']} />}>
-          <Route path="/virtual-numbers" element={<VirtualNumbersPage />} />
-          <Route path="/assistant" element={<AssistantPage />} />
-          <Route path="/channel" element={<ChannelPage />} />
-          <Route path="/content-plan" element={<ContentPlanPage />} />
-          <Route path="/preferences" element={<PreferencesPage />} />
-          <Route path="/videos" element={<VideosPage />} />
-          <Route path="/videos/:videoId" element={<VideoDetailPage />} />
-          <Route path="/revenue" element={<RevenuePage />} />
-          <Route path="/billing" element={<BillingPage />} />
-          <Route path="/billing/success" element={<BillingPage />} />
-          <Route path="/billing/cancel" element={<BillingPage />} />
-          <Route path="/contract" element={<ContractPage />} />
+            <Route path="/virtual-numbers" element={<VirtualNumbersPage />} />
+            <Route path="/web-services" element={<WebServicesPage />} />
+            <Route path="/assistant" element={<AssistantPage />} />
+            <Route path="/channel" element={<ChannelPage />} />
+            <Route path="/content-plan" element={<ContentPlanPage />} />
+            <Route path="/preferences" element={<PreferencesPage />} />
+            <Route path="/videos" element={<VideosPage />} />
+            <Route path="/videos/:videoId" element={<VideoDetailPage />} />
+            <Route path="/revenue" element={<RevenuePage />} />
+            <Route path="/billing" element={<BillingPage />} />
+            <Route path="/billing/success" element={<BillingPage />} />
+            <Route path="/billing/cancel" element={<BillingPage />} />
+            <Route path="/contract" element={<ContractPage />} />
           </Route>
 
           {/* Admin (role-guarded on top of auth — client-side UX only, server is
@@ -99,6 +115,8 @@ function AppRoutes() {
             <Route path="/admin/virtual-numbers" element={<AdminVirtualNumbersPage />} />
             <Route path="/admin/config" element={<AdminConfigPage />} />
             <Route path="/admin/partners" element={<PartnersPage />} />
+            <Route path="/admin/web-services" element={<AdminWebServicesPage />} />
+            <Route path="/admin/payoneer" element={<AdminPayoneerPage />} />
           </Route>
         </Route>
       </Route>

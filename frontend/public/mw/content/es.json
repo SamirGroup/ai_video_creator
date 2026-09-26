@@ -279,5 +279,74 @@
    "con"
   ],
   "label": "Integraciones y tecnologías"
+ },
+ "svc": {
+  "label": "Servicios",
+  "title": "Creación de sitios web",
+  "lead": "Landing pages, sitios corporativos, tiendas en línea y plataformas web, hechos por nuestro equipo con contrato oficial.",
+  "cta": "Pedir",
+  "popular": "Popular",
+  "contract": "Contrato oficial para residentes de Uzbekistán y ciudadanos extranjeros",
+  "payment": "Pago seguro con Payoneer",
+  "metric": {
+   "delivery": "Plazo",
+   "days": "{{n}} días hábiles",
+   "revisions": "Rondas de cambios",
+   "pages": "Páginas",
+   "bySpec": "Según especificación",
+   "support": "Soporte",
+   "months": "{{n}} meses"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Landing page",
+    "features": [
+     "Sitio de una página con hasta 6 secciones",
+     "Diseño a medida según tu marca",
+     "Adaptado a móviles, tabletas y ordenadores",
+     "Formulario de contacto a Telegram y correo",
+     "Configuración SEO básica",
+     "Ayuda con dominio, hosting y SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Sitio corporativo",
+    "features": [
+     "Sitio corporativo con portada y páginas internas",
+     "Diseño a medida para cada tipo de página",
+     "Panel de administración de contenidos",
+     "Sección de noticias o blog",
+     "Google Analytics y Yandex Metrica",
+     "Configuración SEO de cada página",
+     "Formularios de contacto y mapa"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Tienda en línea",
+    "features": [
+     "Catálogo con categorías y filtros",
+     "Carrito, pedido y pago en línea",
+     "Panel para productos y pedidos",
+     "Optimización de velocidad",
+     "Avisos de pedidos por Telegram y correo",
+     "SEO y analítica avanzados"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Plataforma web",
+    "features": [
+     "Plataforma a medida según tu especificación",
+     "Cuentas de usuario, roles y permisos",
+     "Hasta 3 integraciones: CRM, 1C, pagos, bots",
+     "Refuerzo de seguridad y pruebas de carga",
+     "Documentación y formación de tu equipo",
+     "Soporte prioritario"
+    ]
+   }
+  }
  }
 }

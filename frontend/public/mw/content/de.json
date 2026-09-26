@@ -279,5 +279,74 @@
    "mit"
   ],
   "label": "Integrationen und Stack"
+ },
+ "svc": {
+  "label": "Leistungen",
+  "title": "Website-Erstellung",
+  "lead": "Landingpages, Unternehmenswebsites, Onlineshops und Webplattformen – von unserem Team, mit offiziellem Vertrag.",
+  "cta": "Bestellen",
+  "popular": "Beliebt",
+  "contract": "Offizieller Vertrag für Einwohner Usbekistans und ausländische Staatsbürger",
+  "payment": "Sichere Zahlung über Payoneer",
+  "metric": {
+   "delivery": "Laufzeit",
+   "days": "{{n}} Werktage",
+   "revisions": "Korrekturrunden",
+   "pages": "Seiten",
+   "bySpec": "Laut Pflichtenheft",
+   "support": "Support",
+   "months": "{{n}} Mon."
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Landingpage",
+    "features": [
+     "One-Pager mit bis zu 6 Abschnitten",
+     "Individuelles Design passend zu Ihrer Marke",
+     "Optimiert für Smartphone, Tablet und Desktop",
+     "Kontaktformular an Telegram und E-Mail",
+     "Grundlegende SEO-Einrichtung",
+     "Hilfe bei Domain, Hosting und SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Unternehmenswebsite",
+    "features": [
+     "Unternehmenswebsite mit Start- und Unterseiten",
+     "Individuelles Design für jeden Seitentyp",
+     "Admin-Bereich zur Inhaltspflege",
+     "News- oder Blogbereich",
+     "Google Analytics und Yandex Metrica",
+     "SEO-Einrichtung für jede Seite",
+     "Kontaktformulare und Karte"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Onlineshop",
+    "features": [
+     "Katalog mit Kategorien und Filtern",
+     "Warenkorb, Checkout und Online-Zahlung",
+     "Admin-Bereich für Produkte und Bestellungen",
+     "Geschwindigkeitsoptimierung",
+     "Bestellhinweise per Telegram und E-Mail",
+     "Erweitertes SEO und Analytics"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Webplattform",
+    "features": [
+     "Individuelle Plattform nach Ihrem Pflichtenheft",
+     "Benutzerkonten, Rollen und Rechte",
+     "Bis zu 3 Integrationen: CRM, 1C, Zahlungen, Bots",
+     "Sicherheitshärtung und Lasttests",
+     "Dokumentation und Schulung Ihres Teams",
+     "Priorisierter Support"
+    ]
+   }
+  }
  }
 }

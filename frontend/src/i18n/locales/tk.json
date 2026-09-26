@@ -68,7 +68,9 @@
     "adminSection": "Administrasiýa",
     "adminDashboard": "Admin paneli",
     "primary": "Esasy nawigasiýa",
-    "toggle": "Menýuny aç ýa-da ýap"
+    "toggle": "Menýuny aç ýa-da ýap",
+    "webServices": "Saýt döretmek",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "üpjünçiniň bahasy",
       "basisWithMargin": "üpjünçiniň bahasy + platformanyň goşmaçasy",
       "note": "Salgyt esasy: {{basis}}. Bahalar USD-de."
+    }
+  },
+  "webServices": {
+    "title": "Saýt döretmek hyzmatlary",
+    "subtitle": "Toparymyzdan saýt sargyt ediň: bukjany saýlaň, şertnama onlaýn gol çekiň we Payoneer arkaly howpsuz töläň.",
+    "choose": "Bukjany saýla",
+    "selected": "Saýlandy",
+    "salesClosed": "Sargytlar ýakyn wagtda açylar. Häzirden maglumatlaryňyzy girizip, bukjaňyzyň şertnamasyny okap bilersiňiz.",
+    "catalogFailed": "Bukjalary ýükläp bolmady.",
+    "secure": "Kart bilen töleg Payoneer-iň goralan sahypasynda amala aşyrylýar. Kart maglumatlaryny görmeýäris we saklamaýarys.",
+    "metric": {
+      "delivery": "Möhlet",
+      "days": "{{n}} iş güni",
+      "revisions": "Düzediş tapgyrlary",
+      "pages": "Sahypalar",
+      "bySpec": "Tehniki tabşyryga görä",
+      "support": "Goldaw",
+      "months": "{{n}} aý"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Landing sahypa",
+        "features": [
+          "6 bloga çenli bir sahypaly saýt",
+          "Brendiňize laýyk aýratyn dizaýn",
+          "Telefona, planşete we kompýutere uýgunlaşdyrylan",
+          "Arzalar Telegrama we e-poçta iberilýär",
+          "Esasy SEO sazlamalary",
+          "Domen, hosting we SSL birikdirmekde kömek"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Korporatiw saýt",
+        "features": [
+          "Baş we içki sahypalardan ybarat korporatiw saýt",
+          "Her sahypa görnüşi üçin aýratyn dizaýn",
+          "Mazmuny dolandyrmak üçin admin panel",
+          "Habarlar ýa-da blog bölümi",
+          "Google Analytics we Yandex Metrica",
+          "Her sahypa üçin SEO sazlamalary",
+          "Habarlaşmak formalary we karta"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Internet dükan",
+        "features": [
+          "Kategoriýaly we süzgüçli katalog",
+          "Sebet, sargyt we onlaýn töleg",
+          "Harytlar we sargytlar üçin admin panel",
+          "Tizligi optimizirlemek",
+          "Sargytlar barada Telegram we e-poçta habarlary",
+          "Giňeldilen SEO we analitika"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Web platforma",
+        "features": [
+          "Tehniki tabşyryguňyz esasynda aýratyn platforma",
+          "Ulanyjy kabinetleri, rollar we hukuklar",
+          "3-e çenli integrasiýa: CRM, 1C, tölegler, botlar",
+          "Howpsuzlygy güýçlendirmek we ýük synagy",
+          "Resminamalar we toparyňyzy okatmak",
+          "Ileri tutulýan goldaw"
+        ]
+      }
+    },
+    "form": {
+      "type": "Şertnamany kim baglaşýar?",
+      "resident": "Özbegistanyň rezidenti",
+      "residentHint": "Özbegistanda ýaşaýan fiziki şahs. Şertnama özbek dilinde.",
+      "non_resident": "Daşary ýurt raýaty",
+      "non_residentHint": "Özbegistanyň rezidenti bolmadyk fiziki şahs. Şertnama iňlis dilinde.",
+      "personal": "Şahsy maglumatlar",
+      "fullName": "Familiýasy, ady",
+      "dateOfBirth": "Doglan senesi",
+      "citizenship": "Raýatlygy",
+      "country": "Ýaşaýan ýurdy",
+      "passportNumber": "Pasport belgisi",
+      "passportHint": "Latyn baş harplary we sanlar, meselem AA1234567",
+      "passportIssuedBy": "Kim tarapyndan berlen",
+      "passportIssuedAt": "Berlen senesi",
+      "pinfl": "PINFL (14 san)",
+      "taxId": "Salgyt belgisi (hökmany däl)",
+      "address": "Salgy",
+      "city": "Şäher",
+      "phone": "Telefon",
+      "phoneHint": "Halkara görnüşde, meselem +993 65 123456",
+      "email": "E-poçta",
+      "project": "Taslama barada",
+      "projectName": "Taslamanyň ady",
+      "projectDescription": "Taslamany beýan ediň",
+      "projectDescriptionHint": "Saýt näme üçin gerek, haýsy bölümler gerek we size haýsy saýtlar ýaraýar.",
+      "referenceUrl": "Häzirki saýt (hökmany däl)",
+      "review": "Şertnama seret"
+    },
+    "contract": {
+      "title": "Siziň şertnamaňyz",
+      "reviewHint": "Şertnamany üns bilen okaň: onda bukja, baha we ähli şertler bar. Formany üýtgetseňiz, ony täzeden gözden geçiriň.",
+      "stale": "Maglumatlar üýtgedi. Şertnamany täzeden gözden geçiriň.",
+      "accept": "Şertnamany okadym, onuň şertlerini kabul edýärin we maglumatlarymyň dogrudygyny tassyklaýaryn.",
+      "pay": "Kabul et we {{price}} töle",
+      "open": "Şertnama",
+      "back": "Yza",
+      "print": "Çap et / PDF edip sakla",
+      "loading": "Şertnama ýüklenýär…",
+      "failed": "Şertnamany ýükläp bolmady."
+    },
+    "orders": {
+      "title": "Sargytlarym",
+      "empty": "Heniz sargydyňyz ýok.",
+      "pay": "Töle",
+      "check": "Tölegi barla"
+    },
+    "status": {
+      "pending_payment": "Töleg garaşylýar",
+      "paid": "Tölendi",
+      "in_progress": "Işlenýär",
+      "delivered": "Tabşyryldy",
+      "canceled": "Ýatyryldy",
+      "refund_pending": "Yzyna gaýtarylýar",
+      "refunded": "Yzyna gaýtaryldy"
+    },
+    "payment": {
+      "returned": "Tölegiňiz barlanýar…",
+      "confirmed": "Töleg kabul edildi. Işe başlamak üçin siz bilen habarlaşarys.",
+      "pending": "Töleg heniz tassyklanmady. Tölän bolsaňyz, bu birnäçe minut alyp biler.",
+      "canceled": "Töleg ýatyryldy. «Sargytlarym» bölüminden täzeden töläp bilersiňiz."
     }
   }
 }

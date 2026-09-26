@@ -68,7 +68,9 @@
     "adminSection": "Administration",
     "adminDashboard": "Admin-Übersicht",
     "primary": "Hauptnavigation",
-    "toggle": "Navigation ein- oder ausblenden"
+    "toggle": "Navigation ein- oder ausblenden",
+    "webServices": "Website-Erstellung",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "Anbieterpreis",
       "basisWithMargin": "Anbieterpreis + Plattformaufschlag",
       "note": "Steuerbasis: {{basis}}. Preise in USD."
+    }
+  },
+  "webServices": {
+    "title": "Website-Erstellung",
+    "subtitle": "Bestellen Sie eine Website bei unserem Team: Paket wählen, Vertrag online unterschreiben und sicher über Payoneer bezahlen.",
+    "choose": "Paket wählen",
+    "selected": "Ausgewählt",
+    "salesClosed": "Bestellungen sind bald möglich. Sie können Ihre Daten schon eingeben und den Vertrag für Ihr Paket lesen.",
+    "catalogFailed": "Die Pakete konnten nicht geladen werden.",
+    "secure": "Sie zahlen per Karte auf der sicheren Seite von Payoneer. Wir sehen und speichern Ihre Kartendaten nicht.",
+    "metric": {
+      "delivery": "Laufzeit",
+      "days": "{{n}} Werktage",
+      "revisions": "Korrekturrunden",
+      "pages": "Seiten",
+      "bySpec": "Laut Pflichtenheft",
+      "support": "Support",
+      "months": "{{n}} Mon."
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Landingpage",
+        "features": [
+          "One-Pager mit bis zu 6 Abschnitten",
+          "Individuelles Design passend zu Ihrer Marke",
+          "Optimiert für Smartphone, Tablet und Desktop",
+          "Kontaktformular an Telegram und E-Mail",
+          "Grundlegende SEO-Einrichtung",
+          "Hilfe bei Domain, Hosting und SSL"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Unternehmenswebsite",
+        "features": [
+          "Unternehmenswebsite mit Start- und Unterseiten",
+          "Individuelles Design für jeden Seitentyp",
+          "Admin-Bereich zur Inhaltspflege",
+          "News- oder Blogbereich",
+          "Google Analytics und Yandex Metrica",
+          "SEO-Einrichtung für jede Seite",
+          "Kontaktformulare und Karte"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Onlineshop",
+        "features": [
+          "Katalog mit Kategorien und Filtern",
+          "Warenkorb, Checkout und Online-Zahlung",
+          "Admin-Bereich für Produkte und Bestellungen",
+          "Geschwindigkeitsoptimierung",
+          "Bestellhinweise per Telegram und E-Mail",
+          "Erweitertes SEO und Analytics"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Webplattform",
+        "features": [
+          "Individuelle Plattform nach Ihrem Pflichtenheft",
+          "Benutzerkonten, Rollen und Rechte",
+          "Bis zu 3 Integrationen: CRM, 1C, Zahlungen, Bots",
+          "Sicherheitshärtung und Lasttests",
+          "Dokumentation und Schulung Ihres Teams",
+          "Priorisierter Support"
+        ]
+      }
+    },
+    "form": {
+      "type": "Wer schließt den Vertrag?",
+      "resident": "Einwohner Usbekistans",
+      "residentHint": "Privatperson mit Wohnsitz in Usbekistan. Der Vertrag ist auf Usbekisch.",
+      "non_resident": "Ausländischer Staatsbürger",
+      "non_residentHint": "Privatperson ohne Wohnsitz in Usbekistan. Der Vertrag ist auf Englisch.",
+      "personal": "Persönliche Daten",
+      "fullName": "Vollständiger Name",
+      "dateOfBirth": "Geburtsdatum",
+      "citizenship": "Staatsangehörigkeit",
+      "country": "Wohnsitzland",
+      "passportNumber": "Passnummer",
+      "passportHint": "Lateinische Großbuchstaben und Ziffern, z. B. AA1234567",
+      "passportIssuedBy": "Ausstellende Behörde",
+      "passportIssuedAt": "Ausstellungsdatum",
+      "pinfl": "PINFL (14 Ziffern)",
+      "taxId": "Steuernummer (optional)",
+      "address": "Adresse",
+      "city": "Stadt",
+      "phone": "Telefon",
+      "phoneHint": "Internationales Format, z. B. +49 30 1234567",
+      "email": "E-Mail",
+      "project": "Zum Projekt",
+      "projectName": "Projektname",
+      "projectDescription": "Beschreiben Sie das Projekt",
+      "projectDescriptionHint": "Wofür die Website ist, welche Bereiche sie braucht und welche Websites Ihnen gefallen.",
+      "referenceUrl": "Aktuelle Website (optional)",
+      "review": "Vertrag ansehen"
+    },
+    "contract": {
+      "title": "Ihr Vertrag",
+      "reviewHint": "Lesen Sie den Vertrag sorgfältig: Er enthält Paket, Preis und alle Bedingungen. Wenn Sie das Formular ändern, sehen Sie ihn erneut an.",
+      "stale": "Die Angaben haben sich geändert. Sehen Sie den Vertrag erneut an.",
+      "accept": "Ich habe den Vertrag gelesen, akzeptiere seine Bedingungen und bestätige, dass meine Angaben stimmen.",
+      "pay": "Akzeptieren und {{price}} zahlen",
+      "open": "Vertrag",
+      "back": "Zurück",
+      "print": "Drucken / als PDF speichern",
+      "loading": "Vertrag wird geladen…",
+      "failed": "Der Vertrag konnte nicht geladen werden."
+    },
+    "orders": {
+      "title": "Meine Bestellungen",
+      "empty": "Sie haben noch keine Bestellungen.",
+      "pay": "Bezahlen",
+      "check": "Zahlung prüfen"
+    },
+    "status": {
+      "pending_payment": "Zahlung ausstehend",
+      "paid": "Bezahlt",
+      "in_progress": "In Arbeit",
+      "delivered": "Übergeben",
+      "canceled": "Storniert",
+      "refund_pending": "Erstattung läuft",
+      "refunded": "Erstattet"
+    },
+    "payment": {
+      "returned": "Ihre Zahlung wird geprüft…",
+      "confirmed": "Zahlung eingegangen. Wir melden uns, um mit der Arbeit zu beginnen.",
+      "pending": "Die Zahlung ist noch nicht bestätigt. Wenn Sie bezahlt haben, kann das einige Minuten dauern.",
+      "canceled": "Die Zahlung wurde abgebrochen. Sie können unter „Meine Bestellungen“ erneut zahlen."
     }
   }
 }

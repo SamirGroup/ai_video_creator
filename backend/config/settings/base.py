@@ -501,6 +501,11 @@ PAYPAL_WEBHOOK_ID = env.str("PAYPAL_WEBHOOK_ID", default="")
 # STRIPE_SECRET_KEY. Empty means use the existing Stripe account.
 VIRTUAL_NUMBERS_STRIPE_SECRET_KEY = env.str("VIRTUAL_NUMBERS_STRIPE_SECRET_KEY", default="")
 
+# Payoneer accounts (checkout and mass payouts) are managed in the admin panel,
+# with secrets encrypted in the database. This caps a single manual payout.
+INSTALLED_APPS += ["payoneer", "web_services"]
+PAYONEER_PAYOUT_MAX_USD = env.str("PAYONEER_PAYOUT_MAX_USD", default="10000")
+
 # Private self-hosted LLM. Empty keeps local inference disabled.
 OLLAMA_BASE_URL = env.str("OLLAMA_BASE_URL", default="")
 OLLAMA_API_KEY = env.str("OLLAMA_API_KEY", default="")

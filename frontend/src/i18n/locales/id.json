@@ -68,7 +68,9 @@
     "adminSection": "Admin",
     "adminDashboard": "Dasbor admin",
     "primary": "Navigasi utama",
-    "toggle": "Buka atau tutup menu"
+    "toggle": "Buka atau tutup menu",
+    "webServices": "Pembuatan situs web",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "harga penyedia",
       "basisWithMargin": "harga penyedia + margin platform",
       "note": "Dasar pajak: {{basis}}. Harga dalam USD."
+    }
+  },
+  "webServices": {
+    "title": "Layanan pembuatan situs web",
+    "subtitle": "Pesan situs web dari tim kami: pilih paket, tanda tangani kontrak secara online, dan bayar dengan aman lewat Payoneer.",
+    "choose": "Pilih paket",
+    "selected": "Dipilih",
+    "salesClosed": "Pemesanan segera dibuka. Anda sudah bisa mengisi data dan membaca kontrak untuk paket Anda.",
+    "catalogFailed": "Paket tidak dapat dimuat.",
+    "secure": "Pembayaran kartu dilakukan di halaman aman Payoneer. Kami tidak melihat atau menyimpan data kartu Anda.",
+    "metric": {
+      "delivery": "Waktu",
+      "days": "{{n}} hari kerja",
+      "revisions": "Putaran revisi",
+      "pages": "Halaman",
+      "bySpec": "Sesuai spesifikasi",
+      "support": "Dukungan",
+      "months": "{{n}} bln"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Landing page",
+        "features": [
+          "Situs satu halaman hingga 6 bagian",
+          "Desain khusus sesuai merek Anda",
+          "Pas di ponsel, tablet, dan komputer",
+          "Formulir kontak ke Telegram dan email",
+          "Pengaturan SEO dasar",
+          "Bantuan domain, hosting, dan SSL"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Situs perusahaan",
+        "features": [
+          "Situs perusahaan dengan beranda dan halaman dalam",
+          "Desain khusus untuk setiap jenis halaman",
+          "Panel admin untuk mengelola konten",
+          "Bagian berita atau blog",
+          "Google Analytics dan Yandex Metrica",
+          "Pengaturan SEO untuk setiap halaman",
+          "Formulir kontak dan peta"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Toko online",
+        "features": [
+          "Katalog dengan kategori dan filter",
+          "Keranjang, checkout, dan pembayaran online",
+          "Panel admin untuk produk dan pesanan",
+          "Optimasi kecepatan",
+          "Notifikasi pesanan ke Telegram dan email",
+          "SEO dan analitik lanjutan"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Platform web",
+        "features": [
+          "Platform khusus sesuai spesifikasi Anda",
+          "Akun pengguna, peran, dan hak akses",
+          "Hingga 3 integrasi: CRM, 1C, pembayaran, bot",
+          "Penguatan keamanan dan uji beban",
+          "Dokumentasi dan pelatihan tim",
+          "Dukungan prioritas"
+        ]
+      }
+    },
+    "form": {
+      "type": "Siapa yang menandatangani kontrak?",
+      "resident": "Penduduk Uzbekistan",
+      "residentHint": "Perorangan yang tinggal di Uzbekistan. Kontrak dalam bahasa Uzbek.",
+      "non_resident": "Warga negara asing",
+      "non_residentHint": "Perorangan yang bukan penduduk Uzbekistan. Kontrak dalam bahasa Inggris.",
+      "personal": "Data pribadi",
+      "fullName": "Nama lengkap",
+      "dateOfBirth": "Tanggal lahir",
+      "citizenship": "Kewarganegaraan",
+      "country": "Negara tempat tinggal",
+      "passportNumber": "Nomor paspor",
+      "passportHint": "Huruf kapital Latin dan angka, mis. AA1234567",
+      "passportIssuedBy": "Dikeluarkan oleh",
+      "passportIssuedAt": "Tanggal terbit",
+      "pinfl": "PINFL (14 digit)",
+      "taxId": "NPWP (opsional)",
+      "address": "Alamat",
+      "city": "Kota",
+      "phone": "Telepon",
+      "phoneHint": "Format internasional, mis. +62 812 3456 7890",
+      "email": "Email",
+      "project": "Tentang proyek",
+      "projectName": "Nama proyek",
+      "projectDescription": "Jelaskan proyeknya",
+      "projectDescriptionHint": "Untuk apa situs ini, bagian apa saja yang dibutuhkan, dan situs apa yang Anda sukai.",
+      "referenceUrl": "Situs saat ini (opsional)",
+      "review": "Lihat kontrak"
+    },
+    "contract": {
+      "title": "Kontrak Anda",
+      "reviewHint": "Baca kontrak dengan saksama: berisi paket, harga, dan semua ketentuan. Jika Anda mengubah formulir, tinjau lagi.",
+      "stale": "Data berubah. Tinjau kontrak lagi.",
+      "accept": "Saya telah membaca kontrak, menyetujui ketentuannya, dan menyatakan data saya benar.",
+      "pay": "Setujui dan bayar {{price}}",
+      "open": "Kontrak",
+      "back": "Kembali",
+      "print": "Cetak / simpan sebagai PDF",
+      "loading": "Memuat kontrak…",
+      "failed": "Kontrak tidak dapat dimuat."
+    },
+    "orders": {
+      "title": "Pesanan saya",
+      "empty": "Anda belum punya pesanan.",
+      "pay": "Bayar",
+      "check": "Cek pembayaran"
+    },
+    "status": {
+      "pending_payment": "Menunggu pembayaran",
+      "paid": "Dibayar",
+      "in_progress": "Dikerjakan",
+      "delivered": "Diserahkan",
+      "canceled": "Dibatalkan",
+      "refund_pending": "Pengembalian dana diproses",
+      "refunded": "Dana dikembalikan"
+    },
+    "payment": {
+      "returned": "Memeriksa pembayaran Anda…",
+      "confirmed": "Pembayaran diterima. Kami akan menghubungi Anda untuk memulai pekerjaan.",
+      "pending": "Pembayaran belum terkonfirmasi. Jika Anda sudah membayar, ini bisa memakan beberapa menit.",
+      "canceled": "Pembayaran dibatalkan. Anda dapat membayar lagi dari «Pesanan saya»."
     }
   }
 }

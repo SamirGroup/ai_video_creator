@@ -68,7 +68,9 @@
     "adminSection": "管理",
     "adminDashboard": "管理面板",
     "primary": "主导航",
-    "toggle": "展开或收起导航"
+    "toggle": "展开或收起导航",
+    "webServices": "网站建设",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "供应商价格",
       "basisWithMargin": "供应商价格 + 平台加价",
       "note": "计税基准：{{basis}}。价格以 USD 计。"
+    }
+  },
+  "webServices": {
+    "title": "网站建设服务",
+    "subtitle": "向我们的团队订制网站：选择套餐，在线签署合同，并通过 Payoneer 安全付款。",
+    "choose": "选择套餐",
+    "selected": "已选择",
+    "salesClosed": "即将开放下单。您现在即可填写信息并阅读所选套餐的合同。",
+    "catalogFailed": "无法加载套餐。",
+    "secure": "银行卡付款在 Payoneer 的安全页面完成。我们不会看到也不会保存您的卡信息。",
+    "metric": {
+      "delivery": "工期",
+      "days": "{{n}} 个工作日",
+      "revisions": "修改轮次",
+      "pages": "页面",
+      "bySpec": "按需求文档",
+      "support": "售后支持",
+      "months": "{{n}} 个月"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "落地页",
+        "features": [
+          "最多 6 个板块的单页网站",
+          "贴合品牌的定制设计",
+          "适配手机、平板和电脑",
+          "联系表单推送至 Telegram 和邮箱",
+          "基础 SEO 设置",
+          "协助配置域名、主机和 SSL"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "企业官网",
+        "features": [
+          "包含首页和内页的企业官网",
+          "每类页面均为定制设计",
+          "内容管理后台",
+          "新闻或博客栏目",
+          "Google Analytics 与 Yandex Metrica",
+          "每个页面的 SEO 设置",
+          "联系表单和地图"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "网上商城",
+        "features": [
+          "带分类和筛选的商品目录",
+          "购物车、结算和在线支付",
+          "商品与订单管理后台",
+          "速度优化",
+          "订单通知推送至 Telegram 和邮箱",
+          "进阶 SEO 与数据分析"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Web 平台",
+        "features": [
+          "按需求文档定制的平台",
+          "用户账户、角色与权限",
+          "最多 3 项集成：CRM、1C、支付、机器人",
+          "安全加固与压力测试",
+          "技术文档与团队培训",
+          "优先支持"
+        ]
+      }
+    },
+    "form": {
+      "type": "由谁签订合同？",
+      "resident": "乌兹别克斯坦居民",
+      "residentHint": "居住在乌兹别克斯坦的个人。合同为乌兹别克语。",
+      "non_resident": "外国公民",
+      "non_residentHint": "非乌兹别克斯坦居民的个人。合同为英文。",
+      "personal": "个人信息",
+      "fullName": "姓名",
+      "dateOfBirth": "出生日期",
+      "citizenship": "国籍",
+      "country": "居住国家",
+      "passportNumber": "护照号码",
+      "passportHint": "大写拉丁字母和数字，例如 AA1234567",
+      "passportIssuedBy": "签发机关",
+      "passportIssuedAt": "签发日期",
+      "pinfl": "PINFL（14 位）",
+      "taxId": "税号（选填）",
+      "address": "地址",
+      "city": "城市",
+      "phone": "电话",
+      "phoneHint": "国际格式，例如 +86 138 0013 8000",
+      "email": "电子邮箱",
+      "project": "项目信息",
+      "projectName": "项目名称",
+      "projectDescription": "项目描述",
+      "projectDescriptionHint": "网站用途、需要哪些栏目，以及您喜欢的网站。",
+      "referenceUrl": "现有网站（选填）",
+      "review": "查看合同"
+    },
+    "contract": {
+      "title": "您的合同",
+      "reviewHint": "请仔细阅读合同：其中包含套餐、价格和全部条款。修改表单后请重新查看。",
+      "stale": "信息已变更，请重新查看合同。",
+      "accept": "我已阅读合同，同意其条款，并确认所填信息真实无误。",
+      "pay": "同意并支付 {{price}}",
+      "open": "合同",
+      "back": "返回",
+      "print": "打印 / 保存为 PDF",
+      "loading": "正在加载合同…",
+      "failed": "无法加载合同。"
+    },
+    "orders": {
+      "title": "我的订单",
+      "empty": "您还没有订单。",
+      "pay": "付款",
+      "check": "查询付款"
+    },
+    "status": {
+      "pending_payment": "待付款",
+      "paid": "已付款",
+      "in_progress": "制作中",
+      "delivered": "已交付",
+      "canceled": "已取消",
+      "refund_pending": "退款中",
+      "refunded": "已退款"
+    },
+    "payment": {
+      "returned": "正在确认您的付款…",
+      "confirmed": "已收到付款。我们会联系您开始工作。",
+      "pending": "付款尚未确认。如您已付款，可能需要几分钟。",
+      "canceled": "付款已取消。您可以在「我的订单」中重新付款。"
     }
   }
 }

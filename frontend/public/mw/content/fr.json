@@ -279,5 +279,74 @@
    "avec"
   ],
   "label": "Intégrations et technologies"
+ },
+ "svc": {
+  "label": "Services",
+  "title": "Création de sites web",
+  "lead": "Pages d’atterrissage, sites d’entreprise, boutiques en ligne et plateformes web, réalisés par notre équipe sous contrat officiel.",
+  "cta": "Commander",
+  "popular": "Populaire",
+  "contract": "Contrat officiel pour les résidents d’Ouzbékistan et les citoyens étrangers",
+  "payment": "Paiement sécurisé via Payoneer",
+  "metric": {
+   "delivery": "Délai",
+   "days": "{{n}} jours ouvrés",
+   "revisions": "Séries de corrections",
+   "pages": "Pages",
+   "bySpec": "Selon le cahier des charges",
+   "support": "Support",
+   "months": "{{n}} mois"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Page d’atterrissage",
+    "features": [
+     "Site d’une page, jusqu’à 6 sections",
+     "Design sur mesure selon votre marque",
+     "Adapté aux mobiles, tablettes et ordinateurs",
+     "Formulaire de contact vers Telegram et e-mail",
+     "Configuration SEO de base",
+     "Aide pour le domaine, l’hébergement et le SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Site d’entreprise",
+    "features": [
+     "Site d’entreprise avec accueil et pages internes",
+     "Design sur mesure pour chaque type de page",
+     "Panneau d’administration du contenu",
+     "Rubrique actualités ou blog",
+     "Google Analytics et Yandex Metrica",
+     "Configuration SEO de chaque page",
+     "Formulaires de contact et carte"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Boutique en ligne",
+    "features": [
+     "Catalogue avec catégories et filtres",
+     "Panier, commande et paiement en ligne",
+     "Administration des produits et commandes",
+     "Optimisation de la vitesse",
+     "Alertes de commande sur Telegram et par e-mail",
+     "SEO et analyse avancés"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Plateforme web",
+    "features": [
+     "Plateforme sur mesure selon votre cahier des charges",
+     "Comptes utilisateurs, rôles et droits",
+     "Jusqu’à 3 intégrations : CRM, 1C, paiements, bots",
+     "Sécurité renforcée et tests de charge",
+     "Documentation et formation de votre équipe",
+     "Support prioritaire"
+    ]
+   }
+  }
  }
 }

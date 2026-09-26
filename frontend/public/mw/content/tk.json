@@ -279,5 +279,74 @@
    "bilen"
   ],
   "label": "Integrasiýalar we tehnologiýalar"
+ },
+ "svc": {
+  "label": "Hyzmatlar",
+  "title": "Saýt döretmek",
+  "lead": "Landing sahypalar, korporatiw saýtlar, internet dükanlar we web platformalar — resmi şertnama esasynda toparymyz tarapyndan.",
+  "cta": "Sargyt et",
+  "popular": "Meşhur",
+  "contract": "Özbegistanyň rezidentleri we daşary ýurt raýatlary üçin resmi şertnama",
+  "payment": "Payoneer arkaly howpsuz töleg",
+  "metric": {
+   "delivery": "Möhlet",
+   "days": "{{n}} iş güni",
+   "revisions": "Düzediş tapgyrlary",
+   "pages": "Sahypalar",
+   "bySpec": "Tehniki tabşyryga görä",
+   "support": "Goldaw",
+   "months": "{{n}} aý"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Landing sahypa",
+    "features": [
+     "6 bloga çenli bir sahypaly saýt",
+     "Brendiňize laýyk aýratyn dizaýn",
+     "Telefona, planşete we kompýutere uýgunlaşdyrylan",
+     "Arzalar Telegrama we e-poçta iberilýär",
+     "Esasy SEO sazlamalary",
+     "Domen, hosting we SSL birikdirmekde kömek"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Korporatiw saýt",
+    "features": [
+     "Baş we içki sahypalardan ybarat korporatiw saýt",
+     "Her sahypa görnüşi üçin aýratyn dizaýn",
+     "Mazmuny dolandyrmak üçin admin panel",
+     "Habarlar ýa-da blog bölümi",
+     "Google Analytics we Yandex Metrica",
+     "Her sahypa üçin SEO sazlamalary",
+     "Habarlaşmak formalary we karta"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Internet dükan",
+    "features": [
+     "Kategoriýaly we süzgüçli katalog",
+     "Sebet, sargyt we onlaýn töleg",
+     "Harytlar we sargytlar üçin admin panel",
+     "Tizligi optimizirlemek",
+     "Sargytlar barada Telegram we e-poçta habarlary",
+     "Giňeldilen SEO we analitika"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Web platforma",
+    "features": [
+     "Tehniki tabşyryguňyz esasynda aýratyn platforma",
+     "Ulanyjy kabinetleri, rollar we hukuklar",
+     "3-e çenli integrasiýa: CRM, 1C, tölegler, botlar",
+     "Howpsuzlygy güýçlendirmek we ýük synagy",
+     "Resminamalar we toparyňyzy okatmak",
+     "Ileri tutulýan goldaw"
+    ]
+   }
+  }
  }
 }

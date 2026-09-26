@@ -279,5 +279,74 @@
    "da"
   ],
   "label": "Haɗe-haɗe da fasaha"
+ },
+ "svc": {
+  "label": "Ayyuka",
+  "title": "Gina gidan yanar gizo",
+  "lead": "Shafukan saukowa, gidajen yanar gizo na kamfani, shaguna ta yanar gizo da dandali — ƙungiyarmu ce ke ginawa, da kwangila ta hukuma.",
+  "cta": "Yi oda",
+  "popular": "Mashahuri",
+  "contract": "Kwangila ta hukuma ga mazauna Uzbekistan da ƴan ƙasashen waje",
+  "payment": "Biyan kuɗi lafiya ta Payoneer",
+  "metric": {
+   "delivery": "Lokaci",
+   "days": "Kwanakin aiki {{n}}",
+   "revisions": "Zagayen gyara",
+   "pages": "Shafuka",
+   "bySpec": "Bisa bayanin fasaha",
+   "support": "Tallafi",
+   "months": "Wata {{n}}"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Shafin saukowa",
+    "features": [
+     "Shafi ɗaya mai sassa har 6",
+     "Zane na musamman bisa alamarka",
+     "Ya dace da waya, tablet da kwamfuta",
+     "Fom na tuntuɓa zuwa Telegram da imel",
+     "Saitin SEO na asali",
+     "Taimako da domain, hosting da SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Gidan yanar gizo na kamfani",
+    "features": [
+     "Gidan yanar gizo na kamfani mai shafin farko da na ciki",
+     "Zane na musamman ga kowane nau'in shafi",
+     "Kwamitin gudanarwa don abun ciki",
+     "Sashen labarai ko blog",
+     "Google Analytics da Yandex Metrica",
+     "Saitin SEO ga kowane shafi",
+     "Fom na tuntuɓa da taswira"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Shagon yanar gizo",
+    "features": [
+     "Kundin kaya mai rukuni da matattara",
+     "Kwando, kammala oda da biyan kuɗi ta yanar gizo",
+     "Kwamitin gudanarwa don kaya da oda",
+     "Inganta sauri",
+     "Sanarwar oda a Telegram da imel",
+     "SEO da nazari na ci gaba"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Dandalin yanar gizo",
+    "features": [
+     "Dandali na musamman bisa bayanin fasaharka",
+     "Asusun masu amfani, matsayi da izini",
+     "Haɗawa har 3: CRM, 1C, biyan kuɗi, bots",
+     "Ƙarfafa tsaro da gwajin nauyi",
+     "Takardun bayani da horar da ƙungiyarka",
+     "Tallafi mai fifiko"
+    ]
+   }
+  }
  }
 }

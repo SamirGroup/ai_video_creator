@@ -81,7 +81,9 @@
     "adminSection": "Admin",
     "adminDashboard": "Admin dashboard",
     "primary": "Primary",
-    "toggle": "Toggle navigation"
+    "toggle": "Toggle navigation",
+    "webServices": "Website development",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "provider price",
       "basisWithMargin": "provider price + platform margin",
       "note": "Tax base: {{basis}}. Prices are in USD."
+    }
+  },
+  "webServices": {
+    "title": "Website development",
+    "subtitle": "Order a website from our team: choose a package, sign the contract online and pay securely through Payoneer.",
+    "choose": "Choose package",
+    "selected": "Selected",
+    "salesClosed": "Orders open soon. You can already fill in your details and read the contract for your package.",
+    "catalogFailed": "The packages could not be loaded.",
+    "secure": "You pay by card on Payoneer's secure page. We never see or store your card details.",
+    "metric": {
+      "delivery": "Delivery",
+      "days": "{{n}} business days",
+      "revisions": "Revision rounds",
+      "pages": "Pages",
+      "bySpec": "Per specification",
+      "support": "Support",
+      "months": "{{n}} mo."
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Landing page",
+        "features": [
+          "One-page site with up to 6 sections",
+          "Custom design based on your brand",
+          "Works on phones, tablets and desktops",
+          "Contact form sent to Telegram and e-mail",
+          "Basic SEO setup",
+          "Help with domain, hosting and SSL"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Corporate website",
+        "features": [
+          "Corporate site with home and inner pages",
+          "Custom design for every page type",
+          "Admin panel to manage content",
+          "News or blog section",
+          "Google Analytics and Yandex Metrica",
+          "SEO setup for every page",
+          "Contact forms and a map"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Online store",
+        "features": [
+          "Catalogue with categories and filters",
+          "Cart, checkout and online payments",
+          "Admin panel for products and orders",
+          "Speed optimisation",
+          "Order alerts to Telegram and e-mail",
+          "Extended SEO and analytics"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Web platform",
+        "features": [
+          "Custom platform built to your specification",
+          "User accounts, roles and permissions",
+          "Up to 3 integrations: CRM, 1C, payments, bots",
+          "Security hardening and load testing",
+          "Documentation and team training",
+          "Priority support"
+        ]
+      }
+    },
+    "form": {
+      "type": "Who is signing the contract?",
+      "resident": "Resident of Uzbekistan",
+      "residentHint": "An individual living in Uzbekistan. The contract is in Uzbek.",
+      "non_resident": "Foreign citizen",
+      "non_residentHint": "An individual who is not a resident of Uzbekistan. The contract is in English.",
+      "personal": "Personal details",
+      "fullName": "Full name",
+      "dateOfBirth": "Date of birth",
+      "citizenship": "Citizenship",
+      "country": "Country of residence",
+      "passportNumber": "Passport number",
+      "passportHint": "Capital Latin letters and digits, e.g. AA1234567",
+      "passportIssuedBy": "Issued by",
+      "passportIssuedAt": "Date of issue",
+      "pinfl": "PINFL (14 digits)",
+      "taxId": "Tax ID (optional)",
+      "address": "Address",
+      "city": "City",
+      "phone": "Phone",
+      "phoneHint": "International format, e.g. +998 90 123 45 67",
+      "email": "E-mail",
+      "project": "About the project",
+      "projectName": "Project name",
+      "projectDescription": "Describe the project",
+      "projectDescriptionHint": "What the site is for, the sections you need and sites you like.",
+      "referenceUrl": "Current website (optional)",
+      "review": "Review the contract"
+    },
+    "contract": {
+      "title": "Your contract",
+      "reviewHint": "Read the contract carefully: it contains the package, the price and all terms. If you change the form, review it again.",
+      "stale": "The details changed. Review the contract again.",
+      "accept": "I have read the contract, accept its terms and confirm that my details are correct.",
+      "pay": "Accept and pay {{price}}",
+      "open": "Contract",
+      "back": "Back",
+      "print": "Print / save as PDF",
+      "loading": "Loading the contract…",
+      "failed": "The contract could not be loaded."
+    },
+    "orders": {
+      "title": "My orders",
+      "empty": "You have no orders yet.",
+      "pay": "Pay",
+      "check": "Check payment"
+    },
+    "status": {
+      "pending_payment": "Awaiting payment",
+      "paid": "Paid",
+      "in_progress": "In progress",
+      "delivered": "Delivered",
+      "canceled": "Canceled",
+      "refund_pending": "Refund in progress",
+      "refunded": "Refunded"
+    },
+    "payment": {
+      "returned": "Checking your payment…",
+      "confirmed": "Payment received. We will contact you to start work.",
+      "pending": "The payment is not confirmed yet. If you have paid, this can take a few minutes.",
+      "canceled": "The payment was canceled. You can pay again from My orders."
     }
   }
 }

@@ -68,7 +68,9 @@
     "adminSection": "管理",
     "adminDashboard": "管理ダッシュボード",
     "primary": "メインナビゲーション",
-    "toggle": "ナビゲーションの開閉"
+    "toggle": "ナビゲーションの開閉",
+    "webServices": "Webサイト制作",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "プロバイダー価格",
       "basisWithMargin": "プロバイダー価格 + プラットフォーム手数料",
       "note": "課税基準: {{basis}}。価格はUSD表示です。"
+    }
+  },
+  "webServices": {
+    "title": "Webサイト制作サービス",
+    "subtitle": "当チームにWebサイトを発注できます。パッケージを選び、オンラインで契約を結び、Payoneerで安全にお支払いください。",
+    "choose": "このパッケージを選ぶ",
+    "selected": "選択中",
+    "salesClosed": "まもなく受付を開始します。今のうちに情報を入力し、パッケージの契約書を確認できます。",
+    "catalogFailed": "パッケージを読み込めませんでした。",
+    "secure": "カード決済はPayoneerの安全なページで行われます。カード情報を当社が見ることも保存することもありません。",
+    "metric": {
+      "delivery": "納期",
+      "days": "{{n}}営業日",
+      "revisions": "修正回数",
+      "pages": "ページ数",
+      "bySpec": "仕様書による",
+      "support": "サポート",
+      "months": "{{n}}か月"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "ランディングページ",
+        "features": [
+          "最大6セクションの1ページサイト",
+          "ブランドに合わせたオリジナルデザイン",
+          "スマホ・タブレット・PCに対応",
+          "お問い合わせをTelegramとメールへ送信",
+          "基本的なSEO設定",
+          "ドメイン・ホスティング・SSLの設定支援"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "コーポレートサイト",
+        "features": [
+          "トップと下層ページのコーポレートサイト",
+          "ページの種類ごとのオリジナルデザイン",
+          "コンテンツ管理画面",
+          "お知らせ・ブログ機能",
+          "Google AnalyticsとYandex Metrica",
+          "全ページのSEO設定",
+          "お問い合わせフォームと地図"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "ネットショップ",
+        "features": [
+          "カテゴリーと絞り込み付きの商品カタログ",
+          "カート・購入手続き・オンライン決済",
+          "商品・注文の管理画面",
+          "表示速度の最適化",
+          "注文通知をTelegramとメールへ",
+          "高度なSEOとアクセス解析"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Webプラットフォーム",
+        "features": [
+          "仕様書に基づく独自プラットフォーム",
+          "ユーザーアカウント・権限管理",
+          "最大3つの外部連携：CRM、1C、決済、ボット",
+          "セキュリティ強化と負荷テスト",
+          "ドキュメント作成とチーム研修",
+          "優先サポート"
+        ]
+      }
+    },
+    "form": {
+      "type": "契約者はどなたですか？",
+      "resident": "ウズベキスタン居住者",
+      "residentHint": "ウズベキスタンに住む個人。契約書はウズベク語です。",
+      "non_resident": "外国籍の方",
+      "non_residentHint": "ウズベキスタンの非居住者である個人。契約書は英語です。",
+      "personal": "個人情報",
+      "fullName": "氏名",
+      "dateOfBirth": "生年月日",
+      "citizenship": "国籍",
+      "country": "居住国",
+      "passportNumber": "旅券番号",
+      "passportHint": "大文字のアルファベットと数字（例：AA1234567）",
+      "passportIssuedBy": "発行機関",
+      "passportIssuedAt": "発行日",
+      "pinfl": "PINFL（14桁）",
+      "taxId": "納税者番号（任意）",
+      "address": "住所",
+      "city": "市区町村",
+      "phone": "電話番号",
+      "phoneHint": "国際形式（例：+81 90 1234 5678）",
+      "email": "メールアドレス",
+      "project": "プロジェクトについて",
+      "projectName": "プロジェクト名",
+      "projectDescription": "プロジェクトの説明",
+      "projectDescriptionHint": "サイトの目的、必要なページ、参考にしたいサイトなど。",
+      "referenceUrl": "現在のサイト（任意）",
+      "review": "契約書を確認"
+    },
+    "contract": {
+      "title": "契約書",
+      "reviewHint": "契約書をよくお読みください。パッケージ、価格、すべての条件が記載されています。入力内容を変更した場合は再度ご確認ください。",
+      "stale": "入力内容が変更されました。契約書を再度ご確認ください。",
+      "accept": "契約書を読み、条件に同意し、入力内容が正しいことを確認しました。",
+      "pay": "同意して{{price}}を支払う",
+      "open": "契約書",
+      "back": "戻る",
+      "print": "印刷 / PDFで保存",
+      "loading": "契約書を読み込み中…",
+      "failed": "契約書を読み込めませんでした。"
+    },
+    "orders": {
+      "title": "注文履歴",
+      "empty": "まだ注文はありません。",
+      "pay": "支払う",
+      "check": "支払いを確認"
+    },
+    "status": {
+      "pending_payment": "支払い待ち",
+      "paid": "支払い済み",
+      "in_progress": "制作中",
+      "delivered": "納品済み",
+      "canceled": "キャンセル",
+      "refund_pending": "返金手続き中",
+      "refunded": "返金済み"
+    },
+    "payment": {
+      "returned": "お支払いを確認しています…",
+      "confirmed": "お支払いを受け付けました。制作開始に向けてご連絡します。",
+      "pending": "お支払いはまだ確認できていません。お支払い済みの場合、数分かかることがあります。",
+      "canceled": "お支払いはキャンセルされました。「注文履歴」から再度お支払いいただけます。"
     }
   }
 }

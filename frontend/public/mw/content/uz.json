@@ -279,5 +279,74 @@
    "bilan"
   ],
   "label": "Integratsiyalar va texnologiyalar"
+ },
+ "svc": {
+  "label": "Xizmatlar",
+  "title": "Sayt yaratish",
+  "lead": "Landing sahifalar, korporativ saytlar, internet-do‘konlar va veb-platformalar — rasmiy shartnoma asosida jamoamiz tomonidan.",
+  "cta": "Buyurtma berish",
+  "popular": "Ommabop",
+  "contract": "O‘zbekiston rezidentlari va chet el fuqarolari uchun rasmiy shartnoma",
+  "payment": "Payoneer orqali xavfsiz to‘lov",
+  "metric": {
+   "delivery": "Muddat",
+   "days": "{{n}} ish kuni",
+   "revisions": "Tuzatishlar",
+   "pages": "Sahifalar",
+   "bySpec": "TT bo‘yicha",
+   "support": "Qo‘llab-quvvatlash",
+   "months": "{{n}} oy"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Landing sahifa",
+    "features": [
+     "6 tagacha blokli bir sahifali sayt",
+     "Brendingiz asosida individual dizayn",
+     "Telefon, planshet va kompyuterga moslashgan",
+     "Arizalar Telegram va e-mailga yuboriladi",
+     "Asosiy SEO sozlamalari",
+     "Domen, hosting va SSL ulashda yordam"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Korporativ sayt",
+    "features": [
+     "Asosiy va ichki sahifalardan iborat korporativ sayt",
+     "Har bir sahifa turi uchun individual dizayn",
+     "Kontentni boshqarish uchun admin panel",
+     "Yangiliklar yoki blog bo‘limi",
+     "Google Analytics va Yandex Metrica",
+     "Har bir sahifa uchun SEO sozlamalari",
+     "Aloqa shakllari va xarita"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Internet-do‘kon",
+    "features": [
+     "Kategoriya va filtrli katalog",
+     "Savat, buyurtma va onlayn to‘lov",
+     "Mahsulot va buyurtmalar uchun admin panel",
+     "Tezlikni optimallashtirish",
+     "Buyurtmalar haqida Telegram va e-mail xabarlari",
+     "Kengaytirilgan SEO va analitika"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Veb-platforma",
+    "features": [
+     "Texnik topshiriq asosida individual platforma",
+     "Foydalanuvchi kabinetlari, rollar va huquqlar",
+     "3 tagacha integratsiya: CRM, 1C, to‘lovlar, botlar",
+     "Xavfsizlikni kuchaytirish va yuklama testi",
+     "Hujjatlar va jamoangizni o‘qitish",
+     "Ustuvor qo‘llab-quvvatlash"
+    ]
+   }
+  }
  }
 }

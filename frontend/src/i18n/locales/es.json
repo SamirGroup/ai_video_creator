@@ -68,7 +68,9 @@
     "adminSection": "Administración",
     "adminDashboard": "Panel de administración",
     "primary": "Navegación principal",
-    "toggle": "Abrir o cerrar la navegación"
+    "toggle": "Abrir o cerrar la navegación",
+    "webServices": "Creación de sitios web",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "precio del proveedor",
       "basisWithMargin": "precio del proveedor + margen de la plataforma",
       "note": "Base imponible: {{basis}}. Los precios están en USD."
+    }
+  },
+  "webServices": {
+    "title": "Creación de sitios web",
+    "subtitle": "Encarga un sitio web a nuestro equipo: elige un paquete, firma el contrato en línea y paga de forma segura con Payoneer.",
+    "choose": "Elegir paquete",
+    "selected": "Seleccionado",
+    "salesClosed": "Los pedidos se abren pronto. Ya puedes rellenar tus datos y leer el contrato de tu paquete.",
+    "catalogFailed": "No se pudieron cargar los paquetes.",
+    "secure": "Pagas con tarjeta en la página segura de Payoneer. No vemos ni guardamos los datos de tu tarjeta.",
+    "metric": {
+      "delivery": "Plazo",
+      "days": "{{n}} días hábiles",
+      "revisions": "Rondas de cambios",
+      "pages": "Páginas",
+      "bySpec": "Según especificación",
+      "support": "Soporte",
+      "months": "{{n}} meses"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Landing page",
+        "features": [
+          "Sitio de una página con hasta 6 secciones",
+          "Diseño a medida según tu marca",
+          "Adaptado a móviles, tabletas y ordenadores",
+          "Formulario de contacto a Telegram y correo",
+          "Configuración SEO básica",
+          "Ayuda con dominio, hosting y SSL"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Sitio corporativo",
+        "features": [
+          "Sitio corporativo con portada y páginas internas",
+          "Diseño a medida para cada tipo de página",
+          "Panel de administración de contenidos",
+          "Sección de noticias o blog",
+          "Google Analytics y Yandex Metrica",
+          "Configuración SEO de cada página",
+          "Formularios de contacto y mapa"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Tienda en línea",
+        "features": [
+          "Catálogo con categorías y filtros",
+          "Carrito, pedido y pago en línea",
+          "Panel para productos y pedidos",
+          "Optimización de velocidad",
+          "Avisos de pedidos por Telegram y correo",
+          "SEO y analítica avanzados"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Plataforma web",
+        "features": [
+          "Plataforma a medida según tu especificación",
+          "Cuentas de usuario, roles y permisos",
+          "Hasta 3 integraciones: CRM, 1C, pagos, bots",
+          "Refuerzo de seguridad y pruebas de carga",
+          "Documentación y formación de tu equipo",
+          "Soporte prioritario"
+        ]
+      }
+    },
+    "form": {
+      "type": "¿Quién firma el contrato?",
+      "resident": "Residente de Uzbekistán",
+      "residentHint": "Persona física que vive en Uzbekistán. El contrato está en uzbeko.",
+      "non_resident": "Ciudadano extranjero",
+      "non_residentHint": "Persona física no residente en Uzbekistán. El contrato está en inglés.",
+      "personal": "Datos personales",
+      "fullName": "Nombre completo",
+      "dateOfBirth": "Fecha de nacimiento",
+      "citizenship": "Nacionalidad",
+      "country": "País de residencia",
+      "passportNumber": "Número de pasaporte",
+      "passportHint": "Mayúsculas latinas y dígitos, p. ej. AA1234567",
+      "passportIssuedBy": "Expedido por",
+      "passportIssuedAt": "Fecha de expedición",
+      "pinfl": "PINFL (14 dígitos)",
+      "taxId": "Número fiscal (opcional)",
+      "address": "Dirección",
+      "city": "Ciudad",
+      "phone": "Teléfono",
+      "phoneHint": "Formato internacional, p. ej. +34 612 345 678",
+      "email": "Correo electrónico",
+      "project": "Sobre el proyecto",
+      "projectName": "Nombre del proyecto",
+      "projectDescription": "Describe el proyecto",
+      "projectDescriptionHint": "Para qué es el sitio, qué secciones necesitas y qué sitios te gustan.",
+      "referenceUrl": "Sitio actual (opcional)",
+      "review": "Ver el contrato"
+    },
+    "contract": {
+      "title": "Tu contrato",
+      "reviewHint": "Lee el contrato con atención: incluye el paquete, el precio y todas las condiciones. Si cambias el formulario, vuelve a revisarlo.",
+      "stale": "Los datos han cambiado. Revisa el contrato de nuevo.",
+      "accept": "He leído el contrato, acepto sus condiciones y confirmo que mis datos son correctos.",
+      "pay": "Aceptar y pagar {{price}}",
+      "open": "Contrato",
+      "back": "Volver",
+      "print": "Imprimir / guardar en PDF",
+      "loading": "Cargando el contrato…",
+      "failed": "No se pudo cargar el contrato."
+    },
+    "orders": {
+      "title": "Mis pedidos",
+      "empty": "Aún no tienes pedidos.",
+      "pay": "Pagar",
+      "check": "Comprobar pago"
+    },
+    "status": {
+      "pending_payment": "Pendiente de pago",
+      "paid": "Pagado",
+      "in_progress": "En curso",
+      "delivered": "Entregado",
+      "canceled": "Cancelado",
+      "refund_pending": "Reembolso en curso",
+      "refunded": "Reembolsado"
+    },
+    "payment": {
+      "returned": "Comprobando tu pago…",
+      "confirmed": "Pago recibido. Te contactaremos para empezar el trabajo.",
+      "pending": "El pago aún no está confirmado. Si ya pagaste, puede tardar unos minutos.",
+      "canceled": "El pago se canceló. Puedes volver a pagar desde «Mis pedidos»."
     }
   }
 }

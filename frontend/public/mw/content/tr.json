@@ -279,5 +279,74 @@
    "çalışır"
   ],
   "label": "Entegrasyonlar ve teknolojiler"
+ },
+ "svc": {
+  "label": "Hizmetler",
+  "title": "Web sitesi yapımı",
+  "lead": "Açılış sayfaları, kurumsal siteler, online mağazalar ve web platformları — resmî sözleşmeyle ekibimiz tarafından.",
+  "cta": "Sipariş ver",
+  "popular": "Popüler",
+  "contract": "Özbekistan mukimleri ve yabancı uyruklular için resmî sözleşme",
+  "payment": "Payoneer ile güvenli ödeme",
+  "metric": {
+   "delivery": "Süre",
+   "days": "{{n}} iş günü",
+   "revisions": "Düzeltme turu",
+   "pages": "Sayfa",
+   "bySpec": "Şartnameye göre",
+   "support": "Destek",
+   "months": "{{n}} ay"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Açılış sayfası",
+    "features": [
+     "En fazla 6 bölümlü tek sayfalık site",
+     "Markanıza özel tasarım",
+     "Telefon, tablet ve bilgisayara uyumlu",
+     "Telegram ve e-postaya iletişim formu",
+     "Temel SEO ayarları",
+     "Alan adı, barındırma ve SSL desteği"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Kurumsal site",
+    "features": [
+     "Ana ve iç sayfalardan oluşan kurumsal site",
+     "Her sayfa türü için özel tasarım",
+     "İçerik yönetimi için yönetim paneli",
+     "Haber veya blog bölümü",
+     "Google Analytics ve Yandex Metrica",
+     "Her sayfa için SEO ayarları",
+     "İletişim formları ve harita"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Online mağaza",
+    "features": [
+     "Kategori ve filtreli katalog",
+     "Sepet, sipariş ve online ödeme",
+     "Ürün ve sipariş yönetim paneli",
+     "Hız optimizasyonu",
+     "Telegram ve e-postaya sipariş bildirimleri",
+     "Gelişmiş SEO ve analitik"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Web platformu",
+    "features": [
+     "Şartnamenize göre özel platform",
+     "Kullanıcı hesapları, roller ve yetkiler",
+     "En fazla 3 entegrasyon: CRM, 1C, ödemeler, botlar",
+     "Güvenlik sıkılaştırma ve yük testi",
+     "Dokümantasyon ve ekip eğitimi",
+     "Öncelikli destek"
+    ]
+   }
+  }
  }
 }

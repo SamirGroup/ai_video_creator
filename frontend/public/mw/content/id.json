@@ -279,5 +279,74 @@
    "dengan"
   ],
   "label": "Integrasi dan teknologi"
+ },
+ "svc": {
+  "label": "Layanan",
+  "title": "Pembuatan situs web",
+  "lead": "Landing page, situs perusahaan, toko online, dan platform web — dikerjakan tim kami dengan kontrak resmi.",
+  "cta": "Pesan",
+  "popular": "Populer",
+  "contract": "Kontrak resmi untuk penduduk Uzbekistan dan warga negara asing",
+  "payment": "Pembayaran aman lewat Payoneer",
+  "metric": {
+   "delivery": "Waktu",
+   "days": "{{n}} hari kerja",
+   "revisions": "Putaran revisi",
+   "pages": "Halaman",
+   "bySpec": "Sesuai spesifikasi",
+   "support": "Dukungan",
+   "months": "{{n}} bln"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Landing page",
+    "features": [
+     "Situs satu halaman hingga 6 bagian",
+     "Desain khusus sesuai merek Anda",
+     "Pas di ponsel, tablet, dan komputer",
+     "Formulir kontak ke Telegram dan email",
+     "Pengaturan SEO dasar",
+     "Bantuan domain, hosting, dan SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Situs perusahaan",
+    "features": [
+     "Situs perusahaan dengan beranda dan halaman dalam",
+     "Desain khusus untuk setiap jenis halaman",
+     "Panel admin untuk mengelola konten",
+     "Bagian berita atau blog",
+     "Google Analytics dan Yandex Metrica",
+     "Pengaturan SEO untuk setiap halaman",
+     "Formulir kontak dan peta"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Toko online",
+    "features": [
+     "Katalog dengan kategori dan filter",
+     "Keranjang, checkout, dan pembayaran online",
+     "Panel admin untuk produk dan pesanan",
+     "Optimasi kecepatan",
+     "Notifikasi pesanan ke Telegram dan email",
+     "SEO dan analitik lanjutan"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Platform web",
+    "features": [
+     "Platform khusus sesuai spesifikasi Anda",
+     "Akun pengguna, peran, dan hak akses",
+     "Hingga 3 integrasi: CRM, 1C, pembayaran, bot",
+     "Penguatan keamanan dan uji beban",
+     "Dokumentasi dan pelatihan tim",
+     "Dukungan prioritas"
+    ]
+   }
+  }
  }
 }

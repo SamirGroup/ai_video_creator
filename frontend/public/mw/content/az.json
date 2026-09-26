@@ -279,5 +279,74 @@
    "işləyir"
   ],
   "label": "İnteqrasiyalar və texnologiyalar"
+ },
+ "svc": {
+  "label": "Xidmətlər",
+  "title": "Sayt hazırlanması",
+  "lead": "Landing səhifələr, korporativ saytlar, onlayn mağazalar və veb-platformalar — rəsmi müqavilə ilə komandamız tərəfindən.",
+  "cta": "Sifariş et",
+  "popular": "Populyar",
+  "contract": "Özbəkistan rezidentləri və xarici vətəndaşlar üçün rəsmi müqavilə",
+  "payment": "Payoneer ilə təhlükəsiz ödəniş",
+  "metric": {
+   "delivery": "Müddət",
+   "days": "{{n}} iş günü",
+   "revisions": "Düzəliş mərhələsi",
+   "pages": "Səhifələr",
+   "bySpec": "Texniki tapşırığa görə",
+   "support": "Dəstək",
+   "months": "{{n}} ay"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "Landing səhifə",
+    "features": [
+     "6 bloka qədər birsəhifəlik sayt",
+     "Brendinizə uyğun fərdi dizayn",
+     "Telefon, planşet və kompüterə uyğun",
+     "Müraciətlər Telegram və e-poçta göndərilir",
+     "Əsas SEO ayarları",
+     "Domen, hostinq və SSL qoşulmasında kömək"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "Korporativ sayt",
+    "features": [
+     "Əsas və daxili səhifələrdən ibarət korporativ sayt",
+     "Hər səhifə növü üçün fərdi dizayn",
+     "Kontenti idarə etmək üçün admin panel",
+     "Xəbərlər və ya bloq bölməsi",
+     "Google Analytics və Yandex Metrica",
+     "Hər səhifə üçün SEO ayarları",
+     "Əlaqə formaları və xəritə"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "Onlayn mağaza",
+    "features": [
+     "Kateqoriya və filtrli kataloq",
+     "Səbət, sifariş və onlayn ödəniş",
+     "Məhsul və sifarişlər üçün admin panel",
+     "Sürət optimallaşdırması",
+     "Sifarişlər barədə Telegram və e-poçt bildirişləri",
+     "Genişləndirilmiş SEO və analitika"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Veb-platforma",
+    "features": [
+     "Texniki tapşırığınıza əsasən fərdi platforma",
+     "İstifadəçi kabinetləri, rollar və hüquqlar",
+     "3-ə qədər inteqrasiya: CRM, 1C, ödənişlər, botlar",
+     "Təhlükəsizliyin gücləndirilməsi və yüklənmə testi",
+     "Sənədlər və komandanın təlimi",
+     "Prioritet dəstək"
+    ]
+   }
+  }
  }
 }

@@ -68,7 +68,9 @@
     "adminSection": "Administrasiya",
     "adminDashboard": "Admin paneli",
     "primary": "Əsas naviqasiya",
-    "toggle": "Menyunu aç və ya bağla"
+    "toggle": "Menyunu aç və ya bağla",
+    "webServices": "Sayt hazırlanması",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "provayder qiyməti",
       "basisWithMargin": "provayder qiyməti + platforma marjası",
       "note": "Vergi bazası: {{basis}}. Qiymətlər USD ilədir."
+    }
+  },
+  "webServices": {
+    "title": "Sayt hazırlanması",
+    "subtitle": "Komandamızdan sayt sifariş edin: paketi seçin, müqaviləni onlayn imzalayın və Payoneer vasitəsilə təhlükəsiz ödəyin.",
+    "choose": "Paketi seç",
+    "selected": "Seçildi",
+    "salesClosed": "Sifarişlər tezliklə açılacaq. İndidən məlumatlarınızı daxil edib paketinizin müqaviləsini oxuya bilərsiniz.",
+    "catalogFailed": "Paketləri yükləmək mümkün olmadı.",
+    "secure": "Kartla ödəniş Payoneer-in qorunan səhifəsində aparılır. Kart məlumatlarınızı görmürük və saxlamırıq.",
+    "metric": {
+      "delivery": "Müddət",
+      "days": "{{n}} iş günü",
+      "revisions": "Düzəliş mərhələsi",
+      "pages": "Səhifələr",
+      "bySpec": "Texniki tapşırığa görə",
+      "support": "Dəstək",
+      "months": "{{n}} ay"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Landing səhifə",
+        "features": [
+          "6 bloka qədər birsəhifəlik sayt",
+          "Brendinizə uyğun fərdi dizayn",
+          "Telefon, planşet və kompüterə uyğun",
+          "Müraciətlər Telegram və e-poçta göndərilir",
+          "Əsas SEO ayarları",
+          "Domen, hostinq və SSL qoşulmasında kömək"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Korporativ sayt",
+        "features": [
+          "Əsas və daxili səhifələrdən ibarət korporativ sayt",
+          "Hər səhifə növü üçün fərdi dizayn",
+          "Kontenti idarə etmək üçün admin panel",
+          "Xəbərlər və ya bloq bölməsi",
+          "Google Analytics və Yandex Metrica",
+          "Hər səhifə üçün SEO ayarları",
+          "Əlaqə formaları və xəritə"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Onlayn mağaza",
+        "features": [
+          "Kateqoriya və filtrli kataloq",
+          "Səbət, sifariş və onlayn ödəniş",
+          "Məhsul və sifarişlər üçün admin panel",
+          "Sürət optimallaşdırması",
+          "Sifarişlər barədə Telegram və e-poçt bildirişləri",
+          "Genişləndirilmiş SEO və analitika"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Veb-platforma",
+        "features": [
+          "Texniki tapşırığınıza əsasən fərdi platforma",
+          "İstifadəçi kabinetləri, rollar və hüquqlar",
+          "3-ə qədər inteqrasiya: CRM, 1C, ödənişlər, botlar",
+          "Təhlükəsizliyin gücləndirilməsi və yüklənmə testi",
+          "Sənədlər və komandanın təlimi",
+          "Prioritet dəstək"
+        ]
+      }
+    },
+    "form": {
+      "type": "Müqaviləni kim bağlayır?",
+      "resident": "Özbəkistan rezidenti",
+      "residentHint": "Özbəkistanda yaşayan fiziki şəxs. Müqavilə özbək dilindədir.",
+      "non_resident": "Xarici vətəndaş",
+      "non_residentHint": "Özbəkistan rezidenti olmayan fiziki şəxs. Müqavilə ingilis dilindədir.",
+      "personal": "Şəxsi məlumatlar",
+      "fullName": "Soyad, ad, ata adı",
+      "dateOfBirth": "Doğum tarixi",
+      "citizenship": "Vətəndaşlıq",
+      "country": "Yaşayış ölkəsi",
+      "passportNumber": "Pasport nömrəsi",
+      "passportHint": "Latın böyük hərfləri və rəqəmlər, məs. AA1234567",
+      "passportIssuedBy": "Kim tərəfindən verilib",
+      "passportIssuedAt": "Verilmə tarixi",
+      "pinfl": "PINFL (14 rəqəm)",
+      "taxId": "Vergi nömrəsi (istəyə bağlı)",
+      "address": "Ünvan",
+      "city": "Şəhər",
+      "phone": "Telefon",
+      "phoneHint": "Beynəlxalq formatda, məs. +994 50 123 45 67",
+      "email": "E-poçt",
+      "project": "Layihə haqqında",
+      "projectName": "Layihənin adı",
+      "projectDescription": "Layihəni təsvir edin",
+      "projectDescriptionHint": "Sayt nə üçündür, hansı bölmələr lazımdır və hansı saytlar xoşunuza gəlir.",
+      "referenceUrl": "Hazırkı sayt (istəyə bağlı)",
+      "review": "Müqaviləyə bax"
+    },
+    "contract": {
+      "title": "Müqaviləniz",
+      "reviewHint": "Müqaviləni diqqətlə oxuyun: burada paket, qiymət və bütün şərtlər var. Formanı dəyişsəniz, yenidən baxın.",
+      "stale": "Məlumatlar dəyişdi. Müqaviləyə yenidən baxın.",
+      "accept": "Müqaviləni oxudum, şərtlərini qəbul edirəm və məlumatlarımın düzgün olduğunu təsdiqləyirəm.",
+      "pay": "Qəbul et və {{price}} ödə",
+      "open": "Müqavilə",
+      "back": "Geri",
+      "print": "Çap et / PDF kimi saxla",
+      "loading": "Müqavilə yüklənir…",
+      "failed": "Müqaviləni yükləmək mümkün olmadı."
+    },
+    "orders": {
+      "title": "Sifarişlərim",
+      "empty": "Hələ sifarişiniz yoxdur.",
+      "pay": "Ödə",
+      "check": "Ödənişi yoxla"
+    },
+    "status": {
+      "pending_payment": "Ödəniş gözlənilir",
+      "paid": "Ödənilib",
+      "in_progress": "İcrada",
+      "delivered": "Təhvil verilib",
+      "canceled": "Ləğv edilib",
+      "refund_pending": "Geri qaytarılır",
+      "refunded": "Geri qaytarılıb"
+    },
+    "payment": {
+      "returned": "Ödənişiniz yoxlanılır…",
+      "confirmed": "Ödəniş qəbul edildi. İşə başlamaq üçün sizinlə əlaqə saxlayacağıq.",
+      "pending": "Ödəniş hələ təsdiqlənməyib. Ödəmisinizsə, bu bir neçə dəqiqə çəkə bilər.",
+      "canceled": "Ödəniş ləğv edildi. «Sifarişlərim» bölməsindən yenidən ödəyə bilərsiniz."
     }
   }
 }

@@ -279,5 +279,74 @@
    "对接"
   ],
   "label": "集成与技术栈"
+ },
+ "svc": {
+  "label": "服务",
+  "title": "网站建设",
+  "lead": "落地页、企业官网、网上商城和 Web 平台——由我们的团队依正式合同制作。",
+  "cta": "立即下单",
+  "popular": "热门",
+  "contract": "面向乌兹别克斯坦居民和外国公民的正式合同",
+  "payment": "通过 Payoneer 安全付款",
+  "metric": {
+   "delivery": "工期",
+   "days": "{{n}} 个工作日",
+   "revisions": "修改轮次",
+   "pages": "页面",
+   "bySpec": "按需求文档",
+   "support": "售后支持",
+   "months": "{{n}} 个月"
+  },
+  "packages": {
+   "starter": {
+    "name": "Start",
+    "tagline": "落地页",
+    "features": [
+     "最多 6 个板块的单页网站",
+     "贴合品牌的定制设计",
+     "适配手机、平板和电脑",
+     "联系表单推送至 Telegram 和邮箱",
+     "基础 SEO 设置",
+     "协助配置域名、主机和 SSL"
+    ]
+   },
+   "business": {
+    "name": "Business",
+    "tagline": "企业官网",
+    "features": [
+     "包含首页和内页的企业官网",
+     "每类页面均为定制设计",
+     "内容管理后台",
+     "新闻或博客栏目",
+     "Google Analytics 与 Yandex Metrica",
+     "每个页面的 SEO 设置",
+     "联系表单和地图"
+    ]
+   },
+   "pro": {
+    "name": "Pro",
+    "tagline": "网上商城",
+    "features": [
+     "带分类和筛选的商品目录",
+     "购物车、结算和在线支付",
+     "商品与订单管理后台",
+     "速度优化",
+     "订单通知推送至 Telegram 和邮箱",
+     "进阶 SEO 与数据分析"
+    ]
+   },
+   "enterprise": {
+    "name": "Enterprise",
+    "tagline": "Web 平台",
+    "features": [
+     "按需求文档定制的平台",
+     "用户账户、角色与权限",
+     "最多 3 项集成：CRM、1C、支付、机器人",
+     "安全加固与压力测试",
+     "技术文档与团队培训",
+     "优先支持"
+    ]
+   }
+  }
  }
 }

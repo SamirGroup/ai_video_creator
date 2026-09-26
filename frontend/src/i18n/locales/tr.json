@@ -68,7 +68,9 @@
     "adminSection": "Yönetim",
     "adminDashboard": "Yönetici paneli",
     "primary": "Ana menü",
-    "toggle": "Menüyü aç veya kapat"
+    "toggle": "Menüyü aç veya kapat",
+    "webServices": "Web sitesi yapımı",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "sağlayıcı fiyatı",
       "basisWithMargin": "sağlayıcı fiyatı + platform marjı",
       "note": "Vergi matrahı: {{basis}}. Fiyatlar USD cinsindendir."
+    }
+  },
+  "webServices": {
+    "title": "Web sitesi yapımı",
+    "subtitle": "Ekibimizden web sitesi sipariş edin: paketi seçin, sözleşmeyi çevrim içi imzalayın ve Payoneer ile güvenle ödeyin.",
+    "choose": "Paketi seç",
+    "selected": "Seçildi",
+    "salesClosed": "Siparişler yakında açılıyor. Bilgilerinizi şimdiden girip paketinizin sözleşmesini okuyabilirsiniz.",
+    "catalogFailed": "Paketler yüklenemedi.",
+    "secure": "Kartla ödeme Payoneer'ın güvenli sayfasında yapılır. Kart bilgilerinizi görmeyiz ve saklamayız.",
+    "metric": {
+      "delivery": "Süre",
+      "days": "{{n}} iş günü",
+      "revisions": "Düzeltme turu",
+      "pages": "Sayfa",
+      "bySpec": "Şartnameye göre",
+      "support": "Destek",
+      "months": "{{n}} ay"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Açılış sayfası",
+        "features": [
+          "En fazla 6 bölümlü tek sayfalık site",
+          "Markanıza özel tasarım",
+          "Telefon, tablet ve bilgisayara uyumlu",
+          "Telegram ve e-postaya iletişim formu",
+          "Temel SEO ayarları",
+          "Alan adı, barındırma ve SSL desteği"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Kurumsal site",
+        "features": [
+          "Ana ve iç sayfalardan oluşan kurumsal site",
+          "Her sayfa türü için özel tasarım",
+          "İçerik yönetimi için yönetim paneli",
+          "Haber veya blog bölümü",
+          "Google Analytics ve Yandex Metrica",
+          "Her sayfa için SEO ayarları",
+          "İletişim formları ve harita"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Online mağaza",
+        "features": [
+          "Kategori ve filtreli katalog",
+          "Sepet, sipariş ve online ödeme",
+          "Ürün ve sipariş yönetim paneli",
+          "Hız optimizasyonu",
+          "Telegram ve e-postaya sipariş bildirimleri",
+          "Gelişmiş SEO ve analitik"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Web platformu",
+        "features": [
+          "Şartnamenize göre özel platform",
+          "Kullanıcı hesapları, roller ve yetkiler",
+          "En fazla 3 entegrasyon: CRM, 1C, ödemeler, botlar",
+          "Güvenlik sıkılaştırma ve yük testi",
+          "Dokümantasyon ve ekip eğitimi",
+          "Öncelikli destek"
+        ]
+      }
+    },
+    "form": {
+      "type": "Sözleşmeyi kim imzalıyor?",
+      "resident": "Özbekistan mukimi",
+      "residentHint": "Özbekistan'da yaşayan gerçek kişi. Sözleşme Özbekçedir.",
+      "non_resident": "Yabancı uyruklu",
+      "non_residentHint": "Özbekistan mukimi olmayan gerçek kişi. Sözleşme İngilizcedir.",
+      "personal": "Kişisel bilgiler",
+      "fullName": "Ad soyad",
+      "dateOfBirth": "Doğum tarihi",
+      "citizenship": "Vatandaşlık",
+      "country": "İkamet ülkesi",
+      "passportNumber": "Pasaport numarası",
+      "passportHint": "Latin büyük harfler ve rakamlar, örn. AA1234567",
+      "passportIssuedBy": "Veren makam",
+      "passportIssuedAt": "Veriliş tarihi",
+      "pinfl": "PINFL (14 hane)",
+      "taxId": "Vergi numarası (isteğe bağlı)",
+      "address": "Adres",
+      "city": "Şehir",
+      "phone": "Telefon",
+      "phoneHint": "Uluslararası biçimde, örn. +90 532 123 45 67",
+      "email": "E-posta",
+      "project": "Proje hakkında",
+      "projectName": "Proje adı",
+      "projectDescription": "Projeyi anlatın",
+      "projectDescriptionHint": "Site ne için, hangi bölümler gerekli ve hangi siteleri beğeniyorsunuz.",
+      "referenceUrl": "Mevcut site (isteğe bağlı)",
+      "review": "Sözleşmeyi gör"
+    },
+    "contract": {
+      "title": "Sözleşmeniz",
+      "reviewHint": "Sözleşmeyi dikkatle okuyun: paket, fiyat ve tüm koşullar içindedir. Formu değiştirirseniz yeniden gözden geçirin.",
+      "stale": "Bilgiler değişti. Sözleşmeyi yeniden gözden geçirin.",
+      "accept": "Sözleşmeyi okudum, koşullarını kabul ediyorum ve bilgilerimin doğru olduğunu onaylıyorum.",
+      "pay": "Kabul et ve {{price}} öde",
+      "open": "Sözleşme",
+      "back": "Geri",
+      "print": "Yazdır / PDF olarak kaydet",
+      "loading": "Sözleşme yükleniyor…",
+      "failed": "Sözleşme yüklenemedi."
+    },
+    "orders": {
+      "title": "Siparişlerim",
+      "empty": "Henüz siparişiniz yok.",
+      "pay": "Öde",
+      "check": "Ödemeyi kontrol et"
+    },
+    "status": {
+      "pending_payment": "Ödeme bekleniyor",
+      "paid": "Ödendi",
+      "in_progress": "Çalışılıyor",
+      "delivered": "Teslim edildi",
+      "canceled": "İptal edildi",
+      "refund_pending": "İade sürüyor",
+      "refunded": "İade edildi"
+    },
+    "payment": {
+      "returned": "Ödemeniz kontrol ediliyor…",
+      "confirmed": "Ödeme alındı. Çalışmaya başlamak için sizinle iletişime geçeceğiz.",
+      "pending": "Ödeme henüz onaylanmadı. Ödeme yaptıysanız birkaç dakika sürebilir.",
+      "canceled": "Ödeme iptal edildi. \"Siparişlerim\" bölümünden yeniden ödeyebilirsiniz."
     }
   }
 }

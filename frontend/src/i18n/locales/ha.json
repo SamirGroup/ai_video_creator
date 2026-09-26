@@ -68,7 +68,9 @@
     "adminSection": "Gudanarwa",
     "adminDashboard": "Allon gudanarwa",
     "primary": "Babban kewayawa",
-    "toggle": "Buɗe ko rufe kewayawa"
+    "toggle": "Buɗe ko rufe kewayawa",
+    "webServices": "Gina gidan yanar gizo",
+    "payoneer": "Payoneer"
   },
   "auth": {
     "login": {
@@ -641,6 +643,137 @@
       "basisBase": "farashin mai samarwa",
       "basisWithMargin": "farashin mai samarwa + ribar dandali",
       "note": "Tushen haraji: {{basis}}. Farashi yana cikin USD."
+    }
+  },
+  "webServices": {
+    "title": "Ayyukan gina gidan yanar gizo",
+    "subtitle": "Yi odar gidan yanar gizo daga ƙungiyarmu: zaɓi fakiti, sa hannu kan kwangila ta yanar gizo, sannan ka biya lafiya ta Payoneer.",
+    "choose": "Zaɓi fakiti",
+    "selected": "An zaɓa",
+    "salesClosed": "Karɓar oda zai buɗe nan ba da jimawa ba. Kana iya cike bayananka yanzu kuma ka karanta kwangilar fakitinka.",
+    "catalogFailed": "Ba a iya loda fakitoci ba.",
+    "secure": "Biyan kuɗi da kati yana faruwa a shafin Payoneer mai tsaro. Ba ma ganin bayanan katinka kuma ba ma adana su.",
+    "metric": {
+      "delivery": "Lokaci",
+      "days": "Kwanakin aiki {{n}}",
+      "revisions": "Zagayen gyara",
+      "pages": "Shafuka",
+      "bySpec": "Bisa bayanin fasaha",
+      "support": "Tallafi",
+      "months": "Wata {{n}}"
+    },
+    "packages": {
+      "starter": {
+        "name": "Start",
+        "tagline": "Shafin saukowa",
+        "features": [
+          "Shafi ɗaya mai sassa har 6",
+          "Zane na musamman bisa alamarka",
+          "Ya dace da waya, tablet da kwamfuta",
+          "Fom na tuntuɓa zuwa Telegram da imel",
+          "Saitin SEO na asali",
+          "Taimako da domain, hosting da SSL"
+        ]
+      },
+      "business": {
+        "name": "Business",
+        "tagline": "Gidan yanar gizo na kamfani",
+        "features": [
+          "Gidan yanar gizo na kamfani mai shafin farko da na ciki",
+          "Zane na musamman ga kowane nau'in shafi",
+          "Kwamitin gudanarwa don abun ciki",
+          "Sashen labarai ko blog",
+          "Google Analytics da Yandex Metrica",
+          "Saitin SEO ga kowane shafi",
+          "Fom na tuntuɓa da taswira"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Shagon yanar gizo",
+        "features": [
+          "Kundin kaya mai rukuni da matattara",
+          "Kwando, kammala oda da biyan kuɗi ta yanar gizo",
+          "Kwamitin gudanarwa don kaya da oda",
+          "Inganta sauri",
+          "Sanarwar oda a Telegram da imel",
+          "SEO da nazari na ci gaba"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "tagline": "Dandalin yanar gizo",
+        "features": [
+          "Dandali na musamman bisa bayanin fasaharka",
+          "Asusun masu amfani, matsayi da izini",
+          "Haɗawa har 3: CRM, 1C, biyan kuɗi, bots",
+          "Ƙarfafa tsaro da gwajin nauyi",
+          "Takardun bayani da horar da ƙungiyarka",
+          "Tallafi mai fifiko"
+        ]
+      }
+    },
+    "form": {
+      "type": "Wanene ke ƙulla kwangilar?",
+      "resident": "Mazaunin Uzbekistan",
+      "residentHint": "Mutum da ke zaune a Uzbekistan. Kwangilar da harshen Uzbek ce.",
+      "non_resident": "Ɗan ƙasar waje",
+      "non_residentHint": "Mutum da ba mazaunin Uzbekistan ba. Kwangilar da Turanci ce.",
+      "personal": "Bayanan kai",
+      "fullName": "Cikakken suna",
+      "dateOfBirth": "Ranar haihuwa",
+      "citizenship": "Ɗan ƙasa",
+      "country": "Ƙasar zama",
+      "passportNumber": "Lambar fasfo",
+      "passportHint": "Manyan haruffan Latin da lambobi, misali AA1234567",
+      "passportIssuedBy": "Hukumar da ta bayar",
+      "passportIssuedAt": "Ranar bayarwa",
+      "pinfl": "PINFL (lambobi 14)",
+      "taxId": "Lambar haraji (na zaɓi)",
+      "address": "Adireshi",
+      "city": "Birni",
+      "phone": "Waya",
+      "phoneHint": "A tsarin ƙasa da ƙasa, misali +234 803 123 4567",
+      "email": "Imel",
+      "project": "Game da aikin",
+      "projectName": "Sunan aikin",
+      "projectDescription": "Bayyana aikin",
+      "projectDescriptionHint": "Me gidan yanar gizon zai yi, waɗanne sassa ake buƙata, da waɗanne shafuka kake so.",
+      "referenceUrl": "Gidan yanar gizo na yanzu (na zaɓi)",
+      "review": "Duba kwangila"
+    },
+    "contract": {
+      "title": "Kwangilarka",
+      "reviewHint": "Karanta kwangilar da kyau: tana ɗauke da fakiti, farashi da duk sharuɗɗa. Idan ka canza fom, sake duba ta.",
+      "stale": "Bayanan sun canza. Sake duba kwangilar.",
+      "accept": "Na karanta kwangilar, na amince da sharuɗɗanta kuma na tabbatar bayanaina daidai ne.",
+      "pay": "Amince ka biya {{price}}",
+      "open": "Kwangila",
+      "back": "Koma baya",
+      "print": "Buga / adana a matsayin PDF",
+      "loading": "Ana loda kwangila…",
+      "failed": "Ba a iya loda kwangilar ba."
+    },
+    "orders": {
+      "title": "Ododina",
+      "empty": "Ba ka da oda tukuna.",
+      "pay": "Biya",
+      "check": "Duba biyan kuɗi"
+    },
+    "status": {
+      "pending_payment": "Ana jiran biya",
+      "paid": "An biya",
+      "in_progress": "Ana aiki",
+      "delivered": "An mika",
+      "canceled": "An soke",
+      "refund_pending": "Ana mayar da kuɗi",
+      "refunded": "An mayar da kuɗi"
+    },
+    "payment": {
+      "returned": "Ana duba biyan kuɗinka…",
+      "confirmed": "An karɓi biyan kuɗi. Za mu tuntuɓe ka don fara aiki.",
+      "pending": "Ba a tabbatar da biyan kuɗin ba tukuna. Idan ka biya, zai iya ɗaukar mintuna kaɗan.",
+      "canceled": "An soke biyan kuɗin. Kana iya sake biya daga «Ododina»."
     }
   }
 }
