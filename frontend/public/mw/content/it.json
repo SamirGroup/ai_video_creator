@@ -283,19 +283,21 @@
  "svc": {
   "label": "Servizi",
   "title": "Creazione di siti web",
-  "lead": "Landing page, siti aziendali, negozi online e piattaforme web, realizzati dal nostro team con contratto ufficiale.",
+  "lead": "Landing page, siti aziendali, negozi online e piattaforme web, realizzati con l’intelligenza artificiale in ore e giorni, con contratto ufficiale.",
   "cta": "Ordina",
   "popular": "Più scelto",
   "contract": "Contratto ufficiale per residenti in Uzbekistan e cittadini stranieri",
   "payment": "Pagamento sicuro con Payoneer",
   "metric": {
    "delivery": "Tempi",
-   "days": "{{n}} giorni lavorativi",
    "revisions": "Giri di revisione",
    "pages": "Pagine",
    "bySpec": "Secondo le specifiche",
    "support": "Assistenza",
-   "months": "{{n}} mesi"
+   "months": "{{n}} mesi",
+   "hoursRange": "{{min}}–{{max}} ore",
+   "hours": "{{n}} ore",
+   "withinDays": "Entro {{n}} giorno/i"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Assistenza prioritaria"
     ]
    }
-  }
+  },
+  "slogan": "Al passo con l’intelligenza artificiale",
+  "aiCard": "Realizzato con tecnologie di intelligenza artificiale"
  }
 }

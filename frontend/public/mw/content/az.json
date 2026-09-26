@@ -283,19 +283,21 @@
  "svc": {
   "label": "Xidmətlər",
   "title": "Sayt hazırlanması",
-  "lead": "Landing səhifələr, korporativ saytlar, onlayn mağazalar və veb-platformalar — rəsmi müqavilə ilə komandamız tərəfindən.",
+  "lead": "Landing səhifələr, korporativ saytlar, onlayn mağazalar və veb-platformalar — süni intellektlə saatlar və günlər ərzində, rəsmi müqavilə ilə.",
   "cta": "Sifariş et",
   "popular": "Populyar",
   "contract": "Özbəkistan rezidentləri və xarici vətəndaşlar üçün rəsmi müqavilə",
   "payment": "Payoneer ilə təhlükəsiz ödəniş",
   "metric": {
    "delivery": "Müddət",
-   "days": "{{n}} iş günü",
    "revisions": "Düzəliş mərhələsi",
    "pages": "Səhifələr",
    "bySpec": "Texniki tapşırığa görə",
    "support": "Dəstək",
-   "months": "{{n}} ay"
+   "months": "{{n}} ay",
+   "hoursRange": "{{min}}–{{max}} saat",
+   "hours": "{{n}} saat",
+   "withinDays": "{{n}} gün ərzində"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Prioritet dəstək"
     ]
    }
-  }
+  },
+  "slogan": "Süni intellektlə həmnəfəsik",
+  "aiCard": "Süni intellekt texnologiyaları ilə yaradılır"
  }
 }

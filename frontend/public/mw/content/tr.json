@@ -283,19 +283,21 @@
  "svc": {
   "label": "Hizmetler",
   "title": "Web sitesi yapımı",
-  "lead": "Açılış sayfaları, kurumsal siteler, online mağazalar ve web platformları — resmî sözleşmeyle ekibimiz tarafından.",
+  "lead": "Açılış sayfaları, kurumsal siteler, online mağazalar ve web platformları — yapay zekâ ile saatler ve günler içinde, resmî sözleşmeyle.",
   "cta": "Sipariş ver",
   "popular": "Popüler",
   "contract": "Özbekistan mukimleri ve yabancı uyruklular için resmî sözleşme",
   "payment": "Payoneer ile güvenli ödeme",
   "metric": {
    "delivery": "Süre",
-   "days": "{{n}} iş günü",
    "revisions": "Düzeltme turu",
    "pages": "Sayfa",
    "bySpec": "Şartnameye göre",
    "support": "Destek",
-   "months": "{{n}} ay"
+   "months": "{{n}} ay",
+   "hoursRange": "{{min}}–{{max}} saat",
+   "hours": "{{n}} saat",
+   "withinDays": "{{n}} gün içinde"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Öncelikli destek"
     ]
    }
-  }
+  },
+  "slogan": "Yapay zekâ ile aynı nefeste",
+  "aiCard": "Yapay zekâ teknolojileriyle oluşturulur"
  }
 }

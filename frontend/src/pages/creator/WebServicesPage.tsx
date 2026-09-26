@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Check, FileText, Globe2, ShieldCheck } from 'lucide-react'
+import { Check, FileText, Globe2, ShieldCheck, Sparkles } from 'lucide-react'
 import {
   webServicesApi as api,
   type ContractType,
@@ -58,6 +58,17 @@ function useRegions(locale: string) {
   }, [locale])
 }
 
+/** 1–2 hours, or whole days from 24 hours up. */
+function deliveryLabel(
+  t: (key: string, options?: Record<string, unknown>) => string,
+  pkg: Pick<ServicePackage, 'delivery_hours_min' | 'delivery_hours'>,
+) {
+  const { delivery_hours_min: low, delivery_hours: high } = pkg
+  if (!low && high % 24 === 0) return t('webServices.metric.withinDays', { n: high / 24 })
+  if (low) return t('webServices.metric.hoursRange', { min: low, max: high })
+  return t('webServices.metric.hours', { n: high })
+}
+
 function PackageCard({
   pkg,
   selected,
@@ -89,6 +100,10 @@ function PackageCard({
       <p className="mt-3 text-3xl font-semibold tracking-tight">
         ${Number(pkg.price_usd).toLocaleString('en-US')}
       </p>
+      <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary-600">
+        <Sparkles size={14} aria-hidden />
+        {t('webServices.aiCard')}
+      </p>
       <ul className="mt-4 flex-1 space-y-2 text-sm">
         {features.map((feature) => (
           <li key={feature} className="flex gap-2">
@@ -100,9 +115,7 @@ function PackageCard({
       <dl className="mt-4 grid grid-cols-2 gap-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <div>
           <dt>{t('webServices.metric.delivery')}</dt>
-          <dd className="font-medium text-foreground">
-            {t('webServices.metric.days', { n: pkg.delivery_days })}
-          </dd>
+          <dd className="font-medium text-foreground">{deliveryLabel(t, pkg)}</dd>
         </div>
         <div>
           <dt>{t('webServices.metric.revisions')}</dt>
@@ -289,6 +302,10 @@ export function WebServicesPage() {
           <Globe2 className="text-primary-600" />
           <h1 className="text-2xl font-semibold">{t('webServices.title')}</h1>
         </div>
+        <p className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-primary-600/10 px-3 py-1 text-xs font-semibold text-primary-600">
+          <Sparkles size={14} aria-hidden />
+          {t('webServices.slogan')}
+        </p>
         <p className="max-w-3xl text-muted-foreground">{t('webServices.subtitle')}</p>
       </header>
 

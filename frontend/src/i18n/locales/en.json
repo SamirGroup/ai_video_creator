@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Website development",
-    "subtitle": "Order a website from our team: choose a package, sign the contract online and pay securely through Payoneer.",
+    "subtitle": "We build your website fast with artificial intelligence technology: choose a package, sign the contract online and pay securely through Payoneer.",
     "choose": "Choose package",
     "selected": "Selected",
     "salesClosed": "Orders open soon. You can already fill in your details and read the contract for your package.",
@@ -655,12 +655,14 @@
     "secure": "You pay by card on Payoneer's secure page. We never see or store your card details.",
     "metric": {
       "delivery": "Delivery",
-      "days": "{{n}} business days",
       "revisions": "Revision rounds",
       "pages": "Pages",
       "bySpec": "Per specification",
       "support": "Support",
-      "months": "{{n}} mo."
+      "months": "{{n}} mo.",
+      "hoursRange": "{{min}}–{{max}} hours",
+      "hours": "{{n}} hours",
+      "withinDays": "Within {{n}} day(s)"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Payment received. We will contact you to start work.",
       "pending": "The payment is not confirmed yet. If you have paid, this can take a few minutes.",
       "canceled": "The payment was canceled. You can pay again from My orders."
-    }
+    },
+    "slogan": "In step with artificial intelligence",
+    "aiCard": "Built with artificial intelligence technology"
   }
 }

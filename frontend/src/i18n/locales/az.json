@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Sayt hazırlanması",
-    "subtitle": "Komandamızdan sayt sifariş edin: paketi seçin, müqaviləni onlayn imzalayın və Payoneer vasitəsilə təhlükəsiz ödəyin.",
+    "subtitle": "Saytınızı süni intellekt texnologiyaları ilə sürətlə yaradırıq: paketi seçin, müqaviləni onlayn imzalayın və Payoneer ilə təhlükəsiz ödəyin.",
     "choose": "Paketi seç",
     "selected": "Seçildi",
     "salesClosed": "Sifarişlər tezliklə açılacaq. İndidən məlumatlarınızı daxil edib paketinizin müqaviləsini oxuya bilərsiniz.",
@@ -655,12 +655,14 @@
     "secure": "Kartla ödəniş Payoneer-in qorunan səhifəsində aparılır. Kart məlumatlarınızı görmürük və saxlamırıq.",
     "metric": {
       "delivery": "Müddət",
-      "days": "{{n}} iş günü",
       "revisions": "Düzəliş mərhələsi",
       "pages": "Səhifələr",
       "bySpec": "Texniki tapşırığa görə",
       "support": "Dəstək",
-      "months": "{{n}} ay"
+      "months": "{{n}} ay",
+      "hoursRange": "{{min}}–{{max}} saat",
+      "hours": "{{n}} saat",
+      "withinDays": "{{n}} gün ərzində"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Ödəniş qəbul edildi. İşə başlamaq üçün sizinlə əlaqə saxlayacağıq.",
       "pending": "Ödəniş hələ təsdiqlənməyib. Ödəmisinizsə, bu bir neçə dəqiqə çəkə bilər.",
       "canceled": "Ödəniş ləğv edildi. «Sifarişlərim» bölməsindən yenidən ödəyə bilərsiniz."
-    }
+    },
+    "slogan": "Süni intellektlə həmnəfəsik",
+    "aiCard": "Süni intellekt texnologiyaları ilə yaradılır"
   }
 }

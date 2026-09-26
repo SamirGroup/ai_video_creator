@@ -283,19 +283,21 @@
  "svc": {
   "label": "Layanan",
   "title": "Pembuatan situs web",
-  "lead": "Landing page, situs perusahaan, toko online, dan platform web — dikerjakan tim kami dengan kontrak resmi.",
+  "lead": "Landing page, situs perusahaan, toko online, dan platform web — dibuat dengan kecerdasan buatan dalam hitungan jam dan hari, dengan kontrak resmi.",
   "cta": "Pesan",
   "popular": "Populer",
   "contract": "Kontrak resmi untuk penduduk Uzbekistan dan warga negara asing",
   "payment": "Pembayaran aman lewat Payoneer",
   "metric": {
    "delivery": "Waktu",
-   "days": "{{n}} hari kerja",
    "revisions": "Putaran revisi",
    "pages": "Halaman",
    "bySpec": "Sesuai spesifikasi",
    "support": "Dukungan",
-   "months": "{{n}} bln"
+   "months": "{{n}} bln",
+   "hoursRange": "{{min}}–{{max}} jam",
+   "hours": "{{n}} jam",
+   "withinDays": "Dalam {{n}} hari"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Dukungan prioritas"
     ]
    }
-  }
+  },
+  "slogan": "Seirama dengan kecerdasan buatan",
+  "aiCard": "Dibuat dengan teknologi kecerdasan buatan"
  }
 }

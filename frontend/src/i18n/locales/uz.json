@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Sayt yaratish xizmatlari",
-    "subtitle": "Jamoamizdan sayt buyurtma qiling: paketni tanlang, shartnomani onlayn imzolang va Payoneer orqali xavfsiz to‘lang.",
+    "subtitle": "Saytingizni sun’iy intellekt texnologiyalari orqali tez yaratib beramiz: paketni tanlang, shartnomani onlayn imzolang va Payoneer orqali xavfsiz to‘lang.",
     "choose": "Paketni tanlash",
     "selected": "Tanlandi",
     "salesClosed": "Buyurtmalar tez orada ochiladi. Hozirdanoq ma’lumotlaringizni kiritib, paketingiz shartnomasini o‘qishingiz mumkin.",
@@ -655,12 +655,14 @@
     "secure": "Karta orqali to‘lov Payoneer’ning himoyalangan sahifasida amalga oshiriladi. Karta ma’lumotlari bizga ko‘rinmaydi va saqlanmaydi.",
     "metric": {
       "delivery": "Muddat",
-      "days": "{{n}} ish kuni",
       "revisions": "Tuzatishlar",
       "pages": "Sahifalar",
       "bySpec": "TT bo‘yicha",
       "support": "Qo‘llab-quvvatlash",
-      "months": "{{n}} oy"
+      "months": "{{n}} oy",
+      "hoursRange": "{{min}}–{{max}} soat",
+      "hours": "{{n}} soat",
+      "withinDays": "{{n}} kun ichida"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "To‘lov qabul qilindi. Ishni boshlash uchun siz bilan bog‘lanamiz.",
       "pending": "To‘lov hali tasdiqlanmadi. Agar to‘lagan bo‘lsangiz, bu bir necha daqiqa olishi mumkin.",
       "canceled": "To‘lov bekor qilindi. «Buyurtmalarim» bo‘limidan qayta to‘lashingiz mumkin."
-    }
+    },
+    "slogan": "Sun’iy intellekt bilan hamnafasmiz",
+    "aiCard": "Sun’iy intellekt texnologiyalari orqali yaratiladi"
   }
 }

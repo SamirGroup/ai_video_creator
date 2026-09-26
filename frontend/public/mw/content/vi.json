@@ -283,19 +283,21 @@
  "svc": {
   "label": "Dịch vụ",
   "title": "Thiết kế website",
-  "lead": "Trang đích, website doanh nghiệp, cửa hàng trực tuyến và nền tảng web — do đội ngũ chúng tôi thực hiện theo hợp đồng chính thức.",
+  "lead": "Trang đích, website doanh nghiệp, cửa hàng trực tuyến và nền tảng web — tạo bằng trí tuệ nhân tạo trong vài giờ đến vài ngày, theo hợp đồng chính thức.",
   "cta": "Đặt hàng",
   "popular": "Phổ biến",
   "contract": "Hợp đồng chính thức cho cư dân Uzbekistan và công dân nước ngoài",
   "payment": "Thanh toán an toàn qua Payoneer",
   "metric": {
    "delivery": "Thời gian",
-   "days": "{{n}} ngày làm việc",
    "revisions": "Vòng chỉnh sửa",
    "pages": "Trang",
    "bySpec": "Theo đặc tả",
    "support": "Hỗ trợ",
-   "months": "{{n}} tháng"
+   "months": "{{n}} tháng",
+   "hoursRange": "{{min}}–{{max}} giờ",
+   "hours": "{{n}} giờ",
+   "withinDays": "Trong {{n}} ngày"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Hỗ trợ ưu tiên"
     ]
    }
-  }
+  },
+  "slogan": "Đồng hành cùng trí tuệ nhân tạo",
+  "aiCard": "Được tạo bằng công nghệ trí tuệ nhân tạo"
  }
 }

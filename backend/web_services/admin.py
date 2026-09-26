@@ -5,7 +5,7 @@ from web_services.models import ExecutorProfile, ServiceOrder, ServicePackage
 
 @admin.register(ServicePackage)
 class ServicePackageAdmin(admin.ModelAdmin):
-    list_display = ("code", "price_usd", "delivery_days", "support_months", "is_active")
+    list_display = ("code", "price_usd", "delivery_hours", "support_months", "is_active")
 
 
 @admin.register(ExecutorProfile)

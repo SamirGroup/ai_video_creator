@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Web sitesi yapımı",
-    "subtitle": "Ekibimizden web sitesi sipariş edin: paketi seçin, sözleşmeyi çevrim içi imzalayın ve Payoneer ile güvenle ödeyin.",
+    "subtitle": "Sitenizi yapay zekâ teknolojileriyle hızla oluşturuyoruz: paketi seçin, sözleşmeyi çevrim içi imzalayın ve Payoneer ile güvenle ödeyin.",
     "choose": "Paketi seç",
     "selected": "Seçildi",
     "salesClosed": "Siparişler yakında açılıyor. Bilgilerinizi şimdiden girip paketinizin sözleşmesini okuyabilirsiniz.",
@@ -655,12 +655,14 @@
     "secure": "Kartla ödeme Payoneer'ın güvenli sayfasında yapılır. Kart bilgilerinizi görmeyiz ve saklamayız.",
     "metric": {
       "delivery": "Süre",
-      "days": "{{n}} iş günü",
       "revisions": "Düzeltme turu",
       "pages": "Sayfa",
       "bySpec": "Şartnameye göre",
       "support": "Destek",
-      "months": "{{n}} ay"
+      "months": "{{n}} ay",
+      "hoursRange": "{{min}}–{{max}} saat",
+      "hours": "{{n}} saat",
+      "withinDays": "{{n}} gün içinde"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Ödeme alındı. Çalışmaya başlamak için sizinle iletişime geçeceğiz.",
       "pending": "Ödeme henüz onaylanmadı. Ödeme yaptıysanız birkaç dakika sürebilir.",
       "canceled": "Ödeme iptal edildi. \"Siparişlerim\" bölümünden yeniden ödeyebilirsiniz."
-    }
+    },
+    "slogan": "Yapay zekâ ile aynı nefeste",
+    "aiCard": "Yapay zekâ teknolojileriyle oluşturulur"
   }
 }

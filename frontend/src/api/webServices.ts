@@ -6,7 +6,9 @@ export interface ServicePackage {
   id: string
   code: string
   price_usd: string
-  delivery_days: number
+  /** Set for a range such as 1–2 hours; otherwise delivery is within `delivery_hours`. */
+  delivery_hours_min: number | null
+  delivery_hours: number
   revision_rounds: number
   support_months: number
   /** 0 means the page count comes from the technical specification. */

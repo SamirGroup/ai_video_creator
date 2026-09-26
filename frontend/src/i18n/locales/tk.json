@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Saýt döretmek hyzmatlary",
-    "subtitle": "Toparymyzdan saýt sargyt ediň: bukjany saýlaň, şertnama onlaýn gol çekiň we Payoneer arkaly howpsuz töläň.",
+    "subtitle": "Saýtyňyzy emeli aň tehnologiýalary arkaly çalt döredýäris: bukjany saýlaň, şertnama onlaýn gol çekiň we Payoneer arkaly howpsuz töläň.",
     "choose": "Bukjany saýla",
     "selected": "Saýlandy",
     "salesClosed": "Sargytlar ýakyn wagtda açylar. Häzirden maglumatlaryňyzy girizip, bukjaňyzyň şertnamasyny okap bilersiňiz.",
@@ -655,12 +655,14 @@
     "secure": "Kart bilen töleg Payoneer-iň goralan sahypasynda amala aşyrylýar. Kart maglumatlaryny görmeýäris we saklamaýarys.",
     "metric": {
       "delivery": "Möhlet",
-      "days": "{{n}} iş güni",
       "revisions": "Düzediş tapgyrlary",
       "pages": "Sahypalar",
       "bySpec": "Tehniki tabşyryga görä",
       "support": "Goldaw",
-      "months": "{{n}} aý"
+      "months": "{{n}} aý",
+      "hoursRange": "{{min}}–{{max}} sagat",
+      "hours": "{{n}} sagat",
+      "withinDays": "{{n}} günüň içinde"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Töleg kabul edildi. Işe başlamak üçin siz bilen habarlaşarys.",
       "pending": "Töleg heniz tassyklanmady. Tölän bolsaňyz, bu birnäçe minut alyp biler.",
       "canceled": "Töleg ýatyryldy. «Sargytlarym» bölüminden täzeden töläp bilersiňiz."
-    }
+    },
+    "slogan": "Emeli aň bilen bir demde",
+    "aiCard": "Emeli aň tehnologiýalary arkaly döredilýär"
   }
 }

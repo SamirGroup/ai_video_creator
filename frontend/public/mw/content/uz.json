@@ -283,19 +283,21 @@
  "svc": {
   "label": "Xizmatlar",
   "title": "Sayt yaratish",
-  "lead": "Landing sahifalar, korporativ saytlar, internet-do‘konlar va veb-platformalar — rasmiy shartnoma asosida jamoamiz tomonidan.",
+  "lead": "Landing sahifalar, korporativ saytlar, internet-do‘konlar va veb-platformalarni sun’iy intellekt texnologiyalari orqali soatlar va kunlar ichida yaratib beramiz — rasmiy shartnoma asosida.",
   "cta": "Buyurtma berish",
   "popular": "Ommabop",
   "contract": "O‘zbekiston rezidentlari va chet el fuqarolari uchun rasmiy shartnoma",
   "payment": "Payoneer orqali xavfsiz to‘lov",
   "metric": {
    "delivery": "Muddat",
-   "days": "{{n}} ish kuni",
    "revisions": "Tuzatishlar",
    "pages": "Sahifalar",
    "bySpec": "TT bo‘yicha",
    "support": "Qo‘llab-quvvatlash",
-   "months": "{{n}} oy"
+   "months": "{{n}} oy",
+   "hoursRange": "{{min}}–{{max}} soat",
+   "hours": "{{n}} soat",
+   "withinDays": "{{n}} kun ichida"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Ustuvor qo‘llab-quvvatlash"
     ]
    }
-  }
+  },
+  "slogan": "Sun’iy intellekt bilan hamnafasmiz",
+  "aiCard": "Sun’iy intellekt texnologiyalari orqali yaratiladi"
  }
 }

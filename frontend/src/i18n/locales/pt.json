@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Criação de sites",
-    "subtitle": "Encomende um site à nossa equipa: escolha um pacote, assine o contrato online e pague com segurança via Payoneer.",
+    "subtitle": "Criamos o seu site rapidamente com inteligência artificial: escolha um pacote, assine o contrato online e pague com segurança via Payoneer.",
     "choose": "Escolher pacote",
     "selected": "Selecionado",
     "salesClosed": "As encomendas abrem em breve. Já pode preencher os seus dados e ler o contrato do seu pacote.",
@@ -655,12 +655,14 @@
     "secure": "Paga com cartão na página segura da Payoneer. Não vemos nem guardamos os dados do cartão.",
     "metric": {
       "delivery": "Prazo",
-      "days": "{{n}} dias úteis",
       "revisions": "Rondas de revisão",
       "pages": "Páginas",
       "bySpec": "Conforme especificação",
       "support": "Suporte",
-      "months": "{{n}} meses"
+      "months": "{{n}} meses",
+      "hoursRange": "{{min}}–{{max}} h",
+      "hours": "{{n}} h",
+      "withinDays": "Em {{n}} dia(s)"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Pagamento recebido. Vamos contactá-lo para iniciar o trabalho.",
       "pending": "O pagamento ainda não foi confirmado. Se já pagou, pode demorar alguns minutos.",
       "canceled": "O pagamento foi cancelado. Pode pagar novamente em «As minhas encomendas»."
-    }
+    },
+    "slogan": "Lado a lado com a inteligência artificial",
+    "aiCard": "Criado com tecnologias de inteligência artificial"
   }
 }

@@ -283,19 +283,21 @@
  "svc": {
   "label": "Services",
   "title": "Website development",
-  "lead": "Landing pages, corporate sites, online stores and web platforms, built by our team under an official contract.",
+  "lead": "Landing pages, corporate sites, online stores and web platforms, built with artificial intelligence technology in hours and days, under an official contract.",
   "cta": "Order",
   "popular": "Popular",
   "contract": "Official contract for residents of Uzbekistan and foreign citizens",
   "payment": "Secure payment through Payoneer",
   "metric": {
    "delivery": "Delivery",
-   "days": "{{n}} business days",
    "revisions": "Revision rounds",
    "pages": "Pages",
    "bySpec": "Per specification",
    "support": "Support",
-   "months": "{{n}} mo."
+   "months": "{{n}} mo.",
+   "hoursRange": "{{min}}–{{max}} hours",
+   "hours": "{{n}} hours",
+   "withinDays": "Within {{n}} day(s)"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Priority support"
     ]
    }
-  }
+  },
+  "slogan": "In step with artificial intelligence",
+  "aiCard": "Built with artificial intelligence technology"
  }
 }

@@ -283,19 +283,21 @@
  "svc": {
   "label": "Serviços",
   "title": "Criação de sites",
-  "lead": "Landing pages, sites institucionais, lojas online e plataformas web, feitos pela nossa equipa com contrato oficial.",
+  "lead": "Landing pages, sites institucionais, lojas online e plataformas web, criados com inteligência artificial em horas e dias, com contrato oficial.",
   "cta": "Encomendar",
   "popular": "Popular",
   "contract": "Contrato oficial para residentes do Uzbequistão e cidadãos estrangeiros",
   "payment": "Pagamento seguro via Payoneer",
   "metric": {
    "delivery": "Prazo",
-   "days": "{{n}} dias úteis",
    "revisions": "Rondas de revisão",
    "pages": "Páginas",
    "bySpec": "Conforme especificação",
    "support": "Suporte",
-   "months": "{{n}} meses"
+   "months": "{{n}} meses",
+   "hoursRange": "{{min}}–{{max}} h",
+   "hours": "{{n}} h",
+   "withinDays": "Em {{n}} dia(s)"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Suporte prioritário"
     ]
    }
-  }
+  },
+  "slogan": "Lado a lado com a inteligência artificial",
+  "aiCard": "Criado com tecnologias de inteligência artificial"
  }
 }

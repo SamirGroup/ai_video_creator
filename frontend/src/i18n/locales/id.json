@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Layanan pembuatan situs web",
-    "subtitle": "Pesan situs web dari tim kami: pilih paket, tanda tangani kontrak secara online, dan bayar dengan aman lewat Payoneer.",
+    "subtitle": "Kami membuat situs Anda dengan cepat menggunakan kecerdasan buatan: pilih paket, tanda tangani kontrak online, dan bayar dengan aman lewat Payoneer.",
     "choose": "Pilih paket",
     "selected": "Dipilih",
     "salesClosed": "Pemesanan segera dibuka. Anda sudah bisa mengisi data dan membaca kontrak untuk paket Anda.",
@@ -655,12 +655,14 @@
     "secure": "Pembayaran kartu dilakukan di halaman aman Payoneer. Kami tidak melihat atau menyimpan data kartu Anda.",
     "metric": {
       "delivery": "Waktu",
-      "days": "{{n}} hari kerja",
       "revisions": "Putaran revisi",
       "pages": "Halaman",
       "bySpec": "Sesuai spesifikasi",
       "support": "Dukungan",
-      "months": "{{n}} bln"
+      "months": "{{n}} bln",
+      "hoursRange": "{{min}}–{{max}} jam",
+      "hours": "{{n}} jam",
+      "withinDays": "Dalam {{n}} hari"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Pembayaran diterima. Kami akan menghubungi Anda untuk memulai pekerjaan.",
       "pending": "Pembayaran belum terkonfirmasi. Jika Anda sudah membayar, ini bisa memakan beberapa menit.",
       "canceled": "Pembayaran dibatalkan. Anda dapat membayar lagi dari «Pesanan saya»."
-    }
+    },
+    "slogan": "Seirama dengan kecerdasan buatan",
+    "aiCard": "Dibuat dengan teknologi kecerdasan buatan"
   }
 }

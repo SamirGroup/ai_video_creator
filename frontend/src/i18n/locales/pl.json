@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Tworzenie stron internetowych",
-    "subtitle": "Zamów stronę u naszego zespołu: wybierz pakiet, podpisz umowę online i zapłać bezpiecznie przez Payoneer.",
+    "subtitle": "Szybko stworzymy Twoją stronę dzięki sztucznej inteligencji: wybierz pakiet, podpisz umowę online i zapłać bezpiecznie przez Payoneer.",
     "choose": "Wybierz pakiet",
     "selected": "Wybrano",
     "salesClosed": "Zamówienia wkrótce ruszą. Już teraz możesz podać swoje dane i przeczytać umowę dla swojego pakietu.",
@@ -655,12 +655,14 @@
     "secure": "Płacisz kartą na bezpiecznej stronie Payoneer. Nie widzimy ani nie przechowujemy danych karty.",
     "metric": {
       "delivery": "Termin",
-      "days": "{{n}} dni roboczych",
       "revisions": "Rundy poprawek",
       "pages": "Strony",
       "bySpec": "Według specyfikacji",
       "support": "Wsparcie",
-      "months": "{{n}} mies."
+      "months": "{{n}} mies.",
+      "hoursRange": "{{min}}–{{max}} godz.",
+      "hours": "{{n}} godz.",
+      "withinDays": "W ciągu {{n}} dni"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Płatność otrzymana. Skontaktujemy się, aby rozpocząć pracę.",
       "pending": "Płatność nie jest jeszcze potwierdzona. Jeśli już zapłaciłeś(-aś), może to potrwać kilka minut.",
       "canceled": "Płatność anulowano. Możesz zapłacić ponownie w „Moich zamówieniach”."
-    }
+    },
+    "slogan": "W rytmie sztucznej inteligencji",
+    "aiCard": "Tworzone z użyciem technologii sztucznej inteligencji"
   }
 }

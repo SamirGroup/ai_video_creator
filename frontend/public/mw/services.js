@@ -12,6 +12,12 @@
   const DOC = '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z M14 3v5h5 M9 13h6 M9 17h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
   const SHIELD = '<path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
   const POPULAR = 'business'
+  // 1–2 hours, or whole days from 24 hours up — the same rule as the contract.
+  const delivery = (m, { delivery_hours_min: low, delivery_hours: high }) =>
+    !low && high % 24 === 0 ? m.withinDays.replace('{{n}}', high / 24)
+      : low ? m.hoursRange.replace('{{min}}', low).replace('{{max}}', high)
+        : m.hours.replace('{{n}}', high)
+  const SPARK = '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" fill="currentColor"/>'
   const money = value => '$' + Number(value).toLocaleString('en-US', { maximumFractionDigits: 0 })
 
   const css = `
@@ -21,8 +27,13 @@
     *{box-sizing:border-box}
     .section{max-width:1280px;margin:0 auto;padding:88px 24px 72px}
     .head{max-width:760px;margin:0 auto 36px;text-align:center}
-    .eyebrow{display:inline-block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#b88a00;margin:0 0 14px}
+    .eyebrow{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#b88a00;margin:0 0 14px}
     :host([data-theme=dark]) .eyebrow{color:var(--gold)}
+    .slogan{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;color:#0a0a0a;background:linear-gradient(90deg,#ffc700,#ffdf6b);box-shadow:0 10px 30px rgba(255,199,0,.25)}
+    .slogan svg{width:16px;height:16px;flex:none}
+    .ai{display:flex;align-items:center;gap:6px;margin:14px 0 0;font-size:12px;font-weight:600;color:#9a7300}
+    :host([data-theme=dark]) .ai{color:var(--gold)}
+    .ai svg{width:14px;height:14px;flex:none}
     h2{font-size:clamp(28px,4.4vw,48px);line-height:1.08;font-weight:500;letter-spacing:-.03em;margin:0 0 14px}
     .lead{font-size:16px;line-height:1.65;color:var(--muted);margin:0}
     .trust{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin:22px 0 0;padding:0;list-style:none;font-size:13px;color:var(--muted)}
@@ -77,25 +88,27 @@
       const title = node('h2', '', t.title); title.id = 'svc-title'
       const trust = node('ul', 'trust')
       for (const [svg, text] of [[DOC, t.contract], [SHIELD, t.payment]]) { const li = node('li'); li.append(icon(svg), node('span', '', text)); trust.append(li) }
-      head.append(node('p', 'eyebrow', t.label), title, node('p', 'lead', t.lead), trust)
+      const slogan = node('p', 'slogan'); slogan.append(icon(SPARK), node('span', '', t.slogan))
+      head.append(node('p', 'eyebrow', t.label), slogan, title, node('p', 'lead', t.lead), trust)
       const grid = node('div', 'grid'); grid.setAttribute('role', 'list')
       const m = t.metric
       for (const pkg of this.data.packages) {
         const copy = t.packages[pkg.code]; if (!copy) continue
         const card = node('article', 'card' + (pkg.code === POPULAR ? ' pop' : '')); card.setAttribute('role', 'listitem')
         if (pkg.code === POPULAR) card.append(node('span', 'badge', t.popular))
+        const ai = node('p', 'ai'); ai.append(icon(SPARK), node('span', '', t.aiCard))
         const features = node('ul', 'features')
         for (const f of copy.features) { const li = node('li'); li.append(icon(CHECK), node('span', '', f)); features.append(li) }
         const dl = node('dl')
         for (const [label, value] of [
-          [m.delivery, m.days.replace('{{n}}', pkg.delivery_days)],
+          [m.delivery, delivery(m, pkg)],
           [m.pages, pkg.page_limit ? String(pkg.page_limit) : m.bySpec],
           [m.revisions, String(pkg.revision_rounds)],
           [m.support, m.months.replace('{{n}}', pkg.support_months)],
         ]) { const d = node('div'); d.append(node('dt', '', label), node('dd', '', value)); dl.append(d) }
         const cta = node('a', 'cta', t.cta); cta.href = `/web-services?package=${encodeURIComponent(pkg.code)}`
         cta.setAttribute('aria-label', `${t.cta}: ${copy.name} — ${money(pkg.price_usd)}`)
-        card.append(node('p', 'name', copy.name), node('h3', '', copy.tagline), node('p', 'price', money(pkg.price_usd)), features, dl, cta)
+        card.append(node('p', 'name', copy.name), node('h3', '', copy.tagline), node('p', 'price', money(pkg.price_usd)), ai, features, dl, cta)
         grid.append(card)
       }
       section.append(head, grid)

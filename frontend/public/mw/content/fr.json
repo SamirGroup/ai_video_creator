@@ -283,19 +283,21 @@
  "svc": {
   "label": "Services",
   "title": "Création de sites web",
-  "lead": "Pages d’atterrissage, sites d’entreprise, boutiques en ligne et plateformes web, réalisés par notre équipe sous contrat officiel.",
+  "lead": "Pages d’atterrissage, sites d’entreprise, boutiques en ligne et plateformes web, créés grâce à l’IA en quelques heures ou jours, sous contrat officiel.",
   "cta": "Commander",
   "popular": "Populaire",
   "contract": "Contrat officiel pour les résidents d’Ouzbékistan et les citoyens étrangers",
   "payment": "Paiement sécurisé via Payoneer",
   "metric": {
    "delivery": "Délai",
-   "days": "{{n}} jours ouvrés",
    "revisions": "Séries de corrections",
    "pages": "Pages",
    "bySpec": "Selon le cahier des charges",
    "support": "Support",
-   "months": "{{n}} mois"
+   "months": "{{n}} mois",
+   "hoursRange": "{{min}}–{{max}} h",
+   "hours": "{{n}} h",
+   "withinDays": "Sous {{n}} jour(s)"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Support prioritaire"
     ]
    }
-  }
+  },
+  "slogan": "Au rythme de l’intelligence artificielle",
+  "aiCard": "Réalisé grâce aux technologies d’intelligence artificielle"
  }
 }

@@ -16,7 +16,10 @@ class ServicePackage(TimestampedModel):
     price_usd = models.DecimalField(
         max_digits=10, decimal_places=2, validators=[MinValueValidator(1)]
     )
-    delivery_days = models.PositiveSmallIntegerField(validators=[MinValueValidator(1)])
+    # Delivery time in hours: a range when `delivery_hours_min` is set
+    # (e.g. 1–2 hours), otherwise "within N hours", shown as days from 24 up.
+    delivery_hours_min = models.PositiveSmallIntegerField(null=True, blank=True)
+    delivery_hours = models.PositiveSmallIntegerField(validators=[MinValueValidator(1)])
     revision_rounds = models.PositiveSmallIntegerField(default=2)
     support_months = models.PositiveSmallIntegerField(default=1)
     # 0 means the page count is set by the technical specification.
@@ -33,7 +36,8 @@ class ServicePackage(TimestampedModel):
     def terms(self):
         return {
             "code": self.code,
-            "delivery_days": self.delivery_days,
+            "delivery_hours_min": self.delivery_hours_min,
+            "delivery_hours": self.delivery_hours,
             "revision_rounds": self.revision_rounds,
             "support_months": self.support_months,
             "page_limit": self.page_limit,

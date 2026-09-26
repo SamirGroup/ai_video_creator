@@ -283,19 +283,21 @@
  "svc": {
   "label": "服务",
   "title": "网站建设",
-  "lead": "落地页、企业官网、网上商城和 Web 平台——由我们的团队依正式合同制作。",
+  "lead": "落地页、企业官网、网上商城和 Web 平台——借助人工智能在数小时至数天内完成，依正式合同交付。",
   "cta": "立即下单",
   "popular": "热门",
   "contract": "面向乌兹别克斯坦居民和外国公民的正式合同",
   "payment": "通过 Payoneer 安全付款",
   "metric": {
    "delivery": "工期",
-   "days": "{{n}} 个工作日",
    "revisions": "修改轮次",
    "pages": "页面",
    "bySpec": "按需求文档",
    "support": "售后支持",
-   "months": "{{n}} 个月"
+   "months": "{{n}} 个月",
+   "hoursRange": "{{min}}–{{max}} 小时",
+   "hours": "{{n}} 小时",
+   "withinDays": "{{n}} 天内"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "优先支持"
     ]
    }
-  }
+  },
+  "slogan": "与人工智能同行",
+  "aiCard": "借助人工智能技术打造"
  }
 }

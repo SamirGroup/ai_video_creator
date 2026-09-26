@@ -283,19 +283,21 @@
  "svc": {
   "label": "Usługi",
   "title": "Tworzenie stron internetowych",
-  "lead": "Landing page, strony firmowe, sklepy internetowe i platformy — tworzone przez nasz zespół na podstawie oficjalnej umowy.",
+  "lead": "Landing page, strony firmowe, sklepy internetowe i platformy — tworzone z pomocą sztucznej inteligencji w godziny i dni, na podstawie oficjalnej umowy.",
   "cta": "Zamów",
   "popular": "Popularny",
   "contract": "Oficjalna umowa dla rezydentów Uzbekistanu i obcokrajowców",
   "payment": "Bezpieczna płatność przez Payoneer",
   "metric": {
    "delivery": "Termin",
-   "days": "{{n}} dni roboczych",
    "revisions": "Rundy poprawek",
    "pages": "Strony",
    "bySpec": "Według specyfikacji",
    "support": "Wsparcie",
-   "months": "{{n}} mies."
+   "months": "{{n}} mies.",
+   "hoursRange": "{{min}}–{{max}} godz.",
+   "hours": "{{n}} godz.",
+   "withinDays": "W ciągu {{n}} dni"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Priorytetowe wsparcie"
     ]
    }
-  }
+  },
+  "slogan": "W rytmie sztucznej inteligencji",
+  "aiCard": "Tworzone z użyciem technologii sztucznej inteligencji"
  }
 }

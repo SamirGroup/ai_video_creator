@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Création de sites web",
-    "subtitle": "Commandez un site à notre équipe : choisissez une formule, signez le contrat en ligne et payez en toute sécurité via Payoneer.",
+    "subtitle": "Nous créons rapidement votre site grâce à l’intelligence artificielle : choisissez une formule, signez le contrat en ligne et payez en toute sécurité via Payoneer.",
     "choose": "Choisir la formule",
     "selected": "Sélectionnée",
     "salesClosed": "Les commandes ouvrent bientôt. Vous pouvez déjà saisir vos informations et lire le contrat de votre formule.",
@@ -655,12 +655,14 @@
     "secure": "Vous payez par carte sur la page sécurisée de Payoneer. Nous ne voyons ni ne conservons vos données de carte.",
     "metric": {
       "delivery": "Délai",
-      "days": "{{n}} jours ouvrés",
       "revisions": "Séries de corrections",
       "pages": "Pages",
       "bySpec": "Selon le cahier des charges",
       "support": "Support",
-      "months": "{{n}} mois"
+      "months": "{{n}} mois",
+      "hoursRange": "{{min}}–{{max}} h",
+      "hours": "{{n}} h",
+      "withinDays": "Sous {{n}} jour(s)"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Paiement reçu. Nous vous contacterons pour démarrer le travail.",
       "pending": "Le paiement n’est pas encore confirmé. Si vous avez payé, cela peut prendre quelques minutes.",
       "canceled": "Le paiement a été annulé. Vous pouvez payer à nouveau depuis « Mes commandes »."
-    }
+    },
+    "slogan": "Au rythme de l’intelligence artificielle",
+    "aiCard": "Réalisé grâce aux technologies d’intelligence artificielle"
   }
 }

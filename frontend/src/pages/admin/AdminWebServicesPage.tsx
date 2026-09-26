@@ -138,7 +138,8 @@ function Executor() {
 
 const packageFields: [keyof ServicePackage, string][] = [
   ['price_usd', 'Narx, USD'],
-  ['delivery_days', 'Muddat (ish kuni)'],
+  ['delivery_hours_min', 'Muddat dan, soat (bo‘sh = «… ichida»)'],
+  ['delivery_hours', 'Muddat gacha, soat (24 = 1 kun)'],
   ['revision_rounds', 'Tuzatishlar'],
   ['support_months', 'Qo‘llab-quvvatlash (oy)'],
   ['page_limit', 'Sahifalar (0 = TT bo‘yicha)'],
@@ -158,7 +159,7 @@ function PackageRow({ pkg }: { pkg: ServicePackage }) {
   const value = { ...pkg, ...draft }
   return (
     <form
-      className="grid items-end gap-3 border-b border-border py-4 sm:grid-cols-8"
+      className="grid items-end gap-3 border-b border-border py-4 sm:grid-cols-9"
       onSubmit={(e) => {
         e.preventDefault()
         save.mutate()
@@ -182,8 +183,15 @@ function PackageRow({ pkg }: { pkg: ServicePackage }) {
           type="number"
           min={key === 'page_limit' ? 0 : 1}
           step={key === 'price_usd' ? '0.01' : '1'}
-          value={String(value[key])}
-          onChange={(e) => setDraft((d) => ({ ...d, [key]: e.target.value }))}
+          value={String(value[key] ?? '')}
+          onChange={(e) =>
+            setDraft((d) => ({
+              ...d,
+              // An empty lower bound means "within N hours", stored as null.
+              [key]:
+                key === 'delivery_hours_min' && !e.target.value ? null : e.target.value,
+            }))
+          }
         />
       ))}
       <Button
@@ -195,7 +203,7 @@ function PackageRow({ pkg }: { pkg: ServicePackage }) {
         Saqlash
       </Button>
       {save.isError && (
-        <p role="alert" className="text-sm text-destructive-600 sm:col-span-8">
+        <p role="alert" className="text-sm text-destructive-600 sm:col-span-9">
           {save.error.message}
         </p>
       )}

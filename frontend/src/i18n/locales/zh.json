@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "网站建设服务",
-    "subtitle": "向我们的团队订制网站：选择套餐，在线签署合同，并通过 Payoneer 安全付款。",
+    "subtitle": "我们借助人工智能技术快速打造您的网站：选择套餐，在线签署合同，并通过 Payoneer 安全付款。",
     "choose": "选择套餐",
     "selected": "已选择",
     "salesClosed": "即将开放下单。您现在即可填写信息并阅读所选套餐的合同。",
@@ -655,12 +655,14 @@
     "secure": "银行卡付款在 Payoneer 的安全页面完成。我们不会看到也不会保存您的卡信息。",
     "metric": {
       "delivery": "工期",
-      "days": "{{n}} 个工作日",
       "revisions": "修改轮次",
       "pages": "页面",
       "bySpec": "按需求文档",
       "support": "售后支持",
-      "months": "{{n}} 个月"
+      "months": "{{n}} 个月",
+      "hoursRange": "{{min}}–{{max}} 小时",
+      "hours": "{{n}} 小时",
+      "withinDays": "{{n}} 天内"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "已收到付款。我们会联系您开始工作。",
       "pending": "付款尚未确认。如您已付款，可能需要几分钟。",
       "canceled": "付款已取消。您可以在「我的订单」中重新付款。"
-    }
+    },
+    "slogan": "与人工智能同行",
+    "aiCard": "借助人工智能技术打造"
   }
 }

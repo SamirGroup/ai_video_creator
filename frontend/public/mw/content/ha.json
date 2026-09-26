@@ -283,19 +283,21 @@
  "svc": {
   "label": "Ayyuka",
   "title": "Gina gidan yanar gizo",
-  "lead": "Shafukan saukowa, gidajen yanar gizo na kamfani, shaguna ta yanar gizo da dandali — ƙungiyarmu ce ke ginawa, da kwangila ta hukuma.",
+  "lead": "Shafukan saukowa, gidajen yanar gizo na kamfani, shaguna ta yanar gizo da dandali — ana ginawa da AI cikin awanni da kwanaki, da kwangila ta hukuma.",
   "cta": "Yi oda",
   "popular": "Mashahuri",
   "contract": "Kwangila ta hukuma ga mazauna Uzbekistan da ƴan ƙasashen waje",
   "payment": "Biyan kuɗi lafiya ta Payoneer",
   "metric": {
    "delivery": "Lokaci",
-   "days": "Kwanakin aiki {{n}}",
    "revisions": "Zagayen gyara",
    "pages": "Shafuka",
    "bySpec": "Bisa bayanin fasaha",
    "support": "Tallafi",
-   "months": "Wata {{n}}"
+   "months": "Wata {{n}}",
+   "hoursRange": "Awa {{min}}–{{max}}",
+   "hours": "Awa {{n}}",
+   "withinDays": "Cikin kwana {{n}}"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Tallafi mai fifiko"
     ]
    }
-  }
+  },
+  "slogan": "Tare da fasahar ƙirƙirarriyar basira",
+  "aiCard": "Ana ginawa da fasahar ƙirƙirarriyar basira (AI)"
  }
 }

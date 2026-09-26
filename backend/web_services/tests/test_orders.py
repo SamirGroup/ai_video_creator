@@ -8,7 +8,7 @@ from rest_framework.test import APIClient
 from accounts.tests.factories import UserFactory
 from payoneer import client as payoneer
 from payoneer.models import PayoneerAccount
-from web_services.contract import amount_words, checksum
+from web_services.contract import amount_words, checksum, delivery
 from web_services.models import ExecutorProfile, ServiceOrder, ServicePackage
 
 pytestmark = pytest.mark.django_db
@@ -119,7 +119,8 @@ def test_resident_contract_carries_package_terms_and_price(shop):
     assert document["language"] == "uz"
     text = str(document["sections"])
     assert "1600.00 AQSh dollari (bir ming olti yuz AQSh dollari 00 sent)" in text
-    assert "25 ish kuni" in text and "Korporativ sayt" in text
+    assert "bajarish muddati — 1 kun;" in text and "Korporativ sayt" in text
+    assert "sun’iy intellekt texnologiyalaridan foydalangan holda" in text
     assert ["JShShIR", "12345678901234"] in document["customer_rows"]
 
 
@@ -166,7 +167,7 @@ def test_order_freezes_contract_and_opens_payoneer(shop):
 def test_changed_terms_require_a_fresh_review(shop):
     api = shop[0]
     draft = preview(api)
-    ServicePackage.objects.filter(code="business").update(delivery_days=30)
+    ServicePackage.objects.filter(code="business").update(delivery_hours=30)
     response = api.post(
         "/api/v1/web-services/orders",
         {"package": "business", "contract_type": "resident", "customer": RESIDENT,
@@ -246,3 +247,13 @@ def test_amount_words():
     assert amount_words("800", "uz") == "sakkiz yuz AQSh dollari 00 sent"
     assert amount_words("3200.50", "en") == "three thousand two hundred US dollars 50 cents"
     assert amount_words("1999999", "en").startswith("one million nine hundred ninety-nine thousand")
+
+
+def test_delivery_wording_and_seeded_hours():
+    hours = {p.code: (p.delivery_hours_min, p.delivery_hours) for p in ServicePackage.objects.all()}
+    assert hours == {"starter": (1, 2), "business": (None, 24), "pro": (None, 48), "enterprise": (None, 72)}
+    assert delivery({"delivery_hours_min": 1, "delivery_hours": 2}, "uz") == "1–2 soat"
+    assert delivery({"delivery_hours_min": 1, "delivery_hours": 2}, "en") == "1–2 hours"
+    assert delivery({"delivery_hours_min": None, "delivery_hours": 24}, "en") == "1 day"
+    assert delivery({"delivery_hours_min": None, "delivery_hours": 72}, "uz") == "3 kun"
+    assert delivery({"delivery_hours_min": None, "delivery_hours": 36}, "en") == "36 hours"

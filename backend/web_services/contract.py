@@ -183,6 +183,20 @@ def _dash(value):
     return value if value not in (None, "") else "—"
 
 
+def delivery(package, language):
+    """1–2 soat / 1 kun / 2 kun; English: 1–2 hours / 1 day / 2 days."""
+    low, high = package.get("delivery_hours_min"), package["delivery_hours"]
+    if high % 24 == 0 and not low:
+        days = high // 24
+        if language == "uz":
+            return f"{days} kun"
+        return f"{days} day" if days == 1 else f"{days} days"
+    span = f"{low}–{high}" if low else str(high)
+    if language == "uz":
+        return f"{span} soat"
+    return f"{span} hour" if span == "1" else f"{span} hours"
+
+
 def _limit(value, language):
     if value:
         return str(value)
@@ -268,9 +282,10 @@ def _resident(ctx):
             {
                 "title": "SHARTNOMA PREDMETI",
                 "clauses": [
-                    f"Ijrochi Buyurtmachining topshirig‘iga binoan «{text['name']}» paketi doirasida veb-sayt "
-                    "ishlab chiqish xizmatlarini ko‘rsatish, Buyurtmachi esa ushbu xizmatlarni qabul qilish va "
-                    "ularning haqini to‘lash majburiyatini oladi.",
+                    f"Ijrochi Buyurtmachining topshirig‘iga binoan «{text['name']}» paketi doirasida sun’iy "
+                    "intellekt texnologiyalaridan foydalangan holda veb-sayt ishlab chiqish xizmatlarini "
+                    "ko‘rsatish, Buyurtmachi esa ushbu xizmatlarni qabul qilish va ularning haqini to‘lash "
+                    "majburiyatini oladi.",
                     f"Loyiha nomi: «{ctx['project']['name']}». Loyiha tavsifi ushbu Shartnomaning 1-ilovasida "
                     "(Texnik topshiriq) keltirilgan va uning ajralmas qismi hisoblanadi.",
                     {"text": "Paket tarkibi:", "items": text["features"]},
@@ -280,7 +295,7 @@ def _resident(ctx):
                             f"sahifalar (shablonlar) soni — {_limit(p['page_limit'], 'uz')};",
                             f"sayt tillari soni — {p['languages']};",
                             f"tuzatish bosqichlari — {p['revision_rounds']};",
-                            f"bajarish muddati — {p['delivery_days']} ish kuni;",
+                            f"bajarish muddati — {delivery(p, 'uz')};",
                             f"bepul texnik qo‘llab-quvvatlash — {p['support_months']} oy.",
                         ],
                     },
@@ -303,7 +318,7 @@ def _resident(ctx):
             {
                 "title": "BAJARISH MUDDATLARI",
                 "clauses": [
-                    f"Xizmatlarni ko‘rsatish muddati — {p['delivery_days']} ish kuni. Muddat to‘lov qabul "
+                    f"Xizmatlarni ko‘rsatish muddati — {delivery(p, 'uz')}. Muddat to‘lov qabul "
                     "qilingan va Buyurtmachi ishni boshlash uchun zarur materiallarni (matnlar, logotip, "
                     "rasmlar, kirish ma’lumotlari) taqdim etgan kundan boshlab hisoblanadi.",
                     "Buyurtmachi materiallar yoki fikr-mulohazalarni kechiktirgan muddatga bajarish muddati "
@@ -460,8 +475,8 @@ def _non_resident(ctx):
                 "title": "SUBJECT OF THE AGREEMENT",
                 "clauses": [
                     f"The Contractor undertakes to provide website development services under the "
-                    f"«{text['name']}» package on the Customer's instructions, and the Customer undertakes "
-                    "to accept and pay for these services.",
+                    f"«{text['name']}» package on the Customer's instructions, using artificial intelligence "
+                    "technologies, and the Customer undertakes to accept and pay for these services.",
                     f"Project name: «{ctx['project']['name']}». The project description is set out in "
                     "Annex 1 (Specification), which forms an integral part of this Agreement.",
                     {"text": "The package includes:", "items": text["features"]},
@@ -471,7 +486,7 @@ def _non_resident(ctx):
                             f"number of pages (templates) — {_limit(p['page_limit'], 'en')};",
                             f"website languages — {p['languages']};",
                             f"revision rounds — {p['revision_rounds']};",
-                            f"delivery time — {p['delivery_days']} business days;",
+                            f"delivery time — {delivery(p, 'en')};",
                             f"free technical support — {p['support_months']} month(s).",
                         ],
                     },
@@ -494,7 +509,7 @@ def _non_resident(ctx):
             {
                 "title": "TIMING",
                 "clauses": [
-                    f"The services are delivered within {p['delivery_days']} business days, counted from the "
+                    f"The services are delivered within {delivery(p, 'en')}, counted from the "
                     "later of receipt of payment and receipt of the materials needed to start (texts, logo, "
                     "images, access credentials).",
                     "Any delay by the Customer in providing materials or feedback extends the delivery time "

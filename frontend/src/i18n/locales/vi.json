@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Dịch vụ thiết kế website",
-    "subtitle": "Đặt website từ đội ngũ của chúng tôi: chọn gói, ký hợp đồng trực tuyến và thanh toán an toàn qua Payoneer.",
+    "subtitle": "Chúng tôi tạo website nhanh chóng bằng trí tuệ nhân tạo: chọn gói, ký hợp đồng trực tuyến và thanh toán an toàn qua Payoneer.",
     "choose": "Chọn gói",
     "selected": "Đã chọn",
     "salesClosed": "Sắp mở nhận đơn. Bạn đã có thể điền thông tin và đọc hợp đồng của gói mình chọn.",
@@ -655,12 +655,14 @@
     "secure": "Bạn thanh toán bằng thẻ trên trang bảo mật của Payoneer. Chúng tôi không xem và không lưu thông tin thẻ.",
     "metric": {
       "delivery": "Thời gian",
-      "days": "{{n}} ngày làm việc",
       "revisions": "Vòng chỉnh sửa",
       "pages": "Trang",
       "bySpec": "Theo đặc tả",
       "support": "Hỗ trợ",
-      "months": "{{n}} tháng"
+      "months": "{{n}} tháng",
+      "hoursRange": "{{min}}–{{max}} giờ",
+      "hours": "{{n}} giờ",
+      "withinDays": "Trong {{n}} ngày"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Đã nhận thanh toán. Chúng tôi sẽ liên hệ để bắt đầu công việc.",
       "pending": "Thanh toán chưa được xác nhận. Nếu bạn đã trả, có thể mất vài phút.",
       "canceled": "Thanh toán đã bị hủy. Bạn có thể thanh toán lại trong «Đơn hàng của tôi»."
-    }
+    },
+    "slogan": "Đồng hành cùng trí tuệ nhân tạo",
+    "aiCard": "Được tạo bằng công nghệ trí tuệ nhân tạo"
   }
 }

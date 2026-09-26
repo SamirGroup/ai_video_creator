@@ -647,7 +647,7 @@
   },
   "webServices": {
     "title": "Website-Erstellung",
-    "subtitle": "Bestellen Sie eine Website bei unserem Team: Paket wählen, Vertrag online unterschreiben und sicher über Payoneer bezahlen.",
+    "subtitle": "Wir erstellen Ihre Website schnell mit Technologien der künstlichen Intelligenz: Paket wählen, Vertrag online unterschreiben und sicher über Payoneer bezahlen.",
     "choose": "Paket wählen",
     "selected": "Ausgewählt",
     "salesClosed": "Bestellungen sind bald möglich. Sie können Ihre Daten schon eingeben und den Vertrag für Ihr Paket lesen.",
@@ -655,12 +655,14 @@
     "secure": "Sie zahlen per Karte auf der sicheren Seite von Payoneer. Wir sehen und speichern Ihre Kartendaten nicht.",
     "metric": {
       "delivery": "Laufzeit",
-      "days": "{{n}} Werktage",
       "revisions": "Korrekturrunden",
       "pages": "Seiten",
       "bySpec": "Laut Pflichtenheft",
       "support": "Support",
-      "months": "{{n}} Mon."
+      "months": "{{n}} Mon.",
+      "hoursRange": "{{min}}–{{max}} Std.",
+      "hours": "{{n}} Std.",
+      "withinDays": "Innerhalb von {{n}} Tag(en)"
     },
     "packages": {
       "starter": {
@@ -774,6 +776,8 @@
       "confirmed": "Zahlung eingegangen. Wir melden uns, um mit der Arbeit zu beginnen.",
       "pending": "Die Zahlung ist noch nicht bestätigt. Wenn Sie bezahlt haben, kann das einige Minuten dauern.",
       "canceled": "Die Zahlung wurde abgebrochen. Sie können unter „Meine Bestellungen“ erneut zahlen."
-    }
+    },
+    "slogan": "Im Einklang mit künstlicher Intelligenz",
+    "aiCard": "Mit Technologien der künstlichen Intelligenz erstellt"
   }
 }

@@ -283,19 +283,21 @@
  "svc": {
   "label": "Servicios",
   "title": "Creación de sitios web",
-  "lead": "Landing pages, sitios corporativos, tiendas en línea y plataformas web, hechos por nuestro equipo con contrato oficial.",
+  "lead": "Landing pages, sitios corporativos, tiendas en línea y plataformas web, creados con inteligencia artificial en horas y días, con contrato oficial.",
   "cta": "Pedir",
   "popular": "Popular",
   "contract": "Contrato oficial para residentes de Uzbekistán y ciudadanos extranjeros",
   "payment": "Pago seguro con Payoneer",
   "metric": {
    "delivery": "Plazo",
-   "days": "{{n}} días hábiles",
    "revisions": "Rondas de cambios",
    "pages": "Páginas",
    "bySpec": "Según especificación",
    "support": "Soporte",
-   "months": "{{n}} meses"
+   "months": "{{n}} meses",
+   "hoursRange": "{{min}}–{{max}} h",
+   "hours": "{{n}} h",
+   "withinDays": "En {{n}} día(s)"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Soporte prioritario"
     ]
    }
-  }
+  },
+  "slogan": "Al ritmo de la inteligencia artificial",
+  "aiCard": "Creado con tecnologías de inteligencia artificial"
  }
 }

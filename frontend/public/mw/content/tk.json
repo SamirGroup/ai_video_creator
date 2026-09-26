@@ -283,19 +283,21 @@
  "svc": {
   "label": "Hyzmatlar",
   "title": "Saýt döretmek",
-  "lead": "Landing sahypalar, korporatiw saýtlar, internet dükanlar we web platformalar — resmi şertnama esasynda toparymyz tarapyndan.",
+  "lead": "Landing sahypalar, korporatiw saýtlar, internet dükanlar we web platformalar — emeli aň bilen sagatlaryň we günleriň içinde, resmi şertnama esasynda.",
   "cta": "Sargyt et",
   "popular": "Meşhur",
   "contract": "Özbegistanyň rezidentleri we daşary ýurt raýatlary üçin resmi şertnama",
   "payment": "Payoneer arkaly howpsuz töleg",
   "metric": {
    "delivery": "Möhlet",
-   "days": "{{n}} iş güni",
    "revisions": "Düzediş tapgyrlary",
    "pages": "Sahypalar",
    "bySpec": "Tehniki tabşyryga görä",
    "support": "Goldaw",
-   "months": "{{n}} aý"
+   "months": "{{n}} aý",
+   "hoursRange": "{{min}}–{{max}} sagat",
+   "hours": "{{n}} sagat",
+   "withinDays": "{{n}} günüň içinde"
   },
   "packages": {
    "starter": {
@@ -347,6 +349,8 @@
      "Ileri tutulýan goldaw"
     ]
    }
-  }
+  },
+  "slogan": "Emeli aň bilen bir demde",
+  "aiCard": "Emeli aň tehnologiýalary arkaly döredilýär"
  }
 }
